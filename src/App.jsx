@@ -10,6 +10,7 @@ import SkillsLab from './components/SkillsLab';
 import HeroModelChamber from './components/HeroModelChamber';
 import LoreUniverse from './components/LoreUniverse';
 import SkinGallery from './components/SkinGallery';
+import EsportsArena from './components/EsportsArena';
 import HeroCompareModal from './components/HeroCompareModal';
 import SearchModal from './components/SearchModal';
 import FinalCTA from './components/FinalCTA';
@@ -126,7 +127,7 @@ export default function App() {
             onAddToCompare={handleAddToCompare}
           />
 
-          {/* Section E: Tactical Skills Lab */}
+          {/* Section E: Tactical Skills Lab & Combo Arena */}
           <SkillsLab selectedHeroId={skillHeroId} />
 
           {/* Section F: Interactive 3D Hero Chamber */}
@@ -142,6 +143,11 @@ export default function App() {
 
           {/* Section H: Skins & Visual Evolution Vault */}
           <SkinGallery />
+
+          {/* Section: Competitive Esports & M-Series Circuit */}
+          <div id="esports">
+            <EsportsArena />
+          </div>
 
           {/* Section I: Final Cinematic Call to Action */}
           <FinalCTA />

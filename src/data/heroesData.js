@@ -1,4 +1,4 @@
-// Verified Mobile Legends: Bang Bang Hero Canon Dataset
+// Verified Mobile Legends: Bang Bang Hero Canon Dataset (12 Signature Champions)
 
 export const HEROES = [
   {
@@ -44,7 +44,6 @@ export const HEROES = [
         icon: '⚔️',
         description:
           'After casting any ability, Alucards next basic attack allows him to dash directly to the target, dealing 1.2x physical damage and generating bonus lifesteal.',
-        visualFX: 'crimson_slash',
       },
       {
         id: 'alucard_s1',
@@ -55,7 +54,6 @@ export const HEROES = [
         icon: '💥',
         description:
           'Alucard leaps forward, driving his greatsword into the ground. Deals 270 (+110% Total Physical ATK) physical damage and slows enemies by 40% for 2s.',
-        visualFX: 'ground_smash',
       },
       {
         id: 'alucard_s2',
@@ -66,7 +64,6 @@ export const HEROES = [
         icon: '🌀',
         description:
           'Alucard swirls his greatsword in a 360-degree sweep, slicing all surrounding enemies for 300 (+120% Total Physical ATK) physical damage.',
-        visualFX: 'blade_vortex',
       },
       {
         id: 'alucard_ult',
@@ -77,7 +74,6 @@ export const HEROES = [
         icon: '⚡',
         description:
           'Locks onto enemies in the area, absorbing energy to increase physical lifesteal by 40% for 8s. Can be cast a second time to fire a massive wave of energy dealing 400 (+200% Extra Physical ATK) AoE damage.',
-        visualFX: 'energy_wave',
       },
     ],
     skins: [
@@ -140,7 +136,6 @@ export const HEROES = [
         icon: '🗡️',
         description:
           'Each ability cast adds a rune to Gusions dagger. At 3 stacks, his next basic attack deals bonus damage equal to 10% of the targets lost HP and restores 80% HP.',
-        visualFX: 'rune_glow',
       },
       {
         id: 'gusion_s1',
@@ -151,7 +146,6 @@ export const HEROES = [
         icon: '🎯',
         description:
           'Throws a dagger in the target direction, dealing 200 magic damage and marking the first enemy hit. Cast again to blink instantaneously behind the marked target.',
-        visualFX: 'dagger_blink',
       },
       {
         id: 'gusion_s2',
@@ -162,7 +156,6 @@ export const HEROES = [
         icon: '✨',
         description:
           'Hurls 5 magical daggers in a fan shape, dealing 110 magic damage per blade and slowing targets. Cast again to recall all daggers, dealing slicing damage on return.',
-        visualFX: 'dagger_fan',
       },
       {
         id: 'gusion_ult',
@@ -173,7 +166,6 @@ export const HEROES = [
         icon: '🌌',
         description:
           'Dashes forward to target location, immediately resetting the cooldowns of Sword Spike and Shadowblade Slaughter. Grants 30% movement speed for 4s.',
-        visualFX: 'rift_dash',
       },
     ],
     skins: [
@@ -235,7 +227,6 @@ export const HEROES = [
         icon: '🦅',
         description:
           'Fannys damage increases by up to 20% while flying based on flight momentum. Hitting enemies during flight marks them with Prey Marks, restoring energy.',
-        visualFX: 'air_stream',
       },
       {
         id: 'fanny_s1',
@@ -246,7 +237,6 @@ export const HEROES = [
         icon: '🌪️',
         description:
           'Whirls her dual steel blades, slicing nearby enemies for 320 (+90% Total Physical ATK) physical damage.',
-        visualFX: 'tornado_spin',
       },
       {
         id: 'fanny_s2',
@@ -257,7 +247,6 @@ export const HEROES = [
         icon: '🪝',
         description:
           'Shoots a steel cable that pulls Fanny toward the terrain it latches onto. Chaining cables reduces energy cost and automatically triggers Tornado Strike upon hitting targets.',
-        visualFX: 'cable_grapple',
       },
       {
         id: 'fanny_ult',
@@ -268,7 +257,6 @@ export const HEROES = [
         icon: '🗡️',
         description:
           'Initiates an explosive aerial execution dive on target enemy, dealing 500 (+240% Extra Physical ATK) physical damage, amplified per Prey Mark stack.',
-        visualFX: 'execution_dive',
       },
     ],
     skins: [
@@ -323,7 +311,6 @@ export const HEROES = [
         icon: '🌸',
         description:
           'When Kagura reclaims the Seimei Umbrella, she gains a 280-point shield, stuns surrounding enemies for 0.5s, and slows them by 60%.',
-        visualFX: 'sakura_shield',
       },
       {
         id: 'kagura_s1',
@@ -334,7 +321,6 @@ export const HEROES = [
         icon: '☂️',
         description:
           'Moves the Seimei Umbrella to the designated location, dealing 290 (+105% Total Magic Power) magic damage to targets along the path and slowing them by 60%.',
-        visualFX: 'umbrella_flight',
       },
       {
         id: 'kagura_s2',
@@ -345,7 +331,6 @@ export const HEROES = [
         icon: '💧',
         description:
           'With umbrella: dashes in target direction, dropping umbrella and removing all crowd control debuffs. Without umbrella: teleports directly to the umbrellas location.',
-        visualFX: 'cleanse_teleport',
       },
       {
         id: 'kagura_ult',
@@ -356,7 +341,6 @@ export const HEROES = [
         icon: '☯️',
         description:
           'With umbrella: knocks back surrounding enemies and deals 300 magic damage. Without umbrella: creates a spirit vortex pulling tethered enemies inward after 1.5s.',
-        visualFX: 'yin_yang_vortex',
       },
     ],
     skins: [
@@ -366,6 +350,345 @@ export const HEROES = [
         image: '/assets/images/kagura.jpg',
         badgeColor: '#64748b',
         tagline: 'Traditional sacred silk kimono and celestial Seimei umbrella.',
+      },
+    ],
+  },
+  {
+    id: 'hayabusa',
+    name: 'Hayabusa',
+    title: 'Crimson Shadow',
+    role: 'Assassin',
+    secondaryRole: 'Ninja',
+    speciality: 'Chase / Burst / Clones',
+    lane: 'Jungle',
+    faction: 'Shadow Sect of Iga',
+    region: 'Cadia Riverlands',
+    difficulty: 90,
+    difficultyLabel: 'High',
+    attributes: {
+      offense: 95,
+      durability: 35,
+      abilityEffects: 88,
+      difficulty: 90,
+    },
+    winRate: '52.7%',
+    popularity: 'Rank S+',
+    image: '/assets/images/hayabusa.jpg',
+    themeColor: '#dc2626',
+    accentColor: '#a855f7',
+    glowColor: 'rgba(220, 38, 38, 0.4)',
+    voiceQuote: 'Shadows will pierce the moonlight.',
+    loreQuote: 'The shadow never betrays its master; it simply waits for the kill.',
+    polyCount: '47,100 Triangles',
+    lore: `The supreme shadow ninja of the secret Iga clan, Hayabusa underwent ruthless training to inherit the title of Shadow. When traitorous shadow master Hanzo betrayed the clan and wielded the forbidden demonic sword Ame no Habakiri, Hayabusa set out across the Land of Dawn on an unyielding quest to eliminate the traitor and restore honor to the shadows.`,
+    relationships: [
+      { name: 'Kagura', role: 'Childhood Companion', type: 'Bond' },
+      { name: 'Hanzo', role: 'Traitorous Demon Ninja', type: 'Nemesis' },
+      { name: 'Hanabi', role: 'Scarlet Shadow Rival', type: 'Rival' },
+    ],
+    abilities: [
+      {
+        id: 'haya_p',
+        name: 'Ninjutsu: Trace of Shadow',
+        type: 'Passive',
+        cooldown: 'Passive',
+        cost: 'No Cost',
+        icon: '👤',
+        description:
+          'Hayabusas ninjutsu inflicts Shadow Marks on targets. Each stack increases Hayabusas damage against that target by 5%, stacking up to 4 times.',
+      },
+      {
+        id: 'haya_s1',
+        name: 'Ninjutsu: Phantom Shuriken',
+        type: 'Skill 1',
+        cooldown: '4.0s',
+        cost: '30 Energy',
+        icon: '🗡️',
+        description:
+          'Hurls 3 shurikens forward in a cone, dealing 170 physical damage each and restoring 10 energy upon hitting an enemy.',
+      },
+      {
+        id: 'haya_s2',
+        name: 'Ninjutsu: Quad Shadow',
+        type: 'Skill 2',
+        cooldown: '14.0s',
+        cost: '25 Energy',
+        icon: '👥',
+        description:
+          'Dashes forward releasing 4 shadow phantoms in 4 directions. Reactivating the skill instantly teleports Hayabusa to the selected shadow.',
+      },
+      {
+        id: 'haya_ult',
+        name: 'Ougi: Shadow Kill',
+        type: 'Ultimate',
+        cooldown: '40.0s',
+        cost: '40 Energy',
+        icon: '🌑',
+        description:
+          'Transforms into pure shadow, unleashing 6 rapid untargetable slashes against nearby enemies, prioritizing targets with maximum Shadow Marks.',
+      },
+    ],
+    skins: [
+      {
+        name: 'Crimson Shadow',
+        tier: 'Default',
+        image: '/assets/images/hayabusa.jpg',
+        badgeColor: '#64748b',
+        tagline: 'Dark armored shinobi suit with twin enchanted shadow katanas.',
+      },
+    ],
+  },
+  {
+    id: 'zilong',
+    name: 'Zilong',
+    title: 'Son of the Dragon',
+    role: 'Fighter',
+    secondaryRole: 'Assassin',
+    speciality: 'Chase / Damage / Push',
+    lane: 'EXP Lane / Jungle',
+    faction: 'Disciples of the Great Dragon',
+    region: 'Cadia Riverlands',
+    difficulty: 40,
+    difficultyLabel: 'Moderate',
+    attributes: {
+      offense: 92,
+      durability: 60,
+      abilityEffects: 50,
+      difficulty: 40,
+    },
+    winRate: '51.5%',
+    popularity: 'Rank S',
+    image: '/assets/images/zilong.jpg',
+    themeColor: '#eab308',
+    accentColor: '#10b981',
+    glowColor: 'rgba(234, 179, 8, 0.4)',
+    voiceQuote: 'Heroes never fade! Dragon spear, pierce the sky!',
+    loreQuote: 'Where the dragon spear strikes, darkness shall yield to dawn.',
+    polyCount: '45,800 Triangles',
+    lore: `Adopted and mentored by the Great Dragon of the Cadia Riverlands, Zilong swore an oath to defend the tranquil realm from all foreign incursions. Empowered by the flaming spirit of the ancient celestial dragon, Zilong charges fearlessly into the heart of conflict, turning tides with unmatched spear thrusts and explosive speed.`,
+    relationships: [
+      { name: 'Chou', role: 'Cadia Martial Brother', type: 'Ally' },
+      { name: 'Ling', role: 'Fierce Dragon Rival', type: 'Rival' },
+      { name: 'Chang’e', role: 'Adoptive Sister', type: 'Family' },
+    ],
+    abilities: [
+      {
+        id: 'zilong_p',
+        name: 'Dragon Flurry',
+        type: 'Passive',
+        cooldown: 'Passive',
+        cost: 'No Cost',
+        icon: '🐉',
+        description:
+          'After every 3 basic attacks, Zilong gains Dragon Flurry, landing a rapid multi-thrust attack that deals 150% physical damage and heals him.',
+      },
+      {
+        id: 'zilong_s1',
+        name: 'Spear Flip',
+        type: 'Skill 1',
+        cooldown: '9.0s',
+        cost: '80 Mana',
+        icon: '🔄',
+        description:
+          'Lifts an enemy overhead and slams them behind Zilong, dealing 250 physical damage and reducing their physical defense by 15 for 2s.',
+      },
+      {
+        id: 'zilong_s2',
+        name: 'Spear Strike',
+        type: 'Skill 2',
+        cooldown: '5.0s',
+        cost: '40 Mana',
+        icon: '⚡',
+        description:
+          'Charges directly at target enemy, dealing 250 physical damage and resetting basic attack cadence. Cooldown resets immediately upon target kill.',
+      },
+      {
+        id: 'zilong_ult',
+        name: 'Supreme Warrior',
+        type: 'Ultimate',
+        cooldown: '35.0s',
+        cost: '120 Mana',
+        icon: '🔥',
+        description:
+          'Ignites the dragon spirit within, gaining 40% movement speed, 45% attack speed, and becoming completely immune to slow effects for 7.5s.',
+      },
+    ],
+    skins: [
+      {
+        name: 'Son of the Dragon',
+        tier: 'Default',
+        image: '/assets/images/zilong.jpg',
+        badgeColor: '#64748b',
+        tagline: 'Emerald and silver dragon plate armor with flaming golden dragon spear.',
+      },
+    ],
+  },
+  {
+    id: 'lancelot',
+    name: 'Lancelot',
+    title: 'Blade of Roses',
+    role: 'Assassin',
+    secondaryRole: 'Duelist',
+    speciality: 'Chase / Burst / Invulnerability',
+    lane: 'Jungle',
+    faction: 'House Baroque',
+    region: 'Moniyan Empire',
+    difficulty: 92,
+    difficultyLabel: 'High',
+    attributes: {
+      offense: 94,
+      durability: 36,
+      abilityEffects: 92,
+      difficulty: 92,
+    },
+    winRate: '52.3%',
+    popularity: 'Rank S+',
+    image: '/assets/images/lancelot.jpg',
+    themeColor: '#3b82f6',
+    accentColor: '#f43f5e',
+    glowColor: 'rgba(59, 130, 246, 0.4)',
+    voiceQuote: 'Time to witness handsome! In the name of the rose!',
+    loreQuote: 'Artistry in swordsmanship is written between the petals of roses.',
+    polyCount: '48,600 Triangles',
+    lore: `The proud heir to the opulent House Baroque of the Moniyan Empire, Lancelot was famous for his peerless fencing finesse. After being gravely wounded in an ambush and nursed back to health by the woodland princess Odette, Lancelot renounced hollow arrogance, dedicating his enchanted rapier and rose fencing technique to chivalry and eternal devotion.`,
+    relationships: [
+      { name: 'Odette', role: 'Swan Lake Princess', type: 'Bond' },
+      { name: 'Guinevere', role: 'Beloved Younger Sister', type: 'Family' },
+      { name: 'Gusion', role: 'Noble House Rival', type: 'Rival' },
+    ],
+    abilities: [
+      {
+        id: 'lance_p',
+        name: 'Soul Cutter',
+        type: 'Passive',
+        cooldown: 'Passive',
+        cost: 'No Cost',
+        icon: '🌹',
+        description:
+          'Each time Lancelot dashes or blinks, his damage increases by 7.5% for 4s, stacking up to 30% bonus damage.',
+      },
+      {
+        id: 'lance_s1',
+        name: 'Puncture',
+        type: 'Skill 1',
+        cooldown: '14.0s',
+        cost: '50 Mana',
+        icon: '💨',
+        description:
+          'Lancelot charges forward with his rapier, applying a Sword Mark to the first unmarked enemy hit. Hitting an unmarked enemy immediately resets this skills cooldown.',
+      },
+      {
+        id: 'lance_s2',
+        name: 'Thorned Rose',
+        type: 'Skill 2',
+        cooldown: '8.0s',
+        cost: '70 Mana',
+        icon: '⚔️',
+        description:
+          'Performs an intricate triangular sword formation, striking enemies up to 3 times for 250 physical damage each. Lancelot is completely invincible while casting.',
+      },
+      {
+        id: 'lance_ult',
+        name: 'Phantom Execution',
+        type: 'Ultimate',
+        cooldown: '27.0s',
+        cost: '100 Mana',
+        icon: '✨',
+        description:
+          'Delivers an instantaneous execution thrust forward, dealing 400 (+150% Total Physical ATK) physical damage. Lancelot is invincible throughout the charge.',
+      },
+    ],
+    skins: [
+      {
+        name: 'Blade of Roses',
+        tier: 'Default',
+        image: '/assets/images/lancelot.jpg',
+        badgeColor: '#64748b',
+        tagline: 'Baroque aristocratic naval coat and enchanted rose-etched rapier.',
+      },
+    ],
+  },
+  {
+    id: 'layla',
+    name: 'Layla',
+    title: 'Energy Gunner',
+    role: 'Marksman',
+    secondaryRole: 'Sniper',
+    speciality: 'Reap / Long Range',
+    lane: 'Gold Lane',
+    faction: 'Eruditio Vanguard',
+    region: 'Eruditio',
+    difficulty: 30,
+    difficultyLabel: 'Easy',
+    attributes: {
+      offense: 98,
+      durability: 28,
+      abilityEffects: 70,
+      difficulty: 30,
+    },
+    winRate: '51.1%',
+    popularity: 'Rank S+',
+    image: '/assets/images/layla.jpg',
+    themeColor: '#06b6d4',
+    accentColor: '#f59e0b',
+    glowColor: 'rgba(6, 182, 212, 0.4)',
+    voiceQuote: 'Keep it up, until youre as brilliant as me!',
+    loreQuote: 'Malefic energy in the hands of justice is a beacon of hope.',
+    polyCount: '44,200 Triangles',
+    lore: `Raised in the city of inventors Eruditio, Layla inherited the experimental Malefic Gun created by her visionary father. Harnessing hazardous concentrated starlight energy, Layla mastered firing devastating beams across immense distances, standing as the frontline protector of Eruditio against demonic forces.`,
+    relationships: [
+      { name: 'Beatrix', role: 'Eruditio Weapons Comrade', type: 'Ally' },
+      { name: 'Dr. Rooney', role: 'Inventor Mentor', type: 'Mentor' },
+    ],
+    abilities: [
+      {
+        id: 'layla_p',
+        name: 'Malefic Gun',
+        type: 'Passive',
+        cooldown: 'Passive',
+        cost: 'No Cost',
+        icon: '🎯',
+        description:
+          'Laylas basic attacks and abilities deal increasing damage based on distance, dealing up to 135% damage at maximum range.',
+      },
+      {
+        id: 'layla_s1',
+        name: 'Malefic Bomb',
+        type: 'Skill 1',
+        cooldown: '6.0s',
+        cost: '40 Mana',
+        icon: '💣',
+        description:
+          'Fires a concentrated energy bomb forward, dealing 200 physical damage and granting Layla +60% movement speed for 1.2s upon hitting an enemy.',
+      },
+      {
+        id: 'layla_s2',
+        name: 'Void Projectile',
+        type: 'Skill 2',
+        cooldown: '7.5s',
+        cost: '65 Mana',
+        icon: '🌐',
+        description:
+          'Fires an energy orb that detonates on impact, dealing 170 physical damage, slowing enemies by 30%, and marking them with Magic Mark.',
+      },
+      {
+        id: 'layla_ult',
+        name: 'Destruction Rush',
+        type: 'Ultimate',
+        cooldown: '35.0s',
+        cost: '130 Mana',
+        icon: '⚡',
+        description:
+          'Fires a colossal laser cannon beam across the entire battlefield lane, dealing 500 (+150% Total Physical ATK) physical damage to all enemies in the beam.',
+      },
+    ],
+    skins: [
+      {
+        name: 'Energy Gunner',
+        tier: 'Default',
+        image: '/assets/images/layla.jpg',
+        badgeColor: '#64748b',
+        tagline: 'Iconic twin blonde pigtails, goggles, and giant Malefic energy cannon.',
       },
     ],
   },
@@ -411,7 +734,6 @@ export const HEROES = [
         icon: '🎼',
         description:
           'Grangers pistol chambers 6 bullets. The 6th bullet is guaranteed to critically strike with massive bonus damage. Granger gains 50% extra attack speed from items as attack damage.',
-        visualFX: 'sixth_bullet',
       },
       {
         id: 'granger_s1',
@@ -422,7 +744,6 @@ export const HEROES = [
         icon: '🔫',
         description:
           'Granger unloads all 6 bullets in rapid succession forward, dealing 180 (+80% Total Physical ATK) physical damage per bullet while maintaining movement.',
-        visualFX: 'bullet_stream',
       },
       {
         id: 'granger_s2',
@@ -433,7 +754,6 @@ export const HEROES = [
         icon: '💨',
         description:
           'Dashes in target direction, empowering his next two basic attacks with +10% bonus damage. Hitting enemies with Rhapsody reduces this cooldown by 0.5s per hit.',
-        visualFX: 'rondo_dash',
       },
       {
         id: 'granger_ult',
@@ -444,7 +764,6 @@ export const HEROES = [
         icon: '🎻',
         description:
           'Granger transforms his violin case into a heavy cannon, firing 3 Super Bullets forward that explode on first enemy hero hit, dealing 470 (+150% Total Physical ATK) physical damage and slowing by 80%.',
-        visualFX: 'super_cannon',
       },
     ],
     skins: [
@@ -506,7 +825,6 @@ export const HEROES = [
         icon: '👊',
         description:
           'Every 8 yards Chou moves, his next basic attack deals 180% damage and slows the target by 80%.',
-        visualFX: 'dragon_fist',
       },
       {
         id: 'chou_s1',
@@ -517,7 +835,6 @@ export const HEROES = [
         icon: '🥋',
         description:
           'Punches forward in 3 distinct strikes. The third strike knocks all surrounding enemies airborne for 0.8s.',
-        visualFX: 'three_punches',
       },
       {
         id: 'chou_s2',
@@ -528,7 +845,6 @@ export const HEROES = [
         icon: '⚡',
         description:
           'Chou dashes forward, gaining complete crowd control immunity during the dash, +15 Physical PEN, and a 200 HP shield for 2s.',
-        visualFX: 'shunpo_shield',
       },
       {
         id: 'chou_ult',
@@ -539,7 +855,6 @@ export const HEROES = [
         icon: '🐉',
         description:
           'Roundhouse kicks an enemy hero backward, dealing 400 damage. Cast again to chase the airborne target, unleashing a crushing 4-hit mid-air combo.',
-        visualFX: 'dragon_kick',
       },
     ],
     skins: [
@@ -594,7 +909,6 @@ export const HEROES = [
         icon: '⚙️',
         description:
           'Beatrix carries 4 specialized firearms. She equips two at any time, allowing instantaneous tactical weapon swapping with distinct attack behaviors.',
-        visualFX: 'gear_swap',
       },
       {
         id: 'beatrix_s1',
@@ -605,7 +919,6 @@ export const HEROES = [
         icon: '🔄',
         description:
           'Switches between her primary and secondary equipped firearm in 0.6s, instantly refreshing weapon status and sights.',
-        visualFX: 'gun_cock',
       },
       {
         id: 'beatrix_s2',
@@ -616,7 +929,6 @@ export const HEROES = [
         icon: '🏃‍♀️',
         description:
           'Dashes in target direction while instantly reloading the current firearms entire magazine.',
-        visualFX: 'ammo_dash',
       },
       {
         id: 'beatrix_ult',
@@ -627,7 +939,6 @@ export const HEROES = [
         icon: '🚀',
         description:
           'Unleashes the ultimate of the active weapon: Renners Apathy sniper laser, Bennetts Rage mortar strike, Weskers Elation buckshot, or Nibirus Passion barrage.',
-        visualFX: 'arsenal_blast',
       },
     ],
     skins: [
@@ -683,7 +994,6 @@ export const HEROES = [
         icon: '🛡️',
         description:
           'Tigreal gains a layer of blessing upon casting skills or receiving basic attacks. At 4 layers, he becomes completely immune to the next incoming basic attack.',
-        visualFX: 'divine_shield',
       },
       {
         id: 'tigreal_s1',
@@ -694,7 +1004,6 @@ export const HEROES = [
         icon: '🌊',
         description:
           'Smashes his sacred sword into the soil, firing three holy ground shockwaves that deal 270 physical damage and slow enemies by 30%.',
-        visualFX: 'holy_wave',
       },
       {
         id: 'tigreal_s2',
@@ -705,7 +1014,6 @@ export const HEROES = [
         icon: '🔨',
         description:
           'Charges forward with his tower shield, pushing all enemies along the path. Cast again to swing upward, knocking enemies airborne for 1.0s.',
-        visualFX: 'shield_charge',
       },
       {
         id: 'tigreal_ult',
@@ -716,7 +1024,6 @@ export const HEROES = [
         icon: '🌟',
         description:
           'Tigreal thrusts his sacred blade deep into the earth, channeling a gravitational vortex that pulls all surrounding enemies toward him and stuns them for 1.5s.',
-        visualFX: 'holy_implosion',
       },
     ],
     skins: [

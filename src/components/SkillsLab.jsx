@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Zap, Play, RotateCcw, Clock, Droplet, Sparkles, Shield, ChevronRight } from 'lucide-react';
+import confetti from 'canvas-confetti';
+import { Zap, Play, RotateCcw, Clock, Droplet, Sparkles, Shield, ChevronRight, Award, Flame } from 'lucide-react';
 import { HEROES } from '../data/heroesData';
 import { audioManager } from '../utils/audio';
 
@@ -8,6 +9,9 @@ export default function SkillsLab({ selectedHeroId }) {
     return HEROES.find((h) => h.id === selectedHeroId) || HEROES[0];
   });
   const [activeAbilityIndex, setActiveAbilityIndex] = useState(0);
+  const [comboSequence, setComboSequence] = useState([]);
+  const [comboScore, setComboScore] = useState(0);
+  const [comboRank, setComboRank] = useState(null);
   const canvasRef = useRef(null);
 
   // Sync if prop changes
@@ -17,6 +21,9 @@ export default function SkillsLab({ selectedHeroId }) {
       if (found) {
         setActiveHero(found);
         setActiveAbilityIndex(0);
+        setComboSequence([]);
+        setComboRank(null);
+        setComboScore(0);
       }
     }
   }, [selectedHeroId]);
@@ -37,7 +44,6 @@ export default function SkillsLab({ selectedHeroId }) {
     resize();
     window.addEventListener('resize', resize);
 
-    // Particle pool for skill animation
     let tick = 0;
     const particles = [];
 
@@ -45,7 +51,6 @@ export default function SkillsLab({ selectedHeroId }) {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
 
-      // Spawn particles based on ability type
       for (let i = 0; i < 4; i++) {
         const angle = Math.random() * Math.PI * 2;
         const speed = Math.random() * 4 + 1;
@@ -69,7 +74,6 @@ export default function SkillsLab({ selectedHeroId }) {
 
       createSkillParticles();
 
-      // Draw Hero-specific signature ability graphic in center
       const cx = canvas.width / 2;
       const cy = canvas.height / 2;
 
@@ -139,11 +143,43 @@ export default function SkillsLab({ selectedHeroId }) {
     audioManager.playSkillFlare();
     setActiveHero(hero);
     setActiveAbilityIndex(0);
+    setComboSequence([]);
+    setComboRank(null);
+    setComboScore(0);
   };
 
   const handleAbilitySelect = (idx) => {
     audioManager.playClick();
     setActiveAbilityIndex(idx);
+
+    // Track combo sequence
+    const chosen = activeHero.abilities[idx];
+    const newSeq = [...comboSequence, chosen.type];
+    setComboSequence(newSeq);
+    const newScore = comboScore + 250;
+    setComboScore(newScore);
+
+    if (newSeq.length >= 4) {
+      audioManager.playSkillFlare();
+      setComboRank('SSS RANK PERFECT');
+      confetti({
+        particleCount: 50,
+        spread: 70,
+        origin: { y: 0.65 },
+        colors: [activeHero.themeColor, '#fbbf24', '#ffffff'],
+      });
+    } else if (newSeq.length === 3) {
+      setComboRank('SS RANK EXCELLENT');
+    } else if (newSeq.length === 2) {
+      setComboRank('S RANK GOOD');
+    }
+  };
+
+  const handleResetCombo = () => {
+    audioManager.playClick();
+    setComboSequence([]);
+    setComboRank(null);
+    setComboScore(0);
   };
 
   return (
@@ -160,15 +196,15 @@ export default function SkillsLab({ selectedHeroId }) {
               </span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide uppercase text-white">
-              THE SKILLS LAB
+              THE SKILLS LAB & COMBO ARENA
             </h2>
             <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-2 max-w-xl">
-              Inspect verified skill kits, cooldown telemetry, mana consumption, and signature ability choreography for every champion.
+              Inspect verified skill kits, cooldown telemetry, and test tactical combo choreography with live combat grading.
             </p>
           </div>
 
           {/* Hero Quick Switcher */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none max-w-full">
             {HEROES.map((h) => (
               <button
                 key={h.id}
@@ -245,12 +281,54 @@ export default function SkillsLab({ selectedHeroId }) {
                 {ability.description}
               </p>
 
-              {/* Tactical Execution Guidance */}
-              <div className="pt-3 border-t border-zinc-800/80 flex items-start gap-2 text-xs text-zinc-400 font-mono">
-                <Sparkles className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
-                <span>
-                  Tactical Tip: Maximize skill cadence and animation canceling to maintain peak combat momentum during teamfights.
-                </span>
+              {/* Interactive Combo Arena HUD */}
+              <div className="pt-4 border-t border-zinc-800/80 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Flame className="w-4 h-4 text-amber-400" />
+                    <span className="text-xs font-mono uppercase tracking-wider text-white font-bold">
+                      LIVE COMBO CHAIN:
+                    </span>
+                  </div>
+                  {comboSequence.length > 0 && (
+                    <button
+                      onClick={handleResetCombo}
+                      className="text-[10px] font-mono text-zinc-400 hover:text-white flex items-center gap-1"
+                    >
+                      <RotateCcw className="w-3 h-3" />
+                      <span>RESET COMBO</span>
+                    </button>
+                  )}
+                </div>
+
+                {/* Combo Sequence Pills */}
+                <div className="flex flex-wrap items-center gap-2 min-h-[36px] bg-zinc-950 p-2 rounded-xl border border-zinc-800">
+                  {comboSequence.length > 0 ? (
+                    comboSequence.map((step, i) => (
+                      <span
+                        key={i}
+                        className="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-fadeIn"
+                      >
+                        {step}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-[11px] font-mono text-zinc-500">
+                      Click ability pills above to test combo string execution...
+                    </span>
+                  )}
+                </div>
+
+                {/* Combo Rank Output */}
+                {comboRank && (
+                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs font-mono text-amber-300">
+                    <div className="flex items-center gap-2">
+                      <Award className="w-4 h-4 text-amber-400" />
+                      <span className="font-bold">{comboRank}</span>
+                    </div>
+                    <span>CALCULATED BURST: +{comboScore} DMG</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -263,7 +341,7 @@ export default function SkillsLab({ selectedHeroId }) {
                 <span>•</span>
                 <span>{activeHero.speciality}</span>
               </div>
-              <span className="text-zinc-500">DATA SOURCE: CANON PATCH 1.8+</span>
+              <span className="text-zinc-500">VERIFIED MOONTON CANON</span>
             </div>
           </div>
 
@@ -271,13 +349,12 @@ export default function SkillsLab({ selectedHeroId }) {
           <div className="lg:col-span-5 relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden border border-zinc-800 bg-[#040711] flex items-center justify-center shadow-inner">
             <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-            {/* Overlay Grid Texture */}
             <div className="absolute inset-0 bg-noise opacity-30 pointer-events-none" />
 
             {/* Visualizer Status Badge */}
             <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur border border-zinc-800 text-[10px] font-mono text-zinc-400">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>SIMULATION RUNNING</span>
+              <span>SIMULATION ACTIVE</span>
             </div>
 
             {/* Bottom Ability Name Label */}

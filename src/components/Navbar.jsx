@@ -26,6 +26,7 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
     { label: '3D CHAMBER', href: '#chamber' },
     { label: 'WORLD LORE', href: '#lore' },
     { label: 'SKINS VAULT', href: '#skins' },
+    { label: 'ESPORTS', href: '#esports' },
   ];
 
   const handleLinkClick = (e, href) => {
@@ -73,7 +74,7 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
         </a>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-7">
+        <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <a
               key={link.label}
