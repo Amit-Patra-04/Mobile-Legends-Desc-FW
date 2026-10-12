@@ -96,7 +96,12 @@ export default function HeroCompareModal({ initialHero, onClose }) {
                 <img
                   src={heroA.image}
                   alt={heroA.name}
-                  className="w-20 h-20 rounded-xl object-cover border border-zinc-700"
+                  className="w-20 h-20 rounded-xl object-cover object-top border border-zinc-700 bg-zinc-950"
+                  onError={(e) => {
+                    if (heroA.portrait && e.target.src !== heroA.portrait) {
+                      e.target.src = heroA.portrait;
+                    }
+                  }}
                 />
                 <div>
                   <h3 className="font-serif text-2xl font-bold text-white">{heroA.name}</h3>
@@ -150,7 +155,12 @@ export default function HeroCompareModal({ initialHero, onClose }) {
                 <img
                   src={heroB.image}
                   alt={heroB.name}
-                  className="w-20 h-20 rounded-xl object-cover border border-zinc-700"
+                  className="w-20 h-20 rounded-xl object-cover object-top border border-zinc-700 bg-zinc-950"
+                  onError={(e) => {
+                    if (heroB.portrait && e.target.src !== heroB.portrait) {
+                      e.target.src = heroB.portrait;
+                    }
+                  }}
                 />
                 <div>
                   <h3 className="font-serif text-2xl font-bold text-white">{heroB.name}</h3>

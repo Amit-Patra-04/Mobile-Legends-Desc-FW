@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Compass, MapPin, Landmark, Shield, Clock, ChevronRight, Sparkles } from 'lucide-react';
+import { Compass, MapPin, Landmark, Shield, Clock, ChevronRight, Sparkles, Maximize2 } from 'lucide-react';
 import { REGIONS, TIMELINE_EVENTS } from '../data/regionsData';
 import { audioManager } from '../utils/audio';
+import LightboxModal from './LightboxModal';
 
 export default function LoreUniverse({ onSelectHeroByName }) {
   const [activeRegionIndex, setActiveRegionIndex] = useState(0);
+  const [isMapLightboxOpen, setIsMapLightboxOpen] = useState(false);
   const region = REGIONS[activeRegionIndex];
 
   const handleRegionSelect = (idx) => {
@@ -53,6 +55,19 @@ export default function LoreUniverse({ onSelectHeroByName }) {
 
             {/* Dark Vignette Overlay */}
             <div className="absolute inset-0 bg-radial from-transparent via-[#030509]/40 to-[#030509]/80 pointer-events-none" />
+
+            {/* Expand Map to Fullscreen Lightbox Button */}
+            <button
+              onClick={() => {
+                audioManager.playClick();
+                setIsMapLightboxOpen(true);
+              }}
+              className="absolute top-4 right-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/80 hover:bg-black border border-white/20 text-xs font-mono text-zinc-200 hover:text-amber-400 backdrop-blur transition-all cursor-pointer shadow-lg"
+              title="Inspect full uncropped map in high resolution"
+            >
+              <Maximize2 className="w-3.5 h-3.5" />
+              <span>FULL MAP</span>
+            </button>
 
             {/* Territory Interactive Pins */}
             {/* Moniyan Empire */}
@@ -289,6 +304,14 @@ export default function LoreUniverse({ onSelectHeroByName }) {
           </div>
         </div>
       </div>
+
+      {/* Map Lightbox Modal */}
+      <LightboxModal
+        isOpen={isMapLightboxOpen}
+        onClose={() => setIsMapLightboxOpen(false)}
+        imageSrc="/assets/images/land_of_dawn_map.jpg"
+        altText="Land of Dawn Illustrated Master Map"
+      />
     </section>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
-import { Sparkles, Crown, Shield, Eye, Flame, Check } from 'lucide-react';
+import { Sparkles, Crown, Shield, Eye, Flame, Check, Maximize2, Shrink, Layers } from 'lucide-react';
 import { audioManager } from '../utils/audio';
+import LightboxModal from './LightboxModal';
 
 const FEATURED_SKINS = [
   {
@@ -39,6 +40,8 @@ const FEATURED_SKINS = [
 export default function SkinGallery() {
   const [activeSkinIndex, setActiveSkinIndex] = useState(0);
   const [compareMode, setCompareMode] = useState(false);
+  const [imageFit, setImageFit] = useState('contain'); // 'contain' for full uncropped artwork
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const skin = FEATURED_SKINS[activeSkinIndex];
 
   const handleSelectSkin = (idx) => {
@@ -54,6 +57,8 @@ export default function SkinGallery() {
       colors: ['#f59e0b', '#ec4899', '#a855f7', '#38bdf8'],
     });
   };
+
+  const currentDisplayImage = compareMode ? skin.defaultImage : skin.image;
 
   return (
     <section id="skins" className="relative w-full py-24 bg-[#030509] text-white">
@@ -98,50 +103,95 @@ export default function SkinGallery() {
         {/* Main Skin Showcase Stage */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#070b14]/90 rounded-3xl p-6 sm:p-8 border border-zinc-800 shadow-2xl">
           
-          {/* Left Column: Visual Artwork Display */}
-          <div className="lg:col-span-7 relative aspect-[16/10] rounded-2xl overflow-hidden glass-panel border border-zinc-800 shadow-2xl group">
-            <img
-              src={compareMode ? skin.defaultImage : skin.image}
-              alt={skin.name}
-              className="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-700"
-            />
+          {/* Left Column: Visual Artwork Display (Completely Uncropped & Clean) */}
+          <div className="lg:col-span-7 flex flex-col space-y-3">
+            <div
+              className="relative w-full h-[380px] sm:h-[480px] rounded-2xl overflow-hidden glass-panel border border-zinc-700/80 shadow-2xl group bg-zinc-950 flex items-center justify-center cursor-pointer"
+              onClick={() => {
+                audioManager.playClick();
+                setIsLightboxOpen(true);
+              }}
+              title="Click to view full uncropped skin artwork"
+            >
+              <img
+                src={currentDisplayImage}
+                alt={skin.name}
+                className={`w-full h-full transform group-hover:scale-102 transition-transform duration-500 ${
+                  imageFit === 'contain'
+                    ? 'object-contain p-2 sm:p-4 drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]'
+                    : 'object-cover object-center'
+                }`}
+              />
 
-            {/* Overlays */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#040711] via-transparent to-transparent opacity-60" />
-
-            {/* Top Badges */}
-            <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-              <span
-                className="px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest uppercase border backdrop-blur-md shadow-lg"
-                style={{
-                  borderColor: skin.tierColor,
-                  backgroundColor: `${skin.tierColor}33`,
-                  color: '#ffffff',
-                }}
+              {/* Top Controls Bar (Clean and off the character) */}
+              <div
+                className="absolute top-4 left-4 right-4 flex items-center justify-between z-10"
+                onClick={(e) => e.stopPropagation()}
               >
-                {compareMode ? 'DEFAULT MODEL' : `${skin.tier} EDITION`}
-              </span>
+                <span
+                  className="px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest uppercase border backdrop-blur-md shadow-lg"
+                  style={{
+                    borderColor: skin.tierColor,
+                    backgroundColor: `${skin.tierColor}33`,
+                    color: '#ffffff',
+                  }}
+                >
+                  {compareMode ? 'DEFAULT MODEL' : `${skin.tier} EDITION`}
+                </span>
 
-              {/* Compare Default vs Skin Button */}
-              <button
-                onClick={() => {
-                  audioManager.playClick();
-                  setCompareMode(!compareMode);
-                }}
-                className="px-3 py-1.5 rounded-full bg-black/70 hover:bg-black/90 border border-zinc-700 text-xs font-mono text-zinc-200 hover:text-amber-300 transition-all cursor-pointer backdrop-blur shadow-lg"
-              >
-                {compareMode ? 'VIEW SPECIAL SKIN' : 'COMPARE DEFAULT'}
-              </button>
+                <div className="flex items-center gap-2">
+                  {/* Fit/Fill Toggle */}
+                  <button
+                    onClick={() => {
+                      audioManager.playClick();
+                      setImageFit(imageFit === 'contain' ? 'cover' : 'contain');
+                    }}
+                    className="px-2.5 py-1 rounded-full bg-black/75 hover:bg-black/90 border border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all cursor-pointer backdrop-blur shadow-lg flex items-center gap-1"
+                    title={imageFit === 'contain' ? 'Fill Frame' : 'Fit Entire Image'}
+                  >
+                    {imageFit === 'contain' ? <Shrink className="w-3 h-3" /> : <Layers className="w-3 h-3" />}
+                    <span>{imageFit === 'contain' ? 'UNCROPPED' : 'FILL'}</span>
+                  </button>
+
+                  {/* Compare Default vs Skin Button */}
+                  <button
+                    onClick={() => {
+                      audioManager.playClick();
+                      setCompareMode(!compareMode);
+                    }}
+                    className="px-3 py-1 rounded-full bg-black/75 hover:bg-black/90 border border-zinc-700 text-xs font-mono text-zinc-200 hover:text-amber-300 transition-all cursor-pointer backdrop-blur shadow-lg"
+                  >
+                    {compareMode ? 'VIEW SKIN' : 'COMPARE DEFAULT'}
+                  </button>
+
+                  {/* Expand Lightbox Button */}
+                  <button
+                    onClick={() => {
+                      audioManager.playClick();
+                      setIsLightboxOpen(true);
+                    }}
+                    className="p-1.5 rounded-full bg-black/75 hover:bg-black/90 border border-zinc-700 text-zinc-300 hover:text-amber-400 transition-all cursor-pointer backdrop-blur shadow-lg"
+                    title="Fullscreen Lightbox"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Bottom Click Hint (Hover Only) */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-black/80 backdrop-blur px-3 py-1 rounded-full border border-white/10 text-[9px] font-mono text-amber-300 whitespace-nowrap">
+                CLICK FOR FULL UNCONSTRAINED RESOLUTION
+              </div>
             </div>
 
-            {/* Bottom Title Bar */}
-            <div className="absolute bottom-4 left-4 right-4 bg-black/75 backdrop-blur-md p-3.5 rounded-xl border border-white/10 flex items-center justify-between">
+            {/* Title Bar Placed OUTSIDE the Image Frame (NO Cropping / NO Hiding) */}
+            <div className="bg-zinc-900/60 p-3.5 rounded-xl border border-zinc-800 flex items-center justify-between">
               <div>
-                <span className="font-mono text-[10px] text-zinc-400 uppercase">
+                <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-wider block">
                   {skin.hero} // {compareMode ? 'DEFAULT ATTIRE' : skin.tier}
                 </span>
                 <h4 className="font-serif text-lg font-bold text-white">
-                  {compareMode ? `${skin.hero} (Classic)` : skin.name}
+                  {compareMode ? `${skin.hero} (Classic Model)` : skin.name}
                 </h4>
               </div>
               <Sparkles className="w-5 h-5 text-amber-400" />
@@ -220,6 +270,14 @@ export default function SkinGallery() {
           </div>
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      <LightboxModal
+        isOpen={isLightboxOpen}
+        onClose={() => setIsLightboxOpen(false)}
+        imageSrc={currentDisplayImage}
+        altText={`${skin.hero} - ${skin.name}`}
+      />
     </section>
   );
 }

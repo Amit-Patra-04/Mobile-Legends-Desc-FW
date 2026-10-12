@@ -16,7 +16,7 @@ export default function HeroArchive({
   const [selectedDifficulty, setSelectedDifficulty] = useState('ALL');
   const [sortBy, setSortBy] = useState('default');
 
-  const roles = ['ALL', 'Fighter', 'Assassin', 'Mage', 'Marksman', 'Tank'];
+  const roles = ['ALL', 'Tank', 'Fighter', 'Assassin', 'Mage', 'Marksman', 'Support'];
   const lanes = ['ALL', 'Jungle', 'Mid Lane', 'Gold Lane', 'EXP Lane', 'Roam'];
   const difficulties = ['ALL', 'Easy', 'Moderate', 'High', 'Extreme'];
 

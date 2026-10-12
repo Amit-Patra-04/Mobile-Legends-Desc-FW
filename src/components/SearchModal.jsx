@@ -72,7 +72,16 @@ export default function SearchModal({ onClose, onSelectHero }) {
                 className="w-full flex items-center justify-between p-2.5 rounded-xl bg-zinc-900/40 hover:bg-zinc-800/80 border border-transparent hover:border-zinc-700 text-left transition-all cursor-pointer group"
               >
                 <div className="flex items-center gap-3">
-                  <img src={h.image} alt={h.name} className="w-10 h-10 rounded-lg object-cover" />
+                  <img
+                    src={h.image}
+                    alt={h.name}
+                    className="w-10 h-10 rounded-lg object-cover object-top border border-zinc-800"
+                    onError={(e) => {
+                      if (h.portrait && e.target.src !== h.portrait) {
+                        e.target.src = h.portrait;
+                      }
+                    }}
+                  />
                   <div>
                     <div className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">
                       {h.name}
