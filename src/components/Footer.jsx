@@ -24,13 +24,13 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-700 flex items-center justify-center p-0.5">
-                <div className="w-full h-full bg-[#070b14] rounded-[6px] flex items-center justify-center">
-                  <span className="font-serif text-amber-400 font-bold text-xs">M</span>
-                </div>
-              </div>
-              <span className="font-serif text-base font-extrabold tracking-wider text-white">
-                MOBILE LEGENDS // BANG BANG
+              <img
+                src="/assets/images/mlbb_official_logo.png"
+                alt="Mobile Legends: Bang Bang"
+                className="h-8 w-auto object-contain filter drop-shadow-[0_0_10px_rgba(245,158,11,0.4)]"
+              />
+              <span className="font-mono text-[10px] tracking-widest text-amber-500/80 uppercase px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800">
+                OFFICIAL CODEX
               </span>
             </div>
             <p className="font-sans text-xs text-zinc-400 leading-relaxed max-w-sm">

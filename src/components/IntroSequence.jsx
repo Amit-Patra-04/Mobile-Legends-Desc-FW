@@ -113,30 +113,24 @@ export default function IntroSequence({ onComplete }) {
 
       {/* Center Emblem & Typography */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-xl">
-        {/* MLBB Crest Monogram */}
-        <div className="relative mb-8 group">
-          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-400/20 via-yellow-600/10 to-amber-900/30 border border-amber-500/40 flex items-center justify-center shadow-[0_0_50px_rgba(234,179,8,0.25)] animate-pulse-glow">
-            <svg
-              className="w-14 h-14 text-amber-400 drop-shadow-[0_0_12px_rgba(234,179,8,0.8)]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
+        {/* Official Mobile Legends: Bang Bang Game Logo */}
+        <div className="relative mb-6 flex flex-col items-center group">
+          {/* Ambient golden aura behind the official logo */}
+          <div className="absolute -inset-10 bg-gradient-to-r from-amber-500/20 via-yellow-500/35 to-amber-600/20 rounded-full blur-3xl opacity-75 pointer-events-none animate-pulse" />
+          
+          <div className="relative z-10 flex items-center justify-center">
+            <img
+              src="/assets/images/mlbb_official_logo.png"
+              alt="Mobile Legends: Bang Bang Official Logo"
+              className="w-72 sm:w-88 md:w-[420px] max-w-full h-auto object-contain filter drop-shadow-[0_0_30px_rgba(245,158,11,0.6)] group-hover:scale-103 transition-transform duration-500"
+            />
           </div>
-          {/* Subtle spinning rune ring */}
-          <div className="absolute -inset-2 rounded-2xl border border-amber-500/20 border-dashed animate-[spin_20s_linear_infinite]" />
         </div>
 
-        {/* Title */}
-        <p className="font-mono text-xs tracking-[0.35em] text-amber-400/90 uppercase mb-2">
-          Land of Dawn // Archive
+        {/* Subtitle */}
+        <p className="font-mono text-xs tracking-[0.35em] text-amber-400/90 uppercase mb-3">
+          Land of Dawn // Immersive Codex
         </p>
-        <h1 className="font-serif text-3xl md:text-5xl font-extrabold tracking-wider text-white mb-4">
-          MOBILE LEGENDS
-        </h1>
         <p className="font-sans text-xs md:text-sm text-zinc-400 max-w-md tracking-wide leading-relaxed mb-8">
           Where ancient legends awaken, steel clashes with celestial sorcery, and destiny is written in the heat of battle.
         </p>

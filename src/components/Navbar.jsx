@@ -58,19 +58,14 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
           }}
           className="flex items-center gap-3 group cursor-pointer"
         >
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-400 to-amber-700 flex items-center justify-center p-0.5 shadow-[0_0_15px_rgba(234,179,8,0.4)] group-hover:shadow-[0_0_25px_rgba(234,179,8,0.7)] transition-all">
-            <div className="w-full h-full bg-[#070b14] rounded-[7px] flex items-center justify-center">
-              <span className="font-serif text-amber-400 font-bold text-sm tracking-tighter">M</span>
-            </div>
-          </div>
-          <div>
-            <div className="font-serif text-xs md:text-sm font-extrabold tracking-widest text-white group-hover:text-amber-300 transition-colors">
-              MOBILE LEGENDS
-            </div>
-            <div className="font-mono text-[9px] tracking-[0.25em] text-amber-500/80 -mt-0.5">
-              CHRONICLES
-            </div>
-          </div>
+          <img
+            src="/assets/images/mlbb_official_logo.png"
+            alt="Mobile Legends: Bang Bang"
+            className="h-8 sm:h-9 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(245,158,11,0.4)] group-hover:drop-shadow-[0_0_20px_rgba(245,158,11,0.7)] group-hover:scale-102 transition-all duration-300"
+          />
+          <span className="hidden sm:inline-block font-mono text-[9px] tracking-[0.25em] text-amber-400/80 px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20">
+            CHRONICLES
+          </span>
         </a>
 
         {/* Desktop Nav Links */}
