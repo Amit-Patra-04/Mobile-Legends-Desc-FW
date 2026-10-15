@@ -15,7 +15,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative w-full bg-[#020306] text-zinc-400 border-t border-zinc-800/80 pt-16 pb-12 select-none">
+    <footer className="relative w-full bg-[#020306] text-zinc-400 border-t border-zinc-800/80 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Main Footer Row */}

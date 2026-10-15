@@ -33,7 +33,7 @@ export default function SearchModal({ onClose, onSelectHero }) {
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/85 backdrop-blur-xl animate-fadeIn select-none">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/85 backdrop-blur-xl animate-fadeIn">
       <div className="relative w-full max-w-2xl rounded-2xl overflow-hidden glass-panel border border-zinc-800 shadow-[0_20px_60px_rgba(0,0,0,0.9)] flex flex-col bg-[#070b14]">
         
         {/* Search Input Field */}

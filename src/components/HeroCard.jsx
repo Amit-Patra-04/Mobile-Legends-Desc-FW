@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Eye, Box, Zap, Sparkles, Scale, Maximize2 } from 'lucide-react';
 import { audioManager } from '../utils/audio';
 import LightboxModal from './LightboxModal';
+import LiquidGlassCard from './LiquidGlassCard';
 
 export default function HeroCard({
   hero,
@@ -14,7 +15,11 @@ export default function HeroCard({
 
   return (
     <>
-      <div className="group relative rounded-2xl overflow-hidden glass-panel border border-zinc-800/80 hover:border-amber-500/50 transition-all duration-300 hover:shadow-[0_12px_40px_-10px_rgba(234,179,8,0.25)] flex flex-col">
+      <LiquidGlassCard
+        glowColor={hero.themeColor}
+        enableTilt={true}
+        className="group flex flex-col h-full cursor-default"
+      >
         {/* Artwork Container with Well-Framed Uncropped Aspect Ratio */}
         <div
           className="relative aspect-[4/3] overflow-hidden bg-zinc-950 cursor-pointer"
@@ -181,7 +186,7 @@ export default function HeroCard({
             </button>
           </div>
         </div>
-      </div>
+      </LiquidGlassCard>
 
       {/* Lightbox Modal */}
       <LightboxModal

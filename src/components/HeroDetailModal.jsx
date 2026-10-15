@@ -35,7 +35,7 @@ export default function HeroDetailModal({ hero, onClose, onSelectHero, onOpenCha
   ).slice(0, 3);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-black/90 backdrop-blur-2xl animate-fadeIn select-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-black/90 backdrop-blur-2xl animate-fadeIn">
       
       {/* Modal Dialog Window */}
       <div className="relative w-full max-w-5xl rounded-3xl overflow-hidden glass-panel border border-zinc-800 shadow-[0_30px_90px_rgba(0,0,0,0.98)] max-h-[94vh] flex flex-col my-auto bg-[#070b14]">

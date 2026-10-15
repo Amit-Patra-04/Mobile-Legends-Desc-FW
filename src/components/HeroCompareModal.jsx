@@ -30,7 +30,7 @@ export default function HeroCompareModal({ initialHero, onClose }) {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn select-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn">
       <div className="relative w-full max-w-4xl rounded-3xl overflow-hidden glass-panel border border-zinc-800 shadow-[0_25px_70px_rgba(0,0,0,0.95)] max-h-[92vh] flex flex-col my-auto bg-[#080c16]">
         
         {/* Modal Header */}

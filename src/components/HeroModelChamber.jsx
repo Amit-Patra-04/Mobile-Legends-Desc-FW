@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { RotateCw, RefreshCw, Layers, Sparkles, Box, Info, Shield, Sliders } from 'lucide-react';
 import { HEROES } from '../data/heroesData';
 import { audioManager } from '../utils/audio';
+import LiquidGlassCard from './LiquidGlassCard';
 
 // 3D Holographic Totem and Runic Dais
 function Hero3DHologram({ color, wireframe, heroName }) {
@@ -208,7 +209,7 @@ export default function HeroModelChamber({ initialHeroId }) {
         </div>
 
         {/* 3D Chamber Stage Container */}
-        <div className="relative w-full h-[620px] rounded-3xl overflow-hidden glass-panel border border-zinc-800 shadow-[0_20px_60px_rgba(0,0,0,0.9)] flex flex-col justify-between">
+        <LiquidGlassCard glowColor={accentColor} enableTilt={false} className="relative w-full h-[620px] rounded-3xl overflow-hidden flex flex-col justify-between">
           
           {/* Top Control Bar inside Chamber */}
           <div className="relative z-20 flex flex-wrap items-center justify-between p-4 sm:p-6 gap-3 bg-gradient-to-b from-[#030509]/90 to-transparent">
@@ -372,7 +373,7 @@ export default function HeroModelChamber({ initialHeroId }) {
               ))}
             </div>
           </div>
-        </div>
+        </LiquidGlassCard>
       </div>
     </section>
   );

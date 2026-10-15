@@ -37,7 +37,7 @@ const TOURNAMENTS = [
 
 export default function EsportsArena() {
   return (
-    <section className="relative w-full py-24 bg-[#030509] text-white select-none">
+    <section className="relative w-full py-24 bg-[#030509] text-white">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Header */}

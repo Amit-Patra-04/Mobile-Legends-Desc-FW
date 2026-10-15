@@ -10,7 +10,7 @@ export default function FinalCTA() {
   };
 
   return (
-    <section className="relative w-full py-28 bg-[#030509] overflow-hidden select-none">
+    <section className="relative w-full py-28 bg-[#030509] overflow-hidden">
       {/* Background Cinematic Key Visual */}
       <div className="absolute inset-0 z-0">
         <img

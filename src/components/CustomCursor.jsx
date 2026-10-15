@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-export default function CustomCursor() {
+export default function CustomCursor({ enabled = true, hideRing = false }) {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [trailing, setTrailing] = useState({ x: -100, y: -100 });
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    if (!enabled) return;
     // Only enable on desktop pointer devices
     if (window.matchMedia('(pointer: coarse)').matches) {
       return;
@@ -53,12 +54,13 @@ export default function CustomCursor() {
     };
   }, [position, isVisible]);
 
-  if (!isVisible) return null;
+  if (!enabled || !isVisible) return null;
 
   return (
     <>
       {/* Outer Follower Ring */}
-      <div
+      {!hideRing && (
+        <div
         className="pointer-events-none fixed z-[9999] rounded-full transition-transform duration-75 ease-out"
         style={{
           left: `${trailing.x}px`,
@@ -67,13 +69,14 @@ export default function CustomCursor() {
           width: '36px',
           height: '36px',
           border: isHovered
-            ? '1.5px solid rgba(234, 179, 8, 0.8)'
-            : '1px solid rgba(255, 255, 255, 0.35)',
+            ? '1.5px solid rgba(251, 191, 36, 0.95)'
+            : '1px solid rgba(245, 158, 11, 0.5)',
           boxShadow: isHovered
-            ? '0 0 15px rgba(234, 179, 8, 0.4)'
-            : '0 0 8px rgba(255, 255, 255, 0.15)',
+            ? '0 0 16px rgba(251, 191, 36, 0.65)'
+            : '0 0 10px rgba(245, 158, 11, 0.3)',
         }}
       />
+      )}
       {/* Core Dot */}
       <div
         className="pointer-events-none fixed z-[10000] rounded-full transition-colors duration-150"
@@ -83,8 +86,8 @@ export default function CustomCursor() {
           transform: 'translate(-50%, -50%)',
           width: isHovered ? '8px' : '5px',
           height: isHovered ? '8px' : '5px',
-          backgroundColor: isHovered ? '#fbbf24' : '#ffffff',
-          boxShadow: isHovered ? '0 0 10px #fbbf24' : 'none',
+          backgroundColor: isHovered ? '#fbbf24' : '#ffb800',
+          boxShadow: isHovered ? '0 0 12px #fbbf24, 0 0 20px #f59e0b' : '0 0 8px #ffb800',
         }}
       />
     </>

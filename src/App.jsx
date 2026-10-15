@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Lenis from 'lenis';
 import CustomCursor from './components/CustomCursor';
+import GlowCursor from './components/GlowCursor';
 import IntroSequence from './components/IntroSequence';
 import Navbar from './components/Navbar';
 import HeroLanding from './components/HeroLanding';
@@ -92,8 +93,24 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#030509] text-white selection:bg-amber-500/30 selection:text-amber-200">
-      {/* Custom Fluid Cursor */}
-      <CustomCursor />
+      {/* WebGL2 Fluid Glow Cursor Animation (MLBB Signature Theme) */}
+      <div className="fixed inset-0 pointer-events-none z-[9990] overflow-hidden">
+        <GlowCursor
+          color="#ffb800"
+          secondaryColor="#f97316"
+          intensity={1.6}
+          trailWidth={3.8}
+          linger={1.5}
+          glow={1.4}
+          hotspot={0.9}
+          clickBurst
+          theme="dark"
+          className="w-full h-full pointer-events-none"
+        />
+      </div>
+
+      {/* Reticle Focus Indicator (Hidden on loading screen, active on main experience) */}
+      <CustomCursor enabled={introCompleted} />
 
       {/* Section A: Cinematic Intro Preloader */}
       {!introCompleted && (
