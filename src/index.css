@@ -1,10 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: 'Cinzel', serif;
-  --font-display: 'Cinzel Decorative', 'Cinzel', serif;
+  --font-serif: 'Newsreader', 'Cinzel', serif;
+  --font-display: 'Newsreader', 'Cinzel', serif;
   --font-sans: 'Outfit', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+}
+
+:root {
+  --off-black: #13151f;
+  --off-white: #e9ecee;
+  --color-secondary: #aab9c7;
+  --gray: #6e8799;
+  --dark-gray: #4c5e6b;
+  --border: hsla(0, 0%, 91%, 0.1);
+  --surface: #1a1a1a;
+  --chrome-bottom: 2.6rem;
+  --expo-out: cubic-bezier(0.14, 1, 0.34, 1);
+  --quint-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 @layer base {
@@ -18,8 +31,8 @@
   }
 
   body {
-    background-color: #030509;
-    color: #e2e8f0;
+    background-color: var(--off-black);
+    color: var(--off-white);
     overflow-x: hidden;
     user-select: text;
     -webkit-user-select: text;
@@ -519,4 +532,89 @@
   letter-spacing: -0.02em;
   text-shadow: 0 4px 30px rgba(0, 0, 0, 0.95), 0 0 40px rgba(0, 0, 0, 0.8);
 }
+
+/* Overworld Editorial Typography & Mechanics */
+.h1-overworld {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.h2-overworld {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.ts-a {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ts-b {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
+body.is-scene-pannable, .is-scene-pannable {
+  cursor: grab;
+}
+
+body.is-scene-pannable.is-scene-grabbing, .is-scene-grabbing {
+  cursor: grabbing !important;
+}
+
+/* Overworld Project Blob Gradient */
+.project-blob {
+  background: radial-gradient(ellipse closest-side at center, rgba(19, 21, 31, 0.95) 0%, rgba(19, 21, 31, 0.8) 25%, rgba(19, 21, 31, 0.5) 50%, rgba(19, 21, 31, 0.15) 75%, transparent 100%);
+  bottom: -18rem;
+  height: 38rem;
+  width: 44rem;
+  max-width: 95vw;
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+/* Overworld Link Split-Line Roll Animation */
+.link-inner {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+}
+
+.link-inner span:first-child {
+  display: block;
+  transition: transform 0.6s var(--expo-out);
+}
+
+.link-inner span:last-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(105%);
+  transition: transform 0.6s var(--expo-out);
+}
+
+.group:hover .link-inner span:first-child,
+a:hover .link-inner span:first-child {
+  transform: translateY(-105%);
+}
+
+.group:hover .link-inner span:last-child,
+a:hover .link-inner span:last-child {
+  transform: translateY(0);
+}
+
 

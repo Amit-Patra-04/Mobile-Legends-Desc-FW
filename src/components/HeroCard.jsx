@@ -3,6 +3,7 @@ import { Eye, Box, Zap, Sparkles, Scale, Maximize2 } from 'lucide-react';
 import { audioManager } from '../utils/audio';
 import LightboxModal from './LightboxModal';
 import LiquidGlassCard from './LiquidGlassCard';
+import { MLBBClassIcon, MLBBLaneIcon } from './MLBBThemeIcons';
 
 export default function HeroCard({
   hero,
@@ -48,20 +49,22 @@ export default function HeroCard({
             style={{ backgroundColor: hero.themeColor }}
           />
 
-          {/* Top Badges */}
+          {/* Top Badges with Official MLBB Icons */}
           <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
             <span
-              className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold tracking-widest uppercase border backdrop-blur-md"
+              className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold tracking-wider uppercase border backdrop-blur-md flex items-center gap-1.5"
               style={{
                 borderColor: `${hero.themeColor}88`,
                 backgroundColor: `${hero.themeColor}22`,
                 color: '#ffffff',
               }}
             >
-              {hero.role}
+              <MLBBClassIcon role={hero.role} className="w-3.5 h-3.5" />
+              <span>{hero.role}</span>
             </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono text-zinc-300 bg-black/60 border border-zinc-700/60 backdrop-blur">
-              {hero.lane}
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono text-zinc-300 bg-black/60 border border-zinc-700/60 backdrop-blur flex items-center gap-1">
+              <MLBBLaneIcon lane={hero.lane} className="w-3 h-3" />
+              <span>{hero.lane}</span>
             </span>
           </div>
 

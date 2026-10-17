@@ -145,13 +145,16 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
                   href={`#${link.id}`}
                   onClick={(e) => handleLinkClick(e, link.id)}
                   onMouseEnter={() => audioManager.playHover()}
-                  className={`relative py-1 text-xs font-mono tracking-[0.16em] uppercase transition-colors duration-200 select-none ${
+                  className={`group relative py-1 text-xs font-mono tracking-[0.16em] uppercase transition-colors duration-200 select-none ${
                     isActive
                       ? 'text-white font-bold'
                       : 'text-zinc-400 hover:text-white'
                   }`}
                 >
-                  <span>{link.label}</span>
+                  <span className="link-inner">
+                    <span>{link.label}</span>
+                    <span aria-hidden="true" className="text-amber-300 font-semibold">{link.label}</span>
+                  </span>
 
                   {/* Clean active indicator underline without any box */}
                   {isActive && (
