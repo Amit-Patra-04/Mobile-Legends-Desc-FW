@@ -61,23 +61,29 @@ export default function SkinGallery() {
   const currentDisplayImage = compareMode ? skin.defaultImage : skin.image;
 
   return (
-    <section id="skins" className="relative w-full py-24 bg-[#030509] text-white">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="skins" className="relative w-full py-28 bg-[#04060b] text-white overflow-hidden">
+      {/* Monumental Watermark Typography */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(5rem,15vw,16rem)] tracking-[0.12em] opacity-40 select-none pointer-events-none whitespace-nowrap z-0">
+        EVOLUTION
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-6 h-[1.5px] bg-purple-400" />
-              <span className="font-mono text-xs tracking-[0.3em] uppercase text-purple-400">
-                VISUAL EVOLUTION VAULT
+              <span className="w-1.5 h-1.5 rounded-full bg-[#c084fc] animate-pulse" />
+              <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-[#c084fc] font-semibold">
+                [ 05 // VISUAL EVOLUTION ] • LEGENDARY VAULT
               </span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide uppercase text-white">
-              SKINS & COSMETICS
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-white">
+              <span className="editorial-italic text-[#c084fc] font-normal mr-2">Visual Evolution</span>
+              <span className="font-serif uppercase font-bold tracking-tight">Skins Vault</span>
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-2 max-w-xl">
-              Inspect legendary cosmetic metamorphoses, custom skill particle effects, audio transformations, and alternate universe storylines.
+            <p className="font-sans text-xs sm:text-sm text-[#94a3b8] mt-2.5 max-w-xl leading-relaxed">
+              Inspect prestigious cosmetic metamorphoses, custom ability FX particle streams, audio redesigns, and alternate multiverse storylines.
             </p>
           </div>
 
@@ -87,21 +93,25 @@ export default function SkinGallery() {
               <button
                 key={s.name}
                 onClick={() => handleSelectSkin(idx)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl border transition-all cursor-pointer whitespace-nowrap ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-200 cursor-pointer whitespace-nowrap ${
                   activeSkinIndex === idx
-                    ? 'bg-zinc-800 border-amber-400 text-white shadow-[0_0_15px_rgba(234,179,8,0.3)]'
-                    : 'bg-zinc-900/60 border-zinc-800 text-zinc-400 hover:text-white'
+                    ? 'bg-[#c084fc] border-[#c084fc] text-black font-semibold shadow-[0_0_15px_rgba(192,132,252,0.35)]'
+                    : 'bg-black/40 border-white/[0.08] text-[#94a3b8] hover:text-white hover:bg-white/[0.06]'
                 }`}
               >
-                <Crown className="w-3.5 h-3.5 text-amber-400" />
+                <Crown className="w-3.5 h-3.5" />
                 <span className="text-xs font-mono">{s.hero} • {s.name}</span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Main Skin Showcase Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#070b14]/90 rounded-3xl p-6 sm:p-8 border border-zinc-800 shadow-2xl">
+        {/* Main Skin Showcase Stage with Corner Crosshairs */}
+        <div className="card-awwwards crosshairs-container grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-8 rounded-3xl border border-white/[0.08] shadow-2xl">
+          <div className="crosshair-tl" />
+          <div className="crosshair-tr" />
+          <div className="crosshair-bl" />
+          <div className="crosshair-br" />
           
           {/* Left Column: Visual Artwork Display (Completely Uncropped & Clean) */}
           <div className="lg:col-span-7 flex flex-col space-y-3">

@@ -183,23 +183,29 @@ export default function SkillsLab({ selectedHeroId }) {
   };
 
   return (
-    <section id="skills-lab" className="relative w-full py-24 bg-[#030509] text-white">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="skills-lab" className="relative w-full py-28 bg-[#04060b] text-white overflow-hidden">
+      {/* Monumental Watermark Typography */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(5rem,15vw,16rem)] tracking-[0.12em] opacity-40 select-none pointer-events-none whitespace-nowrap z-0">
+        SYNTHESIS
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-6 h-[1.5px] bg-cyan-400" />
-              <span className="font-mono text-xs tracking-[0.3em] uppercase text-cyan-400">
-                TACTICAL ABILITY MATRIX
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
+              <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-[#38bdf8] font-semibold">
+                [ 03 // TACTICAL LAB ] • ARCANUM MATRIX
               </span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide uppercase text-white">
-              THE SKILLS LAB & COMBO ARENA
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-white">
+              <span className="editorial-italic text-[#38bdf8] font-normal mr-2">Arcane</span>
+              <span className="font-serif uppercase font-bold tracking-tight">Skills Laboratory</span>
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-2 max-w-xl">
-              Inspect verified skill kits, cooldown telemetry, and test tactical combo choreography with live combat grading.
+            <p className="font-sans text-xs sm:text-sm text-[#94a3b8] mt-2.5 max-w-xl leading-relaxed">
+              Analyze official ability kits, frame data, cooldown telemetry, and test tactical combo sequence choreography with real-time combat performance grading.
             </p>
           </div>
 
@@ -209,21 +215,25 @@ export default function SkillsLab({ selectedHeroId }) {
               <button
                 key={h.id}
                 onClick={() => handleHeroSelect(h)}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border transition-all cursor-pointer whitespace-nowrap ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-200 cursor-pointer whitespace-nowrap ${
                   activeHero.id === h.id
-                    ? 'bg-zinc-800 border-amber-400 text-white shadow-[0_0_15px_rgba(234,179,8,0.3)]'
-                    : 'bg-zinc-900/60 border-zinc-800 text-zinc-400 hover:text-white'
+                    ? 'bg-[#38bdf8] border-[#38bdf8] text-black font-semibold shadow-[0_0_15px_rgba(56,189,248,0.35)]'
+                    : 'bg-black/50 border-white/[0.08] text-[#94a3b8] hover:text-white hover:bg-white/[0.06]'
                 }`}
               >
-                <img src={h.image} alt={h.name} className="w-5 h-5 rounded-md object-cover" />
+                <img src={h.image} alt={h.name} className="w-5 h-5 rounded-full object-cover" />
                 <span className="text-xs font-mono">{h.name}</span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Main Skills Lab Display Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#070b14]/90 rounded-3xl p-6 sm:p-8 border border-zinc-800 shadow-2xl">
+        {/* Main Skills Lab Display Card with Corner Crosshairs */}
+        <div className="card-awwwards crosshairs-container grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-8 rounded-3xl border border-white/[0.08] shadow-2xl">
+          <div className="crosshair-tl" />
+          <div className="crosshair-tr" />
+          <div className="crosshair-bl" />
+          <div className="crosshair-br" />
           
           {/* Left Column: Ability Selection & Detailed Information */}
           <div className="lg:col-span-7 space-y-6">

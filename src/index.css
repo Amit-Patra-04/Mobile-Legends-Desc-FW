@@ -521,12 +521,126 @@
 
 /* Awwwards Monumental Watermark Typography */
 .text-stroke-watermark {
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.08);
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.05);
   color: transparent;
   user-select: none;
   -webkit-user-select: none;
 }
 
+.text-stroke-gold {
+  -webkit-text-stroke: 1px rgba(243, 210, 136, 0.25);
+  color: transparent;
+}
+
+.font-editorial {
+  font-family: 'Newsreader', 'Cinzel', serif;
+}
+
+.editorial-italic {
+  font-family: 'Newsreader', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Luxury Awwwards Glass & Card Architecture */
+.card-awwwards {
+  background: rgba(6, 10, 20, 0.65);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-awwwards:hover {
+  border-color: rgba(243, 210, 136, 0.35);
+  box-shadow: 
+    0 30px 60px -20px rgba(0, 0, 0, 0.85),
+    0 0 30px -10px rgba(243, 210, 136, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Precision Corner Crosshair Registration Marks */
+.crosshairs-container {
+  position: relative;
+}
+
+.crosshair-tl {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 9px;
+  height: 9px;
+  border-top: 1.5px solid rgba(243, 210, 136, 0.7);
+  border-left: 1.5px solid rgba(243, 210, 136, 0.7);
+  pointer-events: none;
+}
+
+.crosshair-tr {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  border-top: 1.5px solid rgba(243, 210, 136, 0.7);
+  border-right: 1.5px solid rgba(243, 210, 136, 0.7);
+  pointer-events: none;
+}
+
+.crosshair-bl {
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  width: 9px;
+  height: 9px;
+  border-bottom: 1.5px solid rgba(243, 210, 136, 0.7);
+  border-left: 1.5px solid rgba(243, 210, 136, 0.7);
+  pointer-events: none;
+}
+
+.crosshair-br {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  border-bottom: 1.5px solid rgba(243, 210, 136, 0.7);
+  border-right: 1.5px solid rgba(243, 210, 136, 0.7);
+  pointer-events: none;
+}
+
+/* Subtle Film Grain Texture Overlay */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Laser Timeline Rail */
+.laser-rail {
+  position: relative;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.laser-rail-head {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: #f3d288;
+  box-shadow: 0 0 12px #f3d288;
+  transform-origin: center;
+  rotate: 45deg;
+}
+
+/* Kinetic Title Animations */
 .hero-kinetic-title {
   font-family: 'Cinzel', 'Cinzel Decorative', serif;
   letter-spacing: -0.02em;
@@ -535,17 +649,17 @@
 
 /* Overworld Editorial Typography & Mechanics */
 .h1-overworld {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  font-weight: 500;
+  font-family: 'Newsreader', serif;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 400;
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
 
 .h2-overworld {
-  font-family: var(--font-serif);
-  font-size: clamp(1.5rem, 2vw, 2.1rem);
-  font-weight: 500;
+  font-family: 'Newsreader', serif;
+  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+  font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.01em;
 }
@@ -553,13 +667,13 @@
 .ts-a {
   font-family: var(--font-mono);
   font-size: 0.5625rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .ts-b {
   font-family: var(--font-mono);
-  font-size: 0.5rem;
+  font-size: 0.525rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
 }
@@ -616,5 +730,6 @@ a:hover .link-inner span:first-child {
 a:hover .link-inner span:last-child {
   transform: translateY(0);
 }
+
 
 

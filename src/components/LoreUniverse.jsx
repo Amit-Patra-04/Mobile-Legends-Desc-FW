@@ -15,46 +15,57 @@ export default function LoreUniverse({ onSelectHeroByName }) {
   };
 
   return (
-    <section id="lore" className="relative w-full py-24 bg-[#030509] text-white">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="lore" className="relative w-full py-28 bg-[#04060b] text-white overflow-hidden">
+      {/* Monumental Watermark Typography */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(5rem,15vw,16rem)] tracking-[0.12em] opacity-40 select-none pointer-events-none whitespace-nowrap z-0">
+        TERRITORIES
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-6 h-[1.5px] bg-amber-400" />
-              <span className="font-mono text-xs tracking-[0.3em] uppercase text-amber-400">
-                CHRONICLES OF CONTINENTS
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-pulse" />
+              <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-[#f3d288] font-semibold">
+                [ 04 // WORLD LORE ] • CARTOGRAPHIC REALMS
               </span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide uppercase text-white">
-              THE WORLD OF MLBB
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-white">
+              <span className="editorial-italic text-[#f3d288] font-normal mr-2">Chronicles of</span>
+              <span className="font-serif uppercase font-bold tracking-tight">The Land of Dawn</span>
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-2 max-w-xl">
-              Traverse the sacred territories of the Land of Dawn, unearthing ancient kingdoms, technological bastions, and the cosmic timeline of creation.
+            <p className="font-sans text-xs sm:text-sm text-[#94a3b8] mt-2.5 max-w-xl leading-relaxed">
+              Traverse the sacred territories of the continent, unearthing sovereign dynasties, high-tech bastions, and the cosmic timeline of creation.
             </p>
           </div>
 
-          <div className="font-mono text-xs text-zinc-400 flex items-center gap-2 bg-zinc-900/80 px-4 py-2 rounded-xl border border-zinc-800">
-            <Compass className="w-4 h-4 text-amber-400" />
-            <span>TERRITORY EXPLORER // 6 REALMS</span>
+          <div className="font-mono text-[11px] text-[#94a3b8] flex items-center gap-2.5 bg-black/50 px-4 py-2.5 rounded-full border border-white/[0.08] backdrop-blur-xl">
+            <Compass className="w-3.5 h-3.5 text-[#f3d288]" />
+            <span className="tracking-widest uppercase">REALMS // 06 SOVEREIGN TERRITORIES</span>
           </div>
         </div>
 
         {/* Interactive World Map & Region Showcase */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
           
-          {/* Left Column: Interactive Map Graphic with Territory Pins */}
-          <div className="lg:col-span-7 relative rounded-3xl overflow-hidden glass-panel border border-zinc-800 shadow-2xl aspect-[16/10] bg-[#070b14] group">
+          {/* Left Column: Interactive Map Graphic with Haute Architectural Reticle Pins */}
+          <div className="lg:col-span-7 relative rounded-3xl overflow-hidden card-awwwards crosshairs-container border border-white/[0.08] shadow-2xl aspect-[16/10] bg-[#070b14] group">
+            <div className="crosshair-tl" />
+            <div className="crosshair-tr" />
+            <div className="crosshair-bl" />
+            <div className="crosshair-br" />
+
             {/* High-Resolution Map Graphic */}
             <img
               src="/assets/images/land_of_dawn_map.jpg"
               alt="Land of Dawn Map"
-              className="w-full h-full object-cover filter brightness-85 group-hover:scale-102 transition-transform duration-700"
+              className="w-full h-full object-cover filter brightness-90 group-hover:scale-102 transition-transform duration-700"
             />
 
             {/* Dark Vignette Overlay */}
-            <div className="absolute inset-0 bg-radial from-transparent via-[#030509]/40 to-[#030509]/80 pointer-events-none" />
+            <div className="absolute inset-0 bg-radial from-transparent via-[#030509]/30 to-[#030509]/80 pointer-events-none" />
 
             {/* Expand Map to Fullscreen Lightbox Button */}
             <button
@@ -62,173 +73,196 @@ export default function LoreUniverse({ onSelectHeroByName }) {
                 audioManager.playClick();
                 setIsMapLightboxOpen(true);
               }}
-              className="absolute top-4 right-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/80 hover:bg-black border border-white/20 text-xs font-mono text-zinc-200 hover:text-amber-400 backdrop-blur transition-all cursor-pointer shadow-lg"
+              className="absolute top-4 right-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 hover:bg-black border border-white/20 text-xs font-mono text-zinc-200 hover:text-[#f3d288] backdrop-blur-xl transition-all cursor-pointer shadow-lg"
               title="Inspect full uncropped map in high resolution"
             >
               <Maximize2 className="w-3.5 h-3.5" />
               <span>FULL MAP</span>
             </button>
 
-            {/* Territory Interactive Pins */}
-            {/* Moniyan Empire */}
+            {/* Territory Architectural Reticles (Replacing Emojis with Haute Horlogerie Beacons) */}
+            {/* 01: Moniyan Empire */}
             <button
               onClick={() => handleRegionSelect(0)}
-              className="absolute top-[52%] left-[48%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer"
+              className="absolute top-[52%] left-[48%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer z-10"
             >
               <div
-                className={`w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg transition-transform ${
-                  activeRegionIndex === 0 ? 'scale-125 ring-4 ring-amber-400/50 bg-amber-500 text-black' : 'bg-black/80 text-amber-400 border border-amber-500/50'
+                className={`relative w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-mono font-bold transition-all duration-300 ${
+                  activeRegionIndex === 0
+                    ? 'scale-125 bg-[#f3d288] text-black shadow-[0_0_20px_#f3d288]'
+                    : 'bg-black/80 text-[#f3d288] border border-[#f3d288]/50 hover:scale-110'
                 }`}
               >
-                🦁
+                {activeRegionIndex === 0 && <span className="absolute inset-0 rounded-full animate-ping bg-[#f3d288]/40" />}
+                <span>I</span>
               </div>
-              <span className="mt-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-black/80 backdrop-blur text-white border border-white/10">
-                Moniyan
+              <span className="mt-1 px-2.5 py-0.5 rounded-full text-[9px] font-mono tracking-widest bg-black/85 backdrop-blur-xl text-white border border-white/[0.12] whitespace-nowrap">
+                MONIYAN
               </span>
             </button>
 
-            {/* Cadia Riverlands */}
+            {/* 02: Cadia Riverlands */}
             <button
               onClick={() => handleRegionSelect(1)}
-              className="absolute top-[68%] left-[72%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer"
+              className="absolute top-[68%] left-[72%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer z-10"
             >
               <div
-                className={`w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg transition-transform ${
-                  activeRegionIndex === 1 ? 'scale-125 ring-4 ring-emerald-400/50 bg-emerald-500 text-black' : 'bg-black/80 text-emerald-400 border border-emerald-500/50'
+                className={`relative w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-mono font-bold transition-all duration-300 ${
+                  activeRegionIndex === 1
+                    ? 'scale-125 bg-[#10b981] text-black shadow-[0_0_20px_#10b981]'
+                    : 'bg-black/80 text-[#10b981] border border-[#10b981]/50 hover:scale-110'
                 }`}
               >
-                🐉
+                {activeRegionIndex === 1 && <span className="absolute inset-0 rounded-full animate-ping bg-[#10b981]/40" />}
+                <span>II</span>
               </div>
-              <span className="mt-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-black/80 backdrop-blur text-white border border-white/10">
-                Cadia
+              <span className="mt-1 px-2.5 py-0.5 rounded-full text-[9px] font-mono tracking-widest bg-black/85 backdrop-blur-xl text-white border border-white/[0.12] whitespace-nowrap">
+                CADIA
               </span>
             </button>
 
-            {/* Eruditio */}
+            {/* 03: Eruditio */}
             <button
               onClick={() => handleRegionSelect(2)}
-              className="absolute top-[32%] left-[24%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer"
+              className="absolute top-[32%] left-[24%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer z-10"
             >
               <div
-                className={`w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg transition-transform ${
-                  activeRegionIndex === 2 ? 'scale-125 ring-4 ring-cyan-400/50 bg-cyan-500 text-black' : 'bg-black/80 text-cyan-400 border border-cyan-500/50'
+                className={`relative w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-mono font-bold transition-all duration-300 ${
+                  activeRegionIndex === 2
+                    ? 'scale-125 bg-[#06b6d4] text-black shadow-[0_0_20px_#06b6d4]'
+                    : 'bg-black/80 text-[#06b6d4] border border-[#06b6d4]/50 hover:scale-110'
                 }`}
               >
-                ⚙️
+                {activeRegionIndex === 2 && <span className="absolute inset-0 rounded-full animate-ping bg-[#06b6d4]/40" />}
+                <span>III</span>
               </div>
-              <span className="mt-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-black/80 backdrop-blur text-white border border-white/10">
-                Eruditio
+              <span className="mt-1 px-2.5 py-0.5 rounded-full text-[9px] font-mono tracking-widest bg-black/85 backdrop-blur-xl text-white border border-white/[0.12] whitespace-nowrap">
+                ERUDITIO
               </span>
             </button>
 
-            {/* Northern Vale */}
+            {/* 04: Northern Vale */}
             <button
               onClick={() => handleRegionSelect(3)}
-              className="absolute top-[22%] left-[75%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer"
+              className="absolute top-[22%] left-[75%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer z-10"
             >
               <div
-                className={`w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg transition-transform ${
-                  activeRegionIndex === 3 ? 'scale-125 ring-4 ring-sky-400/50 bg-sky-500 text-black' : 'bg-black/80 text-sky-400 border border-sky-500/50'
+                className={`relative w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-mono font-bold transition-all duration-300 ${
+                  activeRegionIndex === 3
+                    ? 'scale-125 bg-[#38bdf8] text-black shadow-[0_0_20px_#38bdf8]'
+                    : 'bg-black/80 text-[#38bdf8] border border-[#38bdf8]/50 hover:scale-110'
                 }`}
               >
-                ❄️
+                {activeRegionIndex === 3 && <span className="absolute inset-0 rounded-full animate-ping bg-[#38bdf8]/40" />}
+                <span>IV</span>
               </div>
-              <span className="mt-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-black/80 backdrop-blur text-white border border-white/10">
-                Northern Vale
+              <span className="mt-1 px-2.5 py-0.5 rounded-full text-[9px] font-mono tracking-widest bg-black/85 backdrop-blur-xl text-white border border-white/[0.12] whitespace-nowrap">
+                NORTH VALE
               </span>
             </button>
 
-            {/* Barren Lands & Abyss */}
+            {/* 05: The Abyss */}
             <button
               onClick={() => handleRegionSelect(4)}
-              className="absolute top-[75%] left-[28%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer"
+              className="absolute top-[75%] left-[28%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer z-10"
             >
               <div
-                className={`w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg transition-transform ${
-                  activeRegionIndex === 4 ? 'scale-125 ring-4 ring-rose-400/50 bg-rose-500 text-black' : 'bg-black/80 text-rose-400 border border-rose-500/50'
+                className={`relative w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-mono font-bold transition-all duration-300 ${
+                  activeRegionIndex === 4
+                    ? 'scale-125 bg-[#f43f5e] text-black shadow-[0_0_20px_#f43f5e]'
+                    : 'bg-black/80 text-[#f43f5e] border border-[#f43f5e]/50 hover:scale-110'
                 }`}
               >
-                🔥
+                {activeRegionIndex === 4 && <span className="absolute inset-0 rounded-full animate-ping bg-[#f43f5e]/40" />}
+                <span>V</span>
               </div>
-              <span className="mt-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-black/80 backdrop-blur text-white border border-white/10">
-                The Abyss
+              <span className="mt-1 px-2.5 py-0.5 rounded-full text-[9px] font-mono tracking-widest bg-black/85 backdrop-blur-xl text-white border border-white/[0.12] whitespace-nowrap">
+                THE ABYSS
               </span>
             </button>
 
-            {/* Celestial Palace */}
+            {/* 06: Celestial Palace */}
             <button
               onClick={() => handleRegionSelect(5)}
-              className="absolute top-[22%] left-[49%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer"
+              className="absolute top-[22%] left-[49%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group/pin cursor-pointer z-10"
             >
               <div
-                className={`w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg transition-transform ${
-                  activeRegionIndex === 5 ? 'scale-125 ring-4 ring-purple-400/50 bg-purple-500 text-black' : 'bg-black/80 text-purple-400 border border-purple-500/50'
+                className={`relative w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-mono font-bold transition-all duration-300 ${
+                  activeRegionIndex === 5
+                    ? 'scale-125 bg-[#c084fc] text-black shadow-[0_0_20px_#c084fc]'
+                    : 'bg-black/80 text-[#c084fc] border border-[#c084fc]/50 hover:scale-110'
                 }`}
               >
-                ✨
+                {activeRegionIndex === 5 && <span className="absolute inset-0 rounded-full animate-ping bg-[#c084fc]/40" />}
+                <span>VI</span>
               </div>
-              <span className="mt-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-black/80 backdrop-blur text-white border border-white/10">
-                Celestial Palace
+              <span className="mt-1 px-2.5 py-0.5 rounded-full text-[9px] font-mono tracking-widest bg-black/85 backdrop-blur-xl text-white border border-white/[0.12] whitespace-nowrap">
+                CELESTIAL
               </span>
             </button>
 
             {/* Bottom In-Map Legend */}
-            <div className="absolute bottom-4 left-4 z-10 bg-black/70 backdrop-blur px-3 py-1.5 rounded-xl border border-white/10 text-[10px] font-mono text-zinc-400 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-              <span>CLICK TERRITORY PIN TO INSPECT LORE</span>
+            <div className="absolute bottom-4 left-4 z-10 bg-black/75 backdrop-blur-xl px-3.5 py-1.5 rounded-full border border-white/[0.1] text-[9px] font-mono text-zinc-300 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-ping" />
+              <span>CLICK ARCHITECTURAL BEACON TO EXPAND TERRITORY</span>
             </div>
           </div>
 
-          {/* Right Column: Selected Territory Dossier */}
-          <div className="lg:col-span-5 space-y-6 bg-[#070b14]/90 p-6 sm:p-8 rounded-3xl border border-zinc-800 shadow-xl">
+          {/* Right Column: Selected Territory Dossier with Haute Styling */}
+          <div className="lg:col-span-5 space-y-6 card-awwwards crosshairs-container p-6 sm:p-8 rounded-3xl border border-white/[0.08] shadow-2xl">
+            <div className="crosshair-tl" />
+            <div className="crosshair-tr" />
+            <div className="crosshair-bl" />
+            <div className="crosshair-br" />
+
             {/* Region Selector Pills */}
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1.5 pb-2 border-b border-white/[0.06]">
               {REGIONS.map((r, idx) => (
                 <button
                   key={r.id}
                   onClick={() => handleRegionSelect(idx)}
-                  className={`px-3 py-1 rounded-lg text-xs font-mono transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-full text-[10.5px] font-mono tracking-wider transition-all duration-200 cursor-pointer ${
                     activeRegionIndex === idx
-                      ? 'bg-amber-400 text-black font-bold shadow-md'
-                      : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
+                      ? 'bg-[#f3d288] text-black font-semibold shadow-[0_0_12px_rgba(243,210,136,0.35)]'
+                      : 'bg-black/40 text-[#94a3b8] hover:text-white border border-white/[0.06] hover:bg-white/[0.06]'
                   }`}
                 >
-                  {r.crest} {r.name}
+                  {r.name}
                 </button>
               ))}
             </div>
 
             {/* Region Identity */}
-            <div className="pt-2 border-t border-zinc-800">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-2xl">{region.crest}</span>
-                <div>
-                  <span className="text-[10px] font-mono tracking-widest text-zinc-400 uppercase">
-                    CAPITAL: {region.capital}
-                  </span>
-                  <h3 className="font-serif text-2xl font-bold text-white">
-                    {region.name}
-                  </h3>
-                </div>
+            <div className="pt-1">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[9px] font-mono tracking-[0.25em] text-[#f3d288] uppercase">
+                  CAPITAL // {region.capital}
+                </span>
+                <span className="text-[9px] font-mono tracking-widest text-white/40 uppercase">
+                  SECTOR 0{activeRegionIndex + 1}
+                </span>
               </div>
-              <p className="text-xs font-mono text-amber-400 mb-3">
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                {region.name}
+              </h3>
+              <p className="text-xs font-mono text-[#f3d288] mt-0.5 mb-3">
                 {region.title}
               </p>
-              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans mb-4">
+              <p className="text-xs sm:text-sm text-[#cbd5e1] leading-relaxed font-sans mb-4">
                 {region.summary}
               </p>
             </div>
 
             {/* Prominent Factions */}
             <div>
-              <div className="text-[10px] font-mono uppercase text-zinc-400 tracking-wider mb-2">
-                DOMINANT FACTIONS & GUILDS:
+              <div className="text-[9.5px] font-mono uppercase text-[#94a3b8]/70 tracking-widest mb-2">
+                DOMINANT FACTIONS & ORDERS:
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {region.factions.map((f) => (
                   <span
                     key={f}
-                    className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-zinc-900 border border-zinc-700/80 text-zinc-300"
+                    className="px-2.5 py-1 rounded-full text-[10px] font-mono bg-black/50 border border-white/[0.08] text-[#cbd5e1]"
                   >
                     {f}
                   </span>
@@ -236,19 +270,20 @@ export default function LoreUniverse({ onSelectHeroByName }) {
               </div>
             </div>
 
-            {/* Native Heroes */}
+            {/* Native Heroes (Clickable to open detail!) */}
             <div>
-              <div className="text-[10px] font-mono uppercase text-zinc-400 tracking-wider mb-2">
-                PROMINENT NATIVE CHAMPIONS:
+              <div className="text-[9.5px] font-mono uppercase text-[#94a3b8]/70 tracking-widest mb-2">
+                NATIVE CHAMPIONS (CLICK TO CHRONICLE):
               </div>
               <div className="flex flex-wrap gap-2">
                 {region.heroes.map((hName) => (
-                  <span
+                  <button
                     key={hName}
-                    className="px-3 py-1 rounded-full text-xs font-mono bg-amber-500/10 border border-amber-500/30 text-amber-300 font-semibold"
+                    onClick={() => onSelectHeroByName && onSelectHeroByName(hName)}
+                    className="px-3 py-1 rounded-full text-xs font-mono bg-[#f3d288]/10 hover:bg-[#f3d288]/20 border border-[#f3d288]/30 hover:border-[#f3d288] text-[#f3d288] font-medium transition-all cursor-pointer"
                   >
-                    {hName}
-                  </span>
+                    {hName} →
+                  </button>
                 ))}
               </div>
             </div>

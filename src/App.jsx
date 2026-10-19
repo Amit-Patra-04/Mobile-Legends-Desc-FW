@@ -93,6 +93,9 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#030509] text-white selection:bg-amber-500/30 selection:text-amber-200">
+      {/* Cinematic Film Grain Overlay */}
+      <div className="film-grain" />
+
       {/* WebGL2 Fluid Glow Cursor Animation (MLBB Signature Theme) */}
       <div className="fixed inset-0 pointer-events-none z-[9990] overflow-hidden">
         <GlowCursor

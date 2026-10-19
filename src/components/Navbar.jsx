@@ -153,12 +153,12 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
                 >
                   <span className="link-inner">
                     <span>{link.label}</span>
-                    <span aria-hidden="true" className="text-amber-300 font-semibold">{link.label}</span>
+                    <span aria-hidden="true" className="text-[#f3d288] font-semibold">{link.label}</span>
                   </span>
 
                   {/* Clean active indicator underline without any box */}
                   {isActive && (
-                    <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-sky-300 to-amber-400 rounded-full shadow-[0_0_8px_#38bdf8]" />
+                    <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-[#38bdf8] via-[#f3d288] to-[#38bdf8] rounded-full shadow-[0_0_8px_#f3d288]" />
                   )}
                 </a>
               );
@@ -188,10 +188,10 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
                 onOpenCompare();
               }}
               onMouseEnter={() => audioManager.playHover()}
-              className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 hover:border-amber-400/60 text-[11px] font-mono text-amber-300 transition-all duration-300 group cursor-pointer shadow-[0_0_12px_rgba(245,158,11,0.15)]"
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#f3d288]/10 hover:bg-[#f3d288]/20 border border-[#f3d288]/30 hover:border-[#f3d288] text-[11px] font-mono text-[#f3d288] transition-all duration-300 group cursor-pointer shadow-[0_0_12px_rgba(243,210,136,0.15)]"
               title="Compare Champions Head-to-Head"
             >
-              <Scale className="w-3.5 h-3.5 text-amber-400 group-hover:rotate-12 transition-transform duration-200" />
+              <Scale className="w-3.5 h-3.5 text-[#f3d288] group-hover:rotate-12 transition-transform duration-200" />
               <span className="tracking-wider">COMPARE</span>
             </button>
 

@@ -37,73 +37,84 @@ const TOURNAMENTS = [
 
 export default function EsportsArena() {
   return (
-    <section className="relative w-full py-24 bg-[#030509] text-white">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="relative w-full py-28 bg-[#04060b] text-white overflow-hidden">
+      {/* Monumental Watermark Typography */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(5rem,15vw,16rem)] tracking-[0.12em] opacity-40 select-none pointer-events-none whitespace-nowrap z-0">
+        CHAMPIONS
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-6 h-[1.5px] bg-amber-400" />
-              <span className="font-mono text-xs tracking-[0.3em] uppercase text-amber-400">
-                COMPETITIVE EXCELLENCE
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-pulse" />
+              <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-[#f3d288] font-semibold">
+                [ 06 // ESPORTS CIRCUIT ] • GLOBAL CHAMPIONSHIP
               </span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide uppercase text-white">
-              THE ESPORTS CRUCIBLE
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-white">
+              <span className="editorial-italic text-[#f3d288] font-normal mr-2">Competitive</span>
+              <span className="font-serif uppercase font-bold tracking-tight">Esports Crucible</span>
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-2 max-w-xl">
-              From franchised regional MPL circuits to the prestigious M-World Championship, witness the pinnacle of 5v5 competitive mastery.
+            <p className="font-sans text-xs sm:text-sm text-[#94a3b8] mt-2.5 max-w-xl leading-relaxed">
+              From franchised regional MPL leagues to the prestigious M-World Championship, discover the highest echelon of competitive 5v5 mastery.
             </p>
           </div>
 
-          <div className="font-mono text-xs text-zinc-400 flex items-center gap-2 bg-zinc-900/80 px-4 py-2 rounded-xl border border-zinc-800">
-            <Trophy className="w-4 h-4 text-amber-400" />
-            <span>GLOBAL CIRCUIT TELEMETRY</span>
+          <div className="font-mono text-[11px] text-[#94a3b8] flex items-center gap-2.5 bg-black/50 px-4 py-2.5 rounded-full border border-white/[0.08] backdrop-blur-xl">
+            <Trophy className="w-3.5 h-3.5 text-[#f3d288]" />
+            <span className="tracking-widest uppercase">CIRCUIT // GLOBAL PRESTIGE TELEMETRY</span>
           </div>
         </div>
 
-        {/* Tournaments Grid */}
+        {/* Tournaments Grid with Corner Crosshairs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {TOURNAMENTS.map((t) => (
             <div
               key={t.title}
-              className="p-6 rounded-3xl glass-panel border border-zinc-800 hover:border-amber-500/50 transition-all duration-300 hover:shadow-2xl flex flex-col justify-between space-y-6 group"
+              className="p-7 rounded-3xl card-awwwards crosshairs-container border border-white/[0.08] flex flex-col justify-between space-y-6 group"
             >
+              <div className="crosshair-tl" />
+              <div className="crosshair-tr" />
+              <div className="crosshair-bl" />
+              <div className="crosshair-br" />
+
               <div>
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-3.5">
                   <span
-                    className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold tracking-widest uppercase"
+                    className="px-2.5 py-1 rounded-full text-[9px] font-mono font-medium tracking-widest uppercase border backdrop-blur-xl"
                     style={{
-                      backgroundColor: `${t.badgeColor}22`,
+                      backgroundColor: `${t.badgeColor}15`,
                       color: t.badgeColor,
-                      border: `1px solid ${t.badgeColor}66`,
+                      borderColor: `${t.badgeColor}40`,
                     }}
                   >
                     {t.status}
                   </span>
-                  <span className="text-[10px] font-mono text-zinc-500">{t.dates}</span>
+                  <span className="text-[10px] font-mono text-[#94a3b8]/70 tracking-wider">{t.dates}</span>
                 </div>
 
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-white group-hover:text-amber-300 transition-colors">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-white group-hover:text-[#f3d288] transition-colors duration-300">
                   {t.title}
                 </h3>
-                <p className="text-xs text-zinc-400 font-mono mt-1 mb-4">
+                <p className="text-xs text-[#94a3b8] font-mono mt-1 mb-4">
                   {t.subtitle}
                 </p>
 
-                <div className="space-y-2 pt-2 border-t border-zinc-800/80 text-xs font-mono">
+                <div className="space-y-2 pt-3 border-t border-white/[0.06] text-xs font-mono">
                   <div className="flex justify-between">
-                    <span className="text-zinc-500">CIRCUIT REGIONS:</span>
-                    <span className="text-white font-bold">{t.region}</span>
+                    <span className="text-[#94a3b8]">CIRCUIT REGIONS:</span>
+                    <span className="text-white font-medium">{t.region}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-zinc-500">PRIZE POOL:</span>
-                    <span className="text-amber-400 font-bold">{t.prizePool}</span>
+                    <span className="text-[#94a3b8]">PRIZE POOL:</span>
+                    <span className="text-[#f3d288] font-bold">{t.prizePool}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-zinc-500">REIGNING CHAMPION:</span>
-                    <span className="text-zinc-200 truncate max-w-[160px]">{t.currentChampion}</span>
+                    <span className="text-[#94a3b8]">CHAMPION:</span>
+                    <span className="text-white truncate max-w-[160px]">{t.currentChampion}</span>
                   </div>
                 </div>
               </div>

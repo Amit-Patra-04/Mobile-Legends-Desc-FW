@@ -64,38 +64,48 @@ export default function HeroArchive({
   };
 
   return (
-    <section id="heroes" className="relative w-full py-24 bg-[#030509] text-white">
-      {/* Background Accent Mesh */}
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl pointer-events-none" />
+    <section id="heroes" className="relative w-full py-28 bg-[#04060b] text-white overflow-hidden">
+      {/* Monumental Watermark Typography */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(5rem,15vw,16rem)] tracking-[0.12em] opacity-40 select-none pointer-events-none whitespace-nowrap z-0">
+        CHAMPIONS
+      </div>
 
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Atmospheric Ambient Glows */}
+      <div className="absolute top-1/4 left-0 w-[32rem] h-[32rem] bg-[#f3d288]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-[32rem] h-[32rem] bg-[#38bdf8]/5 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-6 h-[1.5px] bg-amber-400" />
-              <span className="font-mono text-xs tracking-[0.3em] uppercase text-amber-400">
-                ROSTER OF LEGENDS
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-pulse" />
+              <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-[#f3d288] font-semibold">
+                [ 02 // ARCHIVE ] • CANONICAL CODEX
               </span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide uppercase text-white">
-              THE HERO ARCHIVE
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-white">
+              <span className="editorial-italic text-[#f3d288] font-normal mr-2">Roster of</span>
+              <span className="font-serif uppercase font-bold tracking-tight">The Land of Dawn</span>
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-2 max-w-xl">
-              Discover champion origins, tactical battle roles, verified lane specialities, and combat attributes across all kingdoms of the Land of Dawn.
+            <p className="font-sans text-xs sm:text-sm text-[#94a3b8] mt-2.5 max-w-xl leading-relaxed">
+              Explore tactical battle specialities, verified lane affinities, sovereign faction origins, and high-tier combat attributes across all 133 legendary champions.
             </p>
           </div>
 
-          <div className="font-mono text-xs text-zinc-400 flex items-center gap-2 bg-zinc-900/80 px-4 py-2 rounded-xl border border-zinc-800">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>SHOWING {filteredHeroes.length} OF {HEROES.length} CHAMPIONS</span>
+          <div className="font-mono text-[11px] text-[#94a3b8] flex items-center gap-2.5 bg-black/50 px-4 py-2.5 rounded-full border border-white/[0.08] backdrop-blur-xl">
+            <Sparkles className="w-3.5 h-3.5 text-[#f3d288]" />
+            <span className="tracking-widest uppercase">CATALOGUE // {filteredHeroes.length} OF {HEROES.length} CHAMPIONS</span>
           </div>
         </div>
 
-        {/* Filter Controls Bar */}
-        <div className="bg-[#070b14]/90 backdrop-blur-md p-5 rounded-2xl border border-zinc-800/90 shadow-2xl space-y-4 mb-10">
+        {/* Filter Controls Bar with Haute Corner Crosshairs */}
+        <div className="card-awwwards crosshairs-container p-6 rounded-2xl border border-white/[0.08] shadow-2xl space-y-5 mb-12">
+          <div className="crosshair-tl" />
+          <div className="crosshair-tr" />
+          <div className="crosshair-bl" />
+          <div className="crosshair-br" />
           
           {/* Search & Sort Row */}
           <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
@@ -163,10 +173,10 @@ export default function HeroArchive({
                   audioManager.playClick();
                   setSelectedRole(r);
                 }}
-                className={`px-3 py-1 rounded-lg text-xs font-mono tracking-wider transition-all cursor-pointer ${
+                className={`px-3 py-1 rounded-full text-xs font-mono tracking-wider transition-all duration-200 cursor-pointer ${
                   selectedRole === r
-                    ? 'bg-amber-500 text-black font-bold shadow-[0_0_12px_rgba(234,179,8,0.5)]'
-                    : 'bg-zinc-900/80 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 border border-zinc-800'
+                    ? 'bg-[#f3d288] text-black font-semibold shadow-[0_0_15px_rgba(243,210,136,0.35)]'
+                    : 'bg-black/40 hover:bg-white/[0.06] text-[#94a3b8] hover:text-white border border-white/[0.06]'
                 }`}
               >
                 {r}
@@ -176,7 +186,7 @@ export default function HeroArchive({
 
           {/* Lane Filter Pills */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-mono tracking-widest text-zinc-500 mr-2 uppercase">
+            <span className="text-[10px] font-mono tracking-widest text-[#94a3b8]/60 mr-2 uppercase">
               LANE:
             </span>
             {lanes.map((lane) => (
@@ -186,10 +196,10 @@ export default function HeroArchive({
                   audioManager.playClick();
                   setSelectedLane(lane);
                 }}
-                className={`px-2.5 py-0.5 rounded-md text-[11px] font-mono tracking-wider transition-all cursor-pointer ${
+                className={`px-3 py-1 rounded-full text-[11px] font-mono tracking-wider transition-all duration-200 cursor-pointer ${
                   selectedLane === lane
-                    ? 'bg-cyan-500 text-black font-bold shadow-[0_0_10px_rgba(6,182,212,0.4)]'
-                    : 'bg-zinc-900/60 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 border border-zinc-800/80'
+                    ? 'bg-[#38bdf8] text-black font-semibold shadow-[0_0_15px_rgba(56,189,248,0.35)]'
+                    : 'bg-black/40 hover:bg-white/[0.06] text-[#94a3b8] hover:text-white border border-white/[0.06]'
                 }`}
               >
                 {lane}
