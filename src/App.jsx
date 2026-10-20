@@ -101,11 +101,12 @@ export default function App() {
         <GlowCursor
           color="#ffb800"
           secondaryColor="#f97316"
-          intensity={1.6}
-          trailWidth={3.8}
-          linger={1.5}
-          glow={1.4}
-          hotspot={0.9}
+          intensity={1.2}
+          trailWidth={2.8}
+          linger={0.6}
+          glow={1.0}
+          hotspot={0.8}
+          maxDevicePixelRatio={1}
           clickBurst
           theme="dark"
           className="w-full h-full pointer-events-none"

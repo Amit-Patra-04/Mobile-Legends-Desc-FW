@@ -144,6 +144,21 @@ export default function HeroModelChamber({ initialHeroId }) {
   const [accentColor, setAccentColor] = useState(selectedHero.themeColor);
   const [viewMode, setViewMode] = useState('3d'); // '3d' or 'artwork'
   const controlsRef = useRef();
+  const sectionRef = useRef(null);
+  const [isChamberVisible, setIsChamberVisible] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setIsChamberVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsChamberVisible(entry.isIntersecting);
+    }, { threshold: 0 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (initialHeroId) {
@@ -169,7 +184,7 @@ export default function HeroModelChamber({ initialHeroId }) {
   };
 
   return (
-    <section id="chamber" className="relative w-full py-24 bg-[#030509] text-white">
+    <section ref={sectionRef} id="chamber" className="relative w-full py-24 bg-[#030509] text-white">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Header */}
@@ -191,7 +206,7 @@ export default function HeroModelChamber({ initialHeroId }) {
 
           {/* Quick Roster Selector */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            {HEROES.map((h) => (
+            {HEROES.slice(0, 18).map((h) => (
               <button
                 key={h.id}
                 onClick={() => handleSelectHero(h)}
@@ -283,6 +298,7 @@ export default function HeroModelChamber({ initialHeroId }) {
           <div className="absolute inset-0 z-10">
             {viewMode === '3d' ? (
               <Canvas
+                frameloop={isChamberVisible ? 'always' : 'never'}
                 camera={{ position: [0, 1.2, 5.5], fov: 45 }}
                 className="w-full h-full cursor-grab active:cursor-grabbing"
               >

@@ -544,14 +544,14 @@
 
 /* Luxury Awwwards Glass & Card Architecture */
 .card-awwwards {
-  background: rgba(6, 10, 20, 0.65);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  background: rgba(6, 10, 20, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 
     0 20px 40px -15px rgba(0, 0, 0, 0.7),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 520px;
 }
 
 .card-awwwards:hover {
@@ -611,14 +611,9 @@
   pointer-events: none;
 }
 
-/* Subtle Film Grain Texture Overlay */
+/* Subtle Film Grain Texture Overlay (Optimized) */
 .film-grain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9998;
-  opacity: 0.022;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  display: none;
 }
 
 /* Laser Timeline Rail */
@@ -731,5 +726,100 @@ a:hover .link-inner span:last-child {
   transform: translateY(0);
 }
 
+/* ==========================================================================
+   Permanent Luxury Animated Poster Mechanics for All 133 Heroes
+   ========================================================================== */
 
+@keyframes poster-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
 
+.animate-poster-marquee {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: poster-marquee 24s linear infinite;
+  will-change: transform;
+}
+
+.animate-poster-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes poster-mote-rise {
+  0% {
+    transform: translate3d(0, 110%, 0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.85;
+  }
+  75% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate3d(0, -90%, 0) scale(1.15);
+    opacity: 0;
+  }
+}
+
+.poster-particle {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  animation: poster-mote-rise linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes poster-aura-pulse {
+  0%, 100% {
+    transform: scale(0.94);
+    opacity: 0.22;
+  }
+  50% {
+    transform: scale(1.14);
+    opacity: 0.42;
+  }
+}
+
+.animate-poster-aura {
+  animation: poster-aura-pulse 5.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes poster-rune-pulse {
+  0%, 100% {
+    box-shadow: 0 0 6px var(--rune-glow, rgba(243, 210, 136, 0.3));
+  }
+  50% {
+    box-shadow: 0 0 16px var(--rune-glow, rgba(243, 210, 136, 0.7));
+  }
+}
+
+.animate-rune-pulse {
+  animation: poster-rune-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes poster-scanline-sweep {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+.poster-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(243, 210, 136, 0.45), transparent);
+  animation: poster-scanline-sweep 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  opacity: 0.4;
+}

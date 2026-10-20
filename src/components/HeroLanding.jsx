@@ -168,6 +168,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
   const rendererRef = useRef(null);
   const beaconGroupRef = useRef(null);
   const pulsesRef = useRef([]);
+  const isSectionInView = useRef(true);
 
   // MATHEMATICALLY STABLE CAMERA FLIGHT:
   // Viewing direction vector is 100% LOCKED to a constant orientation along the Mid-Lane!
@@ -986,8 +987,22 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     const targetVec = new THREE.Vector3();
     const camTargetPos = new THREE.Vector3();
 
+    // Performance Optimization: IntersectionObserver to pause 3D scene when offscreen
+    let sectionObserver;
+    const trackEl = trackRef.current;
+    if (trackEl && typeof IntersectionObserver !== 'undefined') {
+      sectionObserver = new IntersectionObserver(([entry]) => {
+        isSectionInView.current = entry.isIntersecting;
+      }, { threshold: 0 });
+      sectionObserver.observe(trackEl);
+    }
+
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
+
+      // Skip heavy 3D WebGL render if scrolled off-screen!
+      if (!isSectionInView.current) return;
+
       const delta = clock.getDelta();
       const time = clock.getElapsedTime();
 
@@ -1090,6 +1105,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      if (sectionObserver) sectionObserver.disconnect();
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
       terrainGeo.dispose();
