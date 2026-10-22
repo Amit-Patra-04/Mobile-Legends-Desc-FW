@@ -15,7 +15,7 @@ export default function HeroArchive({
   const [selectedLane, setSelectedLane] = useState('ALL');
   const [selectedDifficulty, setSelectedDifficulty] = useState('ALL');
   const [sortBy, setSortBy] = useState('default');
-  const [displayCount, setDisplayCount] = useState(24);
+  const [displayCount, setDisplayCount] = useState(32);
   const sentinelRef = useRef(null);
 
   const roles = ['ALL', 'Tank', 'Fighter', 'Assassin', 'Mage', 'Marksman', 'Support'];
@@ -24,7 +24,7 @@ export default function HeroArchive({
 
   // Reset display count when any filter changes
   useEffect(() => {
-    setDisplayCount(24);
+    setDisplayCount(32);
   }, [searchQuery, selectedRole, selectedLane, selectedDifficulty, sortBy]);
 
   const filteredHeroes = useMemo(() => {
@@ -69,7 +69,7 @@ export default function HeroArchive({
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          setDisplayCount((prev) => Math.min(prev + 24, filteredHeroes.length));
+          setDisplayCount((prev) => Math.min(prev + 32, filteredHeroes.length));
         }
       },
       { rootMargin: '350px' }
@@ -90,7 +90,7 @@ export default function HeroArchive({
     setSelectedLane('ALL');
     setSelectedDifficulty('ALL');
     setSortBy('default');
-    setDisplayCount(24);
+    setDisplayCount(32);
   };
 
   return (
@@ -274,11 +274,11 @@ export default function HeroArchive({
                   <button
                     onClick={() => {
                       audioManager.playClick();
-                      setDisplayCount((prev) => Math.min(prev + 24, filteredHeroes.length));
+                      setDisplayCount((prev) => Math.min(prev + 32, filteredHeroes.length));
                     }}
                     className="flex items-center gap-2 px-6 py-2.5 rounded-full font-mono text-xs text-black font-bold bg-[#f3d288] hover:bg-[#ffe5a3] transition-all cursor-pointer shadow-lg shadow-[#f3d288]/10"
                   >
-                    <span>DISCOVER MORE (+24)</span>
+                    <span>DISCOVER MORE (+32)</span>
                     <ArrowDown className="w-3.5 h-3.5" />
                   </button>
                   <button

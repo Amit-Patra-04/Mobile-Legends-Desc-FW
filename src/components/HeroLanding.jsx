@@ -168,7 +168,6 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
   const rendererRef = useRef(null);
   const beaconGroupRef = useRef(null);
   const pulsesRef = useRef([]);
-  const isSectionInView = useRef(true);
 
   // MATHEMATICALLY STABLE CAMERA FLIGHT:
   // Viewing direction vector is 100% LOCKED to a constant orientation along the Mid-Lane!
@@ -402,25 +401,90 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     });
     const terrainMesh = new THREE.Mesh(terrainGeo, terrainMat);
     terrainMesh.rotation.x = -Math.PI / 2; // Horizontal X-Z plane!
+    terrainMesh.position.set(0, 0.05, 0); // Elevated to sit cleanly above underlying bedrock
     scene.add(terrainMesh);
 
-    // 7. SIDES OF THE MAP (Vertical Bedrock Bastion Foundation)
-    const foundationGeo = new THREE.BoxGeometry(124, 32.0, 70.0);
+    // 7. ENHANCED CELESTIAL ISLAND ARCHITECTURE & BEDROCK FOUNDATION
+    // Foundation sits strictly beneath the terrain plane (y <= 0) to guarantee
+    // 100% unobstructed, crystal-clear visibility of the 4K official map artwork.
+    const islandGroup = new THREE.Group();
+    scene.add(islandGroup);
+
+    // Bedrock monolith foundation block beneath the arena
     const foundationMat = new THREE.MeshStandardMaterial({
-      color: 0x121924,
-      roughness: 0.9,
+      color: 0x111827,
+      roughness: 0.92,
+      metalness: 0.18
+    });
+    const foundationGeo = new THREE.BoxGeometry(120.0, 24.0, 66.182);
+    const foundationMesh = new THREE.Mesh(foundationGeo, foundationMat);
+    foundationMesh.position.set(0, -12.0, 0); // Top is at y = 0.0, cleanly beneath terrain at y = 0.05
+    islandGroup.add(foundationMesh);
+
+    // Deep mountain keel (Inverted mountain crag tapering gracefully into the celestial clouds)
+    const islandKeelGeo = new THREE.CylinderGeometry(44, 8, 22, 12);
+    const islandKeel = new THREE.Mesh(islandKeelGeo, foundationMat);
+    islandKeel.position.set(0, -25.0, 0); // Directly connects to bottom of foundation at y = -14.0
+    islandGroup.add(islandKeel);
+
+    // Architectural Perimeter Framing Beams (Placed strictly around outer borders; zero occlusion of map floor)
+    const borderGoldMat = new THREE.MeshStandardMaterial({
+      color: 0xd97706,
+      roughness: 0.35,
+      metalness: 0.85
+    });
+    const borderLongGeo = new THREE.BoxGeometry(120.6, 0.25, 0.45);
+    const borderShortGeo = new THREE.BoxGeometry(0.45, 0.25, 66.6);
+
+    const borderNorth = new THREE.Mesh(borderLongGeo, borderGoldMat);
+    borderNorth.position.set(0, 0.06, -33.3);
+    islandGroup.add(borderNorth);
+
+    const borderSouth = new THREE.Mesh(borderLongGeo, borderGoldMat);
+    borderSouth.position.set(0, 0.06, 33.3);
+    islandGroup.add(borderSouth);
+
+    const borderWest = new THREE.Mesh(borderShortGeo, borderGoldMat);
+    borderWest.position.set(-60.3, 0.06, 0);
+    islandGroup.add(borderWest);
+
+    const borderEast = new THREE.Mesh(borderShortGeo, borderGoldMat);
+    borderEast.position.set(60.3, 0.06, 0);
+    islandGroup.add(borderEast);
+
+    // Floating Celestial Satellite Crags (Orbiting rock fragments around sanctuary perimeter)
+    const satelliteCrags = [];
+    const cragMat = new THREE.MeshStandardMaterial({
+      color: 0x1e293b,
+      roughness: 0.88,
       metalness: 0.2
     });
-    const foundationMesh = new THREE.Mesh(foundationGeo, foundationMat);
-    foundationMesh.position.y = -16.0;
-    scene.add(foundationMesh);
+    const cragGeo1 = new THREE.DodecahedronGeometry(3.2, 0);
+    const cragGeo2 = new THREE.DodecahedronGeometry(2.4, 0);
 
-    // Cascading Edge Waterfalls
+    const cragPositions = [
+      { pos: [-67, -10, -26], scale: 1.1, rotSpeed: 0.3 },
+      { pos: [67, -12, 26], scale: 1.2, rotSpeed: -0.25 },
+      { pos: [44, -14, -38], scale: 0.9, rotSpeed: 0.35 },
+      { pos: [-42, -14, 38], scale: 0.85, rotSpeed: -0.2 }
+    ];
+
+    cragPositions.forEach((cp, idx) => {
+      const crag = new THREE.Mesh(idx % 2 === 0 ? cragGeo1 : cragGeo2, cragMat);
+      crag.position.set(cp.pos[0], cp.pos[1], cp.pos[2]);
+      crag.scale.setScalar(cp.scale);
+      islandGroup.add(crag);
+      satelliteCrags.push({ mesh: crag, baseY: cp.pos[1], speed: cp.rotSpeed, offset: idx });
+    });
+
+    // Cascading Edge Mana Falls
     const waterfallMat = new THREE.MeshStandardMaterial({
-      color: 0x7dd3fc,
+      color: 0x38bdf8,
+      emissive: 0x0284c7,
+      emissiveIntensity: 0.4,
       roughness: 0.1,
       transparent: true,
-      opacity: 0.75
+      opacity: 0.72
     });
     const wfGeo = new THREE.PlaneGeometry(8.0, 30.0);
     const wfLeft = new THREE.Mesh(wfGeo, waterfallMat);
@@ -521,224 +585,36 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     cloudSea.position.y = -28.0;
     scene.add(cloudSea);
 
-    // 12. AUTHENTIC MLBB DEFENSE TURRETS ACROSS ALL 3 LANES
-    // Scaled precisely to the original Mobile Legends game proportions:
-    // Base fits within the painted 1.8-unit stone foundation pad.
-    // Sleek octagonal spire, golden eagle wings (Moniyan) or dragon claws (Abyssal),
-    // levitating glowing power crystal, orbiting halo ring, and in-game defense attack range ground circle!
-    const turretGroup = new THREE.Group();
-    scene.add(turretGroup);
-
-    const animatedTurrets = [];
-
-    const ALL_TURRETS = [
-      // MID LANE (Primary Clash Corridor)
-      { id: 'mid_blue_t1', pos: [-10.2, 0.04, 4.4], color: 0x38bdf8, isRed: false, isOuter: true },
-      { id: 'mid_blue_t2', pos: [-19.2, 0.04, 8.2], color: 0x38bdf8, isRed: false, isOuter: false },
-      { id: 'mid_blue_t3', pos: [-28.2, 0.04, 12.2], color: 0x38bdf8, isRed: false, isOuter: false },
-      { id: 'mid_red_t1',  pos: [10.2, 0.04, -4.4], color: 0xef4444, isRed: true, isOuter: true },
-      { id: 'mid_red_t2',  pos: [19.2, 0.04, -8.2], color: 0xef4444, isRed: true, isOuter: false },
-      { id: 'mid_red_t3',  pos: [28.2, 0.04, -12.2], color: 0xef4444, isRed: true, isOuter: false },
-
-      // TOP LANE
-      { id: 'top_blue_t1', pos: [-6.0, 0.04, -18.5], color: 0x38bdf8, isRed: false, isOuter: true },
-      { id: 'top_blue_t2', pos: [-18.5, 0.04, -18.5], color: 0x38bdf8, isRed: false, isOuter: false },
-      { id: 'top_blue_t3', pos: [-31.0, 0.04, -13.5], color: 0x38bdf8, isRed: false, isOuter: false },
-      { id: 'top_red_t1',  pos: [6.0, 0.04, -18.5], color: 0xef4444, isRed: true, isOuter: true },
-      { id: 'top_red_t2',  pos: [18.5, 0.04, -18.5], color: 0xef4444, isRed: true, isOuter: false },
-      { id: 'top_red_t3',  pos: [31.0, 0.04, -18.5], color: 0xef4444, isRed: true, isOuter: false },
-
-      // BOTTOM LANE
-      { id: 'bot_blue_t1', pos: [-6.0, 0.04, 18.5], color: 0x38bdf8, isRed: false, isOuter: true },
-      { id: 'bot_blue_t2', pos: [-18.5, 0.04, 18.5], color: 0x38bdf8, isRed: false, isOuter: false },
-      { id: 'bot_blue_t3', pos: [-31.0, 0.04, 18.5], color: 0x38bdf8, isRed: false, isOuter: false },
-      { id: 'bot_red_t1',  pos: [6.0, 0.04, 18.5], color: 0xef4444, isRed: true, isOuter: true },
-      { id: 'bot_red_t2',  pos: [18.5, 0.04, 18.5], color: 0xef4444, isRed: true, isOuter: false },
-      { id: 'bot_red_t3',  pos: [31.0, 0.04, 13.5], color: 0xef4444, isRed: true, isOuter: false }
-    ];
-
-    // Shared Geometries & Materials scaled exactly to MLBB game proportions
-    const tBaseT1Geo = new THREE.CylinderGeometry(0.72, 0.88, 0.18, 8);
-    const tTrimGeo = new THREE.CylinderGeometry(0.74, 0.74, 0.04, 8);
-    const tBaseT2Geo = new THREE.CylinderGeometry(0.52, 0.68, 0.18, 8);
-    const tButtressGeo = new THREE.BoxGeometry(0.14, 0.32, 0.28);
-    const tColGeo = new THREE.CylinderGeometry(0.32, 0.46, 1.35, 8);
-    const tCapitalGeo = new THREE.CylinderGeometry(0.48, 0.35, 0.18, 8);
-    const tWingGeo = new THREE.BoxGeometry(0.08, 0.75, 0.18);
-    const tWingTipGeo = new THREE.ConeGeometry(0.06, 0.28, 4);
-    const tCrystalGeo = new THREE.OctahedronGeometry(0.36, 0);
-    const tHaloGeo = new THREE.TorusGeometry(0.55, 0.03, 8, 24);
-    const tGroundRuneGeo = new THREE.RingGeometry(0.75, 0.92, 32);
-    const tRangeCircleGeo = new THREE.RingGeometry(2.76, 2.84, 48);
-    const tRangeInnerGeo = new THREE.RingGeometry(0.1, 2.76, 32);
-    const tShieldGeo = new THREE.BoxGeometry(0.32, 0.52, 0.08);
-    const tShieldEmblemGeo = new THREE.BoxGeometry(0.12, 0.12, 0.1);
-    const tConduitGeo = new THREE.BoxGeometry(0.04, 1.25, 0.04);
-
-    const blueStoneMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.65, metalness: 0.25 });
+    // 12. STRATEGIC LEY-LINE GLYPHS & SOVEREIGN MATERIALS
+    // Reusable materials used by the sovereign Core Nexuses
     const blueGoldMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.25, metalness: 0.85 });
-    const redStoneMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.75, metalness: 0.3 });
     const redMetalMat = new THREE.MeshStandardMaterial({ color: 0x7f1d1d, roughness: 0.3, metalness: 0.8 });
 
-    ALL_TURRETS.forEach((t, idx) => {
-      const tower = new THREE.Group();
-      const isRed = t.isRed;
-      const tColor = new THREE.Color(t.color);
-      const stoneMat = isRed ? redStoneMat : blueStoneMat;
-      const trimMat = isRed ? redMetalMat : blueGoldMat;
-
-      // 1. In-Game Turret Attack Range Circle on Ground
-      const rangeMat = new THREE.MeshBasicMaterial({
-        color: tColor,
-        transparent: true,
-        opacity: 0.35,
-        side: THREE.DoubleSide
-      });
-      const rangeCircle = new THREE.Mesh(tRangeCircleGeo, rangeMat);
-      rangeCircle.rotation.x = -Math.PI / 2;
-      rangeCircle.position.y = 0.02;
-      tower.add(rangeCircle);
-
-      const rangeInnerMat = new THREE.MeshBasicMaterial({
-        color: tColor,
-        transparent: true,
-        opacity: 0.04,
-        side: THREE.DoubleSide
-      });
-      const rangeInner = new THREE.Mesh(tRangeInnerGeo, rangeInnerMat);
-      rangeInner.rotation.x = -Math.PI / 2;
-      rangeInner.position.y = 0.015;
-      tower.add(rangeInner);
-
-      // 2. Base Pedestal Ground Runic Ring
-      const groundRuneMat = new THREE.MeshBasicMaterial({
-        color: tColor,
-        transparent: true,
-        opacity: 0.75,
-        side: THREE.DoubleSide
-      });
-      const groundRune = new THREE.Mesh(tGroundRuneGeo, groundRuneMat);
-      groundRune.rotation.x = -Math.PI / 2;
-      groundRune.position.y = 0.03;
-      tower.add(groundRune);
-
-      // 3. Stepped Plinths
-      const base1 = new THREE.Mesh(tBaseT1Geo, stoneMat);
-      base1.position.y = 0.09;
-      tower.add(base1);
-
-      const trim1 = new THREE.Mesh(tTrimGeo, trimMat);
-      trim1.position.y = 0.19;
-      tower.add(trim1);
-
-      const base2 = new THREE.Mesh(tBaseT2Geo, stoneMat);
-      base2.position.y = 0.28;
-      tower.add(base2);
-
-      for (let b = 0; b < 4; b++) {
-        const ang = (b * Math.PI) / 2 + Math.PI / 4;
-        const buttress = new THREE.Mesh(tButtressGeo, stoneMat);
-        buttress.position.set(Math.cos(ang) * 0.58, 0.24, Math.sin(ang) * 0.58);
-        buttress.rotation.y = -ang;
-        tower.add(buttress);
-      }
-
-      // 4. Main Column Shaft & Power Conduits
-      const col = new THREE.Mesh(tColGeo, stoneMat);
-      col.position.y = 0.95;
-      tower.add(col);
-
-      const conduitMat = new THREE.MeshStandardMaterial({
-        color: tColor,
-        emissive: tColor,
-        emissiveIntensity: 1.4
-      });
-      for (let c = 0; c < 4; c++) {
-        const ang = (c * Math.PI) / 2;
-        const conduit = new THREE.Mesh(tConduitGeo, conduitMat);
-        conduit.position.set(Math.cos(ang) * 0.35, 0.95, Math.sin(ang) * 0.35);
-        conduit.rotation.y = -ang;
-        tower.add(conduit);
-      }
-
-      // 5. Capital Platform
-      const capital = new THREE.Mesh(tCapitalGeo, stoneMat);
-      capital.position.y = 1.7;
-      tower.add(capital);
-
-      // 6. Eagle Wings (Moniyan) / Dragon Claws (Abyssal)
-      for (let w = 0; w < 4; w++) {
-        const ang = (w * Math.PI) / 2;
-        const wingPivot = new THREE.Group();
-        wingPivot.position.set(0, 1.7, 0);
-        wingPivot.rotation.y = ang;
-
-        const wingArm = new THREE.Mesh(tWingGeo, trimMat);
-        wingArm.position.set(0.42, 0.35, 0);
-        wingArm.rotation.z = -0.22;
-
-        const wingTip = new THREE.Mesh(tWingTipGeo, trimMat);
-        wingTip.position.set(0.49, 0.78, 0);
-        wingTip.rotation.z = 0.15;
-
-        wingPivot.add(wingArm);
-        wingPivot.add(wingTip);
-        tower.add(wingPivot);
-      }
-
-      // 7. Levitating Power Crystal Core
-      const crystalMat = new THREE.MeshStandardMaterial({
-        color: tColor,
-        emissive: tColor,
-        emissiveIntensity: 2.2,
-        roughness: 0.1,
-        metalness: 0.95
-      });
-      const crystal = new THREE.Mesh(tCrystalGeo, crystalMat);
-      crystal.position.y = 2.15;
-      tower.add(crystal);
-
-      // 8. Orbiting Runic Energy Halo Ring
-      const haloMat = new THREE.MeshBasicMaterial({
-        color: tColor,
-        transparent: true,
-        opacity: 0.85
-      });
-      const halo = new THREE.Mesh(tHaloGeo, haloMat);
-      halo.position.y = 2.15;
-      halo.rotation.x = Math.PI / 4;
-      tower.add(halo);
-
-      // 9. Outer Turret Heraldic Shield Crest
-      if (t.isOuter) {
-        const shieldGroup = new THREE.Group();
-        const shieldPlate = new THREE.Mesh(tShieldGeo, stoneMat);
-        const shieldEmblem = new THREE.Mesh(tShieldEmblemGeo, trimMat);
-        shieldPlate.position.set(0, 0, 0.4);
-        shieldEmblem.position.set(0, 0, 0.44);
-        shieldGroup.add(shieldPlate);
-        shieldGroup.add(shieldEmblem);
-        shieldGroup.position.y = 1.0;
-        shieldGroup.rotation.y = isRed ? Math.PI / 4 : -3 * Math.PI / 4;
-        tower.add(shieldGroup);
-      }
-
-      // 10. Balanced Dynamic Point Light
-      const tLight = new THREE.PointLight(t.color, 1.1, 8, 2.0);
-      tLight.position.y = 2.2;
-      tower.add(tLight);
-
-      tower.position.set(t.pos[0], t.pos[1], t.pos[2]);
-      turretGroup.add(tower);
-
-      animatedTurrets.push({
-        crystal,
-        halo,
-        groundRune,
-        baseY: 2.15,
-        offset: idx * 0.5
-      });
+    // Arcane River Convergence Disc (Center Mid-Lane River Crossing)
+    // Subtle, elegant energy glyph flush with the battlefield ground (zero obstruction to 4K map artwork)
+    const centerRuneGeo = new THREE.RingGeometry(2.4, 3.8, 32);
+    const centerRuneMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
+      transparent: true,
+      opacity: 0.35,
+      side: THREE.DoubleSide
     });
+    const centerRune = new THREE.Mesh(centerRuneGeo, centerRuneMat);
+    centerRune.rotation.x = -Math.PI / 2;
+    centerRune.position.set(0, 0.04, 0);
+    scene.add(centerRune);
+
+    const centerCoreGeo = new THREE.RingGeometry(0.2, 1.8, 32);
+    const centerCoreMat = new THREE.MeshBasicMaterial({
+      color: 0xa855f7,
+      transparent: true,
+      opacity: 0.25,
+      side: THREE.DoubleSide
+    });
+    const centerCore = new THREE.Mesh(centerCoreGeo, centerCoreMat);
+    centerCore.rotation.x = -Math.PI / 2;
+    centerCore.position.set(0, 0.045, 0);
+    scene.add(centerCore);
 
     // 13. PROPORTIONAL 3D NEXUS BASES
     // Moniyan Blue Nexus at (-38.2, 0.05, 17.8)
@@ -987,21 +863,8 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     const targetVec = new THREE.Vector3();
     const camTargetPos = new THREE.Vector3();
 
-    // Performance Optimization: IntersectionObserver to pause 3D scene when offscreen
-    let sectionObserver;
-    const trackEl = trackRef.current;
-    if (trackEl && typeof IntersectionObserver !== 'undefined') {
-      sectionObserver = new IntersectionObserver(([entry]) => {
-        isSectionInView.current = entry.isIntersecting;
-      }, { threshold: 0 });
-      sectionObserver.observe(trackEl);
-    }
-
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
-
-      // Skip heavy 3D WebGL render if scrolled off-screen!
-      if (!isSectionInView.current) return;
 
       const delta = clock.getDelta();
       const time = clock.getElapsedTime();
@@ -1037,13 +900,12 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       camera.up.set(0, 1, 0);
       camera.lookAt(targetVec.x, targetVec.y, targetVec.z);
 
-      // Animate turret hovering crystals, orbiting halos, and rotating ground runes
-      animatedTurrets.forEach((turret) => {
-        turret.crystal.rotation.y += delta * 1.5;
-        turret.crystal.position.y = turret.baseY + Math.sin(time * 2.2 + turret.offset) * 0.08;
-        turret.halo.rotation.x += delta * 1.2;
-        turret.halo.rotation.z += delta * 0.9;
-        turret.groundRune.rotation.z += delta * 0.35;
+      // Animate strategic river glyphs and floating satellite crags
+      centerRune.rotation.z += delta * 0.25;
+      centerCore.rotation.z -= delta * 0.35;
+      satelliteCrags.forEach((sc) => {
+        sc.mesh.rotation.y += delta * sc.speed;
+        sc.mesh.position.y = sc.baseY + Math.sin(time * 1.4 + sc.offset) * 0.25;
       });
 
       // Animate crystal nexuses and auras
@@ -1105,13 +967,25 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      if (sectionObserver) sectionObserver.disconnect();
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
       terrainGeo.dispose();
       terrainMat.dispose();
       foundationGeo.dispose();
       foundationMat.dispose();
+      islandKeelGeo.dispose();
+      borderLongGeo.dispose();
+      borderShortGeo.dispose();
+      borderGoldMat.dispose();
+      cragMat.dispose();
+      cragGeo1.dispose();
+      cragGeo2.dispose();
+      wfGeo.dispose();
+      waterfallMat.dispose();
+      centerRuneGeo.dispose();
+      centerRuneMat.dispose();
+      centerCoreGeo.dispose();
+      centerCoreMat.dispose();
       abyssalAuraGeo.dispose();
       abyssalAuraMat.dispose();
       moniyanAuraGeo.dispose();
@@ -1121,25 +995,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       cloudSeaGeo.dispose();
       cloudSeaMat.dispose();
       mapTexture.dispose();
-      tBaseT1Geo.dispose();
-      tTrimGeo.dispose();
-      tBaseT2Geo.dispose();
-      tButtressGeo.dispose();
-      tColGeo.dispose();
-      tCapitalGeo.dispose();
-      tWingGeo.dispose();
-      tWingTipGeo.dispose();
-      tCrystalGeo.dispose();
-      tHaloGeo.dispose();
-      tGroundRuneGeo.dispose();
-      tRangeCircleGeo.dispose();
-      tRangeInnerGeo.dispose();
-      tShieldGeo.dispose();
-      tShieldEmblemGeo.dispose();
-      tConduitGeo.dispose();
-      blueStoneMat.dispose();
       blueGoldMat.dispose();
-      redStoneMat.dispose();
       redMetalMat.dispose();
       fountainGeo.dispose();
       fountainMat.dispose();

@@ -97,8 +97,8 @@ function HeroCard({
     <>
       <LiquidGlassCard
         glowColor={hero.themeColor}
-        enableTilt={true}
-        className="group relative flex flex-col h-full cursor-default card-awwwards crosshairs-container overflow-hidden select-none border border-white/[0.08] hover:border-[#f3d288]/40 transition-colors duration-300 rounded-2xl bg-[#060810]"
+        enableTilt={false}
+        className="group relative flex flex-col h-full cursor-default card-awwwards crosshairs-container overflow-hidden select-none border border-white/[0.08] hover:border-[#f3d288]/40 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(0,0,0,0.9)] transition-all duration-300 ease-out rounded-2xl bg-[#060810]"
       >
         {/* Subtle Corner Registration Crosshairs */}
         <div className="crosshair-tl" />
@@ -142,7 +142,8 @@ function HeroCard({
             Particles, Monumental Typography Watermark, & Hero Portrait
             ============================================================== */}
         <div
-          className="relative aspect-[3/3.9] overflow-hidden bg-[#04060b] cursor-pointer"
+          className="relative aspect-[3/3.9] overflow-hidden bg-[#04060b] cursor-pointer will-change-transform"
+          style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
           onClick={() => {
             audioManager.playClick();
             onOpenDetail(hero);
@@ -183,9 +184,9 @@ function HeroCard({
           <img
             src={hero.image}
             alt={hero.name}
-            className="relative z-10 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-out will-change-transform"
+            className="relative z-10 w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500 ease-out"
             loading="lazy"
-            decoding="async"
+            style={{ backfaceVisibility: 'hidden' }}
             onError={(e) => {
               if (hero.portrait && e.target.src !== hero.portrait) {
                 e.target.src = hero.portrait;
