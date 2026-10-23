@@ -12,23 +12,21 @@ const LOADING_STAGES = [
 export default function IntroSequence({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [showFullRoster, setShowFullRoster] = useState(false);
+  const showFullRosterRef = useRef(false);
   const canvasRef = useRef(null);
   const barRef = useRef(null);
+  const bgImageRef = useRef(null);
+  const cardRef = useRef(null);
+  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0, rawX: -9999, rawY: -9999 });
 
-  // Track mouse for interactive 3D parallax tilt
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      const { innerWidth, innerHeight } = window;
-      setMousePos({
-        x: (e.clientX - innerWidth / 2) / (innerWidth / 2),
-        y: (e.clientY - innerHeight / 2) / (innerHeight / 2),
-      });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    showFullRosterRef.current = showFullRoster;
+    if (showFullRoster) {
+      if (bgImageRef.current) bgImageRef.current.style.transform = 'none';
+      if (cardRef.current) cardRef.current.style.transform = 'none';
+    }
+  }, [showFullRoster]);
 
   // Kinetic Arcane Canvas: Concentric Rune Rings & Floating Solar Embers
   useEffect(() => {
@@ -45,46 +43,81 @@ export default function IntroSequence({ onComplete }) {
     resize();
     window.addEventListener('resize', resize);
 
-    // Dynamic radial warp sparks bursting from center (Arcane Cyan, Silver, Indigo, Gold)
-    const stars = Array.from({ length: 75 }, () => {
+    const handleMouseMove = (e) => {
+      const { innerWidth, innerHeight } = window;
+      mouseRef.current.targetX = (e.clientX - innerWidth / 2) / (innerWidth / 2);
+      mouseRef.current.targetY = (e.clientY - innerHeight / 2) / (innerHeight / 2);
+      mouseRef.current.rawX = e.clientX;
+      mouseRef.current.rawY = e.clientY;
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current.targetX = 0;
+      mouseRef.current.targetY = 0;
+      mouseRef.current.rawX = -9999;
+      mouseRef.current.rawY = -9999;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    // Curated, elegant celestial warp sparks (16 rays - clean, non-intrusive)
+    const sparks = Array.from({ length: 16 }, () => {
       const rand = Math.random();
       let color;
-      if (rand < 0.42) color = '#38bdf8'; // Arcane celestial cyan
-      else if (rand < 0.65) color = '#ffffff'; // Diamond starlight
-      else if (rand < 0.82) color = '#818cf8'; // Twilight astral indigo
+      if (rand < 0.45) color = '#38bdf8'; // Arcane celestial cyan
+      else if (rand < 0.70) color = '#ffffff'; // Diamond starlight
+      else if (rand < 0.85) color = '#818cf8'; // Twilight astral indigo
       else color = '#fbbf24'; // Mythic solar gold
       return {
         angle: Math.random() * Math.PI * 2,
-        dist: Math.random() * 500 + 40,
-        speed: Math.random() * 3 + 1,
-        size: Math.random() * 2.2 + 1,
-        alpha: Math.random() * 0.7 + 0.3,
+        dist: Math.random() * 320 + 30,
+        speed: Math.random() * 1.4 + 0.9,
+        size: Math.random() * 1.1 + 0.7,
+        alpha: Math.random() * 0.45 + 0.25,
         color,
       };
     });
 
-    // Floating ambient arcane wisps & embers
-    const embers = Array.from({ length: 42 }, () => {
+    // Curated ambient arcane embers (20 motes - buttery smooth floating)
+    const embers = Array.from({ length: 20 }, () => {
       const rand = Math.random();
       let color;
-      if (rand < 0.45) color = '#38bdf8'; // Arcane cyan spirit wisp
-      else if (rand < 0.72) color = '#a855f7'; // Astral violet mote
-      else color = '#fbbf24'; // Solar gold ember
+      if (rand < 0.45) color = '#38bdf8'; // Arcane cyan
+      else if (rand < 0.75) color = '#a855f7'; // Astral violet
+      else color = '#fbbf24'; // Solar gold
       return {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        radius: Math.random() * 2.2 + 0.8,
-        speedY: -Math.random() * 1.2 - 0.4,
-        speedX: (Math.random() - 0.5) * 0.8,
-        alpha: Math.random() * 0.8 + 0.2,
+        radius: Math.random() * 1.2 + 0.8,
+        speedY: -(Math.random() * 0.45 + 0.35),
+        swaySpeed: Math.random() * 0.8 + 0.8,
+        swayAmp: Math.random() * 0.45 + 0.25,
+        swayOffset: Math.random() * Math.PI * 2,
+        vx: 0,
+        vy: 0,
+        alpha: Math.random() * 0.5 + 0.3,
         color,
       };
     });
 
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const cx = canvas.width / 2 + mousePos.x * 25;
-      const cy = canvas.height / 2 + mousePos.y * 20;
+
+      // Buttery exponential smoothing (lerp)
+      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.06;
+      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.06;
+
+      // Parallax update for background & card at native display refresh rate without React re-render
+      if (bgImageRef.current && !showFullRosterRef.current) {
+        bgImageRef.current.style.transform = `scale(1.1) translate3d(${-mouseRef.current.x * 16}px, ${-mouseRef.current.y * 12}px, 0)`;
+      }
+      if (cardRef.current && !showFullRosterRef.current) {
+        cardRef.current.style.transform = `translate3d(${mouseRef.current.x * 6}px, ${mouseRef.current.y * 4}px, 0)`;
+      }
+
+      const cx = canvas.width / 2 + mouseRef.current.x * 20;
+      const cy = canvas.height / 2 + mouseRef.current.y * 15;
       tick += 0.015;
 
       // 1. Concentric Runic Circles: Cosmic Twilight Synergy
@@ -93,43 +126,44 @@ export default function IntroSequence({ onComplete }) {
 
       // Outer arcane cyan rune ring (celestial aura)
       ctx.beginPath();
-      ctx.arc(0, 0, 230 + Math.sin(tick * 1.5) * 8, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.28)';
-      ctx.lineWidth = 1.5;
+      ctx.arc(0, 0, 230 + Math.sin(tick * 1.5) * 6, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.22)';
+      ctx.lineWidth = 1.2;
       ctx.setLineDash([12, 18]);
       ctx.stroke();
 
       // Middle rotating twilight violet counter-ring
-      ctx.rotate(-tick * 0.4);
+      ctx.rotate(-tick * 0.35);
       ctx.beginPath();
       ctx.arc(0, 0, 180, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(129, 140, 248, 0.3)';
-      ctx.lineWidth = 1.2;
+      ctx.strokeStyle = 'rgba(129, 140, 248, 0.24)';
+      ctx.lineWidth = 1.0;
       ctx.setLineDash([25, 10, 8, 12]);
       ctx.stroke();
 
       // Inner fast spinning radiant solar gold energy circle
-      ctx.rotate(tick * 0.9);
+      ctx.rotate(tick * 0.8);
       ctx.beginPath();
       ctx.arc(0, 0, 130, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(251, 191, 36, 0.38)';
-      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = 'rgba(251, 191, 36, 0.3)';
+      ctx.lineWidth = 1.2;
       ctx.setLineDash([40, 15]);
       ctx.stroke();
 
       ctx.restore();
 
-      // 2. Warp starburst particles
-      stars.forEach((s) => {
+      // 2. Warp starburst particles (16 rays)
+      const maxDist = Math.max(canvas.width, canvas.height) * 0.65;
+      sparks.forEach((s) => {
         s.dist += s.speed;
-        if (s.dist > Math.max(canvas.width, canvas.height) * 0.7) {
-          s.dist = Math.random() * 40 + 20;
+        if (s.dist > maxDist) {
+          s.dist = Math.random() * 30 + 20;
           s.angle = Math.random() * Math.PI * 2;
         }
 
         const px = cx + Math.cos(s.angle) * s.dist;
         const py = cy + Math.sin(s.angle) * s.dist;
-        const tailLength = Math.min(s.speed * 4, 18);
+        const tailLength = Math.min(s.speed * 4, 14);
         const tx = cx + Math.cos(s.angle) * (s.dist - tailLength);
         const ty = cy + Math.sin(s.angle) * (s.dist - tailLength);
 
@@ -137,26 +171,47 @@ export default function IntroSequence({ onComplete }) {
         ctx.moveTo(tx, ty);
         ctx.lineTo(px, py);
         ctx.strokeStyle = s.color;
-        ctx.globalAlpha = Math.min(1, (s.dist / 350) * s.alpha);
+        ctx.globalAlpha = Math.min(s.alpha, (s.dist / 280) * s.alpha);
         ctx.lineWidth = s.size;
         ctx.stroke();
       });
 
-      // 3. Ambient arcane embers drifting upwards
+      // 3. Ambient arcane embers with soft cursor fluid deflection
       embers.forEach((p) => {
-        p.y += p.speedY;
-        p.x += p.speedX;
-        if (p.y < -10) {
-          p.y = canvas.height + 10;
-          p.x = Math.random() * canvas.width;
+        // Soft cursor deflection
+        const dx = p.x - mouseRef.current.rawX;
+        const dy = p.y - mouseRef.current.rawY;
+        const distSq = dx * dx + dy * dy;
+        const repulseRadius = 100;
+        if (distSq < repulseRadius * repulseRadius && distSq > 4) {
+          const dist = Math.sqrt(distSq);
+          const force = (1 - dist / repulseRadius) * 1.3;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
         }
+
+        p.vx *= 0.93;
+        p.vy *= 0.93;
+
+        p.x += p.vx + Math.sin(tick * p.swaySpeed + p.swayOffset) * p.swayAmp;
+        p.y += p.speedY + p.vy;
+
+        // Wrap around borders
+        if (p.y < -15) {
+          p.y = canvas.height + 15;
+          p.x = Math.random() * canvas.width;
+          p.vx = 0;
+          p.vy = 0;
+        }
+        if (p.x < -15) p.x = canvas.width + 15;
+        if (p.x > canvas.width + 15) p.x = -15;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.globalAlpha = p.alpha;
         ctx.shadowColor = p.color;
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = 6;
         ctx.fill();
         ctx.shadowBlur = 0;
       });
@@ -170,8 +225,10 @@ export default function IntroSequence({ onComplete }) {
     return () => {
       cancelAnimationFrame(animationFrame);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [mousePos]);
+  }, []);
 
   // 60FPS Buttery Smooth Loading Progression via requestAnimationFrame
   useEffect(() => {
@@ -241,11 +298,12 @@ export default function IntroSequence({ onComplete }) {
       {/* 1. Master Background: All 133 Heroes Single Composite Image */}
       <div className={`absolute inset-0 flex items-center justify-center bg-[#020409] ${showFullRoster ? 'pointer-events-auto overflow-auto sm:overflow-hidden' : 'pointer-events-none overflow-hidden'}`}>
         <img
+          ref={bgImageRef}
           src="/assets/images/all_133_heroes_mosaic.jpg"
           alt="Mobile Legends: Bang Bang 133 Heroes Roster"
-          className={`w-full h-full ${showFullRoster ? 'object-contain p-1 sm:p-2 md:p-4' : 'object-cover'} transition-all duration-500`}
+          className={`w-full h-full ${showFullRoster ? 'object-contain p-1 sm:p-2 md:p-4' : 'object-cover'} transition-all duration-500 will-change-transform`}
           style={{
-            transform: showFullRoster ? 'none' : `scale(1.1) translate3d(${-mousePos.x * 20}px, ${-mousePos.y * 14}px, 0)`,
+            transform: showFullRoster ? 'none' : 'scale(1.1)',
             filter: showFullRoster ? 'brightness(1) contrast(108%)' : 'brightness(0.38) contrast(125%)',
           }}
         />
@@ -291,12 +349,12 @@ export default function IntroSequence({ onComplete }) {
 
       {/* 4. Center Stage: Official Logo & WOW-Level Mythological Controls */}
       <div
-        className={`relative z-20 flex flex-col items-center text-center px-2 xs:px-4 max-w-3xl my-auto transition-opacity duration-500 w-full ${
+        ref={cardRef}
+        className={`relative z-20 flex flex-col items-center text-center px-2 xs:px-4 max-w-3xl my-auto transition-opacity duration-500 w-full will-change-transform ${
           showFullRoster ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
         style={{
-          transform: showFullRoster ? 'none' : `translate3d(${mousePos.x * 6}px, ${mousePos.y * 4}px, 0)`,
-          transition: 'transform 0.3s ease-out, opacity 0.5s ease',
+          transition: 'opacity 0.5s ease',
         }}
       >
         {/* Official Game Logo with Radiant Twilight Aura (Cyan & Solar Gold) */}
