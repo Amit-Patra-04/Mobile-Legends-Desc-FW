@@ -5,6 +5,18 @@
   --font-display: 'Newsreader', 'Cinzel', serif;
   --font-sans: 'Outfit', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+
+  /* Golden Ratio (Phi = 1.618) Modular Font Scale */
+  --text-phi-xs: 0.618rem;
+  --text-phi-sm: 0.786rem;
+  --text-phi-base: 1rem;
+  --text-phi-md: 1.272rem;
+  --text-phi-lg: 1.618rem;
+  --text-phi-xl: 2.058rem;
+  --text-phi-2xl: 2.618rem;
+  --text-phi-3xl: 3.330rem;
+  --text-phi-4xl: 4.236rem;
+  --text-phi-5xl: 6.854rem;
 }
 
 :root {
@@ -18,6 +30,19 @@
   --chrome-bottom: 2.6rem;
   --expo-out: cubic-bezier(0.14, 1, 0.34, 1);
   --quint-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* Golden Ratio (Phi = 1.61803398875) Typography System Tokens */
+  --phi-xs: 0.618rem;       /* ~9.89px / 10px (phi^-1) */
+  --phi-sm: 0.786rem;       /* ~12.58px / 12.5px (phi^-0.5) */
+  --phi-base: 1.000rem;     /* 16px (phi^0) */
+  --phi-md: 1.272rem;       /* ~20.35px (phi^0.5) */
+  --phi-lg: 1.618rem;       /* ~25.89px (phi^1) */
+  --phi-xl: 2.058rem;       /* ~32.93px (phi^1.5) */
+  --phi-2xl: 2.618rem;      /* ~41.89px (phi^2) */
+  --phi-3xl: 3.330rem;      /* ~53.28px (phi^2.5) */
+  --phi-4xl: 4.236rem;      /* ~67.78px (phi^3) */
+  --phi-5xl: 6.854rem;      /* ~109.66px (phi^4) */
+  --phi-line-height: 1.618;
 }
 
 @layer base {
@@ -26,7 +51,7 @@
   }
   
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
@@ -60,6 +85,19 @@
 .font-mono {
   font-family: 'JetBrains Mono', monospace;
 }
+
+/* Golden Ratio (Phi = 1.618) Typography Utilities */
+.text-phi-xs { font-size: var(--phi-xs); line-height: 1.4; }
+.text-phi-sm { font-size: var(--phi-sm); line-height: 1.5; }
+.text-phi-base { font-size: var(--phi-base); line-height: var(--phi-line-height); }
+.text-phi-md { font-size: var(--phi-md); line-height: 1.5; }
+.text-phi-lg { font-size: var(--phi-lg); line-height: 1.382; }
+.text-phi-xl { font-size: var(--phi-xl); line-height: 1.272; }
+.text-phi-2xl { font-size: var(--phi-2xl); line-height: 1.168; }
+.text-phi-3xl { font-size: var(--phi-3xl); line-height: 1.1; }
+.text-phi-4xl { font-size: var(--phi-4xl); line-height: 1.05; }
+.text-phi-5xl { font-size: var(--phi-5xl); line-height: 1.0; }
+.leading-phi { line-height: var(--phi-line-height); }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {

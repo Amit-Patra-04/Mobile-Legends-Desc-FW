@@ -222,7 +222,11 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       const trackTop = track.getBoundingClientRect().top + window.pageYOffset;
       const totalScrollable = track.offsetHeight - window.innerHeight;
       const targetScrollY = trackTop + targetProg * totalScrollable;
-      window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+      if (window.lenis) {
+        window.lenis.scrollTo(targetScrollY, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+      }
     }
     audioManager.playBattlefieldSwell(TACTICAL_STAGES[safeIdx].audioId);
   }, []);
@@ -235,7 +239,11 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       const trackTop = track.getBoundingClientRect().top + window.pageYOffset;
       const totalScrollable = track.offsetHeight - window.innerHeight;
       const targetScrollY = trackTop + marker.progress * totalScrollable;
-      window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+      if (window.lenis) {
+        window.lenis.scrollTo(targetScrollY, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+      }
     }
     audioManager.playBattlefieldSwell(
       marker.id === 'lord_pit' ? 'lord' : marker.id.includes('nexus') ? 'nexus' : 'crucible'
@@ -266,7 +274,11 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       const navOffset = 70;
       const elementPos = el.getBoundingClientRect().top;
       const offsetPos = elementPos + window.pageYOffset - navOffset;
-      window.scrollTo({ top: offsetPos, behavior: 'smooth' });
+      if (window.lenis) {
+        window.lenis.scrollTo(offsetPos, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: offsetPos, behavior: 'smooth' });
+      }
     }
   };
 
@@ -779,42 +791,67 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     turtleRune.position.set(18, 0.6, 11);
     scene.add(turtleRune);
 
-    // 15. Interactive 3D Tactical Beacons & Indicators
+    // 15. Tactical 3D Pinpoint Beacons & Ground Target Rings (Replaces rotating cubes/circles)
     const beaconGroup = new THREE.Group();
     beaconGroupRef.current = beaconGroup;
     scene.add(beaconGroup);
 
+    const pinStemGeo = new THREE.CylinderGeometry(0.035, 0.012, 1.7, 8);
+    const pinHeadGeo = new THREE.SphereGeometry(0.32, 16, 16);
+    const pinTargetGeo = new THREE.RingGeometry(0.28, 0.52, 32);
+    const waveGeo = new THREE.RingGeometry(0.5, 0.9, 32);
+
     TACTICAL_MARKERS.forEach((m) => {
       const bColor = new THREE.Color(m.color);
+      const markerGroup = new THREE.Group();
+      markerGroup.position.set(m.worldPos[0], m.worldPos[1], m.worldPos[2]);
 
-      const jewelGeo = new THREE.OctahedronGeometry(1.2, 0);
-      const jewelMat = new THREE.MeshStandardMaterial({
+      const pinMat = new THREE.MeshStandardMaterial({
         color: bColor,
         emissive: bColor,
-        emissiveIntensity: 1.3,
-        roughness: 0.1,
-        metalness: 0.9
+        emissiveIntensity: 1.5,
+        roughness: 0.15,
+        metalness: 0.85
       });
-      const jewel = new THREE.Mesh(jewelGeo, jewelMat);
-      jewel.position.set(m.worldPos[0], m.worldPos[1] + 1.4, m.worldPos[2]);
-      jewel.userData = { id: m.id, baseY: m.worldPos[1] + 1.4 };
-      beaconGroup.add(jewel);
 
-      const ringGeo = new THREE.TorusGeometry(2.0, 0.08, 8, 32);
-      const ringMat = new THREE.MeshBasicMaterial({ color: bColor, transparent: true, opacity: 0.8 });
-      const ring = new THREE.Mesh(ringGeo, ringMat);
-      ring.position.set(m.worldPos[0], m.worldPos[1] + 1.4, m.worldPos[2]);
-      ring.userData = { isRing: true };
-      beaconGroup.add(ring);
+      // Slender vertical pin needle stem
+      const pinStem = new THREE.Mesh(pinStemGeo, pinMat);
+      pinStem.position.y = 0.9;
+      markerGroup.add(pinStem);
 
-      const waveGeo = new THREE.RingGeometry(0.8, 1.4, 32);
-      const waveMat = new THREE.MeshBasicMaterial({ color: bColor, transparent: true, opacity: 0.85, side: THREE.DoubleSide });
+      // Luminous pin head sphere
+      const pinHead = new THREE.Mesh(pinHeadGeo, pinMat);
+      pinHead.position.y = 1.8;
+      pinHead.userData = { isPinHead: true, baseY: 1.8 };
+      markerGroup.add(pinHead);
+
+      // Ground concentric focal ring
+      const targetMat = new THREE.MeshBasicMaterial({
+        color: bColor,
+        transparent: true,
+        opacity: 0.75,
+        side: THREE.DoubleSide
+      });
+      const targetRing = new THREE.Mesh(pinTargetGeo, targetMat);
+      targetRing.rotation.x = Math.PI / 2;
+      targetRing.position.y = 0.06;
+      markerGroup.add(targetRing);
+
+      // Expanding ground sonar ripple wave
+      const waveMat = new THREE.MeshBasicMaterial({
+        color: bColor,
+        transparent: true,
+        opacity: 0.65,
+        side: THREE.DoubleSide
+      });
       const wave = new THREE.Mesh(waveGeo, waveMat);
       wave.rotation.x = Math.PI / 2;
-      wave.position.set(m.worldPos[0], m.worldPos[1] + 0.15, m.worldPos[2]);
-      wave.userData = { scale: 1.0, maxScale: 4.8, speed: 0.035 };
+      wave.position.set(m.worldPos[0], m.worldPos[1] + 0.065, m.worldPos[2]);
+      wave.userData = { scale: 1.0, maxScale: 3.8, speed: 0.025 };
       beaconGroup.add(wave);
       pulsesRef.current.push(wave);
+
+      beaconGroup.add(markerGroup);
     });
 
     // 16. Volumetric Cosmic Starfield & Embers
@@ -918,13 +955,14 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       lordRune.rotation.z += delta * 0.8;
       turtleRune.rotation.z += delta * 0.6;
 
-      beaconGroup.children.forEach((child) => {
-        if (child.isMesh && child.geometry.type === 'OctahedronGeometry') {
-          child.rotation.y += delta * 1.5;
-          child.position.y = child.userData.baseY + Math.sin(time * 2.5) * 0.4;
-        } else if (child.isMesh && child.userData.isRing) {
-          child.rotation.x += delta * 1.6;
-          child.rotation.y += delta * 1.2;
+      // Gentle breathing float on tactical pinpoint beads
+      beaconGroup.children.forEach((group) => {
+        if (group.isGroup) {
+          group.children.forEach((child) => {
+            if (child.userData?.isPinHead) {
+              child.position.y = child.userData.baseY + Math.sin(time * 2.2) * 0.08;
+            }
+          });
         }
       });
 
@@ -945,7 +983,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
         const el = markerRefs.current[m.id];
         if (!el) return;
 
-        tempVec.set(m.worldPos[0], m.worldPos[1] + 1.4, m.worldPos[2]);
+        tempVec.set(m.worldPos[0], m.worldPos[1] + 2.0, m.worldPos[2]);
         tempVec.project(camera);
 
         const x = (tempVec.x * 0.5 + 0.5) * renderer.domElement.clientWidth;
@@ -986,6 +1024,10 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       centerRuneMat.dispose();
       centerCoreGeo.dispose();
       centerCoreMat.dispose();
+      pinStemGeo.dispose();
+      pinHeadGeo.dispose();
+      pinTargetGeo.dispose();
+      waveGeo.dispose();
       abyssalAuraGeo.dispose();
       abyssalAuraMat.dispose();
       moniyanAuraGeo.dispose();
@@ -1044,7 +1086,8 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
   return (
     <section
       ref={trackRef}
-      id="battlefield-track"
+      id="overview"
+      data-track="battlefield-track"
       className="relative w-full h-[380vh] bg-[#060a14]"
     >
       {/* Sticky Pinned Viewport Container */}
@@ -1265,11 +1308,11 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
               onClick={() => handleMarkerClick(marker)}
             >
               <div className="flex flex-col items-center">
-                {/* Haute Horlogerie Frosted Glass Pill */}
-                <div className="px-3 py-1.5 rounded-full bg-[#060a14]/85 border border-white/[0.12] group-hover:border-[#f3d288] backdrop-blur-xl text-[#e9ecee] shadow-2xl transition-all duration-300 group-hover:scale-105 flex items-center gap-2">
-                  <span
-                    className="w-1.5 h-1.5 rounded-full"
-                    style={{ backgroundColor: marker.color }}
+                {/* Tactical Pinpoint Marker Label Badge */}
+                <div className="px-3 py-1.5 rounded-full bg-[#060a14]/90 border border-white/[0.14] group-hover:border-[#f3d288] backdrop-blur-xl text-[#e9ecee] shadow-2xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(243,210,136,0.35)] flex items-center gap-2">
+                  <MapPin
+                    className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5"
+                    style={{ color: marker.color }}
                   />
                   <span className="text-[9px] font-mono tracking-wider font-semibold text-white whitespace-nowrap">
                     {marker.name}
@@ -1279,19 +1322,25 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
                   </span>
                 </div>
 
-                {/* Vertical Hairline Connector */}
+                {/* Vertical Precision Needle Stem */}
                 <div
-                  className="w-[1px] h-4 mx-auto"
+                  className="w-[1.5px] h-3.5 mx-auto"
                   style={{
-                    background: `linear-gradient(to bottom, ${marker.color}, transparent)`
+                    background: `linear-gradient(to bottom, ${marker.color}, ${marker.color}aa, ${marker.color})`
                   }}
                 />
                 
-                {/* 1px Rotating Diamond Target */}
-                <div
-                  className="w-2 h-2 rotate-45 border transition-transform duration-300 group-hover:rotate-90 group-hover:scale-125"
-                  style={{ borderColor: marker.color }}
-                />
+                {/* Pinpoint Ground Contact Target Point */}
+                <div className="relative flex items-center justify-center">
+                  <div
+                    className="w-2 h-2 rounded-full shadow-[0_0_8px_currentColor] transition-transform duration-300 group-hover:scale-125"
+                    style={{ backgroundColor: marker.color, color: marker.color }}
+                  />
+                  <div
+                    className="absolute w-4 h-4 rounded-full border opacity-60 animate-ping pointer-events-none"
+                    style={{ borderColor: marker.color }}
+                  />
+                </div>
               </div>
             </div>
           );

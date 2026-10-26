@@ -37,6 +37,7 @@ export default function App() {
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
       });
+      window.lenis = lenis;
 
       let frameId;
       function raf(time) {
@@ -47,7 +48,10 @@ export default function App() {
 
       return () => {
         if (frameId) cancelAnimationFrame(frameId);
-        if (lenis) lenis.destroy();
+        if (lenis) {
+          lenis.destroy();
+          window.lenis = null;
+        }
       };
     } catch {
       // Graceful fallback if smooth scroll is unsupported
@@ -74,7 +78,11 @@ export default function App() {
     setChamberHeroId(hero.id);
     const chamberEl = document.querySelector('#chamber');
     if (chamberEl) {
-      chamberEl.scrollIntoView({ behavior: 'smooth' });
+      if (window.lenis) {
+        window.lenis.scrollTo(chamberEl, { offset: -85, duration: 1.2 });
+      } else {
+        chamberEl.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -82,7 +90,11 @@ export default function App() {
     setSkillHeroId(hero.id);
     const skillsEl = document.querySelector('#skills-lab');
     if (skillsEl) {
-      skillsEl.scrollIntoView({ behavior: 'smooth' });
+      if (window.lenis) {
+        window.lenis.scrollTo(skillsEl, { offset: -85, duration: 1.2 });
+      } else {
+        skillsEl.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 

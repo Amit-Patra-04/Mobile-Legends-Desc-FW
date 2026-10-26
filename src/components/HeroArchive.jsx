@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Search, Filter, RotateCcw, Sparkles, SlidersHorizontal, ArrowDown } from 'lucide-react';
+import { Search, Filter, RotateCcw, SlidersHorizontal, ArrowDown } from 'lucide-react';
 import { HEROES } from '../data/heroesData';
 import HeroCard from './HeroCard';
 import { audioManager } from '../utils/audio';
@@ -111,24 +111,17 @@ export default function HeroArchive({
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-pulse" />
-              <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-[#f3d288] font-semibold">
+              <span className="font-mono text-phi-xs tracking-[0.35em] uppercase text-[#f3d288] font-semibold">
                 [ 02 // ARCHIVE ] • CANONICAL CODEX
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-white">
+            <h2 className="text-phi-3xl md:text-phi-4xl font-medium tracking-tight text-white leading-tight">
               <span className="editorial-italic text-[#f3d288] font-normal mr-2">Roster of</span>
               <span className="font-serif uppercase font-bold tracking-tight">The Land of Dawn</span>
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-[#94a3b8] mt-2.5 max-w-xl leading-relaxed">
+            <p className="font-sans text-phi-sm text-[#94a3b8] mt-2.5 max-w-xl leading-relaxed">
               Explore tactical battle specialities, verified lane affinities, sovereign faction origins, and high-tier combat attributes across all 133 legendary champions.
             </p>
-          </div>
-
-          <div className="font-mono text-[11px] text-[#94a3b8] flex items-center gap-2.5 bg-black/50 px-4 py-2.5 rounded-full border border-white/[0.08]">
-            <Sparkles className="w-3.5 h-3.5 text-[#f3d288]" />
-            <span className="tracking-widest uppercase">
-              ANIMATED POSTERS // {visibleHeroes.length} OF {filteredHeroes.length} ACTIVE
-            </span>
           </div>
         </div>
 

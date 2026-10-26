@@ -6,7 +6,7 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
   const [isAudioActive, setIsAudioActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeSection, setActiveSection] = useState('heroes');
+  const [activeSection, setActiveSection] = useState('overview');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Track scroll position & page exploration progress
@@ -22,6 +22,10 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
         const progress = Math.min(100, Math.max(0, (scrollY / totalScrollable) * 100));
         setScrollProgress(progress);
       }
+
+      if (scrollY < 200) {
+        setActiveSection('overview');
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -31,7 +35,7 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
 
   // Section Observer for Active Navigation Spy
   useEffect(() => {
-    const sectionIds = ['heroes', 'skills-lab', 'chamber', 'lore', 'skins', 'esports'];
+    const sectionIds = ['overview', 'heroes', 'skills-lab', 'chamber', 'lore', 'skins', 'esports'];
     const observers = [];
 
     const observerCallback = (entries) => {
@@ -68,12 +72,13 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
   };
 
   const navLinks = [
-    { id: 'heroes', label: 'HEROES', num: '01', desc: '133 Champions Archive' },
-    { id: 'skills-lab', label: 'SKILLS LAB', num: '02', desc: 'Tactical Combos & Ratios' },
-    { id: 'chamber', label: '3D CHAMBER', num: '03', desc: 'Real-time WebGL Chamber' },
-    { id: 'lore', label: 'WORLD LORE', num: '04', desc: 'Land of Dawn Factions' },
-    { id: 'skins', label: 'SKINS VAULT', num: '05', desc: 'Legendary Visual Evolutions' },
-    { id: 'esports', label: 'ESPORTS', num: '06', desc: 'Competitive Tournament Circuit' },
+    { id: 'overview', label: 'OVERVIEW', num: '01', desc: '3D Proving Grounds' },
+    { id: 'heroes', label: 'HEROES', num: '02', desc: '133 Champions Archive' },
+    { id: 'skills-lab', label: 'SKILLS LAB', num: '03', desc: 'Tactical Combos & Ratios' },
+    { id: 'chamber', label: '3D CHAMBER', num: '04', desc: 'Real-time WebGL Chamber' },
+    { id: 'lore', label: 'WORLD LORE', num: '05', desc: 'Land of Dawn Factions' },
+    { id: 'skins', label: 'SKINS VAULT', num: '06', desc: 'Legendary Visual Evolutions' },
+    { id: 'esports', label: 'ESPORTS', num: '07', desc: 'Competitive Tournament Circuit' },
   ];
 
   const handleLinkClick = (e, id) => {
@@ -81,16 +86,31 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
     audioManager.playClick();
     setMobileMenuOpen(false);
 
+    if (id === 'overview') {
+      if (window.lenis) {
+        window.lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      setActiveSection('overview');
+      return;
+    }
+
     const target = document.getElementById(id);
     if (target) {
-      const navOffset = 90;
-      const elementPos = target.getBoundingClientRect().top;
-      const offsetPos = elementPos + window.pageYOffset - navOffset;
+      const navOffset = 85;
+      const rect = target.getBoundingClientRect();
+      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const targetY = rect.top + currentScrollY - navOffset;
 
-      window.scrollTo({
-        top: offsetPos,
-        behavior: 'smooth',
-      });
+      if (window.lenis) {
+        window.lenis.scrollTo(targetY, { duration: 1.2 });
+      } else {
+        window.scrollTo({
+          top: Math.max(0, targetY),
+          behavior: 'smooth',
+        });
+      }
       setActiveSection(id);
     }
   };
@@ -116,7 +136,12 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (window.lenis) {
+                  window.lenis.scrollTo(0, { duration: 1.2 });
+                } else {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                setActiveSection('overview');
                 audioManager.playClick();
               }}
               onMouseEnter={() => audioManager.playHover()}
@@ -135,7 +160,7 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
           </div>
 
           {/* 2. Center Dynamic Navigation Links (Clean, No Mini Box Elements) */}
-          <nav className="hidden md:flex items-center gap-5 lg:gap-8 z-10">
+          <nav className="hidden md:flex items-center gap-3.5 lg:gap-6 xl:gap-8 z-10">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
 
@@ -145,7 +170,7 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
                   href={`#${link.id}`}
                   onClick={(e) => handleLinkClick(e, link.id)}
                   onMouseEnter={() => audioManager.playHover()}
-                  className={`group relative py-1 text-xs font-mono tracking-[0.16em] uppercase transition-colors duration-200 select-none ${
+                  className={`group relative py-1 text-phi-xs font-mono tracking-[0.16em] uppercase transition-colors duration-200 select-none ${
                     isActive
                       ? 'text-white font-bold'
                       : 'text-zinc-400 hover:text-white'
@@ -305,14 +330,14 @@ export default function Navbar({ onOpenSearch, onOpenCompare }) {
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs text-cyan-400/70 font-semibold tracking-widest">
+                    <span className="font-mono text-phi-xs text-cyan-400/70 font-semibold tracking-widest">
                       {link.num}
                     </span>
                     <div>
-                      <div className="font-serif text-lg tracking-wider font-bold group-hover:text-amber-300 transition-colors">
+                      <div className="font-serif text-phi-lg tracking-wider font-bold group-hover:text-amber-300 transition-colors">
                         {link.label}
                       </div>
-                      <div className="font-mono text-[10px] text-zinc-500 tracking-wide">
+                      <div className="font-mono text-phi-xs text-zinc-500 tracking-wide">
                         {link.desc}
                       </div>
                     </div>
