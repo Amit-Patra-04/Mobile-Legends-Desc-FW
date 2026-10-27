@@ -1,8 +1,11 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Search, Filter, RotateCcw, SlidersHorizontal, ArrowDown } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Search, Filter, RotateCcw, SlidersHorizontal, ChevronDown } from 'lucide-react';
 import { HEROES } from '../data/heroesData';
 import HeroCard from './HeroCard';
 import { audioManager } from '../utils/audio';
+
+const INITIAL_CARD_COUNT = 8;
+const LOAD_MORE_STEP = 8;
 
 export default function HeroArchive({
   onOpenDetail,
@@ -15,16 +18,15 @@ export default function HeroArchive({
   const [selectedLane, setSelectedLane] = useState('ALL');
   const [selectedDifficulty, setSelectedDifficulty] = useState('ALL');
   const [sortBy, setSortBy] = useState('default');
-  const [displayCount, setDisplayCount] = useState(32);
-  const sentinelRef = useRef(null);
+  const [displayCount, setDisplayCount] = useState(INITIAL_CARD_COUNT);
 
   const roles = ['ALL', 'Tank', 'Fighter', 'Assassin', 'Mage', 'Marksman', 'Support'];
   const lanes = ['ALL', 'Jungle', 'Mid Lane', 'Gold Lane', 'EXP Lane', 'Roam'];
   const difficulties = ['ALL', 'Easy', 'Moderate', 'High', 'Extreme'];
 
-  // Reset display count when any filter changes
+  // Reset display count to initial 8 cards when any filter changes
   useEffect(() => {
-    setDisplayCount(32);
+    setDisplayCount(INITIAL_CARD_COUNT);
   }, [searchQuery, selectedRole, selectedLane, selectedDifficulty, sortBy]);
 
   const filteredHeroes = useMemo(() => {
@@ -61,24 +63,6 @@ export default function HeroArchive({
     });
   }, [searchQuery, selectedRole, selectedLane, selectedDifficulty, sortBy]);
 
-  // Seamless auto-load sentinel for 60fps streaming
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setDisplayCount((prev) => Math.min(prev + 32, filteredHeroes.length));
-        }
-      },
-      { rootMargin: '350px' }
-    );
-
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, [filteredHeroes.length]);
-
   const visibleHeroes = useMemo(() => {
     return filteredHeroes.slice(0, displayCount);
   }, [filteredHeroes, displayCount]);
@@ -90,7 +74,7 @@ export default function HeroArchive({
     setSelectedLane('ALL');
     setSelectedDifficulty('ALL');
     setSortBy('default');
-    setDisplayCount(32);
+    setDisplayCount(INITIAL_CARD_COUNT);
   };
 
   return (
@@ -248,47 +232,53 @@ export default function HeroArchive({
               ))}
             </div>
 
-            {/* Infinite Sentinel & Load More Command */}
-            {displayCount < filteredHeroes.length && (
-              <div className="mt-14 flex flex-col sm:flex-row items-center justify-between gap-5 p-5 rounded-2xl bg-[#060a14]/90 border border-white/[0.08] shadow-2xl">
+            {/* Show More Command Bar */}
+            {displayCount < filteredHeroes.length ? (
+              <div className="mt-14 flex flex-col items-center justify-center gap-5 p-6 rounded-2xl bg-[#060a14]/90 border border-white/[0.08] shadow-2xl">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs text-[#94a3b8]">
-                    SHOWING {visibleHeroes.length} OF {filteredHeroes.length} POSTERS
+                  <span className="font-mono text-phi-xs text-[#94a3b8] uppercase tracking-wider">
+                    SHOWING {visibleHeroes.length} OF {filteredHeroes.length} CHAMPIONS
                   </span>
                   <div className="w-28 sm:w-44 h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
                     <div
-                      className="h-full bg-[#f3d288] rounded-full transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-[#38bdf8] to-[#f3d288] rounded-full transition-all duration-500"
                       style={{ width: `${(visibleHeroes.length / filteredHeroes.length) * 100}%` }}
                     />
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center justify-center gap-3">
                   <button
                     onClick={() => {
                       audioManager.playClick();
-                      setDisplayCount((prev) => Math.min(prev + 32, filteredHeroes.length));
+                      setDisplayCount((prev) => Math.min(prev + LOAD_MORE_STEP, filteredHeroes.length));
                     }}
-                    className="flex items-center gap-2 px-6 py-2.5 rounded-full font-mono text-xs text-black font-bold bg-[#f3d288] hover:bg-[#ffe5a3] transition-all cursor-pointer shadow-lg shadow-[#f3d288]/10"
+                    className="group flex items-center gap-2.5 px-8 py-3 rounded-full font-mono text-phi-xs text-black font-bold bg-[#f3d288] hover:bg-[#ffe5a3] transition-all duration-300 cursor-pointer shadow-[0_0_20px_rgba(243,210,136,0.3)] hover:scale-105 active:scale-95"
                   >
-                    <span>DISCOVER MORE (+32)</span>
-                    <ArrowDown className="w-3.5 h-3.5" />
+                    <span className="tracking-widest uppercase">SHOW MORE</span>
+                    <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" />
                   </button>
+
                   <button
                     onClick={() => {
                       audioManager.playClick();
                       setDisplayCount(filteredHeroes.length);
                     }}
-                    className="px-4 py-2.5 rounded-full font-mono text-xs text-[#cbd5e1] hover:text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.08] transition-all cursor-pointer"
+                    className="px-5 py-3 rounded-full font-mono text-phi-xs text-[#cbd5e1] hover:text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] transition-all duration-300 cursor-pointer tracking-wider uppercase hover:border-white/20 active:scale-95"
                   >
                     SHOW ALL ({filteredHeroes.length})
                   </button>
                 </div>
               </div>
+            ) : (
+              /* All Champions Revealed Indicator */
+              <div className="mt-12 text-center">
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.08] font-mono text-phi-xs text-[#94a3b8] tracking-widest uppercase">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  ALL {filteredHeroes.length} CHAMPIONS DISPLAYED
+                </span>
+              </div>
             )}
-
-            {/* Invisible Scroll Sentinel to trigger automatic smooth load ahead of scroll */}
-            <div ref={sentinelRef} className="h-6 w-full pointer-events-none" />
           </>
         ) : (
           /* Empty State */

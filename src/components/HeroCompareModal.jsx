@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Scale, Flame, Shield, Zap, Sparkles, Trophy } from 'lucide-react';
 import { HEROES } from '../data/heroesData';
 import { audioManager } from '../utils/audio';
+import SkillIcon from './SkillIcon';
 
 export default function HeroCompareModal({ initialHero, onClose }) {
   const [heroA, setHeroA] = useState(() => initialHero || HEROES[0]);
@@ -124,6 +125,28 @@ export default function HeroCompareModal({ initialHero, onClose }) {
                   <div className="text-white font-bold truncate">{heroA.faction}</div>
                 </div>
               </div>
+
+              {/* Hero A Circular In-Game Skill Kit Row */}
+              {heroA.abilities && (
+                <div className="pt-2 border-t border-zinc-800 flex items-center justify-between">
+                  <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+                    <Zap className="w-2.5 h-2.5 text-amber-400" />
+                    SKILLS:
+                  </span>
+                  <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                    {heroA.abilities.map((ab, idx) => (
+                      <SkillIcon
+                        key={ab.id || idx}
+                        ability={ab}
+                        index={idx}
+                        size="xs"
+                        showBadge={true}
+                        title={`${ab.type || 'Skill'}: ${ab.name}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Hero B Card */}
@@ -183,6 +206,28 @@ export default function HeroCompareModal({ initialHero, onClose }) {
                   <div className="text-white font-bold truncate">{heroB.faction}</div>
                 </div>
               </div>
+
+              {/* Hero B Circular In-Game Skill Kit Row */}
+              {heroB.abilities && (
+                <div className="pt-2 border-t border-zinc-800 flex items-center justify-between">
+                  <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+                    <Zap className="w-2.5 h-2.5 text-cyan-400" />
+                    SKILLS:
+                  </span>
+                  <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                    {heroB.abilities.map((ab, idx) => (
+                      <SkillIcon
+                        key={ab.id || idx}
+                        ability={ab}
+                        index={idx}
+                        size="xs"
+                        showBadge={true}
+                        title={`${ab.type || 'Skill'}: ${ab.name}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

@@ -1,6 +1,3 @@
-// Verified Mobile Legends: Bang Bang Master Hero Canon Dataset (All 132 Champions)
-// Generated with verified lore, relationships, abilities, and local high-resolution artwork
-
 export const HEROES = [
   {
     "id": "miya",
@@ -47,30 +44,30 @@ export const HEROES = [
     "abilities": [
       {
         "id": "miya_p",
-        "name": "Moon Blessing",
+        "name": "Moon Arrow",
         "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "🌙",
-        "description": "Basic attacks grant stacking attack speed. At max stacks, summons a moonlight shadow clone to aid in firing."
+        "cooldown": "11.0",
+        "cost": "50 / 55 /60 / 65 / 70 / 75",
+        "icon": "/assets/images/skills/miya_0.png",
+        "description": "Miya shoots two extra arrows with each {{ii"
       },
       {
         "id": "miya_s1",
-        "name": "Moon Arrow",
+        "name": "Arrow of Eclipse",
         "type": "Skill 1",
-        "cooldown": "9.0s",
-        "cost": "60 Mana",
-        "icon": "🏹",
-        "description": "Splits basic attacks to hit multiple nearby enemies simultaneously for 4s."
+        "cooldown": "8.0s",
+        "cost": "80 / 90 / 100 / 110 / 120 / 130",
+        "icon": "/assets/images/skills/miya_1.png",
+        "description": "Miya launches an empowered arrow on the target area, dealing {{scale"
       },
       {
         "id": "miya_s2",
-        "name": "Arrow of Eclipse",
+        "name": "Hidden Moonlight",
         "type": "Skill 2",
-        "cooldown": "8.0s",
-        "cost": "80 Mana",
-        "icon": "🌑",
-        "description": "Fires an arrow cluster that immobilizes enemies in the center and slows those around it."
+        "cooldown": "30.0 / 25.0 / 20.0s",
+        "cost": "120 / 145 / 170",
+        "icon": "/assets/images/skills/miya_2.png",
+        "description": "Miya removes all debuffs on her and conceals herself, gaining 65% extra Movement Speed. This state lasts 2 seconds or until she launches an attack. Miya gains full stacks of {{ai"
       },
       {
         "id": "miya_ult",
@@ -78,7 +75,7 @@ export const HEROES = [
         "type": "Ultimate",
         "cooldown": "38.0s",
         "cost": "120 Mana",
-        "icon": "✨",
+        "icon": "/assets/images/skills/miya_3.png",
         "description": "Immediately cleanses all debuffs and grants complete concealment and bonus movement speed."
       }
     ],
@@ -123,40 +120,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "bal_p",
+        "id": "balmond_p",
         "name": "Bloodthirst",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🩸",
-        "description": "Recovers HP upon eliminating minions, creeps, and enemy champions."
+        "icon": "/assets/images/skills/balmond_0.png",
+        "description": "Balmond recovers 5% {{link"
       },
       {
-        "id": "bal_s1",
+        "id": "balmond_s1",
         "name": "Soul Lock",
         "type": "Skill 1",
-        "cooldown": "8.0s",
+        "cooldown": "8.0 / 7.4 / 6.8 / 6.2 / 5.6 / 5.0s",
         "cost": "No Cost",
-        "icon": "💨",
-        "description": "Charges forward with his battle axe, dealing damage and slowing targets."
+        "icon": "/assets/images/skills/balmond_1.png",
+        "description": "Balmond charges to the target direction for a set distance or until he hits an enemy hero, dealing {{scale"
       },
       {
-        "id": "bal_s2",
+        "id": "balmond_s2",
         "name": "Cyclone Sweep",
         "type": "Skill 2",
         "cooldown": "6.0s",
         "cost": "No Cost",
-        "icon": "🌀",
-        "description": "Spins his heavy battle axe continuously, dealing increasing physical damage per spin."
+        "icon": "/assets/images/skills/balmond_2.png",
+        "description": "Balmond gains 15% Movement Speed that decays over time and spins his axe for 3 seconds, dealing {{scale"
       },
       {
-        "id": "bal_ult",
+        "id": "balmond_ult",
         "name": "Lethal Counter",
         "type": "Ultimate",
-        "cooldown": "32.0s",
+        "cooldown": "34.0/29.0/24.0s",
         "cost": "No Cost",
-        "icon": "🪓",
-        "description": "Slams his gigantic axe into the earth, executing foes based on their missing HP."
+        "icon": "/assets/images/skills/balmond_3.png",
+        "description": "Balmond unleashes a huge strike in the target direction (this skill can only be interrupted by Suppression), dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/balmond.png"
@@ -200,39 +197,39 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "sbr_p",
-        "name": "Enemy's Bane",
-        "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "⚔️",
-        "description": "Attacks reduce the physical defense of target champions."
-      },
-      {
-        "id": "sbr_s1",
+        "id": "saber_p",
         "name": "Orbiting Swords",
-        "type": "Skill 1",
-        "cooldown": "8.0s",
-        "cost": "75 Mana",
-        "icon": "🗡️",
-        "description": "Releases 5 flying swords that orbit around him and fly toward basic attack targets."
+        "type": "Passive",
+        "cooldown": "9.0",
+        "cost": "75 / 85 / 95 / 105 / 115 / 125",
+        "icon": "/assets/images/skills/saber_0.png",
+        "description": "Saber shoots out 5 swords that orbit around him, dealing {{Scale"
       },
       {
-        "id": "sbr_s2",
+        "id": "saber_s1",
         "name": "Charge",
-        "type": "Skill 2",
-        "cooldown": "12.0s",
-        "cost": "70 Mana",
-        "icon": "⚡",
-        "description": "Dashes forward, empowering his next basic attack."
+        "type": "Skill 1",
+        "cooldown": "7.0s",
+        "cost": "70 / 65 / 60 / 55 / 50 / 45",
+        "icon": "/assets/images/skills/saber_1.png",
+        "description": "Saber dashes in the target direction, dealing {{scale"
       },
       {
-        "id": "sbr_ult",
+        "id": "saber_s2",
+        "name": "Triple Sweep",
+        "type": "Skill 2",
+        "cooldown": "44.0 / 40.0 / 36.0s",
+        "cost": "100 / 120 / 140",
+        "icon": "/assets/images/skills/saber_2.png",
+        "description": "Saber charges at the target enemy hero, knocking them airborne for 1.2 seconds and striking them 3 times over the duration. The first two strikes deal {{scale"
+      },
+      {
+        "id": "saber_ult",
         "name": "Triple Sweep",
         "type": "Ultimate",
         "cooldown": "44.0s",
         "cost": "100 Mana",
-        "icon": "💥",
+        "icon": "/assets/images/skills/saber_3.png",
         "description": "Locks onto target enemy, knocking them into the air and delivering 3 devastating slashes."
       }
     ],
@@ -282,39 +279,39 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "alc_p",
-        "name": "Blood Ancestry",
+        "id": "alice_p",
+        "name": "Crimson Blood Banquet",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🍷",
-        "description": "Absorbs blood orbs dropped by dying minions to permanently increase max HP and Mana."
+        "icon": "/assets/images/skills/alice_0.png",
+        "description": "When Alice's skills hit, she gains 1 stack(s) of {{link"
       },
       {
-        "id": "alc_s1",
-        "name": "Flowing Blood",
+        "id": "alice_s1",
+        "name": "Crimson Gleam",
         "type": "Skill 1",
-        "cooldown": "6.0s",
+        "cooldown": "12.0 / 11.2 / 10.4 / 9.6 / 8.8 / 8.0s",
         "cost": "50 Mana",
-        "icon": "🩸",
-        "description": "Fires a sphere of blood forward. Can reactivate to teleport to the sphere’s location."
+        "icon": "/assets/images/skills/alice_1.png",
+        "description": "Alice fires blood energy forward, dealing {{scale"
       },
       {
-        "id": "alc_s2",
-        "name": "Blood Awe",
+        "id": "alice_s2",
+        "name": "Throne of Ruin",
         "type": "Skill 2",
-        "cooldown": "7.0s",
+        "cooldown": "60.0 / 55.0 / 50.0s",
         "cost": "55 Mana",
-        "icon": "🦇",
-        "description": "Unleashes dark blood energy, immobilizing nearby enemies for 1.2s."
+        "icon": "/assets/images/skills/alice_2.png",
+        "description": "Alice surrounds herself with blood, gaining Control Immunity and 50% Damage Reduction while slowing herself by 50%. After 1.5 seconds, she descends with force, dealing {{scale"
       },
       {
-        "id": "alc_ult",
+        "id": "alice_ult",
         "name": "Blood Ode",
         "type": "Ultimate",
         "cooldown": "2.0s",
         "cost": "Continuous",
-        "icon": "😈",
+        "icon": "/assets/images/skills/alice_3.png",
         "description": "Enters blood-draining state, continuously leeching HP from all surrounding enemies."
       }
     ],
@@ -364,39 +361,39 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "na_p",
-        "name": "Molina's Blessing",
-        "type": "Passive",
-        "cooldown": "150s",
-        "cost": "No Cost",
-        "icon": "🐾",
-        "description": "Upon taking fatal damage, transforms into untargetable Molina form with bonus speed."
-      },
-      {
-        "id": "na_s1",
+        "id": "nana_p",
         "name": "Magic Boomerang",
-        "type": "Skill 1",
-        "cooldown": "5.5s",
-        "cost": "65 Mana",
-        "icon": "🪃",
-        "description": "Throws a boomerang that pierces enemies on forward and return paths."
+        "type": "Passive",
+        "cooldown": "5.5 / 5.2 / 4.9 / 4.6 / 4.3 / 4.0",
+        "cost": "50 / 55 / 60 / 65 / 70 / 75",
+        "icon": "/assets/images/skills/nana_0.png",
+        "description": "Nana hurls her Magical Boomerang in the target direction, dealing damage to enemies hit on its way out and back. The boomerang deals {{scale"
       },
       {
-        "id": "na_s2",
+        "id": "nana_s1",
         "name": "Molina Smooch",
-        "type": "Skill 2",
-        "cooldown": "14.5s",
-        "cost": "80 Mana",
-        "icon": "🐱",
-        "description": "Summons Molina to chase down nearest enemy champion and transform them into a critter."
+        "type": "Skill 1",
+        "cooldown": "14.5 / 14.0 / 13.5 / 13.0 / 12.5 / 12.0s",
+        "cost": "80 / 85 / 90 / 95 / 100 / 105",
+        "icon": "/assets/images/skills/nana_1.png",
+        "description": "Nana summons Molina at the target location. After a short delay. Molina will chase the nearest enemy hero in range for 2.5 seconds. Molina will deal {{scale"
       },
       {
-        "id": "na_ult",
+        "id": "nana_s2",
+        "name": "Molina Blitz",
+        "type": "Skill 2",
+        "cooldown": "36.0 / 32.0 / 28.0s",
+        "cost": "135 / 150 / 165",
+        "icon": "/assets/images/skills/nana_2.png",
+        "description": "Nana summons Molina to strike the target area 3 times, each time dealing {{scale"
+      },
+      {
+        "id": "nana_ult",
         "name": "Molina Blitz",
         "type": "Ultimate",
         "cooldown": "36.0s",
         "cost": "135 Mana",
-        "icon": "🌸",
+        "icon": "/assets/images/skills/nana_3.png",
         "description": "Summons 3 giant spirit paws slamming down in sequence, stunning struck enemies."
       }
     ],
@@ -446,40 +443,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "tig_p",
+        "id": "tigreal_p",
         "name": "Fearless",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🛡️",
-        "description": "Gains blessing stacks on attacks or skill hits; at 4 stacks, immunizes next basic attack."
+        "icon": "/assets/images/skills/tigreal_0.png",
+        "description": "Tigreal gains a stack of {{B"
       },
       {
-        "id": "tig_s1",
+        "id": "tigreal_s1",
         "name": "Attack Wave",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "45 Mana",
-        "icon": "🌊",
-        "description": "Fires holy shockwaves slowing enemies."
+        "cooldown": "7.0 / 6.4 / 5.8 / 5.2 / 4.6 / 4.0s",
+        "cost": "45",
+        "icon": "/assets/images/skills/tigreal_1.png",
+        "description": "Tigreal smashes the ground with his hammer and sends a shockwave forward that erupts 3 times, each time dealing {{Scale"
       },
       {
-        "id": "tig_s2",
+        "id": "tigreal_s2",
         "name": "Sacred Hammer",
         "type": "Skill 2",
-        "cooldown": "12.5s",
-        "cost": "70 Mana",
-        "icon": "🔨",
-        "description": "Charges forward pushing enemies, then knocks them airborne."
+        "cooldown": "12.5 / 12.0 / 11.5 / 11.0 / 10.5 / 10.0s",
+        "cost": "70",
+        "icon": "/assets/images/skills/tigreal_2.png",
+        "description": "Tigreal charges in a target direction, dealing {{Scale"
       },
       {
-        "id": "tig_ult",
+        "id": "tigreal_ult",
         "name": "Implosion",
         "type": "Ultimate",
-        "cooldown": "42.0s",
-        "cost": "120 Mana",
-        "icon": "🌟",
-        "description": "Pulls all surrounding enemies into center vortex and stuns them for 1.5s."
+        "cooldown": "45.0 / 41.0 / 37.0s",
+        "cost": "120 / 140 / 160",
+        "icon": "/assets/images/skills/tigreal_3.png",
+        "description": "Tigreal unleashes the power of his hammer, stunning and pulling nearby enemies to him for 2 seconds while dealing {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/tigreal.png"
@@ -528,40 +525,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "alu_p",
+        "id": "alucard_p",
         "name": "Pursuit",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "⚔️",
-        "description": "Dashes to target on basic attack after skill cast with 1.2x damage and lifesteal."
+        "icon": "/assets/images/skills/alucard_0.png",
+        "description": "After each skill cast, Alucard's next Basic Attack allows him to dash to the target's location and deal {{Scale"
       },
       {
-        "id": "alu_s1",
+        "id": "alucard_s1",
         "name": "Groundsplitter",
         "type": "Skill 1",
-        "cooldown": "8.0s",
+        "cooldown": "8.5 / 8.1 / 7.7 / 7.3 / 6.9 / 6.5s",
         "cost": "No Cost",
-        "icon": "💥",
-        "description": "Leaps forward slamming greatsword into the ground."
+        "icon": "/assets/images/skills/alucard_1.png",
+        "description": "Alucard [[Blink"
       },
       {
-        "id": "alu_s2",
+        "id": "alucard_s2",
         "name": "Whirling Smash",
         "type": "Skill 2",
-        "cooldown": "5.0s",
+        "cooldown": "6.0 / 5.6 / 5.2 / 4.8 / 4.4 / 4.0s",
         "cost": "No Cost",
-        "icon": "🌀",
-        "description": "360-degree blade spin slicing all nearby targets."
+        "icon": "/assets/images/skills/alucard_2.png",
+        "description": "Alucard launches a whirling slash, dealing {{Scale"
       },
       {
-        "id": "alu_ult",
+        "id": "alucard_ult",
         "name": "Fission Wave",
         "type": "Ultimate",
-        "cooldown": "30.0s",
+        "cooldown": "40.0 / 35.0 / 30.0s",
         "cost": "No Cost",
-        "icon": "⚡",
-        "description": "Absorbs energy increasing lifesteal, releasing an immense shockwave slash."
+        "icon": "/assets/images/skills/alucard_3.png",
+        "description": "{{B"
       }
     ],
     "portrait": "/assets/images/heroes/alucard.png"
@@ -605,40 +602,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "kar_p",
+        "id": "karina_p",
         "name": "Shadow Combo",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🗡️",
-        "description": "Third consecutive attack deals bonus true damage equal to percentage of missing HP."
+        "icon": "/assets/images/skills/karina_0.png",
+        "description": "Karina's third consecutive attack on the same enemy deals extra {{b"
       },
       {
-        "id": "kar_s1",
+        "id": "karina_s1",
         "name": "Dance of Blades",
         "type": "Skill 1",
-        "cooldown": "6.0s",
-        "cost": "60 Mana",
-        "icon": "🌀",
-        "description": "Blocks basic attacks, gaining movement speed and reflecting ranged fire."
+        "cooldown": "7.0s",
+        "cost": "70 / 80 / 90 / 100 / 110 / 120",
+        "icon": "/assets/images/skills/karina_1.png",
+        "description": "Karina enters the {{b"
       },
       {
-        "id": "kar_s2",
+        "id": "karina_s2",
         "name": "Dance of Death",
         "type": "Skill 2",
-        "cooldown": "4.5s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Spins dual blades dealing magic damage to all surrounding enemies."
+        "cooldown": "6.0 / 5.7 / 5.4 / 5.1 / 4.8 / 4.5s",
+        "cost": "60 / 68 / 76 / 84 / 92 / 100",
+        "icon": "/assets/images/skills/karina_2.png",
+        "description": "Karina launces a spinning slash, dealing {{Scale"
       },
       {
-        "id": "kar_ult",
+        "id": "karina_ult",
         "name": "Shadow Assault",
         "type": "Ultimate",
-        "cooldown": "34.0s",
-        "cost": "100 Mana",
-        "icon": "⚡",
-        "description": "Dashes at target enemy; resets cooldown instantly if target dies."
+        "cooldown": "34.0 / 30.0 / 26.0s",
+        "cost": "100 / 120 / 140",
+        "icon": "/assets/images/skills/karina_3.png",
+        "description": "Karina dashes to the target enemy hero, dealing {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/karina.png"
@@ -682,40 +679,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "ak_p",
+        "id": "akai_p",
         "name": "Tai Chi",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "☯️",
-        "description": "Gains a protective shield every time a skill is cast."
+        "icon": "/assets/images/skills/akai_0.png",
+        "description": "Akai gains a {{Scale"
       },
       {
-        "id": "ak_s1",
+        "id": "akai_s1",
         "name": "Headbutt",
         "type": "Skill 1",
-        "cooldown": "11.0s",
-        "cost": "70 Mana",
-        "icon": "💨",
-        "description": "Charges forward headbutting the first enemy hit."
+        "cooldown": "13.0 / 12.4 / 11.8 / 11.2 / 10.6 / 10.0s",
+        "cost": "70 / 80 / 90 / 100 / 110 / 120",
+        "icon": "/assets/images/skills/akai_1.png",
+        "description": "Akai [[blink"
       },
       {
-        "id": "ak_s2",
+        "id": "akai_s2",
         "name": "Body Slam",
         "type": "Skill 2",
-        "cooldown": "7.5s",
-        "cost": "60 Mana",
-        "icon": "💥",
-        "description": "Slams his bamboo rod into the ground, marking enemies with frog seals."
+        "cooldown": "7.0 / 6.7 / 6.4 / 6.1 / 5.8 / 5.5s",
+        "cost": "70 / 75 / 80 / 85 / 90 / 95",
+        "icon": "/assets/images/skills/akai_2.png",
+        "description": "Akai smashes the ground with his body, dealing {{Scale"
       },
       {
-        "id": "ak_ult",
+        "id": "akai_ult",
         "name": "Heavy Spin",
         "type": "Ultimate",
-        "cooldown": "40.0s",
-        "cost": "120 Mana",
-        "icon": "🌪️",
-        "description": "Spins continuously for 4s, knocking back and pinning enemies against terrain."
+        "cooldown": "40.0 / 36.0 / 32.0s",
+        "cost": "120",
+        "icon": "/assets/images/skills/akai_3.png",
+        "description": "Akai removes all debuffs on him and spins for 4 seconds, gaining Slow Immunity while continuously dealing {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/akai.png"
@@ -759,39 +756,39 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "fr_p",
-        "name": "Wasteland Force",
-        "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "❄️",
-        "description": "Regenerates HP and gains bonus movement speed when out of combat."
-      },
-      {
-        "id": "fr_s1",
+        "id": "franco_p",
         "name": "Iron Hook",
-        "type": "Skill 1",
-        "cooldown": "15.0s",
-        "cost": "105 Mana",
-        "icon": "🪝",
-        "description": "Fires his iron hook forward, pulling the first enemy struck straight to Franco."
+        "type": "Passive",
+        "cooldown": "15.0 / 14.2 / 13.4 / 12.6 / 11.8 / 11.0",
+        "cost": "135 / 140 / 145 / 150 / 155 / 160",
+        "icon": "/assets/images/skills/franco_0.png",
+        "description": "Franco launches an iron hook in the target direction. The hook will snag the first enemy unit hit, dealing {{scale"
       },
       {
-        "id": "fr_s2",
+        "id": "franco_s1",
         "name": "Fury Shock",
-        "type": "Skill 2",
-        "cooldown": "7.0s",
-        "cost": "40 Mana",
-        "icon": "⚡",
-        "description": "Slams the earth with his frost hammer, dealing physical damage and slowing enemies."
+        "type": "Skill 1",
+        "cooldown": "7.0 / 6.5 / 6.0 / 5.5 / 5.0 / 4.5s",
+        "cost": "40 / 45 / 50 / 55 / 60 / 65",
+        "icon": "/assets/images/skills/franco_1.png",
+        "description": "Franco lashes out, dealing {{AVC1"
       },
       {
-        "id": "fr_ult",
+        "id": "franco_s2",
+        "name": "Bloody Hunt",
+        "type": "Skill 2",
+        "cooldown": "62.0 / 55.0 / 45.0s",
+        "cost": "110 / 125 / 140",
+        "icon": "/assets/images/skills/franco_2.png",
+        "description": "Franco suppresses the target enemy hero for 1.8 seconds and strikes them 6 times over the duration, each time dealing {{scale"
+      },
+      {
+        "id": "franco_ult",
         "name": "Bloody Hunt",
         "type": "Ultimate",
         "cooldown": "45.0s",
         "cost": "110 Mana",
-        "icon": "🔨",
+        "icon": "/assets/images/skills/franco_3.png",
         "description": "Suppresses target enemy hero for 1.8s, hacking them repeatedly."
       }
     ],
@@ -836,40 +833,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "fa_p",
+        "id": "fanny_p",
         "name": "Air Superiority",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🦅",
-        "description": "Damage increases up to 20% while flying based on flight momentum."
+        "icon": "/assets/images/skills/fanny_0.png",
+        "description": "During fight, Fanny deals 10%&ndash;20% extra damage to enemies hit (scales with flying speed [''speed unknown''] ) and applies a stack of {{B"
       },
       {
-        "id": "fa_s1",
+        "id": "fanny_s1",
         "name": "Tornado Strike",
         "type": "Skill 1",
-        "cooldown": "3.5s",
+        "cooldown": "3.5 / 3.3 / 3.1 / 2.9 / 2.7 / 2.5s",
         "cost": "25 Energy",
-        "icon": "🌪️",
-        "description": "Spins blades slicing nearby enemies."
+        "icon": "/assets/images/skills/fanny_1.png",
+        "description": "Fanny whirls her blades, dealing {{Scale"
       },
       {
-        "id": "fa_s2",
+        "id": "fanny_s2",
         "name": "Steel Cable",
         "type": "Skill 2",
-        "cooldown": "No CD",
+        "cooldown": "0.0s",
         "cost": "18 Energy",
-        "icon": "🪝",
-        "description": "Fires cables to terrain; flying triggers automatic Tornado Strikes."
+        "icon": "/assets/images/skills/fanny_2.png",
+        "description": "Fanny shoots a cable in the target direction that pulls her to the first obstacle hit. She can cast this skill again within 2 seconds until her energy runs out. Each successive cast reduces the skill's energy cost by 2. Fanny automatically casts {{ai"
       },
       {
-        "id": "fa_ult",
+        "id": "fanny_ult",
         "name": "Cut Throat",
         "type": "Ultimate",
-        "cooldown": "28.0s",
+        "cooldown": "35.0 / 30.0 / 25.0s",
         "cost": "30 Energy",
-        "icon": "🗡️",
-        "description": "Aerial execution dive dealing massive burst damage."
+        "icon": "/assets/images/skills/fanny_3.png",
+        "description": "Fanny [[blink"
       }
     ],
     "portrait": "/assets/images/heroes/fanny.png"
@@ -913,40 +910,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "la_p",
+        "id": "layla_p",
         "name": "Malefic Gun",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🎯",
-        "description": "Basic attacks deal increasing damage based on distance up to 135%."
+        "icon": "/assets/images/skills/layla_0.png",
+        "description": "Layla deals increased damage to enemies farther away from her (starting at 100% and increasing to 130% at 6 units away). This does not include Turrets."
       },
       {
-        "id": "la_s1",
+        "id": "layla_s1",
         "name": "Malefic Bomb",
         "type": "Skill 1",
-        "cooldown": "6.0s",
-        "cost": "40 Mana",
-        "icon": "💣",
-        "description": "Fires energy bomb granting movement speed."
+        "cooldown": "6.0 / 5.6 / 5.2 / 4.8 / 4.4 / 4.0s",
+        "cost": "40 / 45 / 50 / 55 / 60 / 65",
+        "icon": "/assets/images/skills/layla_1.png",
+        "description": "Layla fires a Malefic Bomb in the target direction, dealing {{scale"
       },
       {
-        "id": "la_s2",
+        "id": "layla_s2",
         "name": "Void Projectile",
         "type": "Skill 2",
-        "cooldown": "7.5s",
-        "cost": "65 Mana",
-        "icon": "🌐",
-        "description": "Detonating orb marking and slowing foes."
+        "cooldown": "7.5 / 7.3 / 7.1 / 6.9 / 6.7 / 6.5s",
+        "cost": "65 / 70 / 75 / 80 / 85 / 90",
+        "icon": "/assets/images/skills/layla_2.png",
+        "description": "Layla fires an orb of Malefic Energy that explodes on hit, dealing {{scale"
       },
       {
-        "id": "la_ult",
+        "id": "layla_ult",
         "name": "Destruction Rush",
         "type": "Ultimate",
-        "cooldown": "35.0s",
-        "cost": "130 Mana",
-        "icon": "⚡",
-        "description": "Colossal laser beam fired across the entire battlefield lane."
+        "cooldown": "37.0 / 32.0 / 27.0s",
+        "cost": "130 / 150 / 170",
+        "icon": "/assets/images/skills/layla_3.png",
+        "description": "Layla fires a blast of Malefic Energy in the target direction, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/layla.png"
@@ -990,40 +987,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "zi_p",
+        "id": "zilong_p",
         "name": "Dragon Flurry",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🐉",
-        "description": "Multi-thrust attack every 3 hits healing HP."
+        "icon": "/assets/images/skills/zilong_0.png",
+        "description": "After dealing damage 3 time(s) with {{ii"
       },
       {
-        "id": "zi_s1",
+        "id": "zilong_s1",
         "name": "Spear Flip",
         "type": "Skill 1",
-        "cooldown": "9.0s",
-        "cost": "80 Mana",
-        "icon": "🔄",
-        "description": "Flips enemy over head and reduces defense."
+        "cooldown": "12.0 / 11.5 / 11.0 / 10.5 / 10.0 / 9.5s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/zilong_1.png",
+        "description": "Zilong flings the target enemy over his head, dealing {{Scale"
       },
       {
-        "id": "zi_s2",
+        "id": "zilong_s2",
         "name": "Spear Strike",
         "type": "Skill 2",
-        "cooldown": "5.0s",
-        "cost": "40 Mana",
-        "icon": "⚡",
-        "description": "Charges enemy; resets on kill."
+        "cooldown": "12.0 / 11.4 / 10.8 / 10.2 / 9.6 / 9.0s",
+        "cost": "40",
+        "icon": "/assets/images/skills/zilong_2.png",
+        "description": "Zilong lunges at the target enemy, dealing {{Scale"
       },
       {
-        "id": "zi_ult",
+        "id": "zilong_ult",
         "name": "Supreme Warrior",
         "type": "Ultimate",
-        "cooldown": "35.0s",
-        "cost": "120 Mana",
-        "icon": "🔥",
-        "description": "Ignites speed and immunity to slows."
+        "cooldown": "35.0 / 31.0 / 27.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/zilong_3.png",
+        "description": "Zilong removes all slow Effects on himself and gains 40% Movement Speed, 35%&ndash;55% Attack Speed, and Slow Immunity for 7.5 seconds. For the duration, he can trigger {{link"
       }
     ],
     "portrait": "/assets/images/heroes/zilong.png"
@@ -1067,40 +1064,73 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "ka_p",
+        "id": "kagura_p",
         "name": "Yin Yang Gathering",
         "type": "Passive",
         "cooldown": "4.5s",
         "cost": "No Cost",
-        "icon": "🌸",
-        "description": "Gains shield and stuns nearby foes when reclaiming umbrella."
+        "icon": "/assets/images/skills/kagura_0.png",
+        "description": "When Kagura retrieves her Seimei Umbrella, she gains a shield, stuns nearby enemies for 0.5s, and slows them."
       },
       {
-        "id": "ka_s1",
+        "id": "kagura_u_s1",
         "name": "Seimei Umbrella Open",
         "type": "Skill 1",
+        "form": "With Umbrella",
         "cooldown": "5.0s",
         "cost": "60 Mana",
-        "icon": "☂️",
-        "description": "Hurls umbrella to target location slowing foes."
+        "icon": "/assets/images/skills/kagura_1.png",
+        "description": "Moves the Seimei Umbrella to target area, dealing magic damage and slowing enemies by 60%."
       },
       {
-        "id": "ka_s2",
+        "id": "kagura_u_s2",
         "name": "Rasho Umbrella Flee",
         "type": "Skill 2",
+        "form": "With Umbrella",
         "cooldown": "12.0s",
         "cost": "80 Mana",
-        "icon": "💧",
-        "description": "Cleanses CC and teleports."
+        "icon": "/assets/images/skills/kagura_2.png",
+        "description": "Removes all debuffs on Kagura and dashes in target direction, leaving the umbrella at her original spot."
       },
       {
-        "id": "ka_ult",
+        "id": "kagura_u_ult",
         "name": "Yin Yang Overturn",
         "type": "Ultimate",
-        "cooldown": "35.0s",
+        "form": "With Umbrella",
+        "cooldown": "32.0s",
         "cost": "100 Mana",
-        "icon": "☯️",
-        "description": "Vortex pulling tethered enemies inward."
+        "icon": "/assets/images/skills/kagura_3.png",
+        "description": "Kagura unleashes umbrella power, knocking back surrounding enemies and dealing burst magic damage."
+      },
+      {
+        "id": "kagura_o_s1",
+        "name": "Seimei Umbrella Open (Shift)",
+        "type": "Skill 1",
+        "form": "Without Umbrella",
+        "cooldown": "5.0s",
+        "cost": "60 Mana",
+        "icon": "/assets/images/skills/kagura_4.png",
+        "description": "Commands the distant umbrella to reposition to a new designated spot, damaging enemies along its path."
+      },
+      {
+        "id": "kagura_o_s2",
+        "name": "Rasho Umbrella Flee (Recall)",
+        "type": "Skill 2",
+        "form": "Without Umbrella",
+        "cooldown": "12.0s",
+        "cost": "80 Mana",
+        "icon": "/assets/images/skills/kagura_5.png",
+        "description": "Kagura teleports directly to the detached umbrella's location, retrieving it and damaging nearby foes."
+      },
+      {
+        "id": "kagura_o_ult",
+        "name": "Yin Yang Overturn (Vortex)",
+        "type": "Ultimate",
+        "form": "Without Umbrella",
+        "cooldown": "32.0s",
+        "cost": "100 Mana",
+        "icon": "/assets/images/skills/kagura_6.png",
+        "description": "The umbrella releases a tethering vortex that slows enemies and drags them to its center after 1.5 seconds."
       }
     ],
     "portrait": "/assets/images/heroes/kagura.png"
@@ -1144,40 +1174,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "ch_p",
+        "id": "chou_p",
         "name": "Only Fast",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "👊",
-        "description": "Empowered kick every 8 yards moved."
+        "icon": "/assets/images/skills/chou_0.png",
+        "description": "After travelling 5 units, Chou's deals 180% damage on his next Basic Attack (cannot Crit), briefly slows the target by 80% and reduces their Physical Defense by 10(+1*Hero Level) for 3s (up to 2 stacks)."
       },
       {
-        "id": "ch_s1",
+        "id": "chou_s1",
         "name": "Jeet Kune Do",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "9.5 / 9.2 / 8.9 / 8.6 / 8.3 / 8.0s",
         "cost": "No Cost",
-        "icon": "🥋",
-        "description": "3-hit punch sequence with airborne knockup."
+        "icon": "/assets/images/skills/chou_1.png",
+        "description": "Chou strikes in the target direction, dealing {{scale"
       },
       {
-        "id": "ch_s2",
+        "id": "chou_s2",
         "name": "Shunpo",
         "type": "Skill 2",
         "cooldown": "5.0s",
         "cost": "No Cost",
-        "icon": "⚡",
-        "description": "Dash granting CC immunity and shield."
+        "icon": "/assets/images/skills/chou_2.png",
+        "description": "Chou charges in the target direction gaining Control Immunity and a {{scale"
       },
       {
-        "id": "ch_ult",
+        "id": "chou_ult",
         "name": "The Way of Dragon",
         "type": "Ultimate",
         "cooldown": "34.0s",
         "cost": "No Cost",
-        "icon": "🐉",
-        "description": "Roundhouse dragon kick followed by aerial combo."
+        "icon": "/assets/images/skills/chou_3.png",
+        "description": "Chou strikes the target enemy hero with a roundhouse kick at the target enemy hero, dealing them {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/chou.png"
@@ -1221,40 +1251,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "gu_p",
+        "id": "gusion_p",
         "name": "Dagger Specialist",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🗡️",
-        "description": "Rune stacks heal HP on empowered basic attack."
+        "icon": "/assets/images/skills/gusion_0.png",
+        "description": "Each skill cast adds a rune to Gusion's dagger (stacks up to 4 times). Each stack enhances Gusion's next {{ai"
       },
       {
-        "id": "gu_s1",
+        "id": "gusion_s1",
         "name": "Sword Spike",
         "type": "Skill 1",
-        "cooldown": "6.0s",
-        "cost": "50 Mana",
-        "icon": "🎯",
-        "description": "Throws dagger; blinks behind tagged target."
+        "cooldown": "9.0 / 8.4 / 7.8 / 7.2 / 6.6 / 6.0s",
+        "cost": "70",
+        "icon": "/assets/images/skills/gusion_1.png",
+        "description": "Gusion throws a dagger in the target direction, dealing {{Scale"
       },
       {
-        "id": "gu_s2",
+        "id": "gusion_s2",
         "name": "Shadowblade Slaughter",
         "type": "Skill 2",
-        "cooldown": "6.0s",
-        "cost": "65 Mana",
-        "icon": "✨",
-        "description": "Hurls 5 daggers in fan shape and recalls them."
+        "cooldown": "11.0 / 10.6 / 10.2 / 9.8 / 9.4 / 9.0s",
+        "cost": "65 / 75 / 85 / 95 / 105 / 115",
+        "icon": "/assets/images/skills/gusion_2.png",
+        "description": "Gusion throws a volley of [five] daggers in the target direction, each dealing {{Scale"
       },
       {
-        "id": "gu_ult",
+        "id": "gusion_ult",
         "name": "Incandescence",
         "type": "Ultimate",
-        "cooldown": "24.0s",
-        "cost": "100 Mana",
-        "icon": "🌌",
-        "description": "Dashes forward, resetting all dagger cooldowns."
+        "cooldown": "28.0 / 24.0 / 20.0s",
+        "cost": "100 / 50 / 0",
+        "icon": "/assets/images/skills/gusion_3.png",
+        "description": "Gusion dashes to the target location, resetting the cooldown of {{ai"
       }
     ],
     "portrait": "/assets/images/heroes/gusion.png"
@@ -1298,40 +1328,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "ha_p",
-        "name": "Trace of Shadow",
+        "id": "hayabusa_p",
+        "name": "Ninjutsu: Trace of Shadow",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "👤",
-        "description": "Shadow Marks increase damage."
+        "icon": "/assets/images/skills/hayabusa_0.png",
+        "description": "Hayabusa's attacks apply a stack of {{B"
       },
       {
-        "id": "ha_s1",
-        "name": "Phantom Shuriken",
+        "id": "hayabusa_s1",
+        "name": "Ninjutsu: Phantom Shuriken",
         "type": "Skill 1",
         "cooldown": "4.0s",
-        "cost": "30 Energy",
-        "icon": "🗡️",
-        "description": "Cone shuriken burst restoring energy."
+        "cost": "30",
+        "icon": "/assets/images/skills/hayabusa_1.png",
+        "description": "Hayabusa throws three returning shurikens in the target direction, each dealing {{scale"
       },
       {
-        "id": "ha_s2",
-        "name": "Quad Shadow",
+        "id": "hayabusa_s2",
+        "name": "Ninjutsu: Quad Shadow",
         "type": "Skill 2",
-        "cooldown": "14.0s",
-        "cost": "25 Energy",
-        "icon": "👥",
-        "description": "Releases 4 shadow clones to teleport between."
+        "cooldown": "20.0 / 19.2 / 18.4 / 17.6 / 16.8 / 16.0s",
+        "cost": "25",
+        "icon": "/assets/images/skills/hayabusa_2.png",
+        "description": "Hayabusa dashes in the target direction and releases four phantoms that travel in separate directions. The phantoms will remain at the end of their paths or attach themselves to the first enemy hero hit, dealing {{scale"
       },
       {
-        "id": "ha_ult",
-        "name": "Shadow Kill",
+        "id": "hayabusa_ult",
+        "name": "Ougi: Shadow Kill",
         "type": "Ultimate",
-        "cooldown": "40.0s",
+        "cooldown": "50.0s",
         "cost": "40 Energy",
-        "icon": "🌑",
-        "description": "Untargetable multi-slash execution."
+        "icon": "/assets/images/skills/hayabusa_3.png",
+        "description": "Hayabusa blends into the shadows and launches 6 single-target attacks on enemies in the area, each dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/hayabusa.png"
@@ -1375,40 +1405,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "la_p",
+        "id": "lancelot_p",
         "name": "Soul Cutter",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🌹",
-        "description": "Dashing increases damage by 7.5% up to 30%."
+        "icon": "/assets/images/skills/lancelot_0.png",
+        "description": "Each time Lancelot [ [[Blink and charge"
       },
       {
-        "id": "la_s1",
+        "id": "lancelot_s1",
         "name": "Puncture",
         "type": "Skill 1",
-        "cooldown": "14.0s",
-        "cost": "50 Mana",
-        "icon": "💨",
-        "description": "Charges applying Sword Marks; resets on new targets."
+        "cooldown": "14.0 / 13.6 / 13.2 / 12.8 / 12.4 / 12.0s",
+        "cost": "50 / 48 / 46 / 44 / 42 / 40",
+        "icon": "/assets/images/skills/lancelot_1.png",
+        "description": "Lancelot [[Blink"
       },
       {
-        "id": "la_s2",
+        "id": "lancelot_s2",
         "name": "Thorned Rose",
         "type": "Skill 2",
-        "cooldown": "8.0s",
-        "cost": "70 Mana",
-        "icon": "⚔️",
-        "description": "Triangular invincible sword flourish."
+        "cooldown": "10 / 9.4 / 8.8 / 8.2 / 7.6 / 7.0s",
+        "cost": "120 / 112 / 104 / 96 / 88 / 80",
+        "icon": "/assets/images/skills/lancelot_2.png",
+        "description": "Lancelot strikes in the target direction 3 times, each time dealing {{scale"
       },
       {
-        "id": "la_ult",
+        "id": "lancelot_ult",
         "name": "Phantom Execution",
         "type": "Ultimate",
-        "cooldown": "27.0s",
-        "cost": "100 Mana",
-        "icon": "✨",
-        "description": "Invincible execution charge forward."
+        "cooldown": "27.0 / 24.0 / 21.0s",
+        "cost": "100 / 125 / 150",
+        "icon": "/assets/images/skills/lancelot_3.png",
+        "description": "After a short period [''how long?''] of charging, Lancelot [[Blink"
       }
     ],
     "portrait": "/assets/images/heroes/lancelot.png"
@@ -1452,40 +1482,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "gr_p",
+        "id": "granger_p",
         "name": "Capriccio",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🎼",
-        "description": "6-bullet chamber; 6th bullet is guaranteed critical."
+        "icon": "/assets/images/skills/granger_0.png",
+        "description": "Granger's unique Demon Hunting {{link"
       },
       {
-        "id": "gr_s1",
+        "id": "granger_s1",
         "name": "Rhapsody",
         "type": "Skill 1",
-        "cooldown": "8.0s",
+        "cooldown": "0.3s",
         "cost": "No Cost",
-        "icon": "🔫",
-        "description": "Unloads all 6 bullets while moving."
+        "icon": "/assets/images/skills/granger_1.png",
+        "description": "Granger rapidly fires 6 shot(s) with his {{link"
       },
       {
-        "id": "gr_s2",
+        "id": "granger_s2",
         "name": "Rondo",
         "type": "Skill 2",
-        "cooldown": "4.0s",
+        "cooldown": "12.0s",
         "cost": "No Cost",
-        "icon": "💨",
-        "description": "Dash empowering next 2 basic attacks."
+        "icon": "/assets/images/skills/granger_2.png",
+        "description": "Granger uses his Demon Hunter agility to dash in the target direction, instantly restoring 15%-25% Energy for his {{link"
       },
       {
-        "id": "gr_ult",
+        "id": "granger_ult",
         "name": "Death Sonata",
         "type": "Ultimate",
-        "cooldown": "36.0s",
+        "cooldown": "0.6s",
         "cost": "No Cost",
-        "icon": "🎻",
-        "description": "Fires 3 exploding Super Bullets from cannon."
+        "icon": "/assets/images/skills/granger_3.png",
+        "description": "Granger fires his {{link"
       }
     ],
     "portrait": "/assets/images/heroes/granger.png"
@@ -1529,40 +1559,49 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "be_p",
+        "id": "bea_p",
         "name": "Mechanical Genius",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "⚙️",
-        "description": "Equips 2 of 4 tactical weapons at any time."
+        "icon": "/assets/images/skills/beatrix_0.png",
+        "description": "Beatrix carries 4 specialized firearms: Renner (Sniper), Bennett (Rocket), Wesker (Shotgun), and Nibiru (SMG)."
       },
       {
-        "id": "be_s1",
+        "id": "bea_s1",
         "name": "Masterful Gunner",
         "type": "Skill 1",
         "cooldown": "0.6s",
         "cost": "No Cost",
-        "icon": "🔄",
-        "description": "Swaps between primary and secondary weapon."
+        "icon": "/assets/images/skills/beatrix_1.png",
+        "description": "Beatrix swiftly swaps her primary weapon with her secondary firearm."
       },
       {
-        "id": "be_s2",
+        "id": "bea_s2",
         "name": "Tactical Reposition",
         "type": "Skill 2",
         "cooldown": "8.0s",
         "cost": "No Cost",
-        "icon": "🏃‍♀️",
-        "description": "Dashes and reloads weapon."
+        "icon": "/assets/images/skills/beatrix_2.png",
+        "description": "Beatrix rolls in target direction, fully reloading her active firearm upon finishing the dash."
       },
       {
-        "id": "be_ult",
-        "name": "Dawnbreak Arsenal",
+        "id": "bea_ult",
+        "name": "Weapon Ultimate",
         "type": "Ultimate",
         "cooldown": "24.0s",
         "cost": "No Cost",
-        "icon": "🚀",
-        "description": "Unleashes active weapon’s ultimate skill."
+        "icon": "/assets/images/skills/beatrix_3.png",
+        "description": "Fires the ultimate salvo of her active weapon (Renner's Apathy, Bennett's Desolation, Wesker's Elation, or Nibiru's Passion)."
+      },
+      {
+        "id": "bea_sp",
+        "name": "Need Backup",
+        "type": "Special",
+        "cooldown": "20.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/beatrix_4.png",
+        "description": "Beatrix takes cover and reconfigures her weaponry, selecting two guns from her armory to equip."
       }
     ],
     "portrait": "/assets/images/heroes/beatrix.png"
@@ -1611,40 +1650,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "yz_p",
+        "id": "yuzhong_p",
         "name": "Cursing Touch",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🐉",
-        "description": "Sha Residue stacks trigger eruption, healing Yu Zhong."
+        "icon": "/assets/images/skills/yuzhong_0.png",
+        "description": "Yu Zhong applies [[Mark"
       },
       {
-        "id": "yz_s1",
+        "id": "yuzhong_s1",
         "name": "Dragon Tail",
         "type": "Skill 1",
-        "cooldown": "5.5s",
+        "cooldown": "6.0 / 5.5 / 5.0 / 4.5s",
         "cost": "50 Sha",
-        "icon": "🗡️",
-        "description": "Spins cloak dealing AoE edge damage."
+        "icon": "/assets/images/skills/yuzhong_1.png",
+        "description": "Yu Zhong infuses his power into his cloak and turns it into a weapon, which starts to attack nearby enemies after a short delay. The inner area of the cloak deals {{scale"
       },
       {
-        "id": "yz_s2",
+        "id": "yuzhong_s2",
         "name": "Soul Grip",
         "type": "Skill 2",
-        "cooldown": "12.0s",
+        "cooldown": "14.0 / 13.0 / 12.0 / 11.0s",
         "cost": "60 Sha",
-        "icon": "✋",
-        "description": "Unleashes dragon soul slowing enemies."
+        "icon": "/assets/images/skills/yuzhong_2.png",
+        "description": "Yu Zhong unleashes the Dragon Soul, dealing {{Scale"
       },
       {
-        "id": "yz_ult",
-        "name": "Black Dragon Form",
+        "id": "yuzhong_ult",
+        "name": "Furious Dive",
         "type": "Ultimate",
-        "cooldown": "65.0s",
+        "cooldown": "14.0 / 13.0 / 12.0 / 11.0s",
         "cost": "No Cost",
-        "icon": "🐲",
-        "description": "Transforms into giant airborne Black Dragon ignoring terrain."
+        "icon": "/assets/images/skills/yuzhong_3.png",
+        "description": "Yu Zhong leaps towards the designated area with his full strength, dealing {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/yuzhong.png"
@@ -1688,40 +1727,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "li_p",
+        "id": "ling_p",
         "name": "Cloud Walker",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🪶",
-        "description": "Generates Lightness points and high critical chance."
+        "icon": "/assets/images/skills/ling_0.png",
+        "description": "Ling's superb Lightness Skill helps him leap among walls. When resting on the wall, He gains 4 [[Energy"
       },
       {
-        "id": "li_s1",
+        "id": "ling_s1",
         "name": "Finch Poise",
         "type": "Skill 1",
-        "cooldown": "2.0s",
+        "cooldown": "20.0s",
         "cost": "35 Lightness",
-        "icon": "🧗",
-        "description": "Leaps onto walls, traversing terrain."
+        "icon": "/assets/images/skills/ling_1.png",
+        "description": "{{b"
       },
       {
-        "id": "li_s2",
+        "id": "ling_s2",
         "name": "Defiant Sword",
         "type": "Skill 2",
         "cooldown": "2.5s",
         "cost": "40 Lightness",
-        "icon": "🗡️",
-        "description": "Thrusts forward dealing critical damage."
+        "icon": "/assets/images/skills/ling_2.png",
+        "description": "Ling charges in a designated direction and stabs the nearby enemies at his destination, dealing {{Scale"
       },
       {
-        "id": "li_ult",
+        "id": "ling_ult",
         "name": "Tempest of Blades",
         "type": "Ultimate",
-        "cooldown": "48.0s",
+        "cooldown": "52.0 / 49.0 / 46.0s",
         "cost": "No Cost",
-        "icon": "⚔️",
-        "description": "Leaps into air becoming invincible, dropping 4 field swords."
+        "icon": "/assets/images/skills/ling_3.png",
+        "description": "Ling leaps into the air, becoming invincible and gaining 10% extra Movement Speed for 1.5 seconds. He can move freely when in the air. He then lands on the ground, dealing {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/ling.png"
@@ -1765,40 +1804,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "cl_p",
-        "name": "Battle Sidekick",
+        "id": "claude_p",
+        "name": "Battle Side-by-side",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🐒",
-        "description": "Dexter attacks alongside Claude on every shot."
+        "icon": "/assets/images/skills/claude_0.png",
+        "description": "{{AVC1"
       },
       {
-        "id": "cl_s1",
+        "id": "claude_s1",
         "name": "Art of Thievery",
         "type": "Skill 1",
         "cooldown": "5.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Steals enemy movement and attack speed in a fan shape."
+        "cost": "65 / 70 / 75 / 80 / 85 / 90",
+        "icon": "/assets/images/skills/claude_1.png",
+        "description": "Claude attacks enemies in a fan-shaped area ahead, dealing {{Scale"
       },
       {
-        "id": "cl_s2",
+        "id": "claude_s2",
         "name": "Battle Mirror Image",
         "type": "Skill 2",
-        "cooldown": "11.0s",
-        "cost": "70 Mana",
-        "icon": "🪞",
-        "description": "Summons mirror hologram; can swap locations with it."
+        "cooldown": "11.0 / 10.5 / 10.0 / 9.5 / 9.0 / 8.5s",
+        "cost": "70 / 80 / 90 / 100 / 110 / 120",
+        "icon": "/assets/images/skills/claude_2.png",
+        "description": "Claude leaves a mirror image of Dexter at a designated location. Dexter’s mirror image automatically attacks enemies. Lasts 5.5 seconds. Claude can activate this skill again to switch places with the mirror image. Dexter's {{Ai"
       },
       {
-        "id": "cl_ult",
+        "id": "claude_ult",
         "name": "Blazing Duet",
         "type": "Ultimate",
-        "cooldown": "50.0s",
-        "cost": "150 Mana",
-        "icon": "🔥",
-        "description": "Continuous barrage firing at all nearby targets with bonus shields."
+        "cooldown": "50.0 / 45.0 / 40.0s",
+        "cost": "150 / 175 / 200",
+        "icon": "/assets/images/skills/claude_3.png",
+        "description": "Claude and Dexter rapidly fire at the enemies nearby over 3 seconds, dealing {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/claude.png"
@@ -1842,40 +1881,40 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "le_p",
+        "id": "lesley_p",
         "name": "Lethal Shot",
         "type": "Passive",
         "cooldown": "5.0s",
         "cost": "No Cost",
-        "icon": "🎯",
-        "description": "Gains camouflage and converts critical damage to True Damage."
+        "icon": "/assets/images/skills/lesley_0.png",
+        "description": "If Lesley doesn't take damage for 5 seconds, her next Basic Attack gains extra range and 50% [[Critical Chance"
       },
       {
-        "id": "le_s1",
+        "id": "lesley_s1",
         "name": "Master of Camouflage",
         "type": "Skill 1",
-        "cooldown": "4.0s",
+        "cooldown": "5.0 / 4.4 / 3.8 / 3.2 / 2.6 / 2.0s",
         "cost": "30 Energy",
-        "icon": "👤",
-        "description": "Enters camouflage state gaining speed and physical attack."
+        "icon": "/assets/images/skills/lesley_1.png",
+        "description": "Lesley enters the Camouflage state, gaining double [[Energy"
       },
       {
-        "id": "le_s2",
+        "id": "lesley_s2",
         "name": "Tactical Grenade",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "10.0 / 9.4 / 8.8 / 8.2 / 7.6 / 7.0s",
         "cost": "40 Energy",
-        "icon": "💣",
-        "description": "Throws grenade knocking enemies back and jumping away."
+        "icon": "/assets/images/skills/lesley_2.png",
+        "description": "Lesley throws a tactical grenade in the target direction while slightly [[Blink"
       },
       {
-        "id": "le_ult",
+        "id": "lesley_ult",
         "name": "Ultimate Snipe",
         "type": "Ultimate",
         "cooldown": "40.0s",
-        "cost": "No Cost",
-        "icon": "🔭",
-        "description": "Locks onto target enemy, firing 4 fatal lethal sniper bullets."
+        "cost": "0",
+        "icon": "/assets/images/skills/lesley_3.png",
+        "description": "Lesley [gains vision to nearby enemies and can lock] onto the target enemy hero and fires 4 {{B"
       }
     ],
     "portrait": "/assets/images/heroes/lesley.png"
@@ -1920,39 +1959,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "bruno_p",
-        "name": "Bruno's Awakening",
+        "name": "Mecha Legs",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Bruno's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/bruno_0.png",
+        "description": "Bruno gains 2.5% extra [[Critical chance"
       },
       {
         "id": "bruno_s1",
-        "name": "Bruno's Strike",
+        "name": "Volley Shot",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "10.0 / 9.5 / 9.0 / 8.5 / 8.0 / 7.5s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/bruno_1.png",
+        "description": "Bruno kicks a Powerball on his next Basic Attack, dealing {{scale"
       },
       {
         "id": "bruno_s2",
-        "name": "Tactical Maneuver",
+        "name": "Slide",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "{{sl",
+        "cost": "90",
+        "icon": "/assets/images/skills/bruno_2.png",
+        "description": "Bruno slides in the target direction, briefly stunning enemies along the way for 0.1 seconds, and gaining a {{link"
       },
       {
         "id": "bruno_ult",
-        "name": "Apex Sovereign",
+        "name": "Worldie",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of The Protector, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "38.0 / 33.0 / 28.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/bruno_3.png",
+        "description": "Bruno kicks an Energy Ball at a target hero, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/bruno.png"
@@ -1997,39 +2036,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "clint_p",
-        "name": "Clint's Awakening",
+        "name": "Double Shot",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Clint's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/clint_0.png",
+        "description": "After each skill cast, Clint's next Basic Attack within 4 seconds penetrates a line of enemies, dealing {{scale"
       },
       {
         "id": "clint_s1",
-        "name": "Clint's Strike",
+        "name": "Quick Draw",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "8.0 / 7.4 / 6.8 / 6.2 / 5.6 / 5.0s",
+        "cost": "50",
+        "icon": "/assets/images/skills/clint_1.png",
+        "description": "Clint fires 5 bullets in quick succession in the target direction, each dealing {{scale"
       },
       {
         "id": "clint_s2",
-        "name": "Tactical Maneuver",
+        "name": "Trapping Recoil",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "10.0 / 9.6 / 9.2 / 8.8 / 8.4 / 8.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/clint_2.png",
+        "description": "Clint shoots a trap net in the target direction, [[Blink"
       },
       {
         "id": "clint_ult",
-        "name": "Apex Sovereign",
+        "name": "Grenade Bombardment",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of West Justice, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "1.5 / 1.0 / 0.5s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/clint_3.png",
+        "description": "Clint launches a grenade in the target direction that explodes in the first enemy hit, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/clint.png"
@@ -2074,39 +2113,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "rafaela_p",
-        "name": "Rafaela's Awakening",
+        "name": "Divine Resurrection",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Rafaela's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/rafaela_0.png",
+        "description": "At regular intervals, Rafaela can use a special skill to instantly resurrect a fallen allied hero after a brief channeling. The resurrected allied hero will respawn at the base and is granted increased Movement Speed. This skill's cooldown is determined by both its base cooldown and the remaining respawn time of the revived hero. It is not affected by Cooldown Reduction."
       },
       {
         "id": "rafaela_s1",
-        "name": "Rafaela's Strike",
+        "name": "Light of Retribution",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "4.0s",
+        "cost": "70 / 85 / 100 / 115 / 130 / 145",
+        "icon": "/assets/images/skills/rafaela_1.png",
+        "description": "Rafaela strikes the three nearest enemies With Light of Retribution, dealing them {{scale"
       },
       {
         "id": "rafaela_s2",
-        "name": "Tactical Maneuver",
+        "name": "Holy Healing",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "10.5 / 10.1 / 9.7 / 9.3 / 8.9 / 8.5s",
+        "cost": "100 / 110 / 120 / 130 / 140 / 150",
+        "icon": "/assets/images/skills/rafaela_2.png",
+        "description": "Rafaela calls upon {{B"
       },
       {
         "id": "rafaela_ult",
-        "name": "Apex Sovereign",
+        "name": "Holy Baptism",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Wings of Heaven, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "42.0 / 38.0 / 34.0s",
+        "cost": "150 / 175 / 200",
+        "icon": "/assets/images/skills/rafaela_3.png",
+        "description": "Rafaela unleashes the true power of {{B"
       }
     ],
     "portrait": "/assets/images/heroes/rafaela.png"
@@ -2151,39 +2190,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "eudora_p",
-        "name": "Eudora's Awakening",
+        "name": "Superconductor",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Eudora's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/eudora_0.png",
+        "description": "Eudora's skills inflict {{ai"
       },
       {
         "id": "eudora_s1",
-        "name": "Eudora's Strike",
+        "name": "Forked Lightning",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "7.0 / 6.6 / 6.2 / 5.8 / 5.4 / 5.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/eudora_1.png",
+        "description": "Eudora casts Forked Lightning in a fan-shaped area, dealing {{scale"
       },
       {
         "id": "eudora_s2",
-        "name": "Tactical Maneuver",
+        "name": "Ball Lightning",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "11.0 / 10.5 / 10.0 / 9.5 / 9.0 / 8.5s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/eudora_2.png",
+        "description": "Eudora hurls an orb of lightning at the target enemy, [[Defense Reduction"
       },
       {
         "id": "eudora_ult",
-        "name": "Apex Sovereign",
+        "name": "Thunder's Wrath",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Lightning Weaver, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "32.0 / 29.0 / 26.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/eudora_3.png",
+        "description": "Eudora calls down a blast of lightning on the target area, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/eudora.png"
@@ -2228,39 +2267,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "minotaur_p",
-        "name": "Minotaur's Awakening",
+        "name": "Rage Incarnate",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Minotaur's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/minotaur_0.png",
+        "description": "When Minotaur uses a skill, he will gain {{AVC1"
       },
       {
         "id": "minotaur_s1",
-        "name": "Minotaur's Strike",
+        "name": "Despair Stomp",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "12.0/ 11.5 / 11.0 / 10.5 / 10.0 / 9.5s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/minotaur_1.png",
+        "description": "Minotaur [[Blink"
       },
       {
         "id": "minotaur_s2",
-        "name": "Tactical Maneuver",
+        "name": "Motivation Roar",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "10.0 / 9.5 / 9.0 / 8.5 / 8.0 / 7.5s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/minotaur_2.png",
+        "description": "Minotaur motivates himself and nearby most wounded hero, restoring {{scale"
       },
       {
         "id": "minotaur_ult",
-        "name": "Apex Sovereign",
+        "name": "Minoan Fury",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "60.0 / 55.0 / 50.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Son of Minos, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/minotaur_3.png",
+        "description": "Minotaur enters {{b"
       }
     ],
     "portrait": "/assets/images/heroes/minotaur.png"
@@ -2305,39 +2344,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "lolita_p",
-        "name": "Lolita's Awakening",
+        "name": "Power Charge",
         "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Lolita's basic attacks and skill rotation based on combat momentum."
+        "cooldown": "10.0",
+        "cost": "70 / 80 / 90 / 100 / 110 / 120",
+        "icon": "/assets/images/skills/lolita_0.png",
+        "description": "Lolita [[blink"
       },
       {
         "id": "lolita_s1",
-        "name": "Lolita's Strike",
+        "name": "Guardian's Reflection",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "17.5 / 17.0 / 16.5 / 16.0 / 15.5 / 15.0s",
+        "cost": "90 / 95 / 100 / 105 / 110 / 115",
+        "icon": "/assets/images/skills/lolita_1.png",
+        "description": "Lolita raises her shield and reflects all incoming ranged Basic Attacks and Projectiles in the direction of the shield for 3 seconds. The shield will break after taking {{scale"
       },
       {
         "id": "lolita_s2",
-        "name": "Tactical Maneuver",
+        "name": "Noumenon Blast",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "55.0 / 50.0 / 45.0s",
+        "cost": "120 / 140 / 160",
+        "icon": "/assets/images/skills/lolita_2.png",
+        "description": "Lolita begins charging for 2 seconds while slowing enemies in a fan-shaped area by 50%. When the charging is complete or is stopped, Lolita slams her hammer on the ground, dealing up to {{scale"
       },
       {
         "id": "lolita_ult",
-        "name": "Apex Sovereign",
+        "name": "Noumenon Blast",
         "type": "Ultimate",
         "cooldown": "38.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Steel Elf, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/lolita_3.png",
+        "description": "Charges forward with an energy blast that slows and stuns all enemies in a giant conical area."
       }
     ],
     "portrait": "/assets/images/heroes/lolita.png"
@@ -2382,39 +2421,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "freya_p",
-        "name": "Freya's Awakening",
+        "name": "Power of Einherjar",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Freya's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/freya_0.png",
+        "description": "Freya gains 1 {{link"
       },
       {
         "id": "freya_s1",
-        "name": "Freya's Strike",
+        "name": "Leap of Faith",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/freya_1.png",
+        "description": "Freya [[blink"
       },
       {
         "id": "freya_s2",
-        "name": "Tactical Maneuver",
+        "name": "Valkyrie Slash",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "0.4s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/freya_2.png",
+        "description": "Freya charges forward and slashes, dealing {{scale"
       },
       {
         "id": "freya_ult",
-        "name": "Apex Sovereign",
+        "name": "Valkyrie Descent",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "34.0 / 30.0 / 26.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Valkyrie, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/freya_3.png",
+        "description": "Freya selects a target area and [[blink"
       }
     ],
     "portrait": "/assets/images/heroes/freya.png"
@@ -2459,39 +2498,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "gord_p",
-        "name": "Gord's Awakening",
+        "name": "Mystic Favor",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Gord's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/gord_0.png",
+        "description": "After Gord hits an enemy 4 times with Basic Attacks or skills within a short period of time, the next attack on the target will deal an additional {{Scale"
       },
       {
         "id": "gord_s1",
-        "name": "Gord's Strike",
+        "name": "Mystic Projectile",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "10.0 / 9.5 / 9.0 / 8.5 / 8.0 / 7.5s",
+        "cost": "90 / 100 / 110 / 120 / 130 / 140",
+        "icon": "/assets/images/skills/gord_1.png",
+        "description": "Gord conjures a Mystic Orb that bounces in the target direction and explodes on the first enemy hit, dealing {{scale"
       },
       {
         "id": "gord_s2",
-        "name": "Tactical Maneuver",
+        "name": "Mystic Injunction",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
+        "cost": "55 / 65 / 75 / 85 / 95 / 105",
+        "icon": "/assets/images/skills/gord_2.png",
+        "description": "Gord create an energy field in the target area, dealing {{scale"
       },
       {
         "id": "gord_ult",
-        "name": "Apex Sovereign",
+        "name": "Mystic Gush",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Professor of the Mystic, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "44.0 / 40.0 / 36.0s",
+        "cost": "150 / 170 / 190",
+        "icon": "/assets/images/skills/gord_3.png",
+        "description": "Gord unleashes an energy beam in the target direction, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/gord.png"
@@ -2536,39 +2575,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "natalia_p",
-        "name": "Natalia's Awakening",
+        "name": "Assassin Instinct",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Natalia's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/natalia_0.png",
+        "description": "If Natalia stays in a bush without taking damage for 1 second, she will enter Camouflage state and gain 15% Movement Speed. In this state, Natalia's next Basic Attack will teleport her behind her target and deal {{scale"
       },
       {
         "id": "natalia_s1",
-        "name": "Natalia's Strike",
+        "name": "Claw Dash",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "10.0 / 9.2 / 8.4 / 7.6 / 6.8 / 6.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/natalia_1.png",
+        "description": "Natalia dashes in the target direction, dealing {{scale"
       },
       {
         "id": "natalia_s2",
-        "name": "Tactical Maneuver",
+        "name": "Smoke Bomb",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "12.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/natalia_2.png",
+        "description": "Natalia releases a Smoke Bomb at her location, slowing enemies within by 25%&ndash;75% while Natalia becomes immune to enemy Basic Attacks for 4 seconds."
       },
       {
         "id": "natalia_ult",
-        "name": "Apex Sovereign",
+        "name": "The Hunt",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "3.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Brightclaw, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/natalia_3.png",
+        "description": "{{B"
       }
     ],
     "portrait": "/assets/images/heroes/natalia.png"
@@ -2613,39 +2652,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "sun_p",
-        "name": "Sun's Awakening",
+        "name": "Simian God",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Sun's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/sun_0.png",
+        "description": "Enemies hit by Sun and his Doppelgangers will have their Physical Defense reduced by 5% (stacks up to 6 times). Sun recovers {{b"
       },
       {
         "id": "sun_s1",
-        "name": "Sun's Strike",
+        "name": "Endless Variety",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "10.0 / 9.6 / 9.2 / 8.8 / 8.4 / 8.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/sun_1.png",
+        "description": "Sun hurls his {{link"
       },
       {
         "id": "sun_s2",
-        "name": "Tactical Maneuver",
+        "name": "Swift Exchange",
         "type": "Skill 2",
         "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cost": "70/80/90/100/110/120",
+        "icon": "/assets/images/skills/sun_2.png",
+        "description": "Sun hurls his {{link"
       },
       {
         "id": "sun_ult",
-        "name": "Apex Sovereign",
+        "name": "Instantaneous Move",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Monkey King, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "4.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/sun_3.png",
+        "description": "Sun commands his Doppelgangers to strike at the target enemy with him, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/sun.png"
@@ -2690,39 +2729,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "alpha_p",
-        "name": "Alpha's Awakening",
+        "name": "Beta, Advance!",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Alpha's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/alpha_0.png",
+        "description": "When Alpha uses a skill, Beta will be summoned to attack. [Non-minion enemies] that are hit by Beta 2 time(s) will be {{b"
       },
       {
         "id": "alpha_s1",
-        "name": "Alpha's Strike",
+        "name": "Rotary Impact",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "4.0s",
+        "cost": "50",
+        "icon": "/assets/images/skills/alpha_1.png",
+        "description": "Alpha unleashes an energy wave in the target direction, dealing {{scale"
       },
       {
         "id": "alpha_s2",
-        "name": "Tactical Maneuver",
+        "name": "Force Swing",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "6.0 / 5.6 / 5.2 / 4.8 / 4.4 / 4.0s",
+        "cost": "45 / 50 / 55 / 60 / 65 / 70",
+        "icon": "/assets/images/skills/alpha_2.png",
+        "description": "After a short delay, Alpha swings his blade in the target direction, dealing {{scale"
       },
       {
         "id": "alpha_ult",
-        "name": "Apex Sovereign",
+        "name": "Spear of Alpha",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Blade of Enmity, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "20.0 / 18.0 / 16.0s",
+        "cost": "70 / 80 / 90",
+        "icon": "/assets/images/skills/alpha_3.png",
+        "description": "Beta dives into target location, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/alpha.png"
@@ -2767,39 +2806,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "ruby_p",
-        "name": "Ruby's Awakening",
+        "name": "Let's Dance!",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Ruby's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/ruby_0.png",
+        "description": "Ruby gains 6%-20% Spell Vamp (based on level) and inherits 125% Spell Vamp Ratio (Basic Attacks cannot trigger Lifesteal). After each skill cast, Ruby can dash to another location, gaining {{scale"
       },
       {
         "id": "ruby_s1",
-        "name": "Ruby's Strike",
+        "name": "Be Good!",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "4.0s",
+        "cost": "25",
+        "icon": "/assets/images/skills/ruby_1.png",
+        "description": "Ruby swings her scythe, dealing {{scale"
       },
       {
         "id": "ruby_s2",
-        "name": "Tactical Maneuver",
+        "name": "Don't Run, Wolf King!",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "7.0s",
+        "cost": "50 / 55 / 60 / 65 / 70 / 75",
+        "icon": "/assets/images/skills/ruby_2.png",
+        "description": "Ruby swings her scythe herself twice, each swing dealing {{scale"
       },
       {
         "id": "ruby_ult",
-        "name": "Apex Sovereign",
+        "name": "I'm Offended!",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Little Red Hood, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "26.0 / 23.0 / 20.0s",
+        "cost": "80 / 100 / 120",
+        "icon": "/assets/images/skills/ruby_3.png",
+        "description": "Ruby sweeps scythe in the target direction, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/ruby.png"
@@ -2844,39 +2883,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "yisunshin_p",
-        "name": "Yi Sun-shin's Awakening",
+        "name": "Heavenly Vow",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Yi Sun-shin's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/yisunshin_0.png",
+        "description": "Yi Sun-shin attacks with his {{ai"
       },
       {
         "id": "yisunshin_s1",
-        "name": "Yi Sun-shin's Strike",
+        "name": "Traceless",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "12.0 / 11.0 / 10.0 / 9.0 / 8.0 / 7.0s",
+        "cost": "50 / 55 / 60 / 65 / 70 / 75",
+        "icon": "/assets/images/skills/yisunshin_1.png",
+        "description": "Yi Sun-shin dashes forward and slashes with his glaive, dealing {{scale"
       },
       {
         "id": "yisunshin_s2",
-        "name": "Tactical Maneuver",
+        "name": "Blood Floods",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "11.0s",
+        "cost": "60 / 65 / 70 / 75 / 80 / 85",
+        "icon": "/assets/images/skills/yisunshin_2.png",
+        "description": "{{link"
       },
       {
         "id": "yisunshin_ult",
-        "name": "Apex Sovereign",
+        "name": "Mountain Shocker",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Paenlong Legend, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "60.0s",
+        "cost": "150 / 180 / 210",
+        "icon": "/assets/images/skills/yisunshin_3.png",
+        "description": "Yi Sun-shin summons a turtle ship and gains sight of the whole map for 5 seconds. The turtle ship lasts for up to 15 seconds, during which Yi Sun-shin gains 70% burst Movement Speed (decay to 20% over 2 seconds). When cast again, Yi Sun-shin commands the turtle ship to ram towards the target area, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/yisunshin.png"
@@ -2921,39 +2960,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "moskov_p",
-        "name": "Moskov's Awakening",
+        "name": "Spear of Quiescence",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Moskov's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/moskov_0.png",
+        "description": "Moskov's Basic Attacks can penetrate the target and deal [(+{{scale"
       },
       {
         "id": "moskov_s1",
-        "name": "Moskov's Strike",
+        "name": "Abyss Walker",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "10.0 /  9.6 / 9.2 / 8.8 / 8.4 / 8.0s",
+        "cost": "45 / 50 / 55 / 60 / 65/ 70",
+        "icon": "/assets/images/skills/moskov_1.png",
+        "description": "Moskov teleports to the target location, increasing his Attack Speed to 1.15&ndash;1.5 times for 3 seconds. Meanwhile, his Basic Attack deals 10% more damage to enemies behind the primary target."
       },
       {
         "id": "moskov_s2",
-        "name": "Tactical Maneuver",
+        "name": "Spear of Misery",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "12.0 / 11.5 / 11.0 / 10.5 / 10.0 / 9.5s",
+        "cost": "80 / 90 / 100 / 110 / 120 / 130",
+        "icon": "/assets/images/skills/moskov_2.png",
+        "description": "Moskov launches a powerful strike at the target enemy hero or Creep, dealing {{scale"
       },
       {
         "id": "moskov_ult",
-        "name": "Apex Sovereign",
+        "name": "Spear of Destruction",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Spear of Quiescence, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "55.0 / 50.0 / 45.0s",
+        "cost": "130 / 150 / 170",
+        "icon": "/assets/images/skills/moskov_3.png",
+        "description": "After a short delay, Moskov throws the {{B"
       }
     ],
     "portrait": "/assets/images/heroes/moskov.png"
@@ -2998,39 +3037,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "johnson_p",
-        "name": "Johnson's Awakening",
+        "name": "Electro Airbag",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Johnson's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/johnson_0.png",
+        "description": "When Johnson's {{B"
       },
       {
         "id": "johnson_s1",
-        "name": "Johnson's Strike",
+        "name": "Impact Wrench",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "8.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/johnson_1.png",
+        "description": "Johnson throws his wrench toward the target location, dealing {{scale"
       },
       {
         "id": "johnson_s2",
-        "name": "Tactical Maneuver",
+        "name": "Electromagnetic Waves",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "10.0 / 9.6 / 9.2 / 8.8 / 8.4 / 8.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/johnson_2.png",
+        "description": "Johnson raises his shield, continuously dealing {{scale"
       },
       {
         "id": "johnson_ult",
-        "name": "Apex Sovereign",
+        "name": "Nitrous",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "0.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Mustang, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/johnson_3.png",
+        "description": "Hold the \"Nitrous\" skill to increase speed for up to 5 seconds, the acceleration stopping immediately once released."
       }
     ],
     "portrait": "/assets/images/heroes/johnson.png"
@@ -3075,39 +3114,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "cyclops_p",
-        "name": "Cyclops's Awakening",
+        "name": "Starlit Hourglass",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Cyclops's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/cyclops_0.png",
+        "description": "Each time Cyclops hits an enemy with his skills, all his skill cooldowns are reduced by 0.5s."
       },
       {
         "id": "cyclops_s1",
-        "name": "Cyclops's Strike",
+        "name": "Stardust Shock",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "9.0s",
+        "cost": "100",
+        "icon": "/assets/images/skills/cyclops_1.png",
+        "description": "Cyclops casts two Stardust Disks, each dealing {{Scale"
       },
       {
         "id": "cyclops_s2",
-        "name": "Tactical Maneuver",
+        "name": "Planets Attack",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "14 / 13.5 / 13 / 12.5 / 11 / 10.5s",
+        "cost": "60 / 66 / 72 / 78 / 84 / 90",
+        "icon": "/assets/images/skills/cyclops_2.png",
+        "description": "Cyclops conjures Starlit Spheres around himself while gaining 30% Movement Speed for 2s. The spheres will automatically seek and attack nearby enemies (prioritizes enemy heroes), exploding on collision and dealing {{Scale"
       },
       {
         "id": "cyclops_ult",
-        "name": "Apex Sovereign",
+        "name": "Star Power Lockdown",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Starsoul Magician, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "43.0s",
+        "cost": "160 / 180 / 200",
+        "icon": "/assets/images/skills/cyclops_3.png",
+        "description": "Cyclops creates a Planetary Sphere and sends it after target enemy hero or Creep, dealing {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/cyclops.png"
@@ -3152,39 +3191,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "estes_p",
-        "name": "Estes's Awakening",
+        "name": "Scripture of the Moon Elf",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Estes's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/estes_0.png",
+        "description": "Slowly charges the Code of Moon Elves. When fully charged, his next basic attack is enhanced and bounces to nearby enemies."
       },
       {
         "id": "estes_s1",
-        "name": "Estes's Strike",
+        "name": "Moonlight Immersion",
         "type": "Skill 1",
         "cooldown": "7.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/estes_1.png",
+        "description": "Restores HP to the target champion immediately and links with them for 3s to continually heal."
       },
       {
         "id": "estes_s2",
-        "name": "Tactical Maneuver",
+        "name": "Domain of Moon Goddess",
         "type": "Skill 2",
         "cooldown": "10.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/estes_2.png",
+        "description": "Floods moonlight into a designated area, dealing magic damage and slowing enemies who touch the boundary."
       },
       {
         "id": "estes_ult",
-        "name": "Apex Sovereign",
+        "name": "Blessing of Moon Goddess",
         "type": "Ultimate",
         "cooldown": "38.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Moon Elf King, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/estes_3.png",
+        "description": "Casts enhanced Moonlight Immersion on all nearby allied champions, continuously healing the entire team."
       }
     ],
     "portrait": "/assets/images/heroes/estes.png"
@@ -3229,39 +3268,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "hilda_p",
-        "name": "Hilda's Awakening",
+        "name": "Combat Ritual",
         "type": "Passive",
-        "cooldown": "Passive",
+        "cooldown": "10.0 / 9.5 / 9.0 / 8.5 / 8.0 / 7.5",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Hilda's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/hilda_0.png",
+        "description": "Hilda gains 60% Movement Speed for 3 seconds and receives a shield that absorbs damage equal to 10% Max HP, lasting 3 seconds."
       },
       {
         "id": "hilda_s1",
-        "name": "Hilda's Strike",
+        "name": "Art of Hunting",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/hilda_1.png",
+        "description": "Hilda locks onto an enemy target, each time dealing {{scale"
       },
       {
         "id": "hilda_s2",
-        "name": "Tactical Maneuver",
+        "name": "Power of Wildness",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "32.0 / 28.0 / 24.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/hilda_2.png",
+        "description": "Hilda [leaps forward and] launches a powerful slash on the target enemy, dealing {{scale"
       },
       {
         "id": "hilda_ult",
-        "name": "Apex Sovereign",
+        "name": "Power of Wildness",
         "type": "Ultimate",
         "cooldown": "38.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Power of Megalith, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/hilda_3.png",
+        "description": "Jumps toward a target enemy, executing a devastating strike with massive physical damage scaled with Wilderness Force."
       }
     ],
     "portrait": "/assets/images/heroes/hilda.png"
@@ -3306,39 +3345,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "aurora_p",
-        "name": "Aurora's Awakening",
+        "name": "Pride of Ice",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Aurora's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/aurora_0.png",
+        "description": "Upon taking fatal damage, Aurora [[freeze"
       },
       {
         "id": "aurora_s1",
-        "name": "Aurora's Strike",
+        "name": "Hailstone Blast",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "6.0 / 5.6 / 5.2 / 4.8 / 4.4 / 4.0s",
+        "cost": "55 / 65 / 75 / 85 / 95 / 105",
+        "icon": "/assets/images/skills/aurora_1.png",
+        "description": "Aurora summons an icy meteorite to strike at the target location, dealing {{scale"
       },
       {
         "id": "aurora_s2",
-        "name": "Tactical Maneuver",
+        "name": "Frosty Breeze",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "13.0s",
+        "cost": "110 / 110 / 120 / 130 / 140 / 150",
+        "icon": "/assets/images/skills/aurora_2.png",
+        "description": "Aurora blows Frosty Breeze in a fan-shaped area in the target direction, dealing {{scale"
       },
       {
         "id": "aurora_ult",
-        "name": "Apex Sovereign",
+        "name": "Frigid Glacier",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Frost Maiden, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "50.0 / 45.0 / 40.0s",
+        "cost": "150 / 175 / 200",
+        "icon": "/assets/images/skills/aurora_3.png",
+        "description": "Aurora creates a frost path in the target direction, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/aurora.png"
@@ -3382,40 +3421,73 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "lapulapu_p",
-        "name": "Lapu-Lapu's Awakening",
+        "id": "lapu_p",
+        "name": "Homeland Defender",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Lapu-Lapu's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/lapulapu_0.png",
+        "description": "Each skill hit grants Bravery Blessing. At full stacks, Lapu-Lapu dashes with his next basic attack and gains a massive shield."
       },
       {
-        "id": "lapulapu_s1",
-        "name": "Lapu-Lapu's Strike",
+        "id": "lapu_t_s1",
+        "name": "Justice Blades",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "form": "Twin Blade",
+        "cooldown": "8.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/lapulapu_1.png",
+        "description": "Throws twin blades forward that fly out and return, dealing physical damage in both directions."
       },
       {
-        "id": "lapulapu_s2",
-        "name": "Tactical Maneuver",
+        "id": "lapu_t_s2",
+        "name": "Jungle Warrior",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "form": "Twin Blade",
+        "cooldown": "8.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/lapulapu_2.png",
+        "description": "Dashes forward while slashing with twin blades, gaining movement speed."
       },
       {
-        "id": "lapulapu_ult",
-        "name": "Apex Sovereign",
+        "id": "lapu_t_ult",
+        "name": "Bravest Fighter",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Great Chief, dealing monumental AoE damage and dictating the teamfight."
+        "form": "Twin Blade",
+        "cooldown": "20.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/lapulapu_3.png",
+        "description": "Combines twin blades into a Heavy Sword and leaps into the air, crashing down to stun enemies and enter Heavy Sword Stance."
+      },
+      {
+        "id": "lapu_h_s1",
+        "name": "Land Shaker",
+        "type": "Skill 1",
+        "form": "Heavy Sword",
+        "cooldown": "8.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/lapulapu_4.png",
+        "description": "Gathers strength and slams heavy sword down, stunning enemies and dealing heavy physical damage."
+      },
+      {
+        "id": "lapu_h_s2",
+        "name": "Storm Sword",
+        "type": "Skill 2",
+        "form": "Heavy Sword",
+        "cooldown": "8.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/lapulapu_5.png",
+        "description": "Whirls his heavy sword in a full circle, gaining 15% damage reduction per enemy hero struck."
+      },
+      {
+        "id": "lapu_h_ult",
+        "name": "Raging Slash",
+        "type": "Ultimate",
+        "form": "Heavy Sword",
+        "cooldown": "20.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/lapulapu_6.png",
+        "description": "Delivers three catastrophic slashes forward with CC immunity, finishing with a massive cleave."
       }
     ],
     "portrait": "/assets/images/heroes/lapulapu.png"
@@ -3460,39 +3532,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "vexana_p",
-        "name": "Vexana's Awakening",
+        "name": "Nether Touch",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Vexana's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/vexana_0.png",
+        "description": "Vexana and the {{Link"
       },
       {
         "id": "vexana_s1",
-        "name": "Vexana's Strike",
+        "name": "Deathly Grasp",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "14.0/13.4/12.88/12.2/11.6/11.0s",
+        "cost": "80/90/100/110/120/130",
+        "icon": "/assets/images/skills/vexana_1.png",
+        "description": "Vexana unleashes a {{Link"
       },
       {
         "id": "vexana_s2",
-        "name": "Tactical Maneuver",
+        "name": "Cursed Blast",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "7.0/6.7/6.4/6.1/5.8/5.5s",
+        "cost": "80/90/100/110/120/130",
+        "icon": "/assets/images/skills/vexana_2.png",
+        "description": "Vexana marks the target area with the power of the undead, striking it after 0.8 seconds delay and dealing {{Scale"
       },
       {
         "id": "vexana_ult",
-        "name": "Apex Sovereign",
+        "name": "Eternal Guard",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Shimmer Hope, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "60.0/53.0/46.0s",
+        "cost": "120 / 160 / 200",
+        "icon": "/assets/images/skills/vexana_3.png",
+        "description": "Vexana summons an {{Link"
       }
     ],
     "portrait": "/assets/images/heroes/vexana.png"
@@ -3537,39 +3609,72 @@ export const HEROES = [
     "abilities": [
       {
         "id": "roger_p",
-        "name": "Roger's Awakening",
+        "name": "Full Moon Curse",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Roger's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/roger_0.png",
+        "description": "In human form, Basic Attacks slow enemies by 10%. In wolf form, Basic Attacks deal extra physical damage equal to 5% of target's lost HP."
       },
       {
-        "id": "roger_s1",
-        "name": "Roger's Strike",
+        "id": "roger_h_s1",
+        "name": "Open Fire",
         "type": "Skill 1",
+        "form": "Human Form",
         "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cost": "70 Mana",
+        "icon": "/assets/images/skills/roger_1.png",
+        "description": "Roger fires two quick shots in target direction, dealing damage and heavily slowing affected enemies."
       },
       {
-        "id": "roger_s2",
-        "name": "Tactical Maneuver",
+        "id": "roger_h_s2",
+        "name": "Hunter's Steps",
         "type": "Skill 2",
+        "form": "Human Form",
         "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cost": "50 Mana",
+        "icon": "/assets/images/skills/roger_2.png",
+        "description": "Roger gains 40% Movement Speed and Attack Speed for 2.5 seconds to reposition rapidly."
       },
       {
-        "id": "roger_ult",
-        "name": "Apex Sovereign",
+        "id": "roger_h_ult",
+        "name": "Wolf Transformation",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Dire Wolf Hunter, dealing monumental AoE damage and dictating the teamfight."
+        "form": "Human Form",
+        "cooldown": "6.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/roger_3.png",
+        "description": "Roger pounces forward, transforming into a Wolf, dealing physical damage and gaining 40 Physical & Magic Defense."
+      },
+      {
+        "id": "roger_w_s1",
+        "name": "Lycan Pounce",
+        "type": "Skill 1",
+        "form": "Wolf Form",
+        "cooldown": "6.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/roger_4.png",
+        "description": "Roger leaps toward target enemy, becoming untargetable and dealing burst physical damage to up to 3 enemies."
+      },
+      {
+        "id": "roger_w_s2",
+        "name": "Bloodthirsty Howl",
+        "type": "Skill 2",
+        "form": "Wolf Form",
+        "cooldown": "10.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/roger_5.png",
+        "description": "Roger howls, increasing his Attack Speed by 50% and doubling movement speed when hunting low-HP champions."
+      },
+      {
+        "id": "roger_w_ult",
+        "name": "Restore Human Form",
+        "type": "Ultimate",
+        "form": "Wolf Form",
+        "cooldown": "6.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/roger_6.png",
+        "description": "Roger rolls in target direction and transforms back into Human Form, gaining a 200 HP shield."
       }
     ],
     "portrait": "/assets/images/heroes/roger.png"
@@ -3614,39 +3719,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "karrie_p",
-        "name": "Karrie's Awakening",
+        "name": "Lightwheel Mark",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Karrie's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/karrie_0.png",
+        "description": "Karrie's Basic Attacks and skills apply a stack of Lightwheel Mark on hit. Once a target has 5 stacks of Lightwheel Marks, the marks will turn into a lightwheel, dealing True Damage equal to 6%-8% of the target's [[Health point"
       },
       {
         "id": "karrie_s1",
-        "name": "Karrie's Strike",
+        "name": "Spinning Lightwheel",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "8.0s",
+        "cost": "40 / 45 / 50 / 55 / 60 / 65",
+        "icon": "/assets/images/skills/karrie_1.png",
+        "description": "Karrie releases a sphere of surging energy in the target direction, dealing {{scale"
       },
       {
         "id": "karrie_s2",
-        "name": "Tactical Maneuver",
+        "name": "Phantom Step",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "4.5 / 4.1 / 3.7 / 3.3 / 2.9 / 2.5s",
+        "cost": "35 / 40 / 45 / 50 / 55 / 60",
+        "icon": "/assets/images/skills/karrie_2.png",
+        "description": "Karrie dashes in the target direction while throwing a lightwheel at the nearest enemy, dealing {{scale"
       },
       {
         "id": "karrie_ult",
-        "name": "Apex Sovereign",
+        "name": "Speedy Lightwheel",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Lost Star, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "35.0s",
+        "cost": "70 / 80 / 90",
+        "icon": "/assets/images/skills/karrie_3.png",
+        "description": "Karrie enters Dual Wield state for 6s, during which she gains 20% Movement Speed and throws two lightwheels with each Basic Attack, each dealing 50-70% Basic Attack damage annd inheriting a portion of Attack Effects."
       }
     ],
     "portrait": "/assets/images/heroes/karrie.png"
@@ -3691,39 +3796,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "gatotkaca_p",
-        "name": "Gatotkaca's Awakening",
+        "name": "Steel Bones",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Gatotkaca's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/gatotkaca_0.png",
+        "description": "Gatotkaca gains [1] Physical Defense equal to 2% of his [[HP"
       },
       {
         "id": "gatotkaca_s1",
-        "name": "Gatotkaca's Strike",
+        "name": "Blast Iron Fist",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/gatotkaca_1.png",
+        "description": "Gatotkaca slams the ground, creating a shattered zone in the target direction while dealing {{scale"
       },
       {
         "id": "gatotkaca_s2",
-        "name": "Tactical Maneuver",
+        "name": "Unbreakable",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "12.0 / 11.6 / 11.2 / 10.8 / 10.4 / 10.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/gatotkaca_2.png",
+        "description": "Gatotkaca begins channeling, then [[blink"
       },
       {
         "id": "gatotkaca_ult",
-        "name": "Apex Sovereign",
+        "name": "Avatar of the Guardian",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "54.0 / 50.0 / 46.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Iron Bone, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/gatotkaca_3.png",
+        "description": "Gatotkaca [[blink"
       }
     ],
     "portrait": "/assets/images/heroes/gatotkaca.png"
@@ -3768,39 +3873,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "harley_p",
-        "name": "Harley's Awakening",
+        "name": "Poker Trick",
         "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Harley's basic attacks and skill rotation based on combat momentum."
+        "cooldown": "6.0",
+        "cost": "90 / 95 / 100 / 105 / 110 / 115",
+        "icon": "/assets/images/skills/harley_0.png",
+        "description": "Harley throws 3-5 waves of cards in the target direction, each dealing 130-210 {{AVC1"
       },
       {
         "id": "harley_s1",
-        "name": "Harley's Strike",
+        "name": "Space Escape",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "8.5 / 8.1 / 7.7 / 7.3 / 6.9 / 6.5s",
+        "cost": "60 / 70 / 80 / 90 / 100 / 110",
+        "icon": "/assets/images/skills/harley_1.png",
+        "description": "Harley blinks in the designated direction, leaving a magic hat at his place, increasing his Movement Speed by 30% for 2 seconds."
       },
       {
         "id": "harley_s2",
-        "name": "Tactical Maneuver",
+        "name": "Deadly Magic",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "36.0 / 33.0 / 30.0s",
+        "cost": "120 / 160 / 200",
+        "icon": "/assets/images/skills/harley_2.png",
+        "description": "Harley casts a magic ring of fire at the target enemy hero (can be blocked by other heroes), dealing them 200-400 {{AVC1"
       },
       {
         "id": "harley_ult",
-        "name": "Apex Sovereign",
+        "name": "Deadly Magic",
         "type": "Ultimate",
         "cooldown": "38.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Mage Genius, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/harley_3.png",
+        "description": "Fires a magic ring at an enemy hero, dealing burst magic damage and detonating at the end of duration for remaining damage."
       }
     ],
     "portrait": "/assets/images/heroes/harley.png"
@@ -3845,39 +3950,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "irithel_p",
-        "name": "Irithel's Awakening",
+        "name": "Jungle Heart",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Irithel's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/irithel_0.png",
+        "description": "Irithel and Leo's immaculate teamwork allows her to shoot while moving. Each Basic Attack will shoot 2 crossbow bolt(s) (but takes longer to refill) that deal {{scale"
       },
       {
         "id": "irithel_s1",
-        "name": "Irithel's Strike",
+        "name": "Strafe",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "10.0s",
+        "cost": "0",
+        "icon": "/assets/images/skills/irithel_1.png",
+        "description": "Irithel launches a volley of arrows on the target area, dealing {{Scale"
       },
       {
         "id": "irithel_s2",
-        "name": "Tactical Maneuver",
+        "name": "Force of the Queen",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "10.0 / 9.4 / 8.8 / 8.2 / 7.6 / 7.0s",
+        "cost": "0",
+        "icon": "/assets/images/skills/irithel_2.png",
+        "description": "Leo lets out a piercing roar, dealing {{Scale"
       },
       {
         "id": "irithel_ult",
-        "name": "Apex Sovereign",
+        "name": "Heavy Crossbow",
         "type": "Ultimate",
         "cooldown": "38.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Jungle Heart, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/irithel_3.png",
+        "description": "Irithel order Leo to [[Blink"
       }
     ],
     "portrait": "/assets/images/heroes/irithel.png"
@@ -3922,39 +4027,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "grock_p",
-        "name": "Grock's Awakening",
+        "name": "Bastion of Stone",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Grock's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/grock_0.png",
+        "description": "Grock gains a Shield equal to 10% of his Max HP and empowers the next Basic Attack to deal {{scale"
       },
       {
         "id": "grock_s1",
-        "name": "Grock's Strike",
+        "name": "Mighty Swing",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/grock_1.png",
+        "description": "Grock strikes forward with massive force, dealing {{scale"
       },
       {
         "id": "grock_s2",
-        "name": "Tactical Maneuver",
+        "name": "Earthen Rampart",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "14.0 / 13.2 / 12.4 / 11.6 / 10.8 / 10.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/grock_2.png",
+        "description": "After a brief delay, Grock summons a stone wall in the target area, dealing {{scale"
       },
       {
         "id": "grock_ult",
-        "name": "Apex Sovereign",
+        "name": "Tectonic Charge",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "55.0 / 50.0 / 45.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Fortress Titan, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/grock_3.png",
+        "description": "Grock charges forward, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/grock.png"
@@ -3999,39 +4104,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "argus_p",
-        "name": "Argus's Awakening",
+        "name": "Warmonger",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Argus's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/argus_0.png",
+        "description": "{{B"
       },
       {
         "id": "argus_s1",
-        "name": "Argus's Strike",
+        "name": "Demonic Grip",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "12.0 / 11.6 / 11.2 / 10.8 / 10.4 / 10.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/argus_1.png",
+        "description": "Argus streches out a demonic hand in the target direction, dealing {{scale"
       },
       {
         "id": "argus_s2",
-        "name": "Tactical Maneuver",
+        "name": "Meteoric Sword",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/argus_2.png",
+        "description": "After a short charge, Argus thrusts his Demonic Blade in the target direction, dealing {{scale"
       },
       {
         "id": "argus_ult",
-        "name": "Apex Sovereign",
+        "name": "Eternal Evil",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "42.0 / 38.0 / 35.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Nightstalker, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/argus_3.png",
+        "description": "Argus removes all debuffs (excluding Suppression) on himself, deals{{scale"
       }
     ],
     "portrait": "/assets/images/heroes/argus.png"
@@ -4076,39 +4181,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "odette_p",
-        "name": "Odette's Awakening",
+        "name": "Lakeshore Ambience",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Odette's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/odette_0.png",
+        "description": "After each skill cast, Odette's next {{ai"
       },
       {
         "id": "odette_s1",
-        "name": "Odette's Strike",
+        "name": "Avian Authority",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "6.0 / 5.8 / 5.6 / 5.4 / 5.2 / 5.0s",
+        "cost": "90 / 100 / 110 / 120 / 130 / 140",
+        "icon": "/assets/images/skills/odette_1.png",
+        "description": "Odette concentrates energy to summon a swan to attack enemies, dealing {{Scale"
       },
       {
         "id": "odette_s2",
-        "name": "Tactical Maneuver",
+        "name": "Blue Nova",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "12.0 / 11.6 / 11.2 / 10.8 / 10.4 / 10.0s",
+        "cost": "90 / 95 / 100 / 105 / 100 / 115",
+        "icon": "/assets/images/skills/odette_2.png",
+        "description": "Odette releases a set of magic energy balls forward, dealing {{Scale"
       },
       {
         "id": "odette_ult",
-        "name": "Apex Sovereign",
+        "name": "Swan Song",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Swan Princess, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "50.0 / 45.0 / 40.0s",
+        "cost": "160 / 190 / 220",
+        "icon": "/assets/images/skills/odette_3.png",
+        "description": "Odette gathers energy and began channeling, gaining a {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/odette.png"
@@ -4153,39 +4258,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "diggie_p",
-        "name": "Diggie's Awakening",
+        "name": "Young Again",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Diggie's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/diggie_0.png",
+        "description": "Upon death, Diggie reverses time and turns to egg form, in which he can continue to move around and gains a new set of skills. He cannot be targeted in egg form and will revive after a period of time."
       },
       {
         "id": "diggie_s1",
-        "name": "Diggie's Strike",
+        "name": "Auto Alarm Bomb",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "8.0 / 7.4 / 6.8 / 6.2 / 5.6 / 5.0s",
+        "cost": "70 / 80 / 90 / 100 / 110 / 120",
+        "icon": "/assets/images/skills/diggie_1.png",
+        "description": "Diggie flings an owl alarm to the target location. The alarm will then remain stationary for 25 seconds or until it reacts to the first enemy in range, chasing them and exploding upon collision. The explosion deals {{Scale"
       },
       {
         "id": "diggie_s2",
-        "name": "Tactical Maneuver",
+        "name": "Disdain",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "5.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/diggie_2.png",
+        "description": "Diggie displays serious disdain for the enemy, dealing a small amount of damage to surrounding enemies while venting anger."
       },
       {
         "id": "diggie_ult",
-        "name": "Apex Sovereign",
+        "name": "Reverse Time",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Timekeeper, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "15.0 / 14.0 / 13.0 / 12.0 / 11.0 / 10.0s",
+        "cost": "90",
+        "icon": "/assets/images/skills/diggie_3.png",
+        "description": "Diggie marks a target enemy hero for 4 seconds and pulls them back to their previous location after the duration ends, dealing {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/diggie.png"
@@ -4230,39 +4335,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "hylos_p",
-        "name": "Hylos's Awakening",
+        "name": "Thickened Blood",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Hylos's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/hylos_0.png",
+        "description": "Hylos gains 1.5 extra {{B"
       },
       {
         "id": "hylos_s1",
-        "name": "Hylos's Strike",
+        "name": "Law and Order",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "12.0 / 11.2 / 10.4 / 9.6 / 8.8 / 8.0s",
+        "cost": "80 / 90 / 100 / 110 / 120 / 130",
+        "icon": "/assets/images/skills/hylos_1.png",
+        "description": "Hylos gains 50% Movement Speed and causes his next Basic Attack within 3 seconds to deal {{scale"
       },
       {
         "id": "hylos_s2",
-        "name": "Tactical Maneuver",
+        "name": "Ring of Punishment",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "1.0s",
+        "cost": "30 / 40 / 60 / 90 / 120 / 150",
+        "icon": "/assets/images/skills/hylos_2.png",
+        "description": "Hylos releases the {{b"
       },
       {
         "id": "hylos_ult",
-        "name": "Apex Sovereign",
+        "name": "Glorious Pathway",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Grand Warden, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "40.0 / 36.0 / 32.0s",
+        "cost": "150 / 300 / 450",
+        "icon": "/assets/images/skills/hylos_3.png",
+        "description": "Hylos creates a huge pathway in the target direction, reducing enemies' Movement by 75% for 1 second. The pathway lasts 6 seconds. When on the pathway, Hylos gains Slow Immunity and recovers 3% of his {{B"
       }
     ],
     "portrait": "/assets/images/heroes/hylos.png"
@@ -4307,39 +4412,48 @@ export const HEROES = [
     "abilities": [
       {
         "id": "zhask_p",
-        "name": "Zhask's Awakening",
+        "name": "Decimation",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Zhask's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/zhask_0.png",
+        "description": "When Zhask dies, he commands the Nightmaric Spawn to self-destruct, dealing true damage to surrounding enemies."
       },
       {
         "id": "zhask_s1",
-        "name": "Zhask's Strike",
+        "name": "Nightmaric Spawn",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "11.0s",
+        "cost": "100 Mana",
+        "icon": "/assets/images/skills/zhask_1.png",
+        "description": "Zhask summons a Nightmaric Spawn at target location that auto-attacks nearby enemies with death rays."
       },
       {
         "id": "zhask_s2",
-        "name": "Tactical Maneuver",
+        "name": "Mind Eater",
         "type": "Skill 2",
+        "cooldown": "8.0s",
+        "cost": "50 Mana",
+        "icon": "/assets/images/skills/zhask_2.png",
+        "description": "Zhask fires penetrating mental energy beams, stunning enemies caught in the crossfire."
+      },
+      {
+        "id": "zhask_s3",
+        "name": "Hive Clones",
+        "type": "Skill 3",
         "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cost": "60 Mana",
+        "icon": "/assets/images/skills/zhask_3.png",
+        "description": "Zhask scatters a cluster of nightmaric clonal mines that explode upon enemy contact, slowing targets."
       },
       {
         "id": "zhask_ult",
-        "name": "Apex Sovereign",
+        "name": "Dominator's Descent",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Planes Dominator, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "60.0s",
+        "cost": "160 Mana",
+        "icon": "/assets/images/skills/zhask_4.png",
+        "description": "Zhask fuses directly into his Nightmaric Spawn, massively amplifying its size, attributes, and granting invulnerability frames."
       }
     ],
     "portrait": "/assets/images/heroes/zhask.png"
@@ -4384,39 +4498,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "helcurt_p",
-        "name": "Helcurt's Awakening",
+        "name": "Shadow of Styx",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Helcurt's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/helcurt_0.png",
+        "description": "Helcurt remains in the {{B"
       },
       {
         "id": "helcurt_s1",
-        "name": "Helcurt's Strike",
+        "name": "Hidden Terror",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "15.0 / 14.0 / 13.0 / 12.0 / 11.0 / 10.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/helcurt_1.png",
+        "description": "{{B"
       },
       {
         "id": "helcurt_s2",
-        "name": "Tactical Maneuver",
+        "name": "Deadly Stinger",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "4.0 / 3.7 / 3.4 / 3.1 / 2.8 / 2.5s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/helcurt_2.png",
+        "description": "{{b"
       },
       {
         "id": "helcurt_ult",
-        "name": "Apex Sovereign",
+        "name": "Dark Night Falls",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "60.0 / 55.0 / 50.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Shadowbringer, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/helcurt_3.png",
+        "description": "Helcurt summons the {{B"
       }
     ],
     "portrait": "/assets/images/heroes/helcurt.png"
@@ -4461,39 +4575,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "pharsa_p",
-        "name": "Pharsa's Awakening",
+        "name": "Spiritual Unity",
         "type": "Passive",
-        "cooldown": "Passive",
+        "cooldown": "8.0",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Pharsa's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/pharsa_0.png",
+        "description": "Every 8 seconds, Verri enters the Hunting state and assists Pharsa on her next attack against an enemy hero, dealing 8% extra {{B"
       },
       {
         "id": "pharsa_s1",
-        "name": "Pharsa's Strike",
+        "name": "Curse of Crow",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "8.0 / 7.6 /7.2/ 6.8 /6.4 / 6.0s",
+        "cost": "60 / 66 / 72 / 78.0 / 84 / 90",
+        "icon": "/assets/images/skills/pharsa_1.png",
+        "description": "Pharsa unleashes a blast of magic at the target location, dealing {{scale"
       },
       {
         "id": "pharsa_s2",
-        "name": "Tactical Maneuver",
+        "name": "Energy Impact",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "5.0s",
+        "cost": "50 / 56 / 62 / 68 / 74 / 80",
+        "icon": "/assets/images/skills/pharsa_2.png",
+        "description": "Pharsa releases magic energy in the target direction, dealing {{scale"
       },
       {
         "id": "pharsa_ult",
-        "name": "Apex Sovereign",
+        "name": "Feathered Air Strike",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Wings of Vengeance, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "36.0 / 33.0 / 30.0s",
+        "cost": "120 / 150 / 180",
+        "icon": "/assets/images/skills/pharsa_3.png",
+        "description": "Passive: Each level up of this skill reduces the {{ai"
       }
     ],
     "portrait": "/assets/images/heroes/pharsa.png"
@@ -4538,39 +4652,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "jawhead_p",
-        "name": "Jawhead's Awakening",
+        "name": "Mecha Suppression",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Jawhead's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/jawhead_0.png",
+        "description": "Jawhead's attacks apply a stack of {{b"
       },
       {
         "id": "jawhead_s1",
-        "name": "Jawhead's Strike",
+        "name": "Smart Missiles",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "5.0s",
+        "cost": "60 / 65 / 70 / 75 / 80 / 85",
+        "icon": "/assets/images/skills/jawhead_1.png",
+        "description": "Jawhead launches up to 12 missiles at random nearby enemies over 5 seconds, each missile dealing {{scale"
       },
       {
         "id": "jawhead_s2",
-        "name": "Tactical Maneuver",
+        "name": "Ejector",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "15.0 / 14.4 / 13.8 / 13.2 / 12.6 / 12.0s",
+        "cost": "80 / 90 / 100 / 110 / 120 / 130",
+        "icon": "/assets/images/skills/jawhead_2.png",
+        "description": "Jawhead gains 30% Movement Speed and a {{scale"
       },
       {
         "id": "jawhead_ult",
-        "name": "Apex Sovereign",
+        "name": "Unstoppable Force",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Steel Sweetheart, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "35.0 / 30.0 / 25.0s",
+        "cost": "120 / 150 / 180",
+        "icon": "/assets/images/skills/jawhead_3.png",
+        "description": "Jawhead [[blink"
       }
     ],
     "portrait": "/assets/images/heroes/jawhead.png"
@@ -4615,39 +4729,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "angela_p",
-        "name": "Angela's Awakening",
+        "name": "Smart Heart",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Angela's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/angela_0.png",
+        "description": "Angela gains 7.5% extra Movement Speed for 4 seconds each time she casts a skill (up to 30%). When she's attached to an allied hero, the Movement Speed boost is transferred to the allied hero."
       },
       {
         "id": "angela_s1",
-        "name": "Angela's Strike",
+        "name": "Love Waves",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "2.0s",
+        "cost": "60 / 70 / 80 / 90 / 100 / 110",
+        "icon": "/assets/images/skills/angela_1.png",
+        "description": "Angela sends {{B"
       },
       {
         "id": "angela_s2",
-        "name": "Tactical Maneuver",
+        "name": "Puppet-on-a-String",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "13.0 / 12.4 / 11.8 / 11.2 / 10.6 / 10.0s",
+        "cost": "90 / 100 / 110 / 120 / 130 / 140",
+        "icon": "/assets/images/skills/angela_2.png",
+        "description": "Angela launches a {{b"
       },
       {
         "id": "angela_ult",
-        "name": "Apex Sovereign",
+        "name": "Heartguard",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Bunnylove, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "60.0s",
+        "cost": "100 / 150 / 200",
+        "icon": "/assets/images/skills/angela_3.png",
+        "description": "Angela begins channeling [for 2 seconds], applying a {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/angela.png"
@@ -4692,39 +4806,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "valir_p",
-        "name": "Valir's Awakening",
+        "name": "Ashing",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Valir's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/valir_0.png",
+        "description": "Valir's skills apply a stack of Ablaze to enemies hit, dealing them Magic Damage equal to 0.6% of their Max HP per second for 4s. At 3 stacks, the fire detonates, dealing Magic Damage euqal to 6% of the target's Max HP to the enemy and stunning them for 1s (the same target can only be stunned by Valir's skills once every 7s.)"
       },
       {
         "id": "valir_s1",
-        "name": "Valir's Strike",
+        "name": "Burst Fireball",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "1.5s",
+        "cost": "50 / 58 / 66 / 74/ 82 / 90",
+        "icon": "/assets/images/skills/valir_1.png",
+        "description": "Valir launches a fireball that explodes upon hitting the first target, dealing {{Scale"
       },
       {
         "id": "valir_s2",
-        "name": "Tactical Maneuver",
+        "name": "Searing Torrent",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "13 / 12.4 / 11.8 / 11.2 / 10.6 / 10.0s",
+        "cost": "80 / 86 / 92 / 98 / 104 / 110",
+        "icon": "/assets/images/skills/valir_2.png",
+        "description": "Valir unleashes a torrent of flames in the target direction, dealing {{Scale"
       },
       {
         "id": "valir_ult",
-        "name": "Apex Sovereign",
+        "name": "Vengeance Flame",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Son of Flames, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "36.0 / 33.0 / 30.0s",
+        "cost": "100 / 125 / 150",
+        "icon": "/assets/images/skills/valir_3.png",
+        "description": "Valir removes all debuffs on himself and conjures 4 Vengeance Flames that last 9s. Each of his subsequent skillls consumes 1 Vengeance Flam to deal 30% extra base damage. The effects of both Burst Fireball and Searing Torrent can be enhanced. Meanwhile, Valir gains 40% extra Movement Speed that decays over 3s."
       }
     ],
     "portrait": "/assets/images/heroes/valir.png"
@@ -4769,39 +4883,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "martis_p",
-        "name": "Martis's Awakening",
+        "name": "Asura's Wrath",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Martis's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/martis_0.png",
+        "description": "Each time Martis uses a skill, his Attack Speed will be increased by 30%, 120% maximum. Lasts 4 seconds. He gains (6*Hero Level) extra Attack at full stacks."
       },
       {
         "id": "martis_s1",
-        "name": "Martis's Strike",
+        "name": "Asura Aura",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "7.0 / 6.6 / 6.2 / 5.8 / 5.4 / 5.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/martis_1.png",
+        "description": "Martis {{AVC1"
       },
       {
         "id": "martis_s2",
-        "name": "Tactical Maneuver",
+        "name": "Mortal Coil",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "8.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/martis_2.png",
+        "description": "Martis {{AVC1"
       },
       {
         "id": "martis_ult",
-        "name": "Apex Sovereign",
+        "name": "Decimation",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "36.0 / 32.0 / 28.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Ashura King, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/martis_3.png",
+        "description": "Martis lunges at a designated enemy hero, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/martis.png"
@@ -4846,39 +4960,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "uranus_p",
-        "name": "Uranus's Awakening",
+        "name": "Radiance",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Uranus's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/uranus_0.png",
+        "description": "Uranus absorbs the energy generated by incoming attacks to strengthen theirself, regenerating a certain amount of HP every 0.8s. Each stack lasts 10s. When at max stacks (20), Uranus regenerates 48-224 HP (scales with level)."
       },
       {
         "id": "uranus_s1",
-        "name": "Uranus's Strike",
+        "name": "Ionic Edge",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "4.0s",
+        "cost": "60 / 65 / 70 / 75 / 80 / 85",
+        "icon": "/assets/images/skills/uranus_1.png",
+        "description": "Uranus releases two energy blades that orbit around them, dealing {{Scale"
       },
       {
         "id": "uranus_s2",
-        "name": "Tactical Maneuver",
+        "name": "Transcendent Ward",
         "type": "Skill 2",
         "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cost": "80 / 90 / 100 / 110 / 120 / 130",
+        "icon": "/assets/images/skills/uranus_2.png",
+        "description": "Uranus charges to the target location, dealing {{Scale"
       },
       {
         "id": "uranus_ult",
-        "name": "Apex Sovereign",
+        "name": "Consecration",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Aethereal Defender, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "42.0 / 39.0 / 36.0s",
+        "cost": "100 / 125 / 150",
+        "icon": "/assets/images/skills/uranus_3.png",
+        "description": "Uranus unleashes the energy stored within their body, removing slow effects on himself, recovering 200-400 HP, and gaining 60% Movement Speed for 8s (decays over time). Uranus directly gains 5-15 stacks of Radiance, increasing shields received and HP Regen by 20% for 8s."
       }
     ],
     "portrait": "/assets/images/heroes/uranus.png"
@@ -4923,39 +5037,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "hanabi_p",
-        "name": "Hanabi's Awakening",
+        "name": "Ninjutsu: Petal Barrage",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Hanabi's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/hanabi_0.png",
+        "description": "Hanabi's Basic Attacks and Skills will launch Petal Blades after hitting a target, bouncing up to 4 times to nearby enemies (the first bounce deals 40% of the damage, and subsequent bounces deal 85% of the previous). Bounces from her Basic Attacks inherit a portion of Attack Effects."
       },
       {
         "id": "hanabi_s1",
-        "name": "Hanabi's Strike",
+        "name": "Ninjutsu: Equinox",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "14.0 / 13.6 / 13.2 / 12.8 / 12.4 / 12.0s",
+        "cost": "35 / 40 / 45 / 50 / 55 / 60",
+        "icon": "/assets/images/skills/hanabi_1.png",
+        "description": "{{B"
       },
       {
         "id": "hanabi_s2",
-        "name": "Tactical Maneuver",
+        "name": "Ninjutsu: Soul Scroll",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
+        "cost": "35 / 40 / 45 / 50 / 55 / 60",
+        "icon": "/assets/images/skills/hanabi_2.png",
+        "description": "Hanabi fires the energy Kunai in the targeted direction, dealing {{scale"
       },
       {
         "id": "hanabi_ult",
-        "name": "Apex Sovereign",
+        "name": "Forbidden Jutsu: Higanbana",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Scarlet Flower, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "40.0 / 35.0 / 30.0s",
+        "cost": "120 / 160 / 200",
+        "icon": "/assets/images/skills/hanabi_3.png",
+        "description": "Hanabi throws Higanbana in the targeted direction, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/hanabi.png"
@@ -5000,39 +5114,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "change_p",
-        "name": "Chang'e's Awakening",
+        "name": "Trouble Maker",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Chang'e's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/change_0.png",
+        "description": "Each time Chang'e deals damage to an enemy, she leaves a mark on them. Each mark reduces the target's Movement Speed by 1%, stacking up to 20%."
       },
       {
         "id": "change_s1",
-        "name": "Chang'e's Strike",
+        "name": "Starmoon Shockwave",
         "type": "Skill 1",
         "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cost": "70 / 75 / 80 / 85 / 90 / 95",
+        "icon": "/assets/images/skills/change_1.png",
+        "description": "Chang'e sends an energy sphere in the target direction, dealing {{Scale"
       },
       {
         "id": "change_s2",
-        "name": "Tactical Maneuver",
+        "name": "Crescent Moon",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "12.0 / 11.5 / 11.0 / 10.5 / 10.0 / 9.5s",
+        "cost": "60 / 70 / 80 / 90 / 100 / 110",
+        "icon": "/assets/images/skills/change_2.png",
+        "description": "Chang'e summons the {{Link"
       },
       {
         "id": "change_ult",
-        "name": "Apex Sovereign",
+        "name": "Meteor Shower",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Moon Palace Immortal, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "36.0 / 33.0 / 30.0s",
+        "cost": "150 / 200 / 250",
+        "icon": "/assets/images/skills/change_3.png",
+        "description": "Chang'e fires 30 meteors in the target direction over 4 seconds, each dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/change.png"
@@ -5077,39 +5191,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "kaja_p",
-        "name": "Kaja's Awakening",
+        "name": "Ring of Order",
         "type": "Passive",
-        "cooldown": "Passive",
+        "cooldown": "7.0",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Kaja's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/kaja_0.png",
+        "description": "Kaja summons a ring of Primal Lightning that expands and returns to him. Enemies hit take {{scale"
       },
       {
         "id": "kaja_s1",
-        "name": "Kaja's Strike",
+        "name": "Soaring Wings",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "14.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/kaja_1.png",
+        "description": "Kaja dashes to the target area, gaining Control Immunity during the dash. On arrival, he deals {{scale"
       },
       {
         "id": "kaja_s2",
-        "name": "Tactical Maneuver",
+        "name": "Divine Binding",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "70.0 / 65.0 / 60.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/kaja_2.png",
+        "description": "Kaja hurls a {{link"
       },
       {
         "id": "kaja_ult",
-        "name": "Apex Sovereign",
+        "name": "Divine Judgment",
         "type": "Ultimate",
         "cooldown": "38.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Nazar Commander, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/kaja_3.png",
+        "description": "Suppresses a target enemy champion and drags them along with him, disabling their actions and reducing magic defense."
       }
     ],
     "portrait": "/assets/images/heroes/kaja.png"
@@ -5154,39 +5268,72 @@ export const HEROES = [
     "abilities": [
       {
         "id": "selena_p",
-        "name": "Selena's Awakening",
+        "name": "Symbiosis",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Selena's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/selena_0.png",
+        "description": "Selena can freely switch between forms. In Elven form, attacks inflict Abyssal Marks; in Abyssal form, attacks consume marks to deal burst magic damage."
       },
       {
-        "id": "selena_s1",
-        "name": "Selena's Strike",
+        "id": "selena_e_s1",
+        "name": "Abyssal Trap",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "form": "Elven Form",
+        "cooldown": "6.0s",
+        "cost": "60 Mana",
+        "icon": "/assets/images/skills/selena_1.png",
+        "description": "Summons an Abyssal Devil that attaches to oncoming enemies, granting vision, slowing them, and exploding."
       },
       {
-        "id": "selena_s2",
-        "name": "Tactical Maneuver",
+        "id": "selena_e_s2",
+        "name": "Abyssal Arrow",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "form": "Elven Form",
+        "cooldown": "12.0s",
+        "cost": "70 Mana",
+        "icon": "/assets/images/skills/selena_2.png",
+        "description": "Fires a demonic arrow forward that stuns the first enemy hit for up to 3 seconds based on flight distance."
       },
       {
-        "id": "selena_ult",
-        "name": "Apex Sovereign",
+        "id": "selena_e_ult",
+        "name": "Primal Darkness",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Abyssal Witch, dealing monumental AoE damage and dictating the teamfight."
+        "form": "Elven Form",
+        "cooldown": "4.5s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/selena_3.png",
+        "description": "Selena merges with the Abyss, transforming into Abyssal Form, gaining 30% movement speed and melee assassin skills."
+      },
+      {
+        "id": "selena_a_s1",
+        "name": "Soul Eater",
+        "type": "Skill 1",
+        "form": "Abyssal Form",
+        "cooldown": "6.0s",
+        "cost": "60 Mana",
+        "icon": "/assets/images/skills/selena_4.png",
+        "description": "Selena empowers her claws, making her next basic attack deal burst magic damage and granting a shield."
+      },
+      {
+        "id": "selena_a_s2",
+        "name": "Garotte",
+        "type": "Skill 2",
+        "form": "Abyssal Form",
+        "cooldown": "12.0s",
+        "cost": "70 Mana",
+        "icon": "/assets/images/skills/selena_5.png",
+        "description": "Selena charges forward, slashing enemies. Hitting an enemy with Abyssal Mark instantly resets this cooldown."
+      },
+      {
+        "id": "selena_a_ult",
+        "name": "Blessing of the Moon Goddess",
+        "type": "Ultimate",
+        "form": "Abyssal Form",
+        "cooldown": "4.5s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/selena_6.png",
+        "description": "Selena calls upon the Moon Goddess, restoring her Elven Form and gaining bonus movement speed."
       }
     ],
     "portrait": "/assets/images/heroes/selena.png"
@@ -5231,39 +5378,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "aldous_p",
-        "name": "Aldous's Awakening",
+        "name": "Contract: Transform",
         "type": "Passive",
-        "cooldown": "Passive",
+        "cooldown": "5.0",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Aldous's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/aldous_0.png",
+        "description": "After every 2 {{ai"
       },
       {
         "id": "aldous_s1",
-        "name": "Aldous's Strike",
+        "name": "Contract: Soul Steal",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "4.0 / 4.0 / 4.0 / 4.0 / 4.0 / 4.0s",
+        "cost": "60 / 65 / 70 / 75 / 80 / 85",
+        "icon": "/assets/images/skills/aldous_1.png",
+        "description": "Aldous unleashes his inner energy to enhance his next Basic Attack to kill enemies and absorb their soul each stack gives to deal {{b"
       },
       {
         "id": "aldous_s2",
-        "name": "Tactical Maneuver",
+        "name": "Contract: Explosion",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "12.0 / 11.5 / 11.0 / 10.5 / 10.0 / 9.5s",
+        "cost": "80 / 90 / 100 / 110 / 120 / 130",
+        "icon": "/assets/images/skills/aldous_2.png",
+        "description": "Aldous assumes a defensive stance, gaining 30% Damage Reduction and 20% extra Movement Speed for 2 seconds or until manual cancellation. He then deals {{Scale"
       },
       {
         "id": "aldous_ult",
-        "name": "Apex Sovereign",
+        "name": "Contract: Chase Fate",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Soul Contractor, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "60.0 / 55.0 / 50.0s",
+        "cost": "150 / 200 / 250",
+        "icon": "/assets/images/skills/aldous_3.png",
+        "description": "Aldous gains vision of all enemy heroes for 5 seconds. During this time, if Aldous uses this skill again, he can dash toward an enemy hero [of choice]. When Aldous hits that enemy hero, he will deal {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/aldous.png"
@@ -5308,39 +5455,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "vale_p",
-        "name": "Vale's Awakening",
+        "name": "Windtalk",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Vale's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/vale_0.png",
+        "description": "Vale gains 1 stack of {{B"
       },
       {
         "id": "vale_s1",
-        "name": "Vale's Strike",
+        "name": "Wind Blade",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "6.0 / 5.6 / 5.2 / 4.8 / 4.4 / 4.0s",
+        "cost": "60 / 65 / 70 / 75 / 80 / 85",
+        "icon": "/assets/images/skills/vale_1.png",
+        "description": "Vale unleashes two wind blades toward the left and right of a target area. each dealing {{Scale"
       },
       {
         "id": "vale_s2",
-        "name": "Tactical Maneuver",
+        "name": "Windblow",
         "type": "Skill 2",
         "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cost": "90 / 95 / 100 / 105 / 110 / 115",
+        "icon": "/assets/images/skills/vale_2.png",
+        "description": "Vale sends a whirlwind in the target direction, dealing {{Scale"
       },
       {
         "id": "vale_ult",
-        "name": "Apex Sovereign",
+        "name": "Windstorm",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Windtalker, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "40.0 / 36.0 / 32.0s",
+        "cost": "150 / 200 / 250",
+        "icon": "/assets/images/skills/vale_3.png",
+        "description": "Vale summons a windstorm at the target location, dealing a total of [{{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/vale.png"
@@ -5385,39 +5532,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "leomord_p",
-        "name": "Leomord's Awakening",
+        "name": "The Oath Keeper",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Leomord's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/leomord_0.png",
+        "description": "Leomord's {{ii"
       },
       {
         "id": "leomord_s1",
-        "name": "Leomord's Strike",
+        "name": "Momentum",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "6.0 / 5.7 / 5.4 / 5.1 / 4.8 / 4.5s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/leomord_1.png",
+        "description": "Leomord begins channeling [for 1 second], slowing enemies in the target direction by 25%. When the channeling is complete or interrupted, he thrusts his sword in the same direction, dealing up to {{Scale"
       },
       {
         "id": "leomord_s2",
-        "name": "Tactical Maneuver",
+        "name": "Phantom Stomp",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "5.0 / 4.8 / 4.5 / 4.3 / 4.0 / 3.8s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/leomord_2.png",
+        "description": "Barbiel leaps forward, dealing {{Scale"
       },
       {
         "id": "leomord_ult",
-        "name": "Apex Sovereign",
+        "name": "Decimation Assault",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "12.0 / 11.6 / 11.2 / 10.8 / 10.4 / 10.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Sworn Sword, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/leomord_3.png",
+        "description": "Leomord [[blink"
       }
     ],
     "portrait": "/assets/images/heroes/leomord.png"
@@ -5462,39 +5609,48 @@ export const HEROES = [
     "abilities": [
       {
         "id": "lunox_p",
-        "name": "Lunox's Awakening",
+        "name": "Dreamland Twist",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Lunox's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/lunox_0.png",
+        "description": "Lunox converts Cooldown Reduction into Physical & Magic Defense (when Order is active) or Magic Penetration (when Chaos is active)."
       },
       {
         "id": "lunox_s1",
-        "name": "Lunox's Strike",
+        "name": "Starlight Pulse",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "2.0s",
+        "cost": "30 Mana",
+        "icon": "/assets/images/skills/lunox_1.png",
+        "description": "Lunox unleashes starlight rain that damages enemies and heals Lunox and nearby allied heroes."
       },
       {
         "id": "lunox_s2",
-        "name": "Tactical Maneuver",
+        "name": "Chaos Assault",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "2.0s",
+        "cost": "30 Mana",
+        "icon": "/assets/images/skills/lunox_2.png",
+        "description": "Lunox fires chaos energy forward, dealing magic damage plus a percentage of target's Max HP."
+      },
+      {
+        "id": "lunox_s3",
+        "name": "Cosmic Fission",
+        "type": "Skill 3",
+        "cooldown": "8.0s",
+        "cost": "70 Mana",
+        "icon": "/assets/images/skills/lunox_3.png",
+        "description": "Lunox casts a wave of cosmic energy forward in a line, dealing damage and heavily slowing enemies."
       },
       {
         "id": "lunox_ult",
-        "name": "Apex Sovereign",
+        "name": "Order & Chaos",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Twilight Goddess, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "24.0s",
+        "cost": "120 Mana",
+        "icon": "/assets/images/skills/lunox_4.png",
+        "description": "Lunox unleashes Twilight power: Brilliance turns her into an invulnerable light sphere dealing continuous DPS; Darkening blinks forward and removes Chaos Assault cooldown."
       }
     ],
     "portrait": "/assets/images/heroes/lunox.png"
@@ -5539,39 +5695,72 @@ export const HEROES = [
     "abilities": [
       {
         "id": "hanzo_p",
-        "name": "Hanzo's Awakening",
+        "name": "Ame no Habakiri",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Hanzo's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/hanzo_0.png",
+        "description": "Hanzo harvests Demon Blood from fallen units to feed his demon blade and maintain his Demon Pneuma."
       },
       {
-        "id": "hanzo_s1",
-        "name": "Hanzo's Strike",
+        "id": "hanzo_h_s1",
+        "name": "Ninjutsu: Demon Feast",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "form": "Human Body",
+        "cooldown": "15.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/hanzo_1.png",
+        "description": "Unlocks after 5 basic attacks to instantly devour a jungle creep or minion, converting it into Demon Blood."
       },
       {
-        "id": "hanzo_s2",
-        "name": "Tactical Maneuver",
+        "id": "hanzo_h_s2",
+        "name": "Ninjutsu: Soul Reap",
         "type": "Skill 2",
+        "form": "Human Body",
         "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/hanzo_2.png",
+        "description": "Opens a soul portal at target location, dealing periodic physical damage and slowing enemies."
       },
       {
-        "id": "hanzo_ult",
-        "name": "Apex Sovereign",
+        "id": "hanzo_h_ult",
+        "name": "Kinjutsu: Pinnacle Ninja",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Akuma Ninja, dealing monumental AoE damage and dictating the teamfight."
+        "form": "Human Body",
+        "cooldown": "21.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/hanzo_3.png",
+        "description": "Hanzo unleashes his Demon Pneuma to fly through obstacles with bonus movement speed while leaving his physical body behind."
+      },
+      {
+        "id": "hanzo_d_s1",
+        "name": "Ninjutsu: Demon Thorn",
+        "type": "Skill 1",
+        "form": "Demon Pneuma",
+        "cooldown": "7.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/hanzo_4.png",
+        "description": "Demon Pneuma unleashes 5 phantom spikes forward, becoming untargetable and dealing burst damage."
+      },
+      {
+        "id": "hanzo_d_s2",
+        "name": "Ninjutsu: Devastator",
+        "type": "Skill 2",
+        "form": "Demon Pneuma",
+        "cooldown": "10.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/hanzo_5.png",
+        "description": "Pneuma leaps forward and strikes the area, becoming invulnerable and slowing targets."
+      },
+      {
+        "id": "hanzo_d_ult",
+        "name": "Pinnacle Ninja (Recall)",
+        "type": "Ultimate",
+        "form": "Demon Pneuma",
+        "cooldown": "3.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/hanzo_6.png",
+        "description": "Recalls the Demon Pneuma back to the main body, or commands the main body to rush to Pneuma's position."
       }
     ],
     "portrait": "/assets/images/heroes/hanzo.png"
@@ -5616,39 +5805,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "belerick_p",
-        "name": "Belerick's Awakening",
+        "name": "Ancient Seed",
         "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Belerick's basic attacks and skill rotation based on combat momentum."
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0",
+        "cost": "60 / 66 / 72 / 78 / 84 / 90",
+        "icon": "/assets/images/skills/belerick_0.png",
+        "description": "Belerick releases vines in a designated direction, dealing {{scale"
       },
       {
         "id": "belerick_s1",
-        "name": "Belerick's Strike",
+        "name": "Nature's Strike",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "12.0 / 11.4 / 10.8 / 10.2 / 9.6 / 9.0s",
+        "cost": "90 / 102 / 114 / 126 / 138 / 150",
+        "icon": "/assets/images/skills/belerick_1.png",
+        "description": "Belerick increases his Movement Speed by 80% and strengthens his next Basic Attack. (The Movement Speed gain will decay in 2 seconds.) This enhanced Basic Attack deals {{scale"
       },
       {
         "id": "belerick_s2",
-        "name": "Tactical Maneuver",
+        "name": "Wrath of Dryad",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "50.0 / 46.0 / 42.0s",
+        "cost": "150",
+        "icon": "/assets/images/skills/belerick_2.png",
+        "description": "Belerick conjures spreading vines around him, dealing {{scale"
       },
       {
         "id": "belerick_ult",
-        "name": "Apex Sovereign",
+        "name": "Wrath of Dryad",
         "type": "Ultimate",
         "cooldown": "38.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Guardians of Nature, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/belerick_3.png",
+        "description": "Unleashes vines that spread in waves, taunting and immobilizing all caught enemy champions."
       }
     ],
     "portrait": "/assets/images/heroes/belerick.png"
@@ -5693,39 +5882,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "kimmy_p",
-        "name": "Kimmy's Awakening",
+        "name": "Aerial Dominance",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Kimmy's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/kimmy_0.png",
+        "description": "Kimmy can move and aim in different directions when using her Spray Gun, but cannot lock on to a specific enemy. Kimmy's Spray Gun attack deals {{scale"
       },
       {
         "id": "kimmy_s1",
-        "name": "Kimmy's Strike",
+        "name": "Anti-Grav Thruster",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "14.0 / 13.0 / 12.0 / 11.0 / 10.0 / 9.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/kimmy_1.png",
+        "description": "Kimmy uses her jetpack to take flight, removing and becoming immune to Slow Effects. She can pass through terrain and gains 90% Movement Speed for 1 second. During the flight, she fires 4 Chemical Bolts at nearby enemies, each dealing {{scale"
       },
       {
         "id": "kimmy_s2",
-        "name": "Tactical Maneuver",
+        "name": "Starlium Beam",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "10.0 / 9.6 / 9.2 / 8.8 / 8.4 / 8.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/kimmy_2.png",
+        "description": "Kimmy fires a Starlium Beam in the target direction that immobilizes enemies in its path and deals {{scale"
       },
       {
         "id": "kimmy_ult",
-        "name": "Apex Sovereign",
+        "name": "Traction Pulse",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "40.0 / 35.0 / 30.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Jetpack Rebel, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/kimmy_3.png",
+        "description": "Kimmy charges and fires a Traction Pulse in a target direction. Upon hitting an enemy or reaching its max range, it explodes to deal {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/kimmy.png"
@@ -5770,39 +5959,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "thamuz_p",
-        "name": "Thamuz's Awakening",
+        "name": "Grand Lord Lava",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Thamuz's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/thamuz_0.png",
+        "description": "Thamuz's {{ii"
       },
       {
         "id": "thamuz_s1",
-        "name": "Thamuz's Strike",
+        "name": "Molten Scythes",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "3.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/thamuz_1.png",
+        "description": "Thamuz tosses {{Link"
       },
       {
         "id": "thamuz_s2",
-        "name": "Tactical Maneuver",
+        "name": "Chasm Trample",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "8.0 /7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/thamuz_2.png",
+        "description": "Thamuz [[Blink"
       },
       {
         "id": "thamuz_ult",
-        "name": "Apex Sovereign",
+        "name": "Cauterant Inferno",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "38.0 / 34.0 / 30.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Lord Lava, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/thamuz_3.png",
+        "description": "Thamuz spouts the lava stored in his body, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/thamuz.png"
@@ -5847,39 +6036,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "harith_p",
-        "name": "Harith's Awakening",
+        "name": "Key Insight",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Harith's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/harith_0.png",
+        "description": "Harith gains insight from his Key. He gains 7% Hybrid Lifesteal for each nearby enemy hero, stacking up to 35%."
       },
       {
         "id": "harith_s1",
-        "name": "Harith's Strike",
+        "name": "Synchro Fission",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "5.0s",
+        "cost": "50 / 55 / 60 / 65 / 70 / 75",
+        "icon": "/assets/images/skills/harith_1.png",
+        "description": "Harith creates a phantom of himself in a distant location. Harith and his phantom will then release {{ai"
       },
       {
         "id": "harith_s2",
-        "name": "Tactical Maneuver",
+        "name": "Chrono Dash",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "9.3s",
+        "cost": "40 / 43 / 46/ 49 / 52 / 55",
+        "icon": "/assets/images/skills/harith_2.png",
+        "description": "Harith dashes towards the target direction. When he arrives, he steals Magic power from enemy heroes, generates a shield that absorbs at least {{scale"
       },
       {
         "id": "harith_ult",
-        "name": "Apex Sovereign",
+        "name": "Zaman Force",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Time Traveler, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "40.0 / 35.0 / 30.0s",
+        "cost": "120 / 160 /200",
+        "icon": "/assets/images/skills/harith_3.png",
+        "description": "Harith uses his Key to summon the {{ai"
       }
     ],
     "portrait": "/assets/images/heroes/harith.png"
@@ -5924,39 +6113,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "minsitthar_p",
-        "name": "Minsitthar's Awakening",
+        "name": "Mark of the King",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Minsitthar's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/minsitthar_0.png",
+        "description": "Minsitthar's Basic Attacks and skills apply a stack of {{b"
       },
       {
         "id": "minsitthar_s1",
-        "name": "Minsitthar's Strike",
+        "name": "Spear of Glory",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "13.0 / 12.2 / 11.4 / 10.6 / 9.8 / 9.0s",
+        "cost": "95 / 105 / 115 / 125 / 135 / 145",
+        "icon": "/assets/images/skills/minsitthar_1.png",
+        "description": "Minsitthar thrusts forward with the Spear of Glory, dealing {{scale"
       },
       {
         "id": "minsitthar_s2",
-        "name": "Tactical Maneuver",
+        "name": "Shield Assault",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "7.0 / 6.6 / 6.2 / 5.8 / 5.4 / 5.0s",
+        "cost": "50 / 55 / 60 / 65 / 70 / 75",
+        "icon": "/assets/images/skills/minsitthar_2.png",
+        "description": "Minsitthar awakens the power in his shield and releases it, dealing {{scale"
       },
       {
         "id": "minsitthar_ult",
-        "name": "Apex Sovereign",
+        "name": "King's Calling",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Courageous Warrior, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "60.0 / 55.0 / 50.0s",
+        "cost": "150 / 200 / 250",
+        "icon": "/assets/images/skills/minsitthar_3.png",
+        "description": "Minsitthar [[Blink"
       }
     ],
     "portrait": "/assets/images/heroes/minsitthar.png"
@@ -6001,39 +6190,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "kadita_p",
-        "name": "Kadita's Awakening",
+        "name": "Thalassophobia",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Kadita's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/kadita_0.png",
+        "description": "Kadita gains the {{b"
       },
       {
         "id": "kadita_s1",
-        "name": "Kadita's Strike",
+        "name": "Ocean Ode",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "9.0 / 8.5 / 8.0 / 7.5 / 7.0 / 6.5s",
+        "cost": "80 / 90 / 100 / 110 / 120 / 130",
+        "icon": "/assets/images/skills/kadita_1.png",
+        "description": "Kadita summons an ocean wave to carry herself in the target direction and back, dealing {{scale"
       },
       {
         "id": "kadita_s2",
-        "name": "Tactical Maneuver",
+        "name": "Breath of the Ocean",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "8.0s",
+        "cost": "90 / 100 / 110 / 120 / 130 / 140",
+        "icon": "/assets/images/skills/kadita_2.png",
+        "description": "After a short delay, Kadita summons an ocean wave to erupt at the target location, dealing {{Scale"
       },
       {
         "id": "kadita_ult",
-        "name": "Apex Sovereign",
+        "name": "Rough Waves",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Ocean Goddess, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "40.0 / 36.0 / 32.0s",
+        "cost": "200 / 240 / 280",
+        "icon": "/assets/images/skills/kadita_3.png",
+        "description": "Kadita dives into the ground and sends ocean waves in all directions, each dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/kadita.png"
@@ -6078,39 +6267,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "faramis_p",
-        "name": "Faramis's Awakening",
+        "name": "Vicious Retrieval",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Faramis's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/faramis_0.png",
+        "description": "Every 4 seconds, Faramis's next skill against enemy heroes and summoned objects generates a soul fragment on the spot. Faramis can absorb the soul fragment to restore {{Scale"
       },
       {
         "id": "faramis_s1",
-        "name": "Faramis's Strike",
+        "name": "Shadow Stampede",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "15.0s",
+        "cost": "70 / 80 / 90 / 100 / 110 / 120",
+        "icon": "/assets/images/skills/faramis_1.png",
+        "description": "Faramis enters the Shadow state for 3 seconds, gaining 70% extra Movement Speed, 25 extra [[Physical defense"
       },
       {
         "id": "faramis_s2",
-        "name": "Tactical Maneuver",
+        "name": "Ghost Bursters",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "6.0 / 5.8 / 5.6 / 5.4 / 5.2 / 5.0s",
+        "cost": "75 / 85 / 95 / 105 / 115 / 125",
+        "icon": "/assets/images/skills/faramis_2.png",
+        "description": "Faramis gathers Nether energy in a fan-shaped area ahead, dealing {{Scale"
       },
       {
         "id": "faramis_ult",
-        "name": "Apex Sovereign",
+        "name": "Nether Realm",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Soul Binder, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "80.0 / 75.0 / 70.0s",
+        "cost": "150 / 250 / 350",
+        "icon": "/assets/images/skills/faramis_3.png",
+        "description": "Faramis turns his surroundings into the {{b"
       }
     ],
     "portrait": "/assets/images/heroes/faramis.png"
@@ -6155,39 +6344,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "badang_p",
-        "name": "Badang's Awakening",
+        "name": "Chivalry Fist",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Badang's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/badang_0.png",
+        "description": "After every 4 {{ai"
       },
       {
         "id": "badang_s1",
-        "name": "Badang's Strike",
+        "name": "Fist Wind",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "10.4 / 9.8 / 9.2 / 8.6 / 8.0 / 7.2s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/badang_1.png",
+        "description": "Badang unleashes a gust of {{ai"
       },
       {
         "id": "badang_s2",
-        "name": "Tactical Maneuver",
+        "name": "Fist Break",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "9.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/badang_2.png",
+        "description": "Badang [[blink"
       },
       {
         "id": "badang_ult",
-        "name": "Apex Sovereign",
+        "name": "Fist Crack",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "30.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Tribal Champion, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/badang_3.png",
+        "description": "Badang throws a flurry of punches in the target direction, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/badang.png"
@@ -6232,39 +6421,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "guinevere_p",
-        "name": "Guinevere's Awakening",
+        "name": "Super Magic",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Guinevere's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/guinevere_0.png",
+        "description": "Guinevere deals 25% extra damage to airborne enemies and deals {{Scale"
       },
       {
         "id": "guinevere_s1",
-        "name": "Guinevere's Strike",
+        "name": "Energy Wave",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "4.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/guinevere_1.png",
+        "description": "Guinevere releases an energy orb in the target direction, dealing {{Scale"
       },
       {
         "id": "guinevere_s2",
-        "name": "Tactical Maneuver",
+        "name": "Spatial Migration",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "17.0 / 16.4 / 15.8 / 15.2 / 14.6 / 14.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/guinevere_2.png",
+        "description": "Guinevere leaps to the target location, dealing {{Scale"
       },
       {
         "id": "guinevere_ult",
-        "name": "Apex Sovereign",
+        "name": "Violet Requiem",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "52.0 / 46.0 / 40.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Ms. Violet, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/guinevere_3.png",
+        "description": "Guinevere creates a force field around her [for 2 seconds], attacking nearby enemies 11 times within 2 seconds, dealing {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/guinevere.png"
@@ -6309,39 +6498,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "esmeralda_p",
-        "name": "Esmeralda's Awakening",
+        "name": "Starmoon Casket",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Esmeralda's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/esmeralda_0.png",
+        "description": "Esmeralda manipulates Stardust and Frostmoon: Stardust deals Physical Damage while Frostmoon deals Magic Damage and gives the target a shield equal to 135% of Frostmoon's damage dealt. Each Basic Attack deals {{scale"
       },
       {
         "id": "esmeralda_s1",
-        "name": "Esmeralda's Strike",
+        "name": "Frostmoon Shield",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "8s",
+        "cost": "60 / 70 / 80 / 90 / 100 / 110",
+        "icon": "/assets/images/skills/esmeralda_1.png",
+        "description": "Esmeralda gains {{scale"
       },
       {
         "id": "esmeralda_s2",
-        "name": "Tactical Maneuver",
+        "name": "Stardust Dance",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "4.5 / 4.3 / 4.1 / 3.9 / 3.7 / 3.5s",
+        "cost": "75 / 80 / 85 / 90 / 95 / 100",
+        "icon": "/assets/images/skills/esmeralda_2.png",
+        "description": "Esmeralda waves Stardust and Frostmoon, dealing {{scale"
       },
       {
         "id": "esmeralda_ult",
-        "name": "Apex Sovereign",
+        "name": "Falling Starmoon",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Astrologer, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "32.0 / 28.0 / 24.0s",
+        "cost": "150 / 200 / 250",
+        "icon": "/assets/images/skills/esmeralda_3.png",
+        "description": "Esmeralda coheres the power of Astrospace into her two weapons - Stardust and Frostmoon. The longer this skill is channeled, the longer the cast range. {{B"
       }
     ],
     "portrait": "/assets/images/heroes/esmeralda.png"
@@ -6386,39 +6575,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "terizla_p",
-        "name": "Terizla's Awakening",
+        "name": "Body of Smith",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Terizla's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/terizla_0.png",
+        "description": "Terizla gains 1% extra Damage Reduction (up to {{scale"
       },
       {
         "id": "terizla_s1",
-        "name": "Terizla's Strike",
+        "name": "Revenge Strike",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "8.5s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/terizla_1.png",
+        "description": "Terizla cracks the ground with his hammer and the fissure will spread out, dealing {{scale"
       },
       {
         "id": "terizla_s2",
-        "name": "Tactical Maneuver",
+        "name": "Execution Strike",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "9.0 / 8.0 / 7.0 / 6.0 / 5.0 / 4.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/terizla_2.png",
+        "description": "Terizla swings his hammer in a fan-shaped area ahead. This skill can be cast up to 3 times. The first two attacks deal {{Scale"
       },
       {
         "id": "terizla_ult",
-        "name": "Apex Sovereign",
+        "name": "Penalty Zone",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "50.0 / 43.0 / 36.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Executioner, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/terizla_3.png",
+        "description": "Terizla [[blink"
       }
     ],
     "portrait": "/assets/images/heroes/terizla.png"
@@ -6463,39 +6652,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "xborg_p",
-        "name": "X.Borg's Awakening",
+        "name": "Firaga Armor",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers X.Borg's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/xborg_0.png",
+        "description": "X.Borg's [HP inherits {{scale"
       },
       {
         "id": "xborg_s1",
-        "name": "X.Borg's Strike",
+        "name": "Fire Missiles",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "4.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/xborg_1.png",
+        "description": "X.Borg sprays fire, dealing {{scale"
       },
       {
         "id": "xborg_s2",
-        "name": "Tactical Maneuver",
+        "name": "Fire Stake",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "12 / 11.4 / 10.8 / 10.2 / 9.6 / 9s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/xborg_2.png",
+        "description": "X.Borg shoots 5 Fire Stakes at the edge of the fan-shaped indicator and retrieves them after 1.7 seconds, each dealing {{scale"
       },
       {
         "id": "xborg_ult",
-        "name": "Apex Sovereign",
+        "name": "Last Insanity",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Firaga Armor, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "30.0 / 27.0 / 24.0s",
+        "cost": "100",
+        "icon": "/assets/images/skills/xborg_3.png",
+        "description": "X.Borg [[Blink"
       }
     ],
     "portrait": "/assets/images/heroes/xborg.png"
@@ -6540,39 +6729,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "dyrroth_p",
-        "name": "Dyrroth's Awakening",
+        "name": "Wrath of the Abyss",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Dyrroth's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/dyrroth_0.png",
+        "description": "When Dyrroth's {{B"
       },
       {
         "id": "dyrroth_s1",
-        "name": "Dyrroth's Strike",
+        "name": "Burst Strike",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "5.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/dyrroth_1.png",
+        "description": "Dyrroth releases a burst strike in a designated direction. Each burst deals {{Scale"
       },
       {
         "id": "dyrroth_s2",
-        "name": "Tactical Maneuver",
+        "name": "Spectre Step",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "8.0 / 7.2 / 6.4 / 5.6 / 4.8 / 4.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/dyrroth_2.png",
+        "description": "Dyrroth dashes in the designated direction. He will stop when he hits a [non-minion] target, dealing {{Scale"
       },
       {
         "id": "dyrroth_ult",
-        "name": "Apex Sovereign",
+        "name": "Abysm Strike",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "36.0 / 32.0 / 28.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Prince of the Abyss, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/dyrroth_3.png",
+        "description": "After a short delay, Dyrroth launches a destrucive strike in the target direction (cannot be interrupted), dealing {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/dyrroth.png"
@@ -6617,39 +6806,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "lylia_p",
-        "name": "Lylia's Awakening",
+        "name": "Angry Gloom",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Lylia's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/lylia_0.png",
+        "description": "Lylia gets power from {{b"
       },
       {
         "id": "lylia_s1",
-        "name": "Lylia's Strike",
+        "name": "Magic Shockwave",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "4.0s",
+        "cost": "50 / 55 / 60 / 65 / 70 / 75",
+        "icon": "/assets/images/skills/lylia_1.png",
+        "description": "Lylia sends out {{b"
       },
       {
         "id": "lylia_s2",
-        "name": "Tactical Maneuver",
+        "name": "Shadow Energy",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "1.0s",
+        "cost": "40 / 50 / 60 / 70 / 80 / 90 / 100",
+        "icon": "/assets/images/skills/lylia_2.png",
+        "description": "Lylia condenses {{b"
       },
       {
         "id": "lylia_ult",
-        "name": "Apex Sovereign",
+        "name": "Black Shoes",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Little Witch, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "45.0 / 40.0 / 35.0s",
+        "cost": "120 / 60 / 0",
+        "icon": "/assets/images/skills/lylia_3.png",
+        "description": "Lylia {{b"
       }
     ],
     "portrait": "/assets/images/heroes/lylia.png"
@@ -6694,39 +6883,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "baxia_p",
-        "name": "Baxia's Awakening",
+        "name": "Baxia Mark",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Baxia's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/baxia_0.png",
+        "description": "Baxia activates the {{ai"
       },
       {
         "id": "baxia_s1",
-        "name": "Baxia's Strike",
+        "name": "Baxia-Shield Unity",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "15.0 / 14.4 / 13.8 / 13.2 / 12.6 / 12.0s",
+        "cost": "100 / 110 / 120 / 130 / 140 / 150",
+        "icon": "/assets/images/skills/baxia_1.png",
+        "description": "Baxia retracts himself into his shield and accelerates forward [for 9 seconds]. When hitting an enemy unit, he will deal {{scale"
       },
       {
         "id": "baxia_s2",
-        "name": "Tactical Maneuver",
+        "name": "Shield of Spirit",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "10.0 / 9.4 / 8.8 / 8.2 / 7.6 / 7.0s",
+        "cost": "25 / 30 / 35 / 40 / 45 / 50",
+        "icon": "/assets/images/skills/baxia_2.png",
+        "description": "Baxia throws his shield forward that will disappear upon hitting an enemy hero or creeps, dealing {{scale"
       },
       {
         "id": "baxia_ult",
-        "name": "Apex Sovereign",
+        "name": "Tortoise's Puissance",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Black Tortoise, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "40.0 / 37.5 / 35.0s",
+        "cost": "150 / 175 / 200",
+        "icon": "/assets/images/skills/baxia_3.png",
+        "description": "Baxia holds his shield to the front and begins sprinting frantically, gaining 30% extra Movement Speed for 10 seconds while leaving a lava path behind. Enemies on the path will take {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/baxia.png"
@@ -6771,39 +6960,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "masha_p",
-        "name": "Masha's Awakening",
+        "name": "Primal Pact",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Masha's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/masha_0.png",
+        "description": "{{link"
       },
       {
         "id": "masha_s1",
-        "name": "Masha's Strike",
+        "name": "Feral Swipe",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/masha_1.png",
+        "description": "Masha releases energy foward, dealing {{scale"
       },
       {
         "id": "masha_s2",
-        "name": "Tactical Maneuver",
+        "name": "Claw Strike",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "9.0 / 8.6 / 8.2 / 7.8 / 7.4 / 7.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/masha_2.png",
+        "description": "Masha dashes in the target direction, dealing {{scale"
       },
       {
         "id": "masha_ult",
-        "name": "Apex Sovereign",
+        "name": "Savage Maul",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "42.0 / 38.0 / 34.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Wild-Oats Hunter, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/masha_3.png",
+        "description": "Masha charges toward an enemy hero, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/masha.png"
@@ -6848,39 +7037,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "wanwan_p",
-        "name": "Wanwan's Awakening",
+        "name": "Tiger Pace",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Wanwan's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/wanwan_0.png",
+        "description": "Enemy heroes hit by Wanwan's attacks will have their weakness[es] exposed and position revealed for 5 seconds. When hitting an enemy's weakness, Wanwan deals {{scale"
       },
       {
         "id": "wanwan_s1",
-        "name": "Wanwan's Strike",
+        "name": "Swallow's Path",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "10.0 / 9.6 / 9.2 / 8.8 / 8.4 / 8.0s",
+        "cost": "85 / 90 / 95 / 100 / 105 / 110",
+        "icon": "/assets/images/skills/wanwan_1.png",
+        "description": "Wanwan throws a Fire Swallow in the target direction, triggering {{ai"
       },
       {
         "id": "wanwan_s2",
-        "name": "Tactical Maneuver",
+        "name": "Needles in Flowers",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "24.0 / 23.2 / 22.4 / 21.6 / 20.8 / 20.0s",
+        "cost": "100 / 95 / 90 / 85 / 80 / 75",
+        "icon": "/assets/images/skills/wanwan_2.png",
+        "description": "Wanwan removes all control effects on herself and triggers {{ai"
       },
       {
         "id": "wanwan_ult",
-        "name": "Apex Sovereign",
+        "name": "Crossbow of Tang",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Agile Tiger, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "50.0 / 46.0 / 42.0s",
+        "cost": "130 / 150 / 170",
+        "icon": "/assets/images/skills/wanwan_3.png",
+        "description": "Wanwan leaps into the air and fires arrows at the target enemy hero for 2.5 seconds in rapid succession, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/wanwan.png"
@@ -6925,39 +7114,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "silvanna_p",
-        "name": "Silvanna's Awakening",
+        "name": "Knightess' Resolve",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Silvanna's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/silvanna_0.png",
+        "description": "Silvanna's Basic Attacks deal {{scale"
       },
       {
         "id": "silvanna_s1",
-        "name": "Silvanna's Strike",
+        "name": "Cometic Lance",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "11.0 / 10.6 / 10.2 / 9.8 / 9.4 / 9.0s",
+        "cost": "70 / 78 / 86 / 94 / 102 / 110",
+        "icon": "/assets/images/skills/silvanna_1.png",
+        "description": "Strikes with her lance, stunning the first enemy hero hit and granting bonus movement speed."
       },
       {
         "id": "silvanna_s2",
-        "name": "Tactical Maneuver",
+        "name": "Spiral Strangling",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "5.5 / 5.3 / 5.1 / 4.9 / 4.7 / 4.5s",
+        "cost": "35 / 40 / 45 / 50 / 55 / 60",
+        "icon": "/assets/images/skills/silvanna_2.png",
+        "description": "Silvanna thrusts her lance in the target direction and spins it 6 times while gaining a {{scale"
       },
       {
         "id": "silvanna_ult",
-        "name": "Apex Sovereign",
+        "name": "Imperial Justice",
         "type": "Ultimate",
         "cooldown": "38.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Imperial Knightess, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/silvanna_3.png",
+        "description": "Leaps into a designated area, creating the Circle of Light which restrains the enemy within for 3.5s and boosts attack speed."
       }
     ],
     "portrait": "/assets/images/heroes/silvanna.png"
@@ -7002,39 +7191,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "cecilion_p",
-        "name": "Cecilion's Awakening",
+        "name": "Overflowing",
         "type": "Passive",
-        "cooldown": "Passive",
+        "cooldown": "1.0",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Cecilion's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/cecilion_0.png",
+        "description": "Cecilion increases his {{b"
       },
       {
         "id": "cecilion_s1",
-        "name": "Cecilion's Strike",
+        "name": "Bat Impact",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "1.5s",
+        "cost": "75",
+        "icon": "/assets/images/skills/cecilion_1.png",
+        "description": "Cecilion orders a giant bat to dive in a designated direction, dealing {{Scale"
       },
       {
         "id": "cecilion_s2",
-        "name": "Tactical Maneuver",
+        "name": "Sanguine Claws",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "12.0 / 11.2 / 10.4 / 9.6 / 8.8 / 8.0s",
+        "cost": "95 / 100 / 105 / 110 / 115 / 120",
+        "icon": "/assets/images/skills/cecilion_2.png",
+        "description": "Cecilion summons a pair of claws in a designated location. After a short delay, the claws will move toward each other and {{b"
       },
       {
         "id": "cecilion_ult",
-        "name": "Apex Sovereign",
+        "name": "Bats Feast",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Embrace of Night, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "44.0 / 41.0 / 38.0s",
+        "cost": "150 / 200 / 250",
+        "icon": "/assets/images/skills/cecilion_3.png",
+        "description": "Cecilion unleashes Blood Demon power [for 6 seconds], increasing his {{b"
       }
     ],
     "portrait": "/assets/images/heroes/cecilion.png"
@@ -7079,39 +7268,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "carmilla_p",
-        "name": "Carmilla's Awakening",
+        "name": "Vampire Pact",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Carmilla's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/carmilla_0.png",
+        "description": "Each time Carmilla deals damage to an enemy hero, she steals 7&ndash;11 Physical Defense & Magic Defense (scales with level) from them. The stolen Physical and Magic Defense can stack up to 5 times and last 5 seconds. However, Carmilla can only steal defense from the same enemy hero once every 5 seconds."
       },
       {
         "id": "carmilla_s1",
-        "name": "Carmilla's Strike",
+        "name": "Crimson Flower",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "9.0s",
+        "cost": "50 / 58 / 66 / 74 / 82 / 90",
+        "icon": "/assets/images/skills/carmilla_1.png",
+        "description": "Carmilla summons two Crimson Flowers that circle around her for 5 seconds dealing {{Scale"
       },
       {
         "id": "carmilla_s2",
-        "name": "Tactical Maneuver",
+        "name": "Bloodbath",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "12.0 / 11.2 / 10.4 / 9.6 / 8.8 / 8.0s",
+        "cost": "85 / 100 / 115 / 130 / 145 / 160",
+        "icon": "/assets/images/skills/carmilla_2.png",
+        "description": "Carmilla accumulates Bloodbath Energy, gaining 70% Movement Speed that decays over 4.5 seconds. {{Link"
       },
       {
         "id": "carmilla_ult",
-        "name": "Apex Sovereign",
+        "name": "Curse of Blood",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Shadow of Twilight, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "60.0/52.0/44.0s",
+        "cost": "150 / 175 / 200",
+        "icon": "/assets/images/skills/carmilla_3.png",
+        "description": "Carmilla casts Curse of Blood on the target location, slowing enemies hit by 50%. After 0.8 seconds, enemies still within the area will take {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/carmilla.png"
@@ -7156,39 +7345,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "atlas_p",
-        "name": "Atlas's Awakening",
+        "name": "Frigid Breath",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Atlas's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/atlas_0.png",
+        "description": "Atlas generates {{ai"
       },
       {
         "id": "atlas_s1",
-        "name": "Atlas's Strike",
+        "name": "Annihilate",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "7.0 / 6.5 / 6.0 / 5.5 / 5.0 / 4.5s",
+        "cost": "60 / 66 / 72 / 78 / 84 / 90",
+        "icon": "/assets/images/skills/atlas_1.png",
+        "description": "Atlas smashes the ground and causes 3 explosions. Each explosion deals {{Scale"
       },
       {
         "id": "atlas_s2",
-        "name": "Tactical Maneuver",
+        "name": "Perfect Match",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "15.0 / 14.0 / 13.0 / 12.0 / 11.0 / 10.0s",
+        "cost": "75 / 80 / 85 / 90 / 95 / 100",
+        "icon": "/assets/images/skills/atlas_2.png",
+        "description": "Atlas enters {{b"
       },
       {
         "id": "atlas_ult",
-        "name": "Apex Sovereign",
+        "name": "Fatal Links",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Ocean Gladiator, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "55.0 / 50.0 / 45.0s",
+        "cost": "130 / 150 / 170",
+        "icon": "/assets/images/skills/atlas_3.png",
+        "description": "Atlas hurls chains around and starts to channel (can only be interrupted by {{b"
       }
     ],
     "portrait": "/assets/images/heroes/atlas.png"
@@ -7232,40 +7421,49 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "popolandkupa_p",
-        "name": "Popol and Kupa's Awakening",
+        "id": "popol_p",
+        "name": "We Are Friends",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Popol and Kupa's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/popolandkupa_0.png",
+        "description": "Popol fights alongside his companion Kupa. When Kupa falls, Popol can pray to resurrect Kupa."
       },
       {
-        "id": "popolandkupa_s1",
-        "name": "Popol and Kupa's Strike",
+        "id": "popol_s1",
+        "name": "Bite 'em, Kupa!",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "6.5s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/popolandkupa_1.png",
+        "description": "Popol throws a spear and commands Kupa to bite the target, dealing damage and stunning for 1s."
       },
       {
-        "id": "popolandkupa_s2",
-        "name": "Tactical Maneuver",
+        "id": "popol_s2",
+        "name": "Kupa, Help!",
         "type": "Skill 2",
         "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cost": "60 Mana",
+        "icon": "/assets/images/skills/popolandkupa_2.png",
+        "description": "Popol summons Kupa back to his side immediately, gaining a defensive shield and knocking up nearby foes."
       },
       {
-        "id": "popolandkupa_ult",
-        "name": "Apex Sovereign",
+        "id": "popol_s3",
+        "name": "Popol's Surprise",
+        "type": "Skill 3",
+        "cooldown": "18.0s",
+        "cost": "70 Mana",
+        "icon": "/assets/images/skills/popolandkupa_3.png",
+        "description": "Popol sets a hidden trap that provides vision, immobilizes, and reduces target movement speed."
+      },
+      {
+        "id": "popol_ult",
+        "name": "We Are Angry!",
         "type": "Ultimate",
         "cooldown": "38.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Icefield Companions, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/popolandkupa_4.png",
+        "description": "Popol and Kupa enter an enraged battle fury, granting Kupa increased attack speed, movement speed, and empowering all companion skills."
       }
     ],
     "portrait": "/assets/images/heroes/popolandkupa.png"
@@ -7310,39 +7508,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "luoyi_p",
-        "name": "Luo Yi's Awakening",
+        "name": "Duality",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Luo Yi's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/luoyi_0.png",
+        "description": "Luo Yi's skills create {{b"
       },
       {
         "id": "luoyi_s1",
-        "name": "Luo Yi's Strike",
+        "name": "Dispersion",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "1.2s",
+        "cost": "50 / 58 / 66 / 74 / 82 / 90",
+        "icon": "/assets/images/skills/luoyi_1.png",
+        "description": "Luo Yi casts the energy of {{B"
       },
       {
         "id": "luoyi_s2",
-        "name": "Tactical Maneuver",
+        "name": "Rotation",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "12.0s",
+        "cost": "120 / 130 / 140 / 150 / 160 / 170",
+        "icon": "/assets/images/skills/luoyi_2.png",
+        "description": "Luo Yi summons {{B"
       },
       {
         "id": "luoyi_ult",
-        "name": "Apex Sovereign",
+        "name": "Diversion",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Yin-Yang Geomancer, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "55.0 / 50.0 / 45.0s",
+        "cost": "0",
+        "icon": "/assets/images/skills/luoyi_3.png",
+        "description": "{{b"
       }
     ],
     "portrait": "/assets/images/heroes/luoyi.png"
@@ -7387,39 +7585,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "benedetta_p",
-        "name": "Benedetta's Awakening",
+        "name": "Elapsed Daytime",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Benedetta's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/benedetta_0.png",
+        "description": "When holding down the Basic Attack button, Benedetta enters the {{b"
       },
       {
         "id": "benedetta_s1",
-        "name": "Benedetta's Strike",
+        "name": "Phantom Slash",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "10.0 / 9.3 / 8.6 / 7.9 / 7.2 / 6.5s",
+        "cost": "55 / 61 / 67 / 73 / 79 / 85",
+        "icon": "/assets/images/skills/benedetta_1.png",
+        "description": "Benedetta withdraws swiftly and leaves a shadow in front. After a short delay, her shadow slashes forward in a fan-shaped area, dealing {{Scale"
       },
       {
         "id": "benedetta_s2",
-        "name": "Tactical Maneuver",
+        "name": "An Eye for An Eye",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "15.0 / 14.4 / 13.8 / 13.2 / 12.6 / 12.0s",
+        "cost": "100 / 105 / 110 / 115 / 120 / 125",
+        "icon": "/assets/images/skills/benedetta_2.png",
+        "description": "Benedetta raises her weapon to defend, gaining Control Immunity and [[damage immunity"
       },
       {
         "id": "benedetta_ult",
-        "name": "Apex Sovereign",
+        "name": "Alecto: Final Blow",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Shadow Ranger, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "45.0 / 40.0 / 35.0s",
+        "cost": "110 / 135 / 160",
+        "icon": "/assets/images/skills/benedetta_3.png",
+        "description": "Benedetta clenches Alecto, dashes forward (Benedetta is untargetable during the dash), and performs a slash after a short delay, [''duration needed''] detonating the Sword Intent along the path. For 2.5 seconds, the Sword Intent deals up to a total of {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/benedetta.png"
@@ -7464,39 +7662,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "khaleed_p",
-        "name": "Khaleed's Awakening",
+        "name": "Sand Walk",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Khaleed's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/khaleed_0.png",
+        "description": "Khaleed accumulates Desert Power while moving. After Desert Power is fully charged, he will glide on sand, increasing Movement Speed by 35%, making his next {{ai"
       },
       {
         "id": "khaleed_s1",
-        "name": "Khaleed's Strike",
+        "name": "Desert Tornado",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "6.5 / 6.0 / 5.5 / 5.0 / 4.5 / 4.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/khaleed_1.png",
+        "description": "Khaleed whirls his scimitar, dealing {{scale"
       },
       {
         "id": "khaleed_s2",
-        "name": "Tactical Maneuver",
+        "name": "Quicksand Guard",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "22.0 / 21.0 / 20.0 / 19.0 / 18.0 / 17.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/khaleed_2.png",
+        "description": "Khaleed protects himself with the power of the quicksand, restoring 60-135 plus 5%-10% of his lost HP and 10 Desert Power every 0.5 seconds, reducing damage taken by 35%-50% for up to 4 seconds. While channeling, quicksand appears under his feet, [[slow"
       },
       {
         "id": "khaleed_ult",
-        "name": "Apex Sovereign",
+        "name": "Raging Sandstorm",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "46.0 / 42.0 / 38.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Desert Scimitar, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/khaleed_3.png",
+        "description": "Khaleed rides the sandstorm and [[blink"
       }
     ],
     "portrait": "/assets/images/heroes/khaleed.png"
@@ -7541,39 +7739,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "barats_p",
-        "name": "Barats's Awakening",
+        "name": "Big Guy",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Barats's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/barats_0.png",
+        "description": "Detona gains a stack of {{b"
       },
       {
         "id": "barats_s1",
-        "name": "Barats's Strike",
+        "name": "So-Called Teamwork",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "7.0 / 6.6 / 6.2 / 5.8 / 5.4 / 5.0s",
+        "cost": "25 / 30 / 35 / 40 / 45 / 50",
+        "icon": "/assets/images/skills/barats_1.png",
+        "description": "Detona spits contaminated oil in the target direction, dealing {{scale"
       },
       {
         "id": "barats_s2",
-        "name": "Tactical Maneuver",
+        "name": "Missile \"Expert\"",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "11.0 / 10.4 / 9.8 / 9.2 / 8.6 / 8.0s",
+        "cost": "70 / 76 / 82 / 88 / 94 / 100",
+        "icon": "/assets/images/skills/barats_2.png",
+        "description": "Barats fires two missiles at the target location, dealing {{scale"
       },
       {
         "id": "barats_ult",
-        "name": "Apex Sovereign",
+        "name": "Detona's Welcome",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Dino Rider, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "60.0 / 55.0 / 50.0s",
+        "cost": "100 / 120 / 140",
+        "icon": "/assets/images/skills/barats_3.png",
+        "description": "After a short delay, Detona charges in the target direction, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/barats.png"
@@ -7618,39 +7816,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "brody_p",
-        "name": "Brody's Awakening",
+        "name": "Abyss Corrosion",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Brody's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/brody_0.png",
+        "description": "With his Basic Attacks resonated with the Abyss Power within his body, Brody is able to move while winding up his {{ai"
       },
       {
         "id": "brody_s1",
-        "name": "Brody's Strike",
+        "name": "Abyss Impact",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "4.0s",
+        "cost": "40 / 50 / 60 / 70 / 80 / 90",
+        "icon": "/assets/images/skills/brody_1.png",
+        "description": "Brody launches a shock wave in the designated direction, dealing {{Scale"
       },
       {
         "id": "brody_s2",
-        "name": "Tactical Maneuver",
+        "name": "Corrosive Strike",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
+        "cost": "75 / 80 / 85 / 90 / 95 / 100",
+        "icon": "/assets/images/skills/brody_2.png",
+        "description": "Brody dashes to an enemy, dealing {{Scale"
       },
       {
         "id": "brody_ult",
-        "name": "Apex Sovereign",
+        "name": "Torn-Apart Memory",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Lone Star, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "24.0 / 21.0 / 19.0s",
+        "cost": "120 / 160 / 200",
+        "icon": "/assets/images/skills/brody_3.png",
+        "description": "Brody locks on all the targets within 8 yard(s), dealing {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/brody.png"
@@ -7695,39 +7893,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "yve_p",
-        "name": "Yve's Awakening",
+        "name": "Galactic Power",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Yve's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/yve_0.png",
+        "description": "Yve gains a stack of {{b"
       },
       {
         "id": "yve_s1",
-        "name": "Yve's Strike",
+        "name": "Void Blast",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "5.0 / 4.5 / 4.0 / 3.5 / 3.0 / 2.5s",
+        "cost": "65 / 70 / 75 / 80 / 85 / 90",
+        "icon": "/assets/images/skills/yve_1.png",
+        "description": "Yve detonates {{b"
       },
       {
         "id": "yve_s2",
-        "name": "Tactical Maneuver",
+        "name": "Void Crystal",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "14.0 / 13.6 / 13.2 / 12.8 / 12.4 / 12.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/yve_2.png",
+        "description": "Yve summons a {{b"
       },
       {
         "id": "yve_ult",
-        "name": "Apex Sovereign",
+        "name": "Real World Manipulation",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Astrowarden, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "60.0s",
+        "cost": "180 / 220 / 260",
+        "icon": "/assets/images/skills/yve_3.png",
+        "description": "Yve creates a {{b"
       }
     ],
     "portrait": "/assets/images/heroes/yve.png"
@@ -7772,39 +7970,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "mathilda_p",
-        "name": "Mathilda's Awakening",
+        "name": "Ancestral Guidance",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Mathilda's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/mathilda_0.png",
+        "description": "Mathilda gains {{ai"
       },
       {
         "id": "mathilda_s1",
-        "name": "Mathilda's Strike",
+        "name": "Soul Bloom",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "7.5s",
+        "cost": "60 / 70 / 80 / 90 / 100 / 110",
+        "icon": "/assets/images/skills/mathilda_1.png",
+        "description": "Mathilda resonates with the power of her ancestors for 4 seconds, attracting wisps that as her movement distance increases (up to 6 wisps). At the end of the skill's duration, or when Mathilda cast this skill again, the wisps will seek the attack nearby enemies, each dealing {{Scale"
       },
       {
         "id": "mathilda_s2",
-        "name": "Tactical Maneuver",
+        "name": "Guiding Wind",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "12.0 / 11.8 / 11.6 / 11.4 / 11.2 / 11.0s",
+        "cost": "75 / 80 / 85 / 90 / 95 / 100",
+        "icon": "/assets/images/skills/mathilda_2.png",
+        "description": "Mathilda [[blink"
       },
       {
         "id": "mathilda_ult",
-        "name": "Apex Sovereign",
+        "name": "Circling Eagle",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Swift Plume, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "40.0s",
+        "cost": "150 / 180 / 210",
+        "icon": "/assets/images/skills/mathilda_3.png",
+        "description": "Mathilda applies a {{b"
       }
     ],
     "portrait": "/assets/images/heroes/mathilda.png"
@@ -7849,39 +8047,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "paquito_p",
-        "name": "Paquito's Awakening",
+        "name": "Champ Stance",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Paquito's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/paquito_0.png",
+        "description": "After every 3 skill casts, Paquito enters {{b"
       },
       {
         "id": "paquito_s1",
-        "name": "Paquito's Strike",
+        "name": "Heavy Left Punch",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/paquito_1.png",
+        "description": "Paquito throws a punch in the target direction, dealing {{Scale"
       },
       {
         "id": "paquito_s2",
-        "name": "Tactical Maneuver",
+        "name": "Jab",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "8.0 / 7.5 / 7.0 / 6.5 / 6.0 / 5.5s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/paquito_2.png",
+        "description": "Paquito dashes in the target direction and throws a jab, dealing {{Scale"
       },
       {
         "id": "paquito_ult",
-        "name": "Apex Sovereign",
+        "name": "Knockout Strike",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "18.0 / 16.5 / 15.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Heavenly Fist, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/paquito_3.png",
+        "description": "Paquito launches an [[Blink"
       }
     ],
     "portrait": "/assets/images/heroes/paquito.png"
@@ -7926,39 +8124,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "gloo_p",
-        "name": "Gloo's Awakening",
+        "name": "Stick, Stick",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Gloo's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/gloo_0.png",
+        "description": "Enemies gain a stack of {{link"
       },
       {
         "id": "gloo_s1",
-        "name": "Gloo's Strike",
+        "name": "Slam, Slam",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "10.0 / 9.2 / 8.4 / 7.6 / 6.8 / 6.0s",
+        "cost": "25 / 30 / 35 / 40 / 45 / 50",
+        "icon": "/assets/images/skills/gloo_1.png",
+        "description": "Gloo reaches out and slams the ground, dealing {{scale"
       },
       {
         "id": "gloo_s2",
-        "name": "Tactical Maneuver",
+        "name": "Spread, Spread",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "12.0 / 11.6 / 11.2 / 10.8 / 10.4 / 10.0s",
+        "cost": "80 / 88 / 96 / 104 / 112 / 120",
+        "icon": "/assets/images/skills/gloo_2.png",
+        "description": "Gloo splits into Goos, dealing {{scale"
       },
       {
         "id": "gloo_ult",
-        "name": "Apex Sovereign",
+        "name": "Grab, Grab",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Swamp Spirits, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "50.0s",
+        "cost": "150",
+        "icon": "/assets/images/skills/gloo_3.png",
+        "description": "Unlocked when any enemy hero has full Sticky stacks. Gloo attaches itself to the target enemy hero for up to 9 seconds, recovering 25%-30% of its {{AVC1"
       }
     ],
     "portrait": "/assets/images/heroes/gloo.png"
@@ -8003,39 +8201,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "phoveus_p",
-        "name": "Phoveus's Awakening",
+        "name": "Demonic Force",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Phoveus's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/phoveus_0.png",
+        "description": "Phoveus' next {{ai"
       },
       {
         "id": "phoveus_s1",
-        "name": "Phoveus's Strike",
+        "name": "Demonic Impact",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "6.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/phoveus_1.png",
+        "description": "Phoveus slams his monolith into the ground, dealing {{scale"
       },
       {
         "id": "phoveus_s2",
-        "name": "Tactical Maneuver",
+        "name": "Dark Wave",
         "type": "Skill 2",
         "cooldown": "10.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/phoveus_2.png",
+        "description": "Phoveus drops the stone and releases his demonic power in the target direction, [[airborne"
       },
       {
         "id": "phoveus_ult",
-        "name": "Apex Sovereign",
+        "name": "Infernal Pursuit",
         "type": "Ultimate",
         "cooldown": "38.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Chains of Sin, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/phoveus_3.png",
+        "description": "{{b"
       }
     ],
     "portrait": "/assets/images/heroes/phoveus.png"
@@ -8080,39 +8278,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "natan_p",
-        "name": "Natan's Awakening",
+        "name": "Theory of Everything",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Natan's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/natan_0.png",
+        "description": "Natan gains a stack of Entanglement each time he or his Reverse-Clone hits an enemy with a skill (up to 6 stacks). Each stack lasts 2.5 seconds and grants 7.5% [[Attack Speed"
       },
       {
         "id": "natan_s1",
-        "name": "Natan's Strike",
+        "name": "Superposition",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "8.0 / 7.4/ 6.8 / 6.2 / 5.6 / 5.0s",
+        "cost": "50 / 55 / 60 / 65 / 70 / 75",
+        "icon": "/assets/images/skills/natan_1.png",
+        "description": "Natan shoots a dense mass of energy, dealing {{Scale"
       },
       {
         "id": "natan_s2",
-        "name": "Tactical Maneuver",
+        "name": "Interference!",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "12.0 / 11.6 / 11.2 / 10.8 / 10.4 / 10.0s",
+        "cost": "60 / 65 / 70 / 75 / 80 / 85",
+        "icon": "/assets/images/skills/natan_2.png",
+        "description": "Natan launches a Gravitational Attractor which carries enemies on contact along the path and deals {{Scale"
       },
       {
         "id": "natan_ult",
-        "name": "Apex Sovereign",
+        "name": "Entropy?",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Spacetime Walker, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "24.0 / 20.0 / 16.0s",
+        "cost": "100 / 50 / 0",
+        "icon": "/assets/images/skills/natan_3.png",
+        "description": "Natan summons a {{b"
       }
     ],
     "portrait": "/assets/images/heroes/natan.png"
@@ -8157,39 +8355,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "aulus_p",
-        "name": "Aulus's Awakening",
+        "name": "Fighting Spirit",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Aulus's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/aulus_0.png",
+        "description": "After dealing skill damage to any unit, Aulus gains 2 seconds of {{link"
       },
       {
         "id": "aulus_s1",
-        "name": "Aulus's Strike",
+        "name": "Aulus, Charge!",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "14.0 / 13.6 / 13.2 / 12.8 / 12.4 / 12.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/aulus_1.png",
+        "description": "Aulus removes all slow effects and gains 30% extra Movement Speed for 5 seconds. If Aulus does not take high-level [[cc"
       },
       {
         "id": "aulus_s2",
-        "name": "Tactical Maneuver",
+        "name": "The Power of Axe",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "{{sl",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/aulus_2.png",
+        "description": "Aulus swings his axe, dealing {{scale"
       },
       {
         "id": "aulus_ult",
-        "name": "Apex Sovereign",
+        "name": "Cleaving Axe",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "50.0 / 45.0 / 40.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Warrior of Ferocity, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/aulus_3.png",
+        "description": "Aulus repeatedly swings his axe at nearby enemies, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/aulus.png"
@@ -8234,39 +8432,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "aamon_p",
-        "name": "Aamon's Awakening",
+        "name": "Invisible Armor",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Aamon's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/aamon_0.png",
+        "description": "Aamon enters the {{AVC1"
       },
       {
         "id": "aamon_s1",
-        "name": "Aamon's Strike",
+        "name": "Soul Shards",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "9.0 / 8.5 / 8.0 / 7.5 / 7.0 / 6.5s",
+        "cost": "60 / 66 / 72 / 78 / 84 / 90",
+        "icon": "/assets/images/skills/aamon_1.png",
+        "description": "{{AVC1"
       },
       {
         "id": "aamon_s2",
-        "name": "Tactical Maneuver",
+        "name": "Slayer Shards",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "15.0 / 14.5 / 14.0 / 13.5 / 13.0 / 12.5s",
+        "cost": "110 / 104 / 98 / 92 / 86 / 80",
+        "icon": "/assets/images/skills/aamon_2.png",
+        "description": "Aamon throws a shard forward, dealing 120-220 {{AVC1"
       },
       {
         "id": "aamon_ult",
-        "name": "Apex Sovereign",
+        "name": "Endless Shards",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Duke of Shards, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "46.0 / 42.0 / 38.0s",
+        "cost": "150 / 170 / 190",
+        "icon": "/assets/images/skills/aamon_3.png",
+        "description": "Aamon throws all shards at a designated enemy and slows them by 30% for 1.5 seconds. After a short delay, the shards will fly to the enemy's location again, each dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/aamon.png"
@@ -8311,39 +8509,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "valentina_p",
-        "name": "Valentina's Awakening",
+        "name": "Primal Force",
         "type": "Passive",
-        "cooldown": "Passive",
+        "cooldown": "2.0",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Valentina's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/valentina_0.png",
+        "description": "Valentina gains 8&ndash;50 extra EXP each time she deals damage to an enemy hero. Cooldown: 2 seconds. If the enemy hero's level isn't higher than Valentina's, 30% of the damage dealt is converted into her HP. The EXP scales with Valentina's level."
       },
       {
         "id": "valentina_s1",
-        "name": "Valentina's Strike",
+        "name": "Shadow Strike",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "7.0 / 6.6 / 6.2 / 5.8 / 5.4 / 5.0s",
+        "cost": "70 / 75 / 80 / 85 / 90 / 95",
+        "icon": "/assets/images/skills/valentina_1.png",
+        "description": "Valentina casts Shadow Strike in the target direction, dealing {{scale"
       },
       {
         "id": "valentina_s2",
-        "name": "Tactical Maneuver",
+        "name": "Arcane Shade",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "12.0s",
+        "cost": "45 / 50 / 55 / 60 / 65 / 70",
+        "icon": "/assets/images/skills/valentina_2.png",
+        "description": "Valentina [[Blink"
       },
       {
         "id": "valentina_ult",
-        "name": "Apex Sovereign",
+        "name": "I Am You",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Matriarch of Shadows, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "Varying (>= 10 seconds)",
+        "cost": "Varying",
+        "icon": "/assets/images/skills/valentina_3.png",
+        "description": "Valentina slows the target enemy hero by 70% for 0.5 seconds and gains the ability to cast their Ultimate. Casting the enemy's Ultimate turns Valentina into the enemy hero's form and allows her to inherit their Basic Attack type for up to 12 seconds. Her regular skills remain unchanged, unless the enemy's Ultimate has a Morph effect. The stolen Ultimate's level will be equal to Valentina's level and the cooldown will be 120%&ndash;100% of the target's cooldown (but not lower than 10 seconds). Valentina gains {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/valentina.png"
@@ -8388,39 +8586,72 @@ export const HEROES = [
     "abilities": [
       {
         "id": "edith_p",
-        "name": "Edith's Awakening",
+        "name": "Overload",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Edith's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/edith_0.png",
+        "description": "After casting a skill, Edith's basic attacks trigger chain lightning for 3s, hitting up to 4 enemies."
       },
       {
-        "id": "edith_s1",
-        "name": "Edith's Strike",
+        "id": "edith_p_s1",
+        "name": "Earth Shatter",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "form": "Phylax Armor",
+        "cooldown": "8.5s",
+        "cost": "60 Mana",
+        "icon": "/assets/images/skills/edith_1.png",
+        "description": "Phylax charges power and slams the earth, airborne knocking enemies in a front sector for 1 second."
       },
       {
-        "id": "edith_s2",
-        "name": "Tactical Maneuver",
+        "id": "edith_p_s2",
+        "name": "Onward",
         "type": "Skill 2",
+        "form": "Phylax Armor",
         "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cost": "70 Mana",
+        "icon": "/assets/images/skills/edith_2.png",
+        "description": "Phylax charges forward, throwing the first enemy champion hit over its shoulder."
       },
       {
-        "id": "edith_ult",
-        "name": "Apex Sovereign",
+        "id": "edith_p_ult",
+        "name": "Primal Wrath",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "form": "Phylax Armor",
+        "cooldown": "40.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Forsaken Warden, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/edith_3.png",
+        "description": "Edith ejects from Phylax into flight, converting extra defense into Magic Power and Attack Speed."
+      },
+      {
+        "id": "edith_f_s1",
+        "name": "Divine Retribution",
+        "type": "Skill 1",
+        "form": "Edith Flight",
+        "cooldown": "4.5s",
+        "cost": "40 Mana",
+        "icon": "/assets/images/skills/edith_4.png",
+        "description": "Edith summons divine retribution on target area, dealing continuous magic damage to enemies."
+      },
+      {
+        "id": "edith_f_s2",
+        "name": "Lightning Bolt",
+        "type": "Skill 2",
+        "form": "Edith Flight",
+        "cooldown": "8.0s",
+        "cost": "50 Mana",
+        "icon": "/assets/images/skills/edith_5.png",
+        "description": "Edith shoots a lightning bolt forward, paralyzing and immobilizing the first enemy struck for 0.8s."
+      },
+      {
+        "id": "edith_f_ult",
+        "name": "Return to Phylax",
+        "type": "Ultimate",
+        "form": "Edith Flight",
+        "cooldown": "40.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/edith_6.png",
+        "description": "Edith re-enters Phylax armor, restoring her massive tank defenses and crowd control kit."
       }
     ],
     "portrait": "/assets/images/heroes/edith.png"
@@ -8465,39 +8696,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "floryn_p",
-        "name": "Floryn's Awakening",
+        "name": "Dew",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Floryn's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/floryn_0.png",
+        "description": "Dew's [[Lantern of Hope"
       },
       {
         "id": "floryn_s1",
-        "name": "Floryn's Strike",
+        "name": "Sow",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "9.0 / 8.7 / 8.4 / 8.1 / 7.8 / 7.5s",
+        "cost": "90 / 100 / 110 / 120 / 130 / 140",
+        "icon": "/assets/images/skills/floryn_1.png",
+        "description": "Floryn tosses an Energy Seed at a target enemy, dealing {{Scale"
       },
       {
         "id": "floryn_s2",
-        "name": "Tactical Maneuver",
+        "name": "Sprout",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "13.0 / 12.4 / 11.8 / 11.2 / 10.6 / 10.0s",
+        "cost": "100 / 110 / 120 / 130 / 140 / 150",
+        "icon": "/assets/images/skills/floryn_2.png",
+        "description": "Floryn casts a blob of energy ahead that explodes upon hitting an enemy, dealing {{Scale"
       },
       {
         "id": "floryn_ult",
-        "name": "Apex Sovereign",
+        "name": "Bloom",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Budding Hope, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "70.0s",
+        "cost": "150 / 175 / 200",
+        "icon": "/assets/images/skills/floryn_3.png",
+        "description": "Floryn resonates with Dew's power, recovering {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/floryn.png"
@@ -8542,39 +8773,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "yin_p",
-        "name": "Yin's Awakening",
+        "name": "Leave It to Me",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Yin's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/yin_0.png",
+        "description": "If there are no nearby allies within 4 units, Yin's damage is {{AVC1"
       },
       {
         "id": "yin_s1",
-        "name": "Yin's Strike",
+        "name": "Charged Punch",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "10.0 / 9.4 / 8.8 / 8.2 / 7.6 / 7.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/yin_1.png",
+        "description": "Yin gains 60% extra {{AVC1"
       },
       {
         "id": "yin_s2",
-        "name": "Tactical Maneuver",
+        "name": "Frenzy Strike",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "22.0 / 20.8 / 19.6 / 18.4 / 17.2 / 16.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/yin_2.png",
+        "description": "Lieh smashes an area ahead up to 9 times, each smash dealing {{scale"
       },
       {
         "id": "yin_ult",
-        "name": "Apex Sovereign",
+        "name": "Instant Blast",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "14.0 / 13.2 / 12.4 / 11.6 / 10.8 / 10.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Martial Genius, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/yin_3.png",
+        "description": "Yin dashes forward, leaving [ {{AVC1"
       }
     ],
     "portrait": "/assets/images/heroes/yin.png"
@@ -8619,39 +8850,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "melissa_p",
-        "name": "Melissa's Awakening",
+        "name": "Doll Buster",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Melissa's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/melissa_0.png",
+        "description": "\"My tailor shop excels at \"fixing\" dolls and \"fixing\" dolls. Am I right?, {{AVC1"
       },
       {
         "id": "melissa_s1",
-        "name": "Melissa's Strike",
+        "name": "Falling!",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "7.5/7.0/6.5/6.0/5.5/5.0s",
+        "cost": "30/35/40/45/50/55",
+        "icon": "/assets/images/skills/melissa_1.png",
+        "description": "\"Watch me slide forward and increase my {{AVC1"
       },
       {
         "id": "melissa_s2",
-        "name": "Tactical Maneuver",
+        "name": "Eyes on You!",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "9.0/8.6/8.2/7.8/7.4/7.0s",
+        "cost": "60/50/40/30/20/10",
+        "icon": "/assets/images/skills/melissa_2.png",
+        "description": "\"The plan's like this: Throw Muddles out to hold the bad guys, and then&#8230; I come on stage!\" \"I puncture the bad guys, while Giggles hit Muddles to punish the bad guys! Hee, fantastic!\" (Muddles deals {{Scale"
       },
       {
         "id": "melissa_ult",
-        "name": "Apex Sovereign",
+        "name": "Go Away!",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Cursed Needle, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "50.0/45.0/40.0s",
+        "cost": "120 / 150 / 180",
+        "icon": "/assets/images/skills/melissa_3.png",
+        "description": "\" Cuddles , protect me! For 4 seconds, let no bad guys come close. Unless I say otherwise!\" (When activated, the field knocks back Melissa creates a dome that continuously damages and repels enemies in the area and deals {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/melissa.png"
@@ -8696,39 +8927,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "xavier_p",
-        "name": "Xavier's Awakening",
+        "name": "Transcendence",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Xavier's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/xavier_0.png",
+        "description": "Xavier enhances his subsequent skills each time his skill hits an enemy hero. {{b"
       },
       {
         "id": "xavier_s1",
-        "name": "Xavier's Strike",
+        "name": "Infinite Extension",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "6.5 / 6.4 / 6.3 / 6.2 / 6.1 / 6.0s",
+        "cost": "50 / 55 / 60 / 65 / 70 / 75",
+        "icon": "/assets/images/skills/xavier_1.png",
+        "description": "Xavier fires a Mystic Bullet that deals {{Scale"
       },
       {
         "id": "xavier_s2",
-        "name": "Tactical Maneuver",
+        "name": "Mystic Field",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "13.0s",
+        "cost": "80 / 88 / 96 / 104 / 112 / 120",
+        "icon": "/assets/images/skills/xavier_2.png",
+        "description": "Xavier conjures a {{b"
       },
       {
         "id": "xavier_ult",
-        "name": "Apex Sovereign",
+        "name": "Dawning Light",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Defier of Light, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "56.0s",
+        "cost": "120 / 160 / 200",
+        "icon": "/assets/images/skills/xavier_3.png",
+        "description": "Xavier unleashes a beam of Mystic magic that deals {{Scale"
       }
     ],
     "portrait": "/assets/images/heroes/xavier.png"
@@ -8773,39 +9004,72 @@ export const HEROES = [
     "abilities": [
       {
         "id": "julian_p",
-        "name": "Julian's Awakening",
+        "name": "Smith's Legacy",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Julian's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/julian_0.png",
+        "description": "Julian has no traditional ultimate; casting any skill as his 3rd ability empowers that skill with cataclysmic effects."
       },
       {
-        "id": "julian_s1",
-        "name": "Julian's Strike",
+        "id": "julian_b_s1",
+        "name": "Scythe",
         "type": "Skill 1",
+        "form": "Base Form",
         "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cost": "30 Mana",
+        "icon": "/assets/images/skills/julian_1.png",
+        "description": "Hurls a flying scythe forward, dealing magic damage and slowing enemies."
       },
       {
-        "id": "julian_s2",
-        "name": "Tactical Maneuver",
+        "id": "julian_b_s2",
+        "name": "Sword",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "form": "Base Form",
+        "cooldown": "7.0s",
+        "cost": "30 Mana",
+        "icon": "/assets/images/skills/julian_2.png",
+        "description": "Summons flying swords and dashes forward, becoming invulnerable during the dash."
       },
       {
-        "id": "julian_ult",
-        "name": "Apex Sovereign",
-        "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Scarlet Raven, dealing monumental AoE damage and dictating the teamfight."
+        "id": "julian_b_s3",
+        "name": "Chain",
+        "type": "Skill 3",
+        "form": "Base Form",
+        "cooldown": "7.0s",
+        "cost": "30 Mana",
+        "icon": "/assets/images/skills/julian_3.png",
+        "description": "Casts chains in target direction, dealing damage and immobilizing enemies after a brief delay."
+      },
+      {
+        "id": "julian_e_s1",
+        "name": "Enhanced Scythe",
+        "type": "Enhanced 1",
+        "form": "Enhanced Form",
+        "cooldown": "10.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/julian_4.png",
+        "description": "Hurls an enhanced scythe that hovers in place, continuously pulling and slicing enemies."
+      },
+      {
+        "id": "julian_e_s2",
+        "name": "Enhanced Sword",
+        "type": "Enhanced 2",
+        "form": "Enhanced Form",
+        "cooldown": "10.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/julian_5.png",
+        "description": "Dashes forward while completely untargetable, delivering 9 rapid strikes to enemies along the path."
+      },
+      {
+        "id": "julian_e_s3",
+        "name": "Enhanced Chain",
+        "type": "Enhanced 3",
+        "form": "Enhanced Form",
+        "cooldown": "10.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/julian_6.png",
+        "description": "Casts massive heavy chains that entangle and airborne knock up all enemies in the area."
       }
     ],
     "portrait": "/assets/images/heroes/julian.png"
@@ -8849,40 +9113,49 @@ export const HEROES = [
     ],
     "abilities": [
       {
-        "id": "fredrinn_p",
-        "name": "Fredrinn's Awakening",
+        "id": "fred_p",
+        "name": "Crystalline Armor",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Fredrinn's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/fredrinn_0.png",
+        "description": "Fredrinn stores damage received as Crystal Energy and can convert it back into HP through skill damage."
       },
       {
-        "id": "fredrinn_s1",
-        "name": "Fredrinn's Strike",
+        "id": "fred_s1",
+        "name": "Piercing Strike",
         "type": "Skill 1",
         "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/fredrinn_1.png",
+        "description": "Fredrinn thrusts his broadsword forward, dealing physical damage and slowing enemies."
       },
       {
-        "id": "fredrinn_s2",
-        "name": "Tactical Maneuver",
+        "id": "fred_s2",
+        "name": "Brave Assault",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "8.5s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/fredrinn_2.png",
+        "description": "Fredrinn dashes forward, dealing physical damage and airborne knocking the first enemy hero hit."
       },
       {
-        "id": "fredrinn_ult",
-        "name": "Apex Sovereign",
+        "id": "fred_s3",
+        "name": "Energy Eruption",
+        "type": "Skill 3",
+        "cooldown": "5.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/fredrinn_3.png",
+        "description": "Fredrinn erupts crystal energy, dealing physical damage and taunting all surrounding enemies for 1 second."
+      },
+      {
+        "id": "fred_ult",
+        "name": "Appraiser's Wrath",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Rogue Appraiser, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "20.0s",
+        "cost": "No Cost",
+        "icon": "/assets/images/skills/fredrinn_4.png",
+        "description": "Fredrinn slams his broadsword down in an arc, converting stored Crystal Energy into cataclysmic burst physical damage."
       }
     ],
     "portrait": "/assets/images/heroes/fredrinn.png"
@@ -8927,39 +9200,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "joy_p",
-        "name": "Joy's Awakening",
+        "name": "Humph, Joy's Angry!",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Joy's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/joy_0.png",
+        "description": "Joy becomes {{b"
       },
       {
         "id": "joy_s1",
-        "name": "Joy's Strike",
+        "name": "Look, Leonin Crystal!",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "4.0s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/joy_1.png",
+        "description": "Joy summons a {{b"
       },
       {
         "id": "joy_s2",
-        "name": "Tactical Maneuver",
+        "name": "Meow, Rhythm of Joy!",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "8.0s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/joy_2.png",
+        "description": "Joy dashes in the target direction, dealing {{scale"
       },
       {
         "id": "joy_ult",
-        "name": "Apex Sovereign",
+        "name": "Ha, Electrifying Beats!",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "28.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Flash of Miracle, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/joy_3.png",
+        "description": "Joy increases her Physical & Magic Defense by {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/joy.png"
@@ -9004,39 +9277,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "arlott_p",
-        "name": "Arlott's Awakening",
+        "name": "Demon Gaze",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Arlott's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/arlott_0.png",
+        "description": "Arlott possesses a demonic eye that will {{b"
       },
       {
         "id": "arlott_s1",
-        "name": "Arlott's Strike",
+        "name": "Dauntless Strike",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "8.0 / 7.4 / 6.8 / 6.2 / 5.6 / 5.0s",
+        "cost": "- / - / - / - / - / -",
+        "icon": "/assets/images/skills/arlott_1.png",
+        "description": "Arlott swings his lance forward, dealing {{scale"
       },
       {
         "id": "arlott_s2",
-        "name": "Tactical Maneuver",
+        "name": "Vengeance",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "10.0 / 9.6 / 9.2 / 8.8 / 8.4 / 8.0s",
+        "cost": "- / - / - / - / - / -",
+        "icon": "/assets/images/skills/arlott_2.png",
+        "description": "Arlott charges at an enemy and deals {{scale"
       },
       {
         "id": "arlott_ult",
-        "name": "Apex Sovereign",
+        "name": "Final Slash",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Lone Lancer, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "24.0 / 21.0 / 18.0s",
+        "cost": "100 / 120 / 140",
+        "icon": "/assets/images/skills/arlott_3.png",
+        "description": "Arlott cleaves in front of him, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/arlott.png"
@@ -9081,39 +9354,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "novaria_p",
-        "name": "Novaria's Awakening",
+        "name": "Star Trail",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Novaria's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/novaria_0.png",
+        "description": "{{B"
       },
       {
         "id": "novaria_s1",
-        "name": "Novaria's Strike",
+        "name": "Astral Meteor",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
+        "cost": "60 / 68 / 76 / 84 / 92 / 100",
+        "icon": "/assets/images/skills/novaria_1.png",
+        "description": "Novaria summons an {{B"
       },
       {
         "id": "novaria_s2",
-        "name": "Tactical Maneuver",
+        "name": "Astral Recall",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "8.0s",
+        "cost": "60 / 70 / 80 / 90 / 100 / 110",
+        "icon": "/assets/images/skills/novaria_2.png",
+        "description": "Novaria summons an {{B"
       },
       {
         "id": "novaria_ult",
-        "name": "Apex Sovereign",
+        "name": "Astral Echo",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Star Rebel, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "45.0 / 40.0 / 35.0s",
+        "cost": "100",
+        "icon": "/assets/images/skills/novaria_3.png",
+        "description": "Novaria scatters Astral Echo in the target direction, briefly slowing enemy heroes hit by 50% (for approximately 0.8 seconds) while applying {{B"
       }
     ],
     "portrait": "/assets/images/heroes/novaria.png"
@@ -9158,39 +9431,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "ixia_p",
-        "name": "Ixia's Awakening",
+        "name": "Siphon Starlium",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Ixia's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/ixia_0.png",
+        "description": "Ixia's Basic Attacks and skills apply a stack of {{B"
       },
       {
         "id": "ixia_s1",
-        "name": "Ixia's Strike",
+        "name": "Dual Beam",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "8.0 / 7.2 / 6.4 / 5.6 / 4.8 / 4.0s",
+        "cost": "40 / 45 / 50 / 55 / 60 / 65",
+        "icon": "/assets/images/skills/ixia_1.png",
+        "description": "Ixia fires 2 Starlium-charged energy beams along the ground in the target direction, dealing {{scale"
       },
       {
         "id": "ixia_s2",
-        "name": "Tactical Maneuver",
+        "name": "Star Helix",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "11.0 / 10.6 / 10.2 / 9.8 / 9.4 / 9.0s",
+        "cost": "75 / 80 / 85 / 90 / 95 / 100",
+        "icon": "/assets/images/skills/ixia_2.png",
+        "description": "Ixia launches a canister of Starlium energy in the target direction, knocking back nearby enemies, and pulling enemies in range to the center line after a short delay (approximately 0.5 seconds) and dealing {{scale"
       },
       {
         "id": "ixia_ult",
-        "name": "Apex Sovereign",
+        "name": "Full Barrage",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Arclight Gunner, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "54.0 / 48.0 / 42.0s",
+        "cost": "75 / 90 / 105",
+        "icon": "/assets/images/skills/ixia_3.png",
+        "description": "Ixia disassembles her weapon into 6 smaller weapons and enters the {{B"
       }
     ],
     "portrait": "/assets/images/heroes/ixia.png"
@@ -9235,39 +9508,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "nolan_p",
-        "name": "Nolan's Awakening",
+        "name": "Dimensional Rift",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Nolan's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/nolan_0.png",
+        "description": "Nolan's skills will leave a {{B"
       },
       {
         "id": "nolan_s1",
-        "name": "Nolan's Strike",
+        "name": "Expansion",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "2.0/1.8/1.6/1.4/1.2/1.0s",
+        "cost": "25",
+        "icon": "/assets/images/skills/nolan_1.png",
+        "description": "Nolan cuts a rectangular area in front of him with his cosmic gauge, dealing {{scale"
       },
       {
         "id": "nolan_s2",
-        "name": "Tactical Maneuver",
+        "name": "Gauge",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "2.0/1.8/1.6/1.4/1.2/1.0s",
+        "cost": "25",
+        "icon": "/assets/images/skills/nolan_2.png",
+        "description": "Nolan [[blink"
       },
       {
         "id": "nolan_ult",
-        "name": "Apex Sovereign",
+        "name": "Fracture",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Cosmic Wayfarer, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "21.0 / 18.0 / 15.0s",
+        "cost": "0",
+        "icon": "/assets/images/skills/nolan_3.png",
+        "description": "Nolan slashes the target location 3 times, {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/nolan.png"
@@ -9312,39 +9585,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "cici_p",
-        "name": "Cici's Awakening",
+        "name": "Performer's Delight",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Cici's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/cici_0.png",
+        "description": "Cici generates a stack of {{link"
       },
       {
         "id": "cici_s1",
-        "name": "Cici's Strike",
+        "name": "Yo-Yo Blitz",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "6.5s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/cici_1.png",
+        "description": "Cici uses Yoyo to continuously attack the nearest enemy within range (prioritizing heroes) for 3.5 seconds, hitting them up to 10 times and dealing {{scale"
       },
       {
         "id": "cici_s2",
-        "name": "Tactical Maneuver",
+        "name": "Buoyant Bounce",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "9.5 / 9.1 / 8.7 / 8.3 / 7.9 / 7.5s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/cici_2.png",
+        "description": "Cici leaps to a target location. If she lands on any unit (not including Turrets and Base), she can leap again in the Joystick's direction. If she lands on an enemy with the first leap, she deals {{scale"
       },
       {
         "id": "cici_ult",
-        "name": "Apex Sovereign",
+        "name": "Curtain Call",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "40.0 / 36.0 / 32.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Buoyant Performer, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/cici_3.png",
+        "description": "Cici throws Yoyo at the target enemy hero and links them with another nearby enemy hero, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/cici.png"
@@ -9389,39 +9662,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "chip_p",
-        "name": "Chip's Awakening",
+        "name": "Snack Time!",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Chip's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/chip_0.png",
+        "description": "Chip starts eating potato chips once every 2 seconds when out of combat, regenerating HP equal to 300 plus 45% of lost HP after finishing a whole bag (requires 4 bites). After eating a bag of chips, Chip will be full and cannot eat again for 5 seconds. (The bite count will be saved if he enters combat before finishing a whole bag)"
       },
       {
         "id": "chip_s1",
-        "name": "Chip's Strike",
+        "name": "Crash Course",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "5.5 / 5.2 / 4.9 / 4.6 / 4.3 / 4.0s",
+        "cost": "40 / 45 / 50 / 55 / 60 / 65",
+        "icon": "/assets/images/skills/chip_1.png",
+        "description": "Chip rams his hovercraft into the ground, dealing {{b"
       },
       {
         "id": "chip_s2",
-        "name": "Tactical Maneuver",
+        "name": "Overtime",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "13.0 / 12.4 / 11.8 / 11.2 / 10.6 / 10.0s",
+        "cost": "75 / 80 / 85 / 85 / 90 / 95 / 100",
+        "icon": "/assets/images/skills/chip_2.png",
+        "description": "Chip rushes for 2 seconds, gaining up to 65% extra {{b"
       },
       {
         "id": "chip_ult",
-        "name": "Apex Sovereign",
+        "name": "Shortcut",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Phase Commander, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "70.0 / 60.0 / 50.0s",
+        "cost": "110",
+        "icon": "/assets/images/skills/chip_3.png",
+        "description": "Chip drops the Main Portal on an enemy hero, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/chip.png"
@@ -9466,39 +9739,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "zhuxin_p",
-        "name": "Zhuxin's Awakening",
+        "name": "Crimson Butterflies",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Zhuxin's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/zhuxin_0.png",
+        "description": "Every time Zhuxin channels {{Link"
       },
       {
         "id": "zhuxin_s1",
-        "name": "Zhuxin's Strike",
+        "name": "Fluttering Grace",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "12.0 / 11.6 / 11.2 / 10.8 / 10.4 / 10.0s",
+        "cost": "100",
+        "icon": "/assets/images/skills/zhuxin_1.png",
+        "description": "Zhuxin deals {{scale"
       },
       {
         "id": "zhuxin_s2",
-        "name": "Tactical Maneuver",
+        "name": "Lantern Flare",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "0.5s",
+        "cost": "90",
+        "icon": "/assets/images/skills/zhuxin_2.png",
+        "description": "{{Link"
       },
       {
         "id": "zhuxin_ult",
-        "name": "Apex Sovereign",
+        "name": "Crimson Beacon",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Crimson Butterfly, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "60.0 / 55.0 / 50.0s",
+        "cost": "200",
+        "icon": "/assets/images/skills/zhuxin_3.png",
+        "description": "Zhuxin blinks to the target location while gaining a {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/zhuxin.png"
@@ -9543,39 +9816,72 @@ export const HEROES = [
     "abilities": [
       {
         "id": "suyou_p",
-        "name": "Suyou's Awakening",
+        "name": "Transient Immortal",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Suyou's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/suyou_0.png",
+        "description": "Suyou switches between agile Mortal Form (Tap skills) and destructive Immortal Form (Hold skills)."
       },
       {
-        "id": "suyou_s1",
-        "name": "Suyou's Strike",
+        "id": "suyou_m_s1",
+        "name": "Blade Surge",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "form": "Mortal (Tap)",
+        "cooldown": "8.0s",
+        "cost": "40 Mana",
+        "icon": "/assets/images/skills/suyou_1.png",
+        "description": "Throws weapon forward and swiftly dashes to it, dealing physical damage along the trajectory."
       },
       {
-        "id": "suyou_s2",
-        "name": "Tactical Maneuver",
+        "id": "suyou_m_s2",
+        "name": "Soul Sever",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "form": "Mortal (Tap)",
+        "cooldown": "6.0s",
+        "cost": "45 Mana",
+        "icon": "/assets/images/skills/suyou_2.png",
+        "description": "Performs two swift sweeping slashes, dealing damage and executing wounded enemies."
       },
       {
-        "id": "suyou_ult",
-        "name": "Apex Sovereign",
-        "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Mask of Immortal, dealing monumental AoE damage and dictating the teamfight."
+        "id": "suyou_m_s3",
+        "name": "Evil Queller",
+        "type": "Skill 3",
+        "form": "Mortal (Tap)",
+        "cooldown": "12.0s",
+        "cost": "50 Mana",
+        "icon": "/assets/images/skills/suyou_3.png",
+        "description": "Leaps backward and shoots phantom arrows, dealing damage and kiting enemies."
+      },
+      {
+        "id": "suyou_i_s1",
+        "name": "Immortal Blade Surge",
+        "type": "Skill 1",
+        "form": "Immortal (Hold)",
+        "cooldown": "8.0s",
+        "cost": "40 Mana",
+        "icon": "/assets/images/skills/suyou_4.png",
+        "description": "Charges deity strength to dash forward, knocking back enemies and gaining 30% damage reduction."
+      },
+      {
+        "id": "suyou_i_s2",
+        "name": "Immortal Soul Sever",
+        "type": "Skill 2",
+        "form": "Immortal (Hold)",
+        "cooldown": "6.0s",
+        "cost": "45 Mana",
+        "icon": "/assets/images/skills/suyou_5.png",
+        "description": "Channels 3 colossal cleaves that heal Suyou for a portion of damage dealt."
+      },
+      {
+        "id": "suyou_i_s3",
+        "name": "Immortal Evil Queller",
+        "type": "Skill 3",
+        "form": "Immortal (Hold)",
+        "cooldown": "12.0s",
+        "cost": "50 Mana",
+        "icon": "/assets/images/skills/suyou_6.png",
+        "description": "Smashes the ground with colossal deity force, dealing massive area physical damage and slowing."
       }
     ],
     "portrait": "/assets/images/heroes/suyou.png"
@@ -9620,39 +9926,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "lukas_p",
-        "name": "Lukas's Awakening",
+        "name": "Hero's Resolve",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Lukas's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/lukas_0.png",
+        "description": "Lukas gains 1 Resolve per second and an additional 2 Resolve when dealing damage to heroes. Lukas consumes 10 Resolve per second while in {{Link"
       },
       {
         "id": "lukas_s1",
-        "name": "Lukas's Strike",
+        "name": "Flash Combo",
         "type": "Skill 1",
-        "cooldown": "7.0s",
+        "cooldown": "5.5s",
         "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "icon": "/assets/images/skills/lukas_1.png",
+        "description": "{{Link"
       },
       {
         "id": "lukas_s2",
-        "name": "Tactical Maneuver",
+        "name": "Flash Combo",
         "type": "Skill 2",
-        "cooldown": "10.0s",
+        "cooldown": "5.5s",
         "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "icon": "/assets/images/skills/lukas_2.png",
+        "description": "{{Link"
       },
       {
         "id": "lukas_ult",
-        "name": "Apex Sovereign",
+        "name": "Flash Step",
         "type": "Ultimate",
-        "cooldown": "38.0s",
+        "cooldown": "12.0 / 11.2 / 10.4 / 9.6 / 8.8 / 8.0s",
         "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Sacred Beast, dealing monumental AoE damage and dictating the teamfight."
+        "icon": "/assets/images/skills/lukas_3.png",
+        "description": "Lukas dashes in the target direction and turns his next Basic Attack within 4s into {{Link"
       }
     ],
     "portrait": "/assets/images/heroes/lukas.png"
@@ -9697,39 +10003,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "khufra_p",
-        "name": "Khufra's Awakening",
+        "name": "Spell Curse",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Khufra's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/khufra_0.png",
+        "description": "Khufra activates the Spell Curse left by Esmeralda every 12 seconds, enhancing his next Basic Attack. The enhanced Basic Attack gains extra attack range [Cast Range: 4.9] and deals [ {{scale"
       },
       {
         "id": "khufra_s1",
-        "name": "Khufra's Strike",
+        "name": "Tyrant's Revenge",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "15.0 / 14.0 / 13.0 / 12.0 / 11.0 / 10.0s",
+        "cost": "80 / 85 / 90 / 95 / 100 / 105",
+        "icon": "/assets/images/skills/khufra_1.png",
+        "description": "Khufra pulls the bandage on his arms to [[blink"
       },
       {
         "id": "khufra_s2",
-        "name": "Tactical Maneuver",
+        "name": "Bouncing Ball",
         "type": "Skill 2",
         "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cost": "70 / 75 / 80 / 85 / 90 / 95",
+        "icon": "/assets/images/skills/khufra_2.png",
+        "description": "Khufra uses bandage to wrap himself into a magic bouncing ball, increasing his own [[Physical defense"
       },
       {
         "id": "khufra_ult",
-        "name": "Apex Sovereign",
+        "name": "Tyrant's Rage",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Desert Tyrant, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "50.0 / 45.0 / 40.0s",
+        "cost": "150 / 200 / 250",
+        "icon": "/assets/images/skills/khufra_3.png",
+        "description": "Khufra [[displacement"
       }
     ],
     "portrait": "/assets/images/heroes/khufra.png"
@@ -9774,39 +10080,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "bane_p",
-        "name": "Bane's Awakening",
+        "name": "Shark Bite",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "✨",
-        "description": "Empowers Bane's basic attacks and skill rotation based on combat momentum."
+        "icon": "/assets/images/skills/bane_0.png",
+        "description": "Bane infuses his weapon with a stack of {{b"
       },
       {
         "id": "bane_s1",
-        "name": "Bane's Strike",
+        "name": "Crab Claw Cannon",
         "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "50 Mana",
-        "icon": "⚔️",
-        "description": "Delivers a precise combat strike dealing physical or magical damage to enemies along the path."
+        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
+        "cost": "30",
+        "icon": "/assets/images/skills/bane_1.png",
+        "description": "Bane fires his Crab Claw Cannon in the target direction, dealing {{scale"
       },
       {
         "id": "bane_s2",
-        "name": "Tactical Maneuver",
+        "name": "Ale",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "65 Mana",
-        "icon": "💨",
-        "description": "Repositions swiftly while granting crowd control disruption or defensive barrier."
+        "cooldown": "7.5 / 6.9 / 6.3 / 5.7 / 5.1 / 4.5s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/bane_2.png",
+        "description": "Bane chugs his ale, recovering {{scale"
       },
       {
         "id": "bane_ult",
-        "name": "Apex Sovereign",
+        "name": "Deadly Catch",
         "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "🌟",
-        "description": "Unleashes the full potential of Lord of the Seven Seas, dealing monumental AoE damage and dictating the teamfight."
+        "cooldown": "40.0 / 35.0 / 30.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/bane_3.png",
+        "description": "Bane summons a school of sharks to charge in a target direction, dealing {{scale"
       }
     ],
     "portrait": "/assets/images/heroes/bane.png"
@@ -9857,39 +10163,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "kalea_p",
-        "name": "Abyssal Current",
+        "name": "Surge of Life",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🌊",
-        "description": "Allied units touched by Kalea's tidal surge receive enhanced movement speed and a protective water barrier."
+        "icon": "/assets/images/skills/kalea_0.png",
+        "description": "After casting a skill, Kalea creates a {{Link"
       },
       {
         "id": "kalea_s1",
-        "name": "Surge Cascade",
+        "name": "Wavebreaker",
         "type": "Skill 1",
-        "cooldown": "6.5s",
+        "cooldown": "4.0s",
         "cost": "60 Mana",
-        "icon": "💧",
-        "description": "Releases a surging vortex of ocean water that damages and knocks back oncoming enemies."
+        "icon": "/assets/images/skills/kalea_1.png",
+        "description": "Kalea slams her fist into the ground, creating a wave that deals {{scale"
       },
       {
         "id": "kalea_s2",
-        "name": "Deepsea Bubble",
+        "name": "Tidal Strike",
         "type": "Skill 2",
-        "cooldown": "9.0s",
+        "cooldown": "13.0 / 12.6 / 12.2 / 11.8 / 11.4 / 11.0s",
         "cost": "75 Mana",
-        "icon": "🫧",
-        "description": "Traps enemy champions within pressurized water spheres, disabling them for 1.2s."
+        "icon": "/assets/images/skills/kalea_2.png",
+        "description": "Kalea charges forward and body slams the first enemy hero she encounters, knocking them airborne for 0.6s while dealing {{scale"
       },
       {
         "id": "kalea_ult",
-        "name": "Tidal Cataclysm",
+        "name": "Tsunami Slam",
         "type": "Ultimate",
-        "cooldown": "42.0s",
+        "cooldown": "55.0 / 50.0 / 45.0s",
         "cost": "120 Mana",
-        "icon": "🌀",
-        "description": "Summons a monumental tidal wave sweeping across the battlefield, cleansing debuffs on allies and slowing all enemies by 70%."
+        "icon": "/assets/images/skills/kalea_3.png",
+        "description": "Kalea grabs an enemy hero with her tail and slams them down in the Joystick's direction, dealing {{scale"
       }
     ]
   },
@@ -9939,39 +10245,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "zetian_p",
-        "name": "Phoenix Mandate",
+        "name": "Celestial Armament",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🔥",
-        "description": "Skills apply imperial flame marks. Detonating 3 marks causes a burst of true damage and grants Zetian solar shielding."
+        "icon": "/assets/images/skills/zetian_0.png",
+        "description": "{{link"
       },
       {
         "id": "zetian_s1",
-        "name": "Solar Scepter",
+        "name": "Phoenix Strike",
         "type": "Skill 1",
-        "cooldown": "5.5s",
-        "cost": "55 Mana",
-        "icon": "☀️",
-        "description": "Directs solar beams toward a designated point, detonating on impact with burning splash damage."
+        "cooldown": "7.0 / 6.6 / 6.2 / 5.8 / 5.4 / 5.0s",
+        "cost": "70 / 80 / 90 / 100 / 110 / 120",
+        "icon": "/assets/images/skills/zetian_1.png",
+        "description": "Zetian unleashes a {{link"
       },
       {
         "id": "zetian_s2",
-        "name": "Imperial Domain",
+        "name": "Phoenix Descent",
         "type": "Skill 2",
-        "cooldown": "8.0s",
-        "cost": "70 Mana",
-        "icon": "👑",
-        "description": "Creates an imperial golden sanctum. Enemies attempting to cross its borders are grounded and slowed."
+        "cooldown": "15.0s",
+        "cost": "80 / 90 / 100 / 110 / 120 / 130",
+        "icon": "/assets/images/skills/zetian_2.png",
+        "description": "Zetian summons a {{link"
       },
       {
         "id": "zetian_ult",
-        "name": "Ascendance of Phoenix",
+        "name": "Fury of the Phoenix",
         "type": "Ultimate",
-        "cooldown": "36.0s",
-        "cost": "110 Mana",
-        "icon": "🦅",
-        "description": "Transforms into the golden avatar of the Phoenix, bombarding the target region with descending orbital meteors."
+        "cooldown": "90.0 / 80.0 / 70.0s",
+        "cost": "150 / 180 / 210",
+        "icon": "/assets/images/skills/zetian_3.png",
+        "description": "Zetian calls upon her divine mandate and the hearts of her people, granting all allied heroes 60% Movement Speed that gradually decays over 3s, while bringing divine retribution upon all enemy heroes, dealing {{scale"
       }
     ]
   },
@@ -10021,39 +10327,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "obsidia_p",
-        "name": "Singularity Resonance",
+        "name": "Return to Bone",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🌌",
-        "description": "Obsidia gains bonus magic penetration per enemy trapped inside void gravity wells."
+        "icon": "/assets/images/skills/obsidia_0.png",
+        "description": "When Obsidia deals damage to enemies, she gains Bone Energy (Basic Attacks against non-hero units grant 1 Energy, against hero units grant 2 Energy, and skills grant 3 times the Energy. No Energy is gained from hitting creeps). When Bone Energy reaches 30, it forms a Bone Shard, up to 25 shards. When Obsidia uses Basic Attacks, all Bone Shards strike the target, each dealing (7% Total Physical Attack) Physical Damage and inheriting 7% Attack Effects."
       },
       {
         "id": "obsidia_s1",
-        "name": "Void Shard",
+        "name": "Abyssal Bone Needle",
         "type": "Skill 1",
-        "cooldown": "4.5s",
-        "cost": "50 Mana",
-        "icon": "🔮",
-        "description": "Hurls three obsidian dark-matter crystals piercing through targets and leaving lingering gravity fissures."
+        "cooldown": "4.5 / 4.2 / 3.9 / 3.6 / 3.3 / 3.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/obsidia_1.png",
+        "description": "Obsidia launches an {{link"
       },
       {
         "id": "obsidia_s2",
-        "name": "Spatial Tear",
+        "name": "Phantom Shadowmeld",
         "type": "Skill 2",
-        "cooldown": "7.5s",
-        "cost": "60 Mana",
-        "icon": "⚡",
-        "description": "Tears open a void portal, instantly blinking to the cursor location and silencing nearby foes for 0.8s."
+        "cooldown": "4.5 / 4.2 / 3.9 / 3.6 / 3.3 / 3.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/obsidia_2.png",
+        "description": "Obsidia descends into the Abyss and enters {{link"
       },
       {
         "id": "obsidia_ult",
-        "name": "Event Horizon",
+        "name": "Hunt of Bone",
         "type": "Ultimate",
-        "cooldown": "40.0s",
-        "cost": "130 Mana",
-        "icon": "🕳️",
-        "description": "Summons a colossal black hole that continuously pulls in surrounding targets, ending in an apocalyptic cosmic collapse."
+        "cooldown": "40.0 / 35.0 /30.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/obsidia_3.png",
+        "description": "Obsidia shoots {{link"
       }
     ]
   },
@@ -10103,39 +10409,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "sora_p",
-        "name": "Antigravity Drive",
+        "name": "Mystic Surge",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🕊️",
-        "description": "Moving builds aero-momentum. At full charge, Sora gains airborne evasion and basic attacks lunge with bonus critical damage."
+        "icon": "/assets/images/skills/sora_0.png",
+        "description": "Sora can ascend to {{link"
       },
       {
         "id": "sora_s1",
-        "name": "Stratosphere Glide",
+        "name": "Sundering Strike",
         "type": "Skill 1",
-        "cooldown": "6.0s",
+        "cooldown": "5.0s",
         "cost": "45 Energy",
-        "icon": "💨",
-        "description": "Fires thrusters to dash forward, slashing enemies with high-velocity blades."
+        "icon": "/assets/images/skills/sora_1.png",
+        "description": "Sora strikes twice, dealing {{scale"
       },
       {
         "id": "sora_s2",
-        "name": "Cyclone Vortex",
+        "name": "Sundering Strike - Thunderflash",
         "type": "Skill 2",
-        "cooldown": "8.5s",
+        "cooldown": "5.0s",
         "cost": "55 Energy",
-        "icon": "🌪️",
-        "description": "Spins in an aerodynamic circle, reflecting ranged projectiles and disarming targets caught in the wind vortex."
+        "icon": "/assets/images/skills/sora_2.png",
+        "description": "Sora strikes four times, dealing {{scale"
       },
       {
         "id": "sora_ult",
-        "name": "Supersonic Dive",
+        "name": "Sundering Strike - Overwhelm",
         "type": "Ultimate",
-        "cooldown": "35.0s",
+        "cooldown": "5.0s",
         "cost": "80 Energy",
-        "icon": "🚀",
-        "description": "Launches high into the clouds, then plummets downward like a meteor to smash the target area with seismic knockup."
+        "icon": "/assets/images/skills/sora_3.png",
+        "description": "Sora strikes twice, dealing {{scale"
       }
     ]
   },
@@ -10185,39 +10491,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "marcel_p",
-        "name": "Chrono Tincture",
+        "name": "Platinum Snap",
         "type": "Passive",
-        "cooldown": "Passive",
+        "cooldown": "12.0",
         "cost": "No Cost",
-        "icon": "⏳",
-        "description": "Skills leave chrono-residue on the ground. Allies stepping onto residue recover HP and gain cooldown acceleration."
+        "icon": "/assets/images/skills/marcel_0.png",
+        "description": "Marcel's split soul, {{link"
       },
       {
         "id": "marcel_s1",
-        "name": "Alchemical Flash",
+        "name": "Framed Moment",
         "type": "Skill 1",
-        "cooldown": "5.0s",
-        "cost": "50 Mana",
-        "icon": "🧪",
-        "description": "Hurls an unstable temporal elixir that shatters, blinding enemies and dealing ticking magic damage."
+        "cooldown": "12.5 / 12.0 / 11.5 / 11.0 / 10.5 / 10.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/marcel_1.png",
+        "description": "{{link"
       },
       {
         "id": "marcel_s2",
-        "name": "Temporal Tether",
+        "name": "Tracking Shot",
         "type": "Skill 2",
-        "cooldown": "10.0s",
-        "cost": "70 Mana",
-        "icon": "⛓️",
-        "description": "Links himself to an ally or enemy. Allies gain surging attack speed; enemies suffer escalating slows."
+        "cooldown": "12.5 / 12.0 / 11.5 / 11.0 / 10.5 / 10.0s",
+        "cost": "{{sl",
+        "icon": "/assets/images/skills/marcel_2.png",
+        "description": "Artist inspiration time! Marcel enters {{link"
       },
       {
         "id": "marcel_ult",
-        "name": "Chrono Rewind",
+        "name": "Golden Hour",
         "type": "Ultimate",
-        "cooldown": "45.0s",
-        "cost": "110 Mana",
-        "icon": "⏱️",
-        "description": "Marks an ally. If they take fatal damage within 4 seconds, time rewinds to restore 40% of their maximum HP and teleport them to Marcel's position."
+        "cooldown": "74.0 / 68.0 / 62.0s",
+        "cost": "150",
+        "icon": "/assets/images/skills/marcel_3.png",
+        "description": "Marcel and {{link"
       }
     ]
   },
@@ -10266,39 +10572,39 @@ export const HEROES = [
     "abilities": [
       {
         "id": "hirara_p",
-        "name": "Ukifune Windflurry",
+        "name": "Twin Fans: Ukifune",
         "type": "Passive",
         "cooldown": "Passive",
         "cost": "No Cost",
-        "icon": "🪭",
-        "description": "Each basic attack or ability hit marks targets with Scarlet Petals. At 4 stacks, detonates for True Damage and refunds 20% cooldown on dash skills."
+        "icon": "/assets/images/skills/hirara_0.png",
+        "description": "Hirara has only two skills, representing her two weapons: {{ai"
       },
       {
         "id": "hirara_s1",
-        "name": "Twin Fan Vortex",
+        "name": "Meisen-e",
         "type": "Skill 1",
-        "cooldown": "4.5s",
+        "cooldown": "9.0 / 8.5 / 8.0 / 7.5 / 7.0 / 6.5 / 6.0 / 5.5s",
         "cost": "45 Energy",
-        "icon": "🌀",
-        "description": "Hurls both Ukifune bladed fans in twin intersecting arcs, slicing through all enemies caught in the crossfire."
+        "icon": "/assets/images/skills/hirara_1.png",
+        "description": "Hirara rides the waves using {{ai"
       },
       {
         "id": "hirara_s2",
-        "name": "Shadow Petal Step",
+        "name": "Kaerazu",
         "type": "Skill 2",
-        "cooldown": "8.0s",
+        "cooldown": "5.0s",
         "cost": "50 Energy",
-        "icon": "💨",
-        "description": "Dashes instantaneously through target direction, leaving a crimson decoy that blinds pursuers for 1 second."
+        "icon": "/assets/images/skills/hirara_2.png",
+        "description": "Hirara uses {{ai"
       },
       {
         "id": "hirara_ult",
-        "name": "Scarlet Eclipse Tempest",
+        "name": "Infernal Torrent",
         "type": "Ultimate",
-        "cooldown": "36.0s",
+        "cooldown": "0.0s",
         "cost": "90 Energy",
-        "icon": "🌪️",
-        "description": "Unleashes a lethal blossom hurricane, slashing all nearby heroes 6 times in rapid succession and granting 1.5s untargetability."
+        "icon": "/assets/images/skills/hirara_3.png",
+        "description": "Hirara enhances {{link"
       }
     ],
     "portrait": "/assets/images/heroes/hirara.png"

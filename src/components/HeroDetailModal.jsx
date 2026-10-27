@@ -3,6 +3,8 @@ import { X, Shield, Zap, Box, Compass, Users, Sparkles, Flame, Heart, Maximize2,
 import { HEROES } from '../data/heroesData';
 import { audioManager } from '../utils/audio';
 import LightboxModal from './LightboxModal';
+import SkillIcon from './SkillIcon';
+import { cleanSkillDescription } from '../utils/skillUtils';
 
 export default function HeroDetailModal({ hero, onClose, onSelectHero, onOpenChamber }) {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -232,6 +234,32 @@ export default function HeroDetailModal({ hero, onClose, onSelectHero, onOpenCha
                   <span className="text-zinc-200 font-semibold truncate">{hero.faction}</span>
                 </div>
               </div>
+
+              {/* In-Game Circular Skills Quick Preview Strip (All Skills / Stances) */}
+              {hero.abilities && (
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+                    <Zap className="w-3 h-3 text-amber-400" />
+                    ARSENAL ({hero.abilities.length}):
+                  </span>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {hero.abilities.map((ab, idx) => (
+                      <SkillIcon
+                        key={ab.id || idx}
+                        ability={ab}
+                        index={idx}
+                        size={hero.abilities.length > 5 ? 'xs' : 'sm'}
+                        showBadge={true}
+                        onClick={() => {
+                          audioManager.playSkillFlare();
+                          setActiveTab('skills');
+                        }}
+                        title={`${ab.form ? `[${ab.form}] ` : ''}${ab.type}: ${ab.name}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -406,32 +434,44 @@ export default function HeroDetailModal({ hero, onClose, onSelectHero, onOpenCha
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {hero.abilities && hero.abilities.map((skill) => (
+                {hero.abilities && hero.abilities.map((skill, idx) => (
                   <div
-                    key={skill.id || skill.name}
-                    className="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-2 hover:border-amber-500/40 transition-colors"
+                    key={skill.id || skill.name || idx}
+                    className="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-2 hover:border-amber-500/40 transition-colors group"
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-lg">
-                          {skill.icon || '⚔️'}
-                        </div>
+                      <div className="flex items-center gap-3">
+                        <SkillIcon
+                          ability={skill}
+                          index={idx}
+                          size="md"
+                          showBadge={true}
+                        />
                         <div>
-                          <h4 className="font-bold text-sm text-white">{skill.name}</h4>
-                          <span className="text-[10px] font-mono text-amber-400 uppercase">
+                          <div className="flex items-center gap-2">
+                            <h4 className="font-bold text-sm text-white group-hover:text-amber-300 transition-colors">
+                              {skill.name}
+                            </h4>
+                            {skill.form && (
+                              <span className="text-[8.5px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold uppercase">
+                                {skill.form}
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-[10px] font-mono text-amber-400 uppercase font-semibold">
                             {skill.type}
                           </span>
                         </div>
                       </div>
 
-                      <div className="text-right text-[10px] font-mono text-zinc-400">
-                        <div>CD: <span className="text-zinc-200">{skill.cooldown}</span></div>
-                        <div>Cost: <span className="text-zinc-200">{skill.cost}</span></div>
+                      <div className="text-right text-[10px] font-mono text-zinc-400 bg-black/40 px-2.5 py-1 rounded-lg border border-white/[0.04]">
+                        <div>CD: <span className="text-zinc-200">{skill.cooldown || 'N/A'}</span></div>
+                        <div>Cost: <span className="text-zinc-200">{skill.cost || 'None'}</span></div>
                       </div>
                     </div>
 
-                    <p className="text-xs text-zinc-300 leading-relaxed font-sans pt-1 border-t border-zinc-800/80">
-                      {skill.description}
+                    <p className="text-xs text-zinc-300 leading-relaxed font-sans pt-2 border-t border-zinc-800/80">
+                      {cleanSkillDescription(skill.description)}
                     </p>
                   </div>
                 ))}

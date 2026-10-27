@@ -20,6 +20,8 @@ import { audioManager } from '../utils/audio';
 import LightboxModal from './LightboxModal';
 import LiquidGlassCard from './LiquidGlassCard';
 import { MLBBClassIcon, MLBBLaneIcon } from './MLBBThemeIcons';
+import SkillIcon from './SkillIcon';
+import { cleanSkillDescription } from '../utils/skillUtils';
 
 function HeroCard({
   hero,
@@ -30,6 +32,28 @@ function HeroCard({
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [activeAbility, setActiveAbility] = useState(null);
   const [isQuotePlaying, setIsQuotePlaying] = useState(false);
+  const [activeFormIndex, setActiveFormIndex] = useState(0);
+
+  // Group forms if hero is a 3+3 transformation hero
+  const forms = useMemo(() => {
+    if (!hero.abilities) return [];
+    const list = [];
+    hero.abilities.forEach((a) => {
+      if (a.form && !list.includes(a.form)) list.push(a.form);
+    });
+    return list;
+  }, [hero.abilities]);
+
+  const displayedAbilities = useMemo(() => {
+    if (!hero.abilities) return [];
+    if (forms.length >= 2) {
+      const currentForm = forms[activeFormIndex] || forms[0];
+      const passive = hero.abilities.find((a) => a.type?.toLowerCase().includes('passive')) || hero.abilities[0];
+      const formSkills = hero.abilities.filter((a) => a.form === currentForm);
+      return [passive, ...formSkills];
+    }
+    return hero.abilities;
+  }, [hero.abilities, forms, activeFormIndex]);
 
   // Deterministic lightweight particle motes (faded in on card hover for 60fps performance)
   const particles = useMemo(() => {
@@ -357,73 +381,100 @@ function HeroCard({
               MINUTE ABILITIES RUNES & INTERACTIVE TACTICAL HUD
               ============================================================== */}
           <div className="pt-2 border-t border-white/[0.06] space-y-2">
-            <div className="flex items-center justify-between text-[10px] font-mono text-[#94a3b8]">
-              <span className="flex items-center gap-1 text-[#f3d288]">
-                <Zap className="w-3 h-3" />
-                <span>TACTICAL RUNES:</span>
-              </span>
+            <div className="flex items-center justify-between text-phi-xs font-mono text-[#94a3b8]">
+              <div className="flex items-center gap-1.5 text-[#f3d288]">
+                <Zap className="w-3 h-3 text-[#f3d288]" />
+                <span className="font-semibold tracking-wider">HERO SKILLS:</span>
+                {forms.length >= 2 && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      audioManager.playSkillFlare();
+                      setActiveFormIndex((prev) => (prev + 1) % forms.length);
+                      setActiveAbility(null);
+                    }}
+                    className="ml-1 px-1.5 py-0.5 rounded text-[8px] font-mono font-bold tracking-tight bg-amber-500/15 border border-amber-500/30 text-amber-300 hover:bg-amber-500/25 transition-all cursor-pointer flex items-center gap-1"
+                    title="Click to toggle hero battle stance"
+                  >
+                    <span>⇄</span>
+                    <span className="truncate max-w-[65px]">{forms[activeFormIndex]}</span>
+                  </button>
+                )}
+              </div>
               <span className="text-[9px] text-[#94a3b8]/70">
-                {activeAbility ? 'CLICK TO CLOSE' : 'CLICK TO INSPECT'}
+                {activeAbility ? 'CLOSE' : 'INSPECT'}
               </span>
             </div>
 
-            {/* 4 Ability Rune Badges: Passive, Skill 1, Skill 2, Ultimate */}
-            <div className="grid grid-cols-4 gap-1.5">
-              {(hero.abilities || []).slice(0, 4).map((ability, idx) => {
-                const labels = ['P', 'I', 'II', 'ULT'];
+            {/* In-Game Circular Skill Frames (Standard, 4-Skill, or 3+3 Transformation Stance) */}
+            <div className="flex items-center justify-between gap-1 px-0.5">
+              {displayedAbilities.map((ability, idx) => {
                 const isSelected = activeAbility?.id === ability.id;
                 return (
-                  <button
+                  <div
                     key={ability.id || idx}
-                    onClick={(e) => handleAbilityClick(e, ability)}
-                    onMouseEnter={() => audioManager.playHover()}
-                    className={`relative py-1 px-1 rounded-lg border text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
-                      isSelected
-                        ? 'bg-[#f3d288] text-black border-[#f3d288] shadow-[0_0_12px_rgba(243,210,136,0.5)]'
-                        : 'bg-black/50 hover:bg-white/[0.08] text-[#cbd5e1] hover:text-white border-white/[0.08] hover:border-[#f3d288]/40'
-                    }`}
-                    title={`${ability.type}: ${ability.name}`}
+                    className="flex flex-col items-center group/skill"
                   >
-                    <span className="text-xs leading-none">{ability.icon || '⚡'}</span>
-                    <span className="text-[8.5px] font-mono font-bold mt-0.5 tracking-tighter">
-                      {labels[idx] || `S${idx}`}
+                    <SkillIcon
+                      ability={ability}
+                      index={idx}
+                      size={displayedAbilities.length > 4 ? 'xs' : 'sm'}
+                      isSelected={isSelected}
+                      showBadge={true}
+                      onClick={(e) => handleAbilityClick(e, ability)}
+                    />
+                    <span className="text-[8px] font-mono text-zinc-400 group-hover/skill:text-amber-300 truncate max-w-[50px] text-center mt-1 tracking-tighter transition-colors">
+                      {ability.name.split(' ')[0]}
                     </span>
-                  </button>
+                  </div>
                 );
               })}
             </div>
 
             {/* Interactive Tactical Ability HUD Drawer (Revealed on Rune Click/Hover) */}
             {activeAbility && (
-              <div className="p-2.5 rounded-xl bg-[#080d1a] border border-[#f3d288]/40 shadow-2xl space-y-1.5 animate-fadeIn">
+              <div className="p-3 rounded-2xl bg-[#080d1a] border border-[#f3d288]/40 shadow-2xl space-y-2 animate-fadeIn">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-sm">{activeAbility.icon || '⚡'}</span>
-                    <span className="text-xs font-serif font-bold text-white">
-                      {activeAbility.name}
-                    </span>
+                  <div className="flex items-center gap-2.5">
+                    <SkillIcon
+                      ability={activeAbility}
+                      index={(hero.abilities || []).findIndex(a => a.id === activeAbility.id)}
+                      size="sm"
+                      showBadge={false}
+                    />
+                    <div>
+                      <div className="font-serif font-bold text-xs text-white">
+                        {activeAbility.name}
+                      </div>
+                      <div className="font-mono text-[8.5px] text-[#f3d288] uppercase tracking-wider font-semibold flex items-center gap-1.5">
+                        <span>{activeAbility.type}</span>
+                        {activeAbility.form && (
+                          <span className="text-[8px] text-cyan-400 font-normal">
+                            // {activeAbility.form}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       setActiveAbility(null);
                     }}
-                    className="text-[#94a3b8] hover:text-white text-xs p-0.5 cursor-pointer"
+                    className="text-[#94a3b8] hover:text-white text-xs p-1 rounded-full hover:bg-white/10 cursor-pointer"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
-                <div className="flex items-center gap-2 text-[9px] font-mono text-[#f3d288]">
-                  <span>{activeAbility.type}</span>
-                  <span>•</span>
+                <div className="flex items-center gap-2 text-[9px] font-mono text-[#f3d288] bg-black/40 px-2 py-1 rounded-lg border border-white/[0.04]">
                   <span>CD: {activeAbility.cooldown || 'N/A'}</span>
                   <span>•</span>
                   <span>COST: {activeAbility.cost || 'None'}</span>
                 </div>
 
-                <p className="text-[10px] text-[#cbd5e1] leading-relaxed line-clamp-3">
-                  {activeAbility.description}
+                <p className="text-[10.5px] text-[#cbd5e1] leading-relaxed line-clamp-3 font-sans">
+                  {cleanSkillDescription(activeAbility.description)}
                 </p>
 
                 <div className="pt-1 flex justify-end">
@@ -433,10 +484,10 @@ function HeroCard({
                       audioManager.playSkillFlare();
                       onSelectSkillHero(hero);
                     }}
-                    className="text-[9px] font-mono text-[#38bdf8] hover:underline flex items-center gap-0.5 cursor-pointer"
+                    className="text-[9px] font-mono text-[#38bdf8] hover:underline flex items-center gap-1 cursor-pointer font-semibold"
                   >
                     <span>TRAIN IN LAB</span>
-                    <ChevronRight className="w-2.5 h-2.5" />
+                    <ChevronRight className="w-3 h-3" />
                   </button>
                 </div>
               </div>
