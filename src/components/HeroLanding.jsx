@@ -358,28 +358,28 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
+    renderer.toneMappingExposure = 1.14;
     rendererRef.current = renderer;
 
     // 4. Lighting Rig (High-End MOBA Arena Game Lighting - Rich Contrast, True Colors)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.92);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.98);
     scene.add(ambientLight);
 
-    const sunLight = new THREE.DirectionalLight(0xfff7ed, 1.25);
-    sunLight.position.set(35, 70, 30);
+    const sunLight = new THREE.DirectionalLight(0xfffaee, 1.40);
+    sunLight.position.set(38, 75, 28);
     scene.add(sunLight);
 
-    const moniyanFill = new THREE.DirectionalLight(0x38bdf8, 0.45);
-    moniyanFill.position.set(-50, 30, 40);
+    const moniyanFill = new THREE.DirectionalLight(0x38bdf8, 0.55);
+    moniyanFill.position.set(-55, 32, 45);
     scene.add(moniyanFill);
 
-    const abyssalFill = new THREE.DirectionalLight(0xf43f5e, 0.45);
-    abyssalFill.position.set(50, 30, -40);
+    const abyssalFill = new THREE.DirectionalLight(0xf43f5e, 0.55);
+    abyssalFill.position.set(55, 32, -45);
     scene.add(abyssalFill);
 
-    // 5. Official MLBB Reference Map Texture (4K Ultra-Definition with Anisotropic Filtering)
+    // 5. Official MLBB Reference Map Texture (8K Ultra-Definition with Anisotropic Filtering & Micro-Depth)
     const textureLoader = new THREE.TextureLoader();
-    const mapTexture = textureLoader.load('/assets/images/mlbb_official_map_reference_4k.jpg', (tex) => {
+    const mapTexture = textureLoader.load('/assets/images/mlbb_official_map_reference_8k.jpg', (tex) => {
       tex.colorSpace = THREE.SRGBColorSpace;
       tex.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 16);
       tex.generateMipmaps = true;
@@ -401,49 +401,109 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     mapTexture.wrapS = THREE.ClampToEdgeWrapping;
     mapTexture.wrapT = THREE.ClampToEdgeWrapping;
 
-    // 6. 3D TERRAIN SURFACE (Pristine 4K MLBB Official Reference Map)
+    const normalTexture = textureLoader.load('/assets/images/mlbb_official_map_normal.jpg', (tex) => {
+      tex.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 16);
+      tex.generateMipmaps = true;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.wrapS = THREE.ClampToEdgeWrapping;
+      tex.wrapT = THREE.ClampToEdgeWrapping;
+      tex.needsUpdate = true;
+    });
+
+    normalTexture.anisotropy = 16;
+    normalTexture.generateMipmaps = true;
+    normalTexture.minFilter = THREE.LinearMipmapLinearFilter;
+    normalTexture.magFilter = THREE.LinearFilter;
+    normalTexture.wrapS = THREE.ClampToEdgeWrapping;
+    normalTexture.wrapT = THREE.ClampToEdgeWrapping;
+
+    // 6. 3D TERRAIN SURFACE (Pristine 8K MLBB Sanctum Island Reference Map)
     // Smooth planar surface ensures zero UV stretching, zero jagged normal creases,
-    // and displays the official 4K artwork with 100% pixel-perfect clarity.
+    // and displays the official 8K artwork with authentic AAA in-game clarity and relief depth.
     const terrainGeo = new THREE.PlaneGeometry(120, 66.182, 32, 18);
     const terrainMat = new THREE.MeshStandardMaterial({
       color: 0xffffff,
       map: mapTexture,
-      roughness: 0.94,
-      metalness: 0.0
+      normalMap: normalTexture,
+      normalScale: new THREE.Vector2(0.38, 0.38),
+      roughness: 0.36,
+      metalness: 0.04
     });
     const terrainMesh = new THREE.Mesh(terrainGeo, terrainMat);
     terrainMesh.rotation.x = -Math.PI / 2; // Horizontal X-Z plane!
     terrainMesh.position.set(0, 0.05, 0); // Elevated to sit cleanly above underlying bedrock
     scene.add(terrainMesh);
 
-    // 7. ENHANCED CELESTIAL ISLAND ARCHITECTURE & BEDROCK FOUNDATION
-    // Foundation sits strictly beneath the terrain plane (y <= 0) to guarantee
-    // 100% unobstructed, crystal-clear visibility of the 4K official map artwork.
+    // 7. AUTHENTIC IN-GAME SANCTUM ISLAND FLOATING BEDROCK & CLIFF ARCHITECTURE
+    // Sits strictly beneath the terrain plane (y <= 0) to guarantee 100% unobstructed, crystal-clear 8K view.
     const islandGroup = new THREE.Group();
     scene.add(islandGroup);
 
-    // Bedrock monolith foundation block beneath the arena
-    const foundationMat = new THREE.MeshStandardMaterial({
-      color: 0x111827,
-      roughness: 0.92,
-      metalness: 0.18
+    // Bedrock cliff materials with ancient stone strata
+    const bedrockMat = new THREE.MeshStandardMaterial({
+      color: 0x121927,
+      roughness: 0.86,
+      metalness: 0.16
     });
-    const foundationGeo = new THREE.BoxGeometry(120.0, 24.0, 66.182);
-    const foundationMesh = new THREE.Mesh(foundationGeo, foundationMat);
-    foundationMesh.position.set(0, -12.0, 0); // Top is at y = 0.0, cleanly beneath terrain at y = 0.05
+    const cliffStrataMat = new THREE.MeshStandardMaterial({
+      color: 0x0f1523,
+      roughness: 0.90,
+      metalness: 0.12
+    });
+
+    // Tier 1: Carved sanctum perimeter cornice rim beneath the battlefield
+    const corniceGeo = new THREE.BoxGeometry(121.2, 1.8, 67.4);
+    const corniceMesh = new THREE.Mesh(corniceGeo, bedrockMat);
+    corniceMesh.position.set(0, -0.9, 0);
+    islandGroup.add(corniceMesh);
+
+    // Tier 2: Stepped crag strata shelf jutting outward naturally
+    const cliffTier1Geo = new THREE.BoxGeometry(123.6, 5.0, 69.8);
+    const cliffTier1Mesh = new THREE.Mesh(cliffTier1Geo, cliffStrataMat);
+    cliffTier1Mesh.position.set(0, -4.3, 0);
+    islandGroup.add(cliffTier1Mesh);
+
+    // Tier 3: Colossal bedrock foundation mass descending deep into the sky
+    const foundationGeo = new THREE.BoxGeometry(118.0, 16.0, 64.2);
+    const foundationMesh = new THREE.Mesh(foundationGeo, bedrockMat);
+    foundationMesh.position.set(0, -14.8, 0);
     islandGroup.add(foundationMesh);
 
-    // Deep mountain keel (Inverted mountain crag tapering gracefully into the celestial clouds)
-    const islandKeelGeo = new THREE.CylinderGeometry(44, 8, 22, 12);
-    const islandKeel = new THREE.Mesh(islandKeelGeo, foundationMat);
-    islandKeel.position.set(0, -25.0, 0); // Directly connects to bottom of foundation at y = -14.0
+    // Deep mountain keel (Inverted colossal mountain crag tapering into the celestial clouds)
+    const islandKeelGeo = new THREE.CylinderGeometry(42, 3, 28, 14, 2);
+    const islandKeel = new THREE.Mesh(islandKeelGeo, cliffStrataMat);
+    islandKeel.position.set(0, -28.0, 0);
     islandGroup.add(islandKeel);
 
-    // Architectural Perimeter Framing Beams (Placed strictly around outer borders; zero occlusion of map floor)
+    // Subordinate hanging stalactite crags and roots dangling from the underbelly
+    const stalactiteMat = new THREE.MeshStandardMaterial({ color: 0x0c121e, roughness: 0.94, metalness: 0.1 });
+    const stalactiteGeos = [
+      new THREE.ConeGeometry(3.5, 16, 7),
+      new THREE.ConeGeometry(2.6, 12, 6),
+      new THREE.ConeGeometry(3.0, 14, 6)
+    ];
+    const stalactitePositions = [
+      { pos: [-36, -24, 18], geo: 0, rotZ: 0.12 },
+      { pos: [36, -24, -18], geo: 0, rotZ: -0.15 },
+      { pos: [-44, -22, -18], geo: 1, rotZ: -0.08 },
+      { pos: [44, -22, 18], geo: 1, rotZ: 0.1 },
+      { pos: [0, -26, 24], geo: 2, rotZ: 0.05 },
+      { pos: [0, -26, -24], geo: 2, rotZ: -0.05 }
+    ];
+    stalactitePositions.forEach((sp) => {
+      const cone = new THREE.Mesh(stalactiteGeos[sp.geo], stalactiteMat);
+      cone.rotation.x = Math.PI; // Point down!
+      cone.rotation.z = sp.rotZ;
+      cone.position.set(sp.pos[0], sp.pos[1], sp.pos[2]);
+      islandGroup.add(cone);
+    });
+
+    // 8. ARCHITECTURAL PERIMETER GILDED SANCTUM RIMS & RUNIC PLINTHS
     const borderGoldMat = new THREE.MeshStandardMaterial({
       color: 0xd97706,
-      roughness: 0.35,
-      metalness: 0.85
+      roughness: 0.32,
+      metalness: 0.88
     });
     const borderLongGeo = new THREE.BoxGeometry(120.6, 0.25, 0.45);
     const borderShortGeo = new THREE.BoxGeometry(0.45, 0.25, 66.6);
@@ -464,52 +524,186 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     borderEast.position.set(60.3, 0.06, 0);
     islandGroup.add(borderEast);
 
-    // Floating Celestial Satellite Crags (Orbiting rock fragments around sanctuary perimeter)
-    const satelliteCrags = [];
-    const cragMat = new THREE.MeshStandardMaterial({
-      color: 0x1e293b,
-      roughness: 0.88,
-      metalness: 0.2
-    });
-    const cragGeo1 = new THREE.DodecahedronGeometry(3.2, 0);
-    const cragGeo2 = new THREE.DodecahedronGeometry(2.4, 0);
-
-    const cragPositions = [
-      { pos: [-67, -10, -26], scale: 1.1, rotSpeed: 0.3 },
-      { pos: [67, -12, 26], scale: 1.2, rotSpeed: -0.25 },
-      { pos: [44, -14, -38], scale: 0.9, rotSpeed: 0.35 },
-      { pos: [-42, -14, 38], scale: 0.85, rotSpeed: -0.2 }
+    // 4 Corner Sanctum Runic Obelisks (Grounds the floating island architecture)
+    const obeliskGeo = new THREE.BoxGeometry(0.9, 1.8, 0.9);
+    const cornerOffsets = [
+      [-60.2, -33.2], [60.2, -33.2],
+      [-60.2, 33.2], [60.2, 33.2]
     ];
-
-    cragPositions.forEach((cp, idx) => {
-      const crag = new THREE.Mesh(idx % 2 === 0 ? cragGeo1 : cragGeo2, cragMat);
-      crag.position.set(cp.pos[0], cp.pos[1], cp.pos[2]);
-      crag.scale.setScalar(cp.scale);
-      islandGroup.add(crag);
-      satelliteCrags.push({ mesh: crag, baseY: cp.pos[1], speed: cp.rotSpeed, offset: idx });
+    cornerOffsets.forEach(([cx, cz]) => {
+      const obelisk = new THREE.Mesh(obeliskGeo, borderGoldMat);
+      obelisk.position.set(cx, 0.5, cz);
+      islandGroup.add(obelisk);
     });
 
-    // Cascading Edge Mana Falls
+    // 9. CASCADING LUMINOUS MANA WATERFALLS WITH FLOWING UV TEXTURE
+    // Procedural streaming waterfall texture
+    const wfCanvas = document.createElement('canvas');
+    wfCanvas.width = 64;
+    wfCanvas.height = 256;
+    const wfCtx = wfCanvas.getContext('2d');
+    const wfGrad = wfCtx.createLinearGradient(0, 0, 0, 256);
+    wfGrad.addColorStop(0.0, '#7dd3fc');
+    wfGrad.addColorStop(0.3, '#38bdf8');
+    wfGrad.addColorStop(0.7, '#0284c7');
+    wfGrad.addColorStop(1.0, '#0369a1');
+    wfCtx.fillStyle = wfGrad;
+    wfCtx.fillRect(0, 0, 64, 256);
+    for (let i = 0; i < 48; i++) {
+      wfCtx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.45 + 0.25})`;
+      const rx = Math.random() * 64;
+      const ry = Math.random() * 256;
+      wfCtx.fillRect(rx, ry, Math.random() * 2 + 1, Math.random() * 45 + 20);
+    }
+    const wfTex = new THREE.CanvasTexture(wfCanvas);
+    wfTex.wrapS = THREE.RepeatWrapping;
+    wfTex.wrapT = THREE.RepeatWrapping;
+
     const waterfallMat = new THREE.MeshStandardMaterial({
       color: 0x38bdf8,
       emissive: 0x0284c7,
-      emissiveIntensity: 0.4,
-      roughness: 0.1,
+      emissiveIntensity: 0.85,
+      map: wfTex,
+      roughness: 0.12,
+      metalness: 0.1,
       transparent: true,
-      opacity: 0.72
+      opacity: 0.82
     });
-    const wfGeo = new THREE.PlaneGeometry(8.0, 30.0);
-    const wfLeft = new THREE.Mesh(wfGeo, waterfallMat);
-    wfLeft.position.set(-52, -14, -28);
+
+    // North-West River Outflow Cascade (Curves gracefully from cliff edge into the clouds)
+    const wfCurvedGeo = new THREE.PlaneGeometry(9.0, 28.0, 2, 8);
+    const wfPositions = wfCurvedGeo.attributes.position;
+    for (let i = 0; i < wfPositions.count; i++) {
+      const py = wfPositions.getY(i);
+      const outward = Math.sin(((14 - py) / 28) * Math.PI) * 2.2;
+      wfPositions.setZ(i, outward);
+    }
+    wfCurvedGeo.computeVertexNormals();
+
+    const wfLeft = new THREE.Mesh(wfCurvedGeo, waterfallMat);
+    wfLeft.position.set(-54.0, -13.0, -28.0);
     wfLeft.rotation.y = Math.PI / 4;
     scene.add(wfLeft);
 
-    const wfRight = new THREE.Mesh(wfGeo, waterfallMat);
-    wfRight.position.set(52, -14, 28);
+    const wfRight = new THREE.Mesh(wfCurvedGeo, waterfallMat);
+    wfRight.position.set(54.0, -13.0, 28.0);
     wfRight.rotation.y = -Math.PI / 4;
     scene.add(wfRight);
 
-    // 10. ICONIC CORNER ATMOSPHERIC AURAS (Exact match to official MLBB Reference!)
+    // Flank Spring Falls
+    const wfFlankGeo = new THREE.PlaneGeometry(4.5, 20.0);
+    const wfFlank1 = new THREE.Mesh(wfFlankGeo, waterfallMat);
+    wfFlank1.position.set(-61.0, -11.0, 10.0);
+    wfFlank1.rotation.y = Math.PI / 2;
+    scene.add(wfFlank1);
+
+    const wfFlank2 = new THREE.Mesh(wfFlankGeo, waterfallMat);
+    wfFlank2.position.set(61.0, -11.0, -10.0);
+    wfFlank2.rotation.y = -Math.PI / 2;
+    scene.add(wfFlank2);
+
+    // Foaming Mist Pools at waterfall bases
+    const mistSprayGeo = new THREE.RingGeometry(2.0, 8.0, 24);
+    const mistSprayMat = new THREE.MeshBasicMaterial({
+      color: 0xbae6fd,
+      transparent: true,
+      opacity: 0.55,
+      side: THREE.DoubleSide
+    });
+    const mistLeft = new THREE.Mesh(mistSprayGeo, mistSprayMat);
+    mistLeft.rotation.x = -Math.PI / 2;
+    mistLeft.position.set(-55.0, -26.0, -29.0);
+    scene.add(mistLeft);
+
+    const mistRight = new THREE.Mesh(mistSprayGeo, mistSprayMat);
+    mistRight.rotation.x = -Math.PI / 2;
+    mistRight.position.set(55.0, -26.0, 29.0);
+    scene.add(mistRight);
+
+    // 10. FACTION-THEMED FLOATING SATELLITE ISLETS
+    // Moniyan Celestial Islets (SW Blue Side) & Abyssal Volcanic Islets (NE Red Side)
+    const satelliteCrags = [];
+    const moniyanCragMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.85, metalness: 0.25 });
+    const abyssalCragMat = new THREE.MeshStandardMaterial({ color: 0x18181b, roughness: 0.88, metalness: 0.35 });
+
+    const sapphireMat = new THREE.MeshStandardMaterial({
+      color: 0x38bdf8,
+      emissive: 0x0284c7,
+      emissiveIntensity: 2.0,
+      roughness: 0.1,
+      metalness: 0.9
+    });
+    const magmaMat = new THREE.MeshStandardMaterial({
+      color: 0xef4444,
+      emissive: 0xdc2626,
+      emissiveIntensity: 2.2,
+      roughness: 0.15,
+      metalness: 0.8
+    });
+
+    // A. Main Moniyan Floating Citadel Islet (SW)
+    const moniyanIsland = new THREE.Group();
+    const moniyanCrag = new THREE.Mesh(new THREE.DodecahedronGeometry(5.4, 0), moniyanCragMat);
+    moniyanIsland.add(moniyanCrag);
+
+    const celestialArchGeo = new THREE.TorusGeometry(3.0, 0.26, 8, 24, Math.PI);
+    const celestialArch = new THREE.Mesh(celestialArchGeo, borderGoldMat);
+    celestialArch.position.y = 3.6;
+    moniyanIsland.add(celestialArch);
+
+    const sapphireCrystal = new THREE.Mesh(new THREE.OctahedronGeometry(1.6, 0), sapphireMat);
+    sapphireCrystal.position.y = 4.2;
+    moniyanIsland.add(sapphireCrystal);
+
+    moniyanIsland.position.set(-78, -8, 28);
+    islandGroup.add(moniyanIsland);
+    satelliteCrags.push({ mesh: moniyanIsland, baseY: -8, speed: 0.2, offset: 0, subCrystal: sapphireCrystal });
+
+    // B. Main Abyssal Volcanic Spire Islet (NE)
+    const abyssalIsland = new THREE.Group();
+    const abyssalCrag = new THREE.Mesh(new THREE.DodecahedronGeometry(5.4, 0), abyssalCragMat);
+    abyssalIsland.add(abyssalCrag);
+
+    const spireGeo = new THREE.ConeGeometry(1.4, 6.0, 6);
+    const spire1 = new THREE.Mesh(spireGeo, abyssalCragMat);
+    spire1.position.set(-1.2, 3.8, 0);
+    abyssalIsland.add(spire1);
+
+    const spire2 = new THREE.Mesh(spireGeo, abyssalCragMat);
+    spire2.position.set(1.4, 3.0, -0.8);
+    spire2.scale.setScalar(0.75);
+    abyssalIsland.add(spire2);
+
+    const magmaCore = new THREE.Mesh(new THREE.OctahedronGeometry(1.5, 0), magmaMat);
+    magmaCore.position.set(0, 3.8, 0.8);
+    abyssalIsland.add(magmaCore);
+
+    abyssalIsland.position.set(78, -8, -28);
+    islandGroup.add(abyssalIsland);
+    satelliteCrags.push({ mesh: abyssalIsland, baseY: -8, speed: -0.22, offset: 1.5, subCrystal: magmaCore });
+
+    // Secondary Floating Satellite Crags
+    const cragGeo1 = new THREE.DodecahedronGeometry(3.4, 0);
+    const cragGeo2 = new THREE.DodecahedronGeometry(2.5, 0);
+
+    const satellitePositions = [
+      { pos: [-68, -12, -22], scale: 1.15, rotSpeed: 0.28, isMoniyan: true },
+      { pos: [68, -12, 22], scale: 1.25, rotSpeed: -0.24, isMoniyan: false },
+      { pos: [-48, -15, 42], scale: 0.95, rotSpeed: 0.32, isMoniyan: true },
+      { pos: [48, -15, -42], scale: 0.95, rotSpeed: -0.30, isMoniyan: false },
+      { pos: [-74, -16, 4], scale: 0.85, rotSpeed: 0.25, isMoniyan: true },
+      { pos: [74, -16, -4], scale: 0.85, rotSpeed: -0.25, isMoniyan: false }
+    ];
+
+    satellitePositions.forEach((cp, idx) => {
+      const cMesh = new THREE.Mesh(idx % 2 === 0 ? cragGeo1 : cragGeo2, cp.isMoniyan ? moniyanCragMat : abyssalCragMat);
+      cMesh.position.set(cp.pos[0], cp.pos[1], cp.pos[2]);
+      cMesh.scale.setScalar(cp.scale);
+      islandGroup.add(cMesh);
+      satelliteCrags.push({ mesh: cMesh, baseY: cp.pos[1], speed: cp.rotSpeed, offset: idx + 2 });
+    });
+
+    // 11. ICONIC CORNER ATMOSPHERIC AURAS (Exact match to official MLBB Reference!)
     // A. Abyssal Crimson Plasma Cloud (Top-Right / North-East Corner)
     const abyssalAuraCanvas = document.createElement('canvas');
     abyssalAuraCanvas.width = 512;
@@ -564,7 +758,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     moniyanAura.rotation.y = -Math.PI / 4;
     scene.add(moniyanAura);
 
-    // 11. 360-DEGREE ATMOSPHERIC SKYDOME
+    // 12. 360-DEGREE ATMOSPHERIC SKYDOME & MULTI-TIER CLOUD OCEAN
     const skydomeGeo = new THREE.SphereGeometry(950, 32, 16);
     skydomeGeo.scale(-1, 1, 1);
     
@@ -585,17 +779,78 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     const skydome = new THREE.Mesh(skydomeGeo, skydomeMat);
     scene.add(skydome);
 
-    // Vast Cloud Sea Beneath the Celestial Sanctuary
-    const cloudSeaGeo = new THREE.PlaneGeometry(1200, 800);
-    const cloudSeaMat = new THREE.MeshBasicMaterial({
-      color: 0x111827,
+    // Tier 1: Perimeter Cliff Mist Wisps (Arranged along the island edges for natural 3D parallax)
+    const mistWisps = [];
+    const mistWispGeo = new THREE.CircleGeometry(16, 16);
+    const mistWispCanvas = document.createElement('canvas');
+    mistWispCanvas.width = 256;
+    mistWispCanvas.height = 256;
+    const mwCtx = mistWispCanvas.getContext('2d');
+    const mwGrad = mwCtx.createRadialGradient(128, 128, 10, 128, 128, 128);
+    mwGrad.addColorStop(0.0, 'rgba(186, 230, 253, 0.40)');
+    mwGrad.addColorStop(0.5, 'rgba(56, 189, 248, 0.18)');
+    mwGrad.addColorStop(1.0, 'rgba(15, 23, 42, 0)');
+    mwCtx.fillStyle = mwGrad;
+    mwCtx.fillRect(0, 0, 256, 256);
+    const mistWispTex = new THREE.CanvasTexture(mistWispCanvas);
+    const mistWispMat = new THREE.MeshBasicMaterial({
+      map: mistWispTex,
       transparent: true,
-      opacity: 0.75
+      opacity: 0.45,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
     });
-    const cloudSea = new THREE.Mesh(cloudSeaGeo, cloudSeaMat);
+
+    const wispCoords = [
+      [-58, -13, -15], [-58, -13, 15],
+      [58, -13, -15], [58, -13, 15],
+      [-25, -14, -36], [25, -14, -36],
+      [-25, -14, 36], [25, -14, 36]
+    ];
+    wispCoords.forEach(([wx, wy, wz], idx) => {
+      const wisp = new THREE.Mesh(mistWispGeo, mistWispMat);
+      wisp.rotation.x = -Math.PI / 2;
+      wisp.position.set(wx, wy, wz);
+      scene.add(wisp);
+      mistWisps.push({ mesh: wisp, baseY: wy, offset: idx });
+    });
+
+    // Tier 2: Colossal Rolling Cloud Ocean Deck Beneath the Floating Sanctuary
+    const cloudDeckGeo = new THREE.PlaneGeometry(1600, 1100);
+    const cloudDeckCanvas = document.createElement('canvas');
+    cloudDeckCanvas.width = 512;
+    cloudDeckCanvas.height = 512;
+    const cdCtx = cloudDeckCanvas.getContext('2d');
+    const cdGrad = cdCtx.createRadialGradient(256, 256, 50, 256, 256, 256);
+    cdGrad.addColorStop(0.0, 'rgba(30, 41, 59, 0.95)');
+    cdGrad.addColorStop(0.4, 'rgba(15, 23, 42, 0.88)');
+    cdGrad.addColorStop(0.8, 'rgba(10, 16, 31, 0.75)');
+    cdGrad.addColorStop(1.0, 'rgba(6, 10, 20, 0.35)');
+    cdCtx.fillStyle = cdGrad;
+    cdCtx.fillRect(0, 0, 512, 512);
+
+    const cloudDeckTex = new THREE.CanvasTexture(cloudDeckCanvas);
+    const cloudDeckMat = new THREE.MeshBasicMaterial({
+      map: cloudDeckTex,
+      transparent: true,
+      opacity: 0.82
+    });
+    const cloudSea = new THREE.Mesh(cloudDeckGeo, cloudDeckMat);
     cloudSea.rotation.x = -Math.PI / 2;
-    cloudSea.position.y = -28.0;
+    cloudSea.position.y = -32.0;
     scene.add(cloudSea);
+
+    // Tier 3: Infinite Celestial Void Floor
+    const voidFloorGeo = new THREE.PlaneGeometry(2400, 1600);
+    const voidFloorMat = new THREE.MeshBasicMaterial({
+      color: 0x050811,
+      transparent: true,
+      opacity: 0.92
+    });
+    const voidFloor = new THREE.Mesh(voidFloorGeo, voidFloorMat);
+    voidFloor.rotation.x = -Math.PI / 2;
+    voidFloor.position.y = -65.0;
+    scene.add(voidFloor);
 
     // 12. STRATEGIC LEY-LINE GLYPHS & SOVEREIGN MATERIALS
     // Reusable materials used by the sovereign Core Nexuses
@@ -937,13 +1192,28 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       camera.up.set(0, 1, 0);
       camera.lookAt(targetVec.x, targetVec.y, targetVec.z);
 
+      // Animate flowing mana waterfalls and foam ripples
+      wfTex.offset.y -= delta * 0.65;
+      mistLeft.scale.setScalar(1.0 + Math.sin(time * 3.0) * 0.12);
+      mistRight.scale.setScalar(1.0 + Math.cos(time * 3.0) * 0.12);
+
       // Animate strategic river glyphs and floating satellite crags
       centerRune.rotation.z += delta * 0.25;
       centerCore.rotation.z -= delta * 0.35;
       satelliteCrags.forEach((sc) => {
         sc.mesh.rotation.y += delta * sc.speed;
-        sc.mesh.position.y = sc.baseY + Math.sin(time * 1.4 + sc.offset) * 0.25;
+        sc.mesh.position.y = sc.baseY + Math.sin(time * 1.4 + sc.offset) * 0.35;
+        if (sc.subCrystal) {
+          sc.subCrystal.rotation.y += delta * 1.5;
+        }
       });
+
+      // Animate drift mist wisps
+      mistWisps.forEach((mw) => {
+        mw.mesh.position.y = mw.baseY + Math.sin(time * 1.2 + mw.offset) * 0.25;
+        mw.mesh.rotation.z += delta * 0.05;
+      });
+      cloudSea.rotation.z += delta * 0.003;
 
       // Animate crystal nexuses and auras
       blueCrystal.rotation.y += delta * 1.2;
@@ -1009,17 +1279,38 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       renderer.dispose();
       terrainGeo.dispose();
       terrainMat.dispose();
+      mapTexture.dispose();
+      normalTexture.dispose();
+      corniceGeo.dispose();
+      cliffTier1Geo.dispose();
       foundationGeo.dispose();
-      foundationMat.dispose();
       islandKeelGeo.dispose();
+      bedrockMat.dispose();
+      cliffStrataMat.dispose();
       borderLongGeo.dispose();
       borderShortGeo.dispose();
       borderGoldMat.dispose();
-      cragMat.dispose();
+      obeliskGeo.dispose();
+      wfCurvedGeo.dispose();
+      wfFlankGeo.dispose();
+      wfTex.dispose();
+      waterfallMat.dispose();
+      mistSprayGeo.dispose();
+      mistSprayMat.dispose();
+      moniyanCragMat.dispose();
+      abyssalCragMat.dispose();
+      sapphireMat.dispose();
+      magmaMat.dispose();
       cragGeo1.dispose();
       cragGeo2.dispose();
-      wfGeo.dispose();
-      waterfallMat.dispose();
+      mistWispGeo.dispose();
+      mistWispTex.dispose();
+      mistWispMat.dispose();
+      cloudDeckGeo.dispose();
+      cloudDeckTex.dispose();
+      cloudDeckMat.dispose();
+      voidFloorGeo.dispose();
+      voidFloorMat.dispose();
       centerRuneGeo.dispose();
       centerRuneMat.dispose();
       centerCoreGeo.dispose();
@@ -1034,9 +1325,6 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       moniyanAuraMat.dispose();
       skydomeGeo.dispose();
       skydomeMat.dispose();
-      cloudSeaGeo.dispose();
-      cloudSeaMat.dispose();
-      mapTexture.dispose();
       blueGoldMat.dispose();
       redMetalMat.dispose();
       fountainGeo.dispose();

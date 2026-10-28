@@ -42,43 +42,43 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "miya_p",
-        "name": "Moon Arrow",
-        "type": "Passive",
-        "cooldown": "11.0",
-        "cost": "50 / 55 /60 / 65 / 70 / 75",
-        "icon": "/assets/images/skills/miya_0.png",
-        "description": "Miya shoots two extra arrows with each {{ii"
-      },
-      {
-        "id": "miya_s1",
-        "name": "Arrow of Eclipse",
-        "type": "Skill 1",
-        "cooldown": "8.0s",
-        "cost": "80 / 90 / 100 / 110 / 120 / 130",
-        "icon": "/assets/images/skills/miya_1.png",
-        "description": "Miya launches an empowered arrow on the target area, dealing {{scale"
-      },
-      {
-        "id": "miya_s2",
-        "name": "Hidden Moonlight",
-        "type": "Skill 2",
-        "cooldown": "30.0 / 25.0 / 20.0s",
-        "cost": "120 / 145 / 170",
-        "icon": "/assets/images/skills/miya_2.png",
-        "description": "Miya removes all debuffs on her and conceals herself, gaining 65% extra Movement Speed. This state lasts 2 seconds or until she launches an attack. Miya gains full stacks of {{ai"
-      },
-      {
-        "id": "miya_ult",
-        "name": "Hidden Moonlight",
-        "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "120 Mana",
-        "icon": "/assets/images/skills/miya_3.png",
-        "description": "Immediately cleanses all debuffs and grants complete concealment and bonus movement speed."
-      }
-    ],
+        {
+                "id": "miya_p",
+                "name": "Moon Blessing",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/miya_0.png",
+                "description": "Each time Miya hits an enemy with a Basic Attack, her Attack Speed increases by 5%. Stacks up to 5 times. At full stacks, summons a Moonlight Shadow."
+        },
+        {
+                "id": "miya_s1",
+                "name": "Moon Arrow",
+                "type": "Skill 1",
+                "cooldown": "11.0s",
+                "cost": "50-75 Mana",
+                "icon": "/assets/images/skills/miya_1.png",
+                "description": "Miya shoots two extra arrows with each Basic Attack, dealing Physical Damage to primary and nearby targets."
+        },
+        {
+                "id": "miya_s2",
+                "name": "Arrow of Eclipse",
+                "type": "Skill 2",
+                "cooldown": "8.0s",
+                "cost": "80-130 Mana",
+                "icon": "/assets/images/skills/miya_2.png",
+                "description": "Miya launches an empowered arrow on the target area, dealing damage and immobilizing enemies within for 1.2s."
+        },
+        {
+                "id": "miya_ult",
+                "name": "Hidden Moonlight",
+                "type": "Ultimate",
+                "cooldown": "38.0s",
+                "cost": "120 Mana",
+                "icon": "/assets/images/skills/miya_3.png",
+                "description": "Miya immediately cleanses all debuffs on herself, entering concealment and gaining 65% bonus Movement Speed."
+        }
+      ],
     "portrait": "/assets/images/heroes/miya.png"
   },
   {
@@ -196,43 +196,43 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "saber_p",
-        "name": "Orbiting Swords",
-        "type": "Passive",
-        "cooldown": "9.0",
-        "cost": "75 / 85 / 95 / 105 / 115 / 125",
-        "icon": "/assets/images/skills/saber_0.png",
-        "description": "Saber shoots out 5 swords that orbit around him, dealing {{Scale"
-      },
-      {
-        "id": "saber_s1",
-        "name": "Charge",
-        "type": "Skill 1",
-        "cooldown": "7.0s",
-        "cost": "70 / 65 / 60 / 55 / 50 / 45",
-        "icon": "/assets/images/skills/saber_1.png",
-        "description": "Saber dashes in the target direction, dealing {{scale"
-      },
-      {
-        "id": "saber_s2",
-        "name": "Triple Sweep",
-        "type": "Skill 2",
-        "cooldown": "44.0 / 40.0 / 36.0s",
-        "cost": "100 / 120 / 140",
-        "icon": "/assets/images/skills/saber_2.png",
-        "description": "Saber charges at the target enemy hero, knocking them airborne for 1.2 seconds and striking them 3 times over the duration. The first two strikes deal {{scale"
-      },
-      {
-        "id": "saber_ult",
-        "name": "Triple Sweep",
-        "type": "Ultimate",
-        "cooldown": "44.0s",
-        "cost": "100 Mana",
-        "icon": "/assets/images/skills/saber_3.png",
-        "description": "Locks onto target enemy, knocking them into the air and delivering 3 devastating slashes."
-      }
-    ],
+        {
+                "id": "saber_p",
+                "name": "Enemy's Bane",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/saber_0.png",
+                "description": "Saber's attacks reduce target's Physical Defense by 3-8 per hit for 5s (stacks up to 5 times)."
+        },
+        {
+                "id": "saber_s1",
+                "name": "Orbiting Swords",
+                "type": "Skill 1",
+                "cooldown": "9.0s",
+                "cost": "75-125 Mana",
+                "icon": "/assets/images/skills/saber_1.png",
+                "description": "Saber shoots out 5 orbiting swords, dealing damage on release and when hitting targets with basic attacks."
+        },
+        {
+                "id": "saber_s2",
+                "name": "Charge",
+                "type": "Skill 2",
+                "cooldown": "7.0s",
+                "cost": "70-45 Mana",
+                "icon": "/assets/images/skills/saber_2.png",
+                "description": "Saber dashes in the target direction, dealing physical damage and empowering his next Basic Attack."
+        },
+        {
+                "id": "saber_ult",
+                "name": "Triple Sweep",
+                "type": "Ultimate",
+                "cooldown": "44.0-36.0s",
+                "cost": "100-140 Mana",
+                "icon": "/assets/images/skills/saber_3.png",
+                "description": "Saber charges at an enemy hero, knocking them airborne and unleashing 3 rapid devastating strikes."
+        }
+      ],
     "portrait": "/assets/images/heroes/saber.png"
   },
   {
@@ -360,43 +360,43 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "nana_p",
-        "name": "Magic Boomerang",
-        "type": "Passive",
-        "cooldown": "5.5 / 5.2 / 4.9 / 4.6 / 4.3 / 4.0",
-        "cost": "50 / 55 / 60 / 65 / 70 / 75",
-        "icon": "/assets/images/skills/nana_0.png",
-        "description": "Nana hurls her Magical Boomerang in the target direction, dealing damage to enemies hit on its way out and back. The boomerang deals {{scale"
-      },
-      {
-        "id": "nana_s1",
-        "name": "Molina Smooch",
-        "type": "Skill 1",
-        "cooldown": "14.5 / 14.0 / 13.5 / 13.0 / 12.5 / 12.0s",
-        "cost": "80 / 85 / 90 / 95 / 100 / 105",
-        "icon": "/assets/images/skills/nana_1.png",
-        "description": "Nana summons Molina at the target location. After a short delay. Molina will chase the nearest enemy hero in range for 2.5 seconds. Molina will deal {{scale"
-      },
-      {
-        "id": "nana_s2",
-        "name": "Molina Blitz",
-        "type": "Skill 2",
-        "cooldown": "36.0 / 32.0 / 28.0s",
-        "cost": "135 / 150 / 165",
-        "icon": "/assets/images/skills/nana_2.png",
-        "description": "Nana summons Molina to strike the target area 3 times, each time dealing {{scale"
-      },
-      {
-        "id": "nana_ult",
-        "name": "Molina Blitz",
-        "type": "Ultimate",
-        "cooldown": "36.0s",
-        "cost": "135 Mana",
-        "icon": "/assets/images/skills/nana_3.png",
-        "description": "Summons 3 giant spirit paws slamming down in sequence, stunning struck enemies."
-      }
-    ],
+        {
+                "id": "nana_p",
+                "name": "Molina's Gift",
+                "type": "Passive",
+                "cooldown": "150.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/nana_0.png",
+                "description": "Upon taking fatal damage, Nana transforms into Molina for 2s, gaining invulnerability, slow immunity, and 70% Movement Speed."
+        },
+        {
+                "id": "nana_s1",
+                "name": "Magic Boomerang",
+                "type": "Skill 1",
+                "cooldown": "5.5-4.0s",
+                "cost": "50-75 Mana",
+                "icon": "/assets/images/skills/nana_1.png",
+                "description": "Nana hurls her Magical Boomerang in the target direction, dealing Magic Damage to enemies on hit and return."
+        },
+        {
+                "id": "nana_s2",
+                "name": "Molina Smooch",
+                "type": "Skill 2",
+                "cooldown": "14.5-12.0s",
+                "cost": "80-105 Mana",
+                "icon": "/assets/images/skills/nana_2.png",
+                "description": "Nana sends Molina to chase the nearest enemy hero, morphing them, slowing them, and reducing Magic Defense."
+        },
+        {
+                "id": "nana_ult",
+                "name": "Molina Blitz",
+                "type": "Ultimate",
+                "cooldown": "36.0-28.0s",
+                "cost": "135-165 Mana",
+                "icon": "/assets/images/skills/nana_3.png",
+                "description": "Nana summons Molina to strike the target area 3 times, each dealing massive Magic Damage and slowing/stunning enemies."
+        }
+      ],
     "portrait": "/assets/images/heroes/nana.png"
   },
   {
@@ -755,43 +755,43 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "franco_p",
-        "name": "Iron Hook",
-        "type": "Passive",
-        "cooldown": "15.0 / 14.2 / 13.4 / 12.6 / 11.8 / 11.0",
-        "cost": "135 / 140 / 145 / 150 / 155 / 160",
-        "icon": "/assets/images/skills/franco_0.png",
-        "description": "Franco launches an iron hook in the target direction. The hook will snag the first enemy unit hit, dealing {{scale"
-      },
-      {
-        "id": "franco_s1",
-        "name": "Fury Shock",
-        "type": "Skill 1",
-        "cooldown": "7.0 / 6.5 / 6.0 / 5.5 / 5.0 / 4.5s",
-        "cost": "40 / 45 / 50 / 55 / 60 / 65",
-        "icon": "/assets/images/skills/franco_1.png",
-        "description": "Franco lashes out, dealing {{AVC1"
-      },
-      {
-        "id": "franco_s2",
-        "name": "Bloody Hunt",
-        "type": "Skill 2",
-        "cooldown": "62.0 / 55.0 / 45.0s",
-        "cost": "110 / 125 / 140",
-        "icon": "/assets/images/skills/franco_2.png",
-        "description": "Franco suppresses the target enemy hero for 1.8 seconds and strikes them 6 times over the duration, each time dealing {{scale"
-      },
-      {
-        "id": "franco_ult",
-        "name": "Bloody Hunt",
-        "type": "Ultimate",
-        "cooldown": "45.0s",
-        "cost": "110 Mana",
-        "icon": "/assets/images/skills/franco_3.png",
-        "description": "Suppresses target enemy hero for 1.8s, hacking them repeatedly."
-      }
-    ],
+        {
+                "id": "franco_p",
+                "name": "Wasteland Force",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/franco_0.png",
+                "description": "If Franco takes no damage within 5s, he gains 10% Movement Speed and recovers 1% max HP per second while stacking Wasteland Force."
+        },
+        {
+                "id": "franco_s1",
+                "name": "Iron Hook",
+                "type": "Skill 1",
+                "cooldown": "15.0-11.0s",
+                "cost": "135-160 Mana",
+                "icon": "/assets/images/skills/franco_1.png",
+                "description": "Franco launches an iron hook in the target direction, snagging the first enemy unit hit and pulling them to himself."
+        },
+        {
+                "id": "franco_s2",
+                "name": "Fury Shock",
+                "type": "Skill 2",
+                "cooldown": "7.0-4.5s",
+                "cost": "40-65 Mana",
+                "icon": "/assets/images/skills/franco_2.png",
+                "description": "Franco lashes out, slowing nearby enemies and dealing Physical Damage based on his max HP."
+        },
+        {
+                "id": "franco_ult",
+                "name": "Bloody Hunt",
+                "type": "Ultimate",
+                "cooldown": "62.0-45.0s",
+                "cost": "110-140 Mana",
+                "icon": "/assets/images/skills/franco_3.png",
+                "description": "Franco suppresses the target enemy hero for 1.8 seconds and strikes them 6 times over the duration."
+        }
+      ],
     "portrait": "/assets/images/heroes/franco.png"
   },
   {
@@ -1063,76 +1063,70 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "kagura_p",
-        "name": "Yin Yang Gathering",
-        "type": "Passive",
-        "cooldown": "4.5s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/kagura_0.png",
-        "description": "When Kagura retrieves her Seimei Umbrella, she gains a shield, stuns nearby enemies for 0.5s, and slows them."
-      },
-      {
-        "id": "kagura_u_s1",
-        "name": "Seimei Umbrella Open",
-        "type": "Skill 1",
-        "form": "With Umbrella",
-        "cooldown": "5.0s",
-        "cost": "60 Mana",
-        "icon": "/assets/images/skills/kagura_1.png",
-        "description": "Moves the Seimei Umbrella to target area, dealing magic damage and slowing enemies by 60%."
-      },
-      {
-        "id": "kagura_u_s2",
-        "name": "Rasho Umbrella Flee",
-        "type": "Skill 2",
-        "form": "With Umbrella",
-        "cooldown": "12.0s",
-        "cost": "80 Mana",
-        "icon": "/assets/images/skills/kagura_2.png",
-        "description": "Removes all debuffs on Kagura and dashes in target direction, leaving the umbrella at her original spot."
-      },
-      {
-        "id": "kagura_u_ult",
-        "name": "Yin Yang Overturn",
-        "type": "Ultimate",
-        "form": "With Umbrella",
-        "cooldown": "32.0s",
-        "cost": "100 Mana",
-        "icon": "/assets/images/skills/kagura_3.png",
-        "description": "Kagura unleashes umbrella power, knocking back surrounding enemies and dealing burst magic damage."
-      },
-      {
-        "id": "kagura_o_s1",
-        "name": "Seimei Umbrella Open (Shift)",
-        "type": "Skill 1",
-        "form": "Without Umbrella",
-        "cooldown": "5.0s",
-        "cost": "60 Mana",
-        "icon": "/assets/images/skills/kagura_4.png",
-        "description": "Commands the distant umbrella to reposition to a new designated spot, damaging enemies along its path."
-      },
-      {
-        "id": "kagura_o_s2",
-        "name": "Rasho Umbrella Flee (Recall)",
-        "type": "Skill 2",
-        "form": "Without Umbrella",
-        "cooldown": "12.0s",
-        "cost": "80 Mana",
-        "icon": "/assets/images/skills/kagura_5.png",
-        "description": "Kagura teleports directly to the detached umbrella's location, retrieving it and damaging nearby foes."
-      },
-      {
-        "id": "kagura_o_ult",
-        "name": "Yin Yang Overturn (Vortex)",
-        "type": "Ultimate",
-        "form": "Without Umbrella",
-        "cooldown": "32.0s",
-        "cost": "100 Mana",
-        "icon": "/assets/images/skills/kagura_6.png",
-        "description": "The umbrella releases a tethering vortex that slows enemies and drags them to its center after 1.5 seconds."
-      }
-    ],
+        {
+                "id": "kagura_p",
+                "name": "Yin Yang Gathering",
+                "type": "Passive",
+                "cooldown": "4.5s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/kagura_0.png",
+                "description": "When Kagura retrieves the Seimei Umbrella, she gains a shield, stuns nearby enemies, and slows them."
+        },
+        {
+                "id": "kagura_s1",
+                "name": "Seimei Umbrella Open",
+                "type": "Skill 1",
+                "cooldown": "5.5-4.0s",
+                "cost": "60-85 Mana",
+                "icon": "/assets/images/skills/kagura_1.png",
+                "description": "Kagura moves the Seimei Umbrella to target location, dealing Magic Damage and slowing enemies hit."
+        },
+        {
+                "id": "kagura_s2",
+                "name": "Rasho Umbrella Flee",
+                "type": "Skill 2",
+                "cooldown": "12.0-9.0s",
+                "cost": "80-105 Mana",
+                "icon": "/assets/images/skills/kagura_2.png",
+                "description": "Kagura removes all debuffs and dashes in target direction, leaving the umbrella behind."
+        },
+        {
+                "id": "kagura_ult",
+                "name": "Yin Yang Overturn",
+                "type": "Ultimate",
+                "cooldown": "40.0-32.0s",
+                "cost": "100-140 Mana",
+                "icon": "/assets/images/skills/kagura_3.png",
+                "description": "Kagura knocks back surrounding enemies and deals Magic Damage."
+        },
+        {
+                "id": "kagura_s1_no",
+                "name": "Seimei Umbrella Open (Shift)",
+                "type": "Skill 1 (No Umbrella)",
+                "cooldown": "5.5-4.0s",
+                "cost": "60-85 Mana",
+                "icon": "/assets/images/skills/kagura_4.png",
+                "description": "Kagura commands the deployed umbrella to fly to a new target area, dealing damage and slowing enemies."
+        },
+        {
+                "id": "kagura_s2_no",
+                "name": "Rasho Umbrella Flee (Recall)",
+                "type": "Skill 2 (No Umbrella)",
+                "cooldown": "12.0-9.0s",
+                "cost": "80-105 Mana",
+                "icon": "/assets/images/skills/kagura_5.png",
+                "description": "Kagura teleports directly to the Seimei Umbrella and picks it up, stunning and dealing damage to enemies hit."
+        },
+        {
+                "id": "kagura_ult_no",
+                "name": "Yin Yang Overturn (Pull)",
+                "type": "Ultimate (No Umbrella)",
+                "cooldown": "40.0-32.0s",
+                "cost": "100-140 Mana",
+                "icon": "/assets/images/skills/kagura_6.png",
+                "description": "The umbrella forms an arcane tether, slowing tethered enemies and pulling them to its center after 1.5s."
+        }
+      ],
     "portrait": "/assets/images/heroes/kagura.png"
   },
   {
@@ -1558,52 +1552,79 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "bea_p",
-        "name": "Mechanical Genius",
-        "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/beatrix_0.png",
-        "description": "Beatrix carries 4 specialized firearms: Renner (Sniper), Bennett (Rocket), Wesker (Shotgun), and Nibiru (SMG)."
-      },
-      {
-        "id": "bea_s1",
-        "name": "Masterful Gunner",
-        "type": "Skill 1",
-        "cooldown": "0.6s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/beatrix_1.png",
-        "description": "Beatrix swiftly swaps her primary weapon with her secondary firearm."
-      },
-      {
-        "id": "bea_s2",
-        "name": "Tactical Reposition",
-        "type": "Skill 2",
-        "cooldown": "8.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/beatrix_2.png",
-        "description": "Beatrix rolls in target direction, fully reloading her active firearm upon finishing the dash."
-      },
-      {
-        "id": "bea_ult",
-        "name": "Weapon Ultimate",
-        "type": "Ultimate",
-        "cooldown": "24.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/beatrix_3.png",
-        "description": "Fires the ultimate salvo of her active weapon (Renner's Apathy, Bennett's Desolation, Wesker's Elation, or Nibiru's Passion)."
-      },
-      {
-        "id": "bea_sp",
-        "name": "Need Backup",
-        "type": "Special",
-        "cooldown": "20.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/beatrix_4.png",
-        "description": "Beatrix takes cover and reconfigures her weaponry, selecting two guns from her armory to equip."
-      }
-    ],
+        {
+                "id": "beatrix_p",
+                "name": "Mechanical Genius",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/beatrix_0.png",
+                "description": "Beatrix wields 4 advanced weapons: Renner (Sniper), Bennett (Grenade), Wesker (Shotgun), and Nibiru (SMG)."
+        },
+        {
+                "id": "beatrix_s1",
+                "name": "Masterful Gunner",
+                "type": "Skill 1",
+                "cooldown": "0.6s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/beatrix_1.png",
+                "description": "Beatrix swaps between her primary and secondary equipped weapons."
+        },
+        {
+                "id": "beatrix_s2",
+                "name": "Tactical Reposition",
+                "type": "Skill 2",
+                "cooldown": "8.0-6.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/beatrix_2.png",
+                "description": "Beatrix dashes in target direction, reloading her current weapon instantly."
+        },
+        {
+                "id": "beatrix_ult_renner",
+                "name": "Renner's Apathy",
+                "type": "Ultimate (Renner)",
+                "cooldown": "32.0-24.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/beatrix_3.png",
+                "description": "Beatrix aims Renner calmly and snipes a devastating ultra-long range shot."
+        },
+        {
+                "id": "beatrix_ult_bennett",
+                "name": "Bennett's Rage",
+                "type": "Ultimate (Bennett)",
+                "cooldown": "40.0-32.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/beatrix_4.png",
+                "description": "Beatrix bombards the target area with 5 carpet airstrikes, slowing and damaging enemies."
+        },
+        {
+                "id": "beatrix_ult_wesker",
+                "name": "Wesker's Elation",
+                "type": "Ultimate (Wesker)",
+                "cooldown": "40.0-32.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/beatrix_5.png",
+                "description": "Beatrix fires an overwhelming spread of shotgun shells in front, shredding close-range targets."
+        },
+        {
+                "id": "beatrix_ult_nibiru",
+                "name": "Nibiru's Passion",
+                "type": "Ultimate (Nibiru)",
+                "cooldown": "40.0-32.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/beatrix_6.png",
+                "description": "Beatrix pulls the trigger to unleash a volley of 6 rapid-fire SMG shots over an area."
+        },
+        {
+                "id": "beatrix_s4",
+                "name": "Need Backup",
+                "type": "Special",
+                "cooldown": "3.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/beatrix_7.png",
+                "description": "Beatrix can switch her secondary weapon from her weapon arsenal while out of combat."
+        }
+      ],
     "portrait": "/assets/images/heroes/beatrix.png"
   },
   {
@@ -1649,43 +1670,52 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "yuzhong_p",
-        "name": "Cursing Touch",
-        "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/yuzhong_0.png",
-        "description": "Yu Zhong applies [[Mark"
-      },
-      {
-        "id": "yuzhong_s1",
-        "name": "Dragon Tail",
-        "type": "Skill 1",
-        "cooldown": "6.0 / 5.5 / 5.0 / 4.5s",
-        "cost": "50 Sha",
-        "icon": "/assets/images/skills/yuzhong_1.png",
-        "description": "Yu Zhong infuses his power into his cloak and turns it into a weapon, which starts to attack nearby enemies after a short delay. The inner area of the cloak deals {{scale"
-      },
-      {
-        "id": "yuzhong_s2",
-        "name": "Soul Grip",
-        "type": "Skill 2",
-        "cooldown": "14.0 / 13.0 / 12.0 / 11.0s",
-        "cost": "60 Sha",
-        "icon": "/assets/images/skills/yuzhong_2.png",
-        "description": "Yu Zhong unleashes the Dragon Soul, dealing {{Scale"
-      },
-      {
-        "id": "yuzhong_ult",
-        "name": "Furious Dive",
-        "type": "Ultimate",
-        "cooldown": "14.0 / 13.0 / 12.0 / 11.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/yuzhong_3.png",
-        "description": "Yu Zhong leaps towards the designated area with his full strength, dealing {{Scale"
-      }
-    ],
+        {
+                "id": "yuzhong_p",
+                "name": "Cursing Touch",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/yuzhong_0.png",
+                "description": "Yu Zhong applies Sha Residue with attacks. At max stacks, eruptions restore HP and grant Movement Speed."
+        },
+        {
+                "id": "yuzhong_s1",
+                "name": "Dragon Tail",
+                "type": "Skill 1",
+                "cooldown": "7.0-5.5s",
+                "cost": "50-75 Sha",
+                "icon": "/assets/images/skills/yuzhong_1.png",
+                "description": "Yu Zhong infuses his power into his cloak, dealing physical damage to nearby enemies with extra outer edge damage."
+        },
+        {
+                "id": "yuzhong_s2",
+                "name": "Soul Grip",
+                "type": "Skill 2",
+                "cooldown": "12.0-8.0s",
+                "cost": "60-85 Sha",
+                "icon": "/assets/images/skills/yuzhong_2.png",
+                "description": "Yu Zhong unleashes Dragon Soul forward, slowing targets hit and empowering his next Basic Attack."
+        },
+        {
+                "id": "yuzhong_s3",
+                "name": "Furious Dive",
+                "type": "Skill 3",
+                "cooldown": "10.5-8.5s",
+                "cost": "60-85 Sha",
+                "icon": "/assets/images/skills/yuzhong_3.png",
+                "description": "Yu Zhong leaps towards the target area, knocking enemies airborne after a brief delay."
+        },
+        {
+                "id": "yuzhong_ult",
+                "name": "Black Dragon Form",
+                "type": "Ultimate",
+                "cooldown": "85.0-65.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/yuzhong_4.png",
+                "description": "Yu Zhong transforms into the Black Dragon, gaining crowd control immunity, terrain traversal, and entering Dragonoid form."
+        }
+      ],
     "portrait": "/assets/images/heroes/yuzhong.png"
   },
   {
@@ -2342,43 +2372,43 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "lolita_p",
-        "name": "Power Charge",
-        "type": "Passive",
-        "cooldown": "10.0",
-        "cost": "70 / 80 / 90 / 100 / 110 / 120",
-        "icon": "/assets/images/skills/lolita_0.png",
-        "description": "Lolita [[blink"
-      },
-      {
-        "id": "lolita_s1",
-        "name": "Guardian's Reflection",
-        "type": "Skill 1",
-        "cooldown": "17.5 / 17.0 / 16.5 / 16.0 / 15.5 / 15.0s",
-        "cost": "90 / 95 / 100 / 105 / 110 / 115",
-        "icon": "/assets/images/skills/lolita_1.png",
-        "description": "Lolita raises her shield and reflects all incoming ranged Basic Attacks and Projectiles in the direction of the shield for 3 seconds. The shield will break after taking {{scale"
-      },
-      {
-        "id": "lolita_s2",
-        "name": "Noumenon Blast",
-        "type": "Skill 2",
-        "cooldown": "55.0 / 50.0 / 45.0s",
-        "cost": "120 / 140 / 160",
-        "icon": "/assets/images/skills/lolita_2.png",
-        "description": "Lolita begins charging for 2 seconds while slowing enemies in a fan-shaped area by 50%. When the charging is complete or is stopped, Lolita slams her hammer on the ground, dealing up to {{scale"
-      },
-      {
-        "id": "lolita_ult",
-        "name": "Noumenon Blast",
-        "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "/assets/images/skills/lolita_3.png",
-        "description": "Charges forward with an energy blast that slows and stuns all enemies in a giant conical area."
-      }
-    ],
+        {
+                "id": "lolita_p",
+                "name": "Noumenon Energy Core",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/lolita_0.png",
+                "description": "Lolita periodically grants shields to herself and nearby allied heroes."
+        },
+        {
+                "id": "lolita_s1",
+                "name": "Power Charge",
+                "type": "Skill 1",
+                "cooldown": "10.0-7.5s",
+                "cost": "70-95 Mana",
+                "icon": "/assets/images/skills/lolita_1.png",
+                "description": "Lolita dashes in target direction, empowering her next basic attack into a long-range stun hammer smash."
+        },
+        {
+                "id": "lolita_s2",
+                "name": "Guardian's Reflection",
+                "type": "Skill 2",
+                "cooldown": "15.0-12.5s",
+                "cost": "80-110 Mana",
+                "icon": "/assets/images/skills/lolita_2.png",
+                "description": "Lolita raises her shield to block and reflect incoming ranged projectile attacks back at enemies."
+        },
+        {
+                "id": "lolita_ult",
+                "name": "Noumenon Blast",
+                "type": "Ultimate",
+                "cooldown": "48.0-38.0s",
+                "cost": "120-160 Mana",
+                "icon": "/assets/images/skills/lolita_3.png",
+                "description": "Lolita channels a colossal cone shield charge, slowing enemies before slamming down for a massive AoE stun."
+        }
+      ],
     "portrait": "/assets/images/heroes/lolita.png"
   },
   {
@@ -3266,43 +3296,43 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "hilda_p",
-        "name": "Combat Ritual",
-        "type": "Passive",
-        "cooldown": "10.0 / 9.5 / 9.0 / 8.5 / 8.0 / 7.5",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/hilda_0.png",
-        "description": "Hilda gains 60% Movement Speed for 3 seconds and receives a shield that absorbs damage equal to 10% Max HP, lasting 3 seconds."
-      },
-      {
-        "id": "hilda_s1",
-        "name": "Art of Hunting",
-        "type": "Skill 1",
-        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0s",
-        "cost": "50 Mana",
-        "icon": "/assets/images/skills/hilda_1.png",
-        "description": "Hilda locks onto an enemy target, each time dealing {{scale"
-      },
-      {
-        "id": "hilda_s2",
-        "name": "Power of Wildness",
-        "type": "Skill 2",
-        "cooldown": "32.0 / 28.0 / 24.0s",
-        "cost": "65 Mana",
-        "icon": "/assets/images/skills/hilda_2.png",
-        "description": "Hilda [leaps forward and] launches a powerful slash on the target enemy, dealing {{scale"
-      },
-      {
-        "id": "hilda_ult",
-        "name": "Power of Wildness",
-        "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "/assets/images/skills/hilda_3.png",
-        "description": "Jumps toward a target enemy, executing a devastating strike with massive physical damage scaled with Wilderness Force."
-      }
-    ],
+        {
+                "id": "hilda_p",
+                "name": "Blessing of Wilderness",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/hilda_0.png",
+                "description": "Hilda enters bushes to gain bonus Movement Speed, a regenerating shield, and HP regeneration."
+        },
+        {
+                "id": "hilda_s1",
+                "name": "Combat Ritual",
+                "type": "Skill 1",
+                "cooldown": "8.5-6.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/hilda_1.png",
+                "description": "Hilda gains 60% decaying Movement Speed and empowers her next Basic Attack to leap and smash the target."
+        },
+        {
+                "id": "hilda_s2",
+                "name": "Art of Hunting",
+                "type": "Skill 2",
+                "cooldown": "9.0-6.5s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/hilda_2.png",
+                "description": "Hilda unleashes a 3-stage heavy axe combo, knocking back the target on the final strike."
+        },
+        {
+                "id": "hilda_ult",
+                "name": "Power of Wildness",
+                "type": "Ultimate",
+                "cooldown": "35.0-25.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/hilda_3.png",
+                "description": "Hilda leaps toward target enemy, dealing massive Physical Damage and executing foes with high stacks."
+        }
+      ],
     "portrait": "/assets/images/heroes/hilda.png"
   },
   {
@@ -3420,76 +3450,70 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "lapu_p",
-        "name": "Homeland Defender",
-        "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/lapulapu_0.png",
-        "description": "Each skill hit grants Bravery Blessing. At full stacks, Lapu-Lapu dashes with his next basic attack and gains a massive shield."
-      },
-      {
-        "id": "lapu_t_s1",
-        "name": "Justice Blades",
-        "type": "Skill 1",
-        "form": "Twin Blade",
-        "cooldown": "8.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/lapulapu_1.png",
-        "description": "Throws twin blades forward that fly out and return, dealing physical damage in both directions."
-      },
-      {
-        "id": "lapu_t_s2",
-        "name": "Jungle Warrior",
-        "type": "Skill 2",
-        "form": "Twin Blade",
-        "cooldown": "8.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/lapulapu_2.png",
-        "description": "Dashes forward while slashing with twin blades, gaining movement speed."
-      },
-      {
-        "id": "lapu_t_ult",
-        "name": "Bravest Fighter",
-        "type": "Ultimate",
-        "form": "Twin Blade",
-        "cooldown": "20.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/lapulapu_3.png",
-        "description": "Combines twin blades into a Heavy Sword and leaps into the air, crashing down to stun enemies and enter Heavy Sword Stance."
-      },
-      {
-        "id": "lapu_h_s1",
-        "name": "Land Shaker",
-        "type": "Skill 1",
-        "form": "Heavy Sword",
-        "cooldown": "8.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/lapulapu_4.png",
-        "description": "Gathers strength and slams heavy sword down, stunning enemies and dealing heavy physical damage."
-      },
-      {
-        "id": "lapu_h_s2",
-        "name": "Storm Sword",
-        "type": "Skill 2",
-        "form": "Heavy Sword",
-        "cooldown": "8.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/lapulapu_5.png",
-        "description": "Whirls his heavy sword in a full circle, gaining 15% damage reduction per enemy hero struck."
-      },
-      {
-        "id": "lapu_h_ult",
-        "name": "Raging Slash",
-        "type": "Ultimate",
-        "form": "Heavy Sword",
-        "cooldown": "20.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/lapulapu_6.png",
-        "description": "Delivers three catastrophic slashes forward with CC immunity, finishing with a massive cleave."
-      }
-    ],
+        {
+                "id": "lapulapu_p",
+                "name": "Homeland Defender",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/lapulapu_0.png",
+                "description": "Lapu-Lapu gains Bravery Blessing from hitting skills. At full stacks, next basic attack grants a shield and dashes to target."
+        },
+        {
+                "id": "lapulapu_s1",
+                "name": "Justice Blades",
+                "type": "Skill 1 (Twin Blade)",
+                "cooldown": "7.5-5.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/lapulapu_1.png",
+                "description": "Lapu-Lapu throws two bladed boomerangs forward, dealing physical damage to enemies along the path."
+        },
+        {
+                "id": "lapulapu_s2",
+                "name": "Jungle Warrior",
+                "type": "Skill 2 (Twin Blade)",
+                "cooldown": "8.0-6.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/lapulapu_2.png",
+                "description": "Lapu-Lapu slashes his twin blades and charges forward, dealing physical damage to enemies."
+        },
+        {
+                "id": "lapulapu_ult",
+                "name": "Bravest Fighter",
+                "type": "Ultimate (Twin Blade)",
+                "cooldown": "20.0-15.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/lapulapu_3.png",
+                "description": "Lapu-Lapu leaps into the air and combines his twin blades into a Heavy Sword, dealing damage and entering Heavy Sword Stance."
+        },
+        {
+                "id": "lapulapu_s1_heavy",
+                "name": "Land Shaker",
+                "type": "Skill 1 (Heavy Sword)",
+                "cooldown": "6.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/lapulapu_4.png",
+                "description": "Lapu-Lapu charges his heavy sword and slashes forward, stunning enemies hit for 1s."
+        },
+        {
+                "id": "lapulapu_s2_heavy",
+                "name": "Storm Sword",
+                "type": "Skill 2 (Heavy Sword)",
+                "cooldown": "6.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/lapulapu_5.png",
+                "description": "Lapu-Lapu whirls his heavy sword around, dealing physical damage and gaining damage reduction per hero hit."
+        },
+        {
+                "id": "lapulapu_ult_heavy",
+                "name": "Raging Slash",
+                "type": "Ultimate (Heavy Sword)",
+                "cooldown": "30.0-24.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/lapulapu_6.png",
+                "description": "Lapu-Lapu unleashes 3 massive heavy sword slashes while immune to crowd control, dealing immense physical damage."
+        }
+      ],
     "portrait": "/assets/images/heroes/lapulapu.png"
   },
   {
@@ -3871,43 +3895,43 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "harley_p",
-        "name": "Poker Trick",
-        "type": "Passive",
-        "cooldown": "6.0",
-        "cost": "90 / 95 / 100 / 105 / 110 / 115",
-        "icon": "/assets/images/skills/harley_0.png",
-        "description": "Harley throws 3-5 waves of cards in the target direction, each dealing 130-210 {{AVC1"
-      },
-      {
-        "id": "harley_s1",
-        "name": "Space Escape",
-        "type": "Skill 1",
-        "cooldown": "8.5 / 8.1 / 7.7 / 7.3 / 6.9 / 6.5s",
-        "cost": "60 / 70 / 80 / 90 / 100 / 110",
-        "icon": "/assets/images/skills/harley_1.png",
-        "description": "Harley blinks in the designated direction, leaving a magic hat at his place, increasing his Movement Speed by 30% for 2 seconds."
-      },
-      {
-        "id": "harley_s2",
-        "name": "Deadly Magic",
-        "type": "Skill 2",
-        "cooldown": "36.0 / 33.0 / 30.0s",
-        "cost": "120 / 160 / 200",
-        "icon": "/assets/images/skills/harley_2.png",
-        "description": "Harley casts a magic ring of fire at the target enemy hero (can be blocked by other heroes), dealing them 200-400 {{AVC1"
-      },
-      {
-        "id": "harley_ult",
-        "name": "Deadly Magic",
-        "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "/assets/images/skills/harley_3.png",
-        "description": "Fires a magic ring at an enemy hero, dealing burst magic damage and detonating at the end of duration for remaining damage."
-      }
-    ],
+        {
+                "id": "harley_p",
+                "name": "Magic Master",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/harley_0.png",
+                "description": "Harley deals Magic Damage with Basic Attacks, and his damage shreds enemy Magic Defense."
+        },
+        {
+                "id": "harley_s1",
+                "name": "Poker Trick",
+                "type": "Skill 1",
+                "cooldown": "6.0-4.0s",
+                "cost": "60-85 Mana",
+                "icon": "/assets/images/skills/harley_1.png",
+                "description": "Harley fires multiple rounds of magic cards in target direction, gaining attack speed per hit."
+        },
+        {
+                "id": "harley_s2",
+                "name": "Space Escape",
+                "type": "Skill 2",
+                "cooldown": "8.5-6.5s",
+                "cost": "60-85 Mana",
+                "icon": "/assets/images/skills/harley_2.png",
+                "description": "Harley teleports forward leaving a magical hat behind, gaining bonus movement speed and able to recall back."
+        },
+        {
+                "id": "harley_ult",
+                "name": "Deadly Magic",
+                "type": "Ultimate",
+                "cooldown": "36.0-26.0s",
+                "cost": "120-160 Mana",
+                "icon": "/assets/images/skills/harley_3.png",
+                "description": "Harley casts a fire ring on target hero that explodes after 4s, dealing damage plus a percentage of damage taken during the ring."
+        }
+      ],
     "portrait": "/assets/images/heroes/harley.png"
   },
   {
@@ -4573,43 +4597,52 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "pharsa_p",
-        "name": "Spiritual Unity",
-        "type": "Passive",
-        "cooldown": "8.0",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/pharsa_0.png",
-        "description": "Every 8 seconds, Verri enters the Hunting state and assists Pharsa on her next attack against an enemy hero, dealing 8% extra {{B"
-      },
-      {
-        "id": "pharsa_s1",
-        "name": "Curse of Crow",
-        "type": "Skill 1",
-        "cooldown": "8.0 / 7.6 /7.2/ 6.8 /6.4 / 6.0s",
-        "cost": "60 / 66 / 72 / 78.0 / 84 / 90",
-        "icon": "/assets/images/skills/pharsa_1.png",
-        "description": "Pharsa unleashes a blast of magic at the target location, dealing {{scale"
-      },
-      {
-        "id": "pharsa_s2",
-        "name": "Energy Impact",
-        "type": "Skill 2",
-        "cooldown": "5.0s",
-        "cost": "50 / 56 / 62 / 68 / 74 / 80",
-        "icon": "/assets/images/skills/pharsa_2.png",
-        "description": "Pharsa releases magic energy in the target direction, dealing {{scale"
-      },
-      {
-        "id": "pharsa_ult",
-        "name": "Feathered Air Strike",
-        "type": "Ultimate",
-        "cooldown": "36.0 / 33.0 / 30.0s",
-        "cost": "120 / 150 / 180",
-        "icon": "/assets/images/skills/pharsa_3.png",
-        "description": "Passive: Each level up of this skill reduces the {{ai"
-      }
-    ],
+        {
+                "id": "pharsa_p",
+                "name": "Spiritual Unity",
+                "type": "Passive",
+                "cooldown": "8.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/pharsa_0.png",
+                "description": "Periodically, Verri strikes alongside Pharsa upon dealing damage, dealing extra Magic Damage and slowing target."
+        },
+        {
+                "id": "pharsa_s1",
+                "name": "Curse of Crow",
+                "type": "Skill 1",
+                "cooldown": "9.0-6.5s",
+                "cost": "70-95 Mana",
+                "icon": "/assets/images/skills/pharsa_1.png",
+                "description": "Pharsa casts a spell on target area, marking enemies hit. Damaging marked enemies stuns them."
+        },
+        {
+                "id": "pharsa_s2",
+                "name": "Energy Impact",
+                "type": "Skill 2",
+                "cooldown": "6.5-5.0s",
+                "cost": "70-95 Mana",
+                "icon": "/assets/images/skills/pharsa_2.png",
+                "description": "Pharsa releases magic energy in target direction, dealing Magic Damage to enemies in a line."
+        },
+        {
+                "id": "pharsa_ult",
+                "name": "Feathered Air Strike",
+                "type": "Ultimate",
+                "cooldown": "36.0-28.0s",
+                "cost": "90-120 Mana",
+                "icon": "/assets/images/skills/pharsa_3.png",
+                "description": "Pharsa takes flight and targets up to 4 aerial bombardments over 8 seconds, dealing colossal AoE Magic Damage."
+        },
+        {
+                "id": "pharsa_s4",
+                "name": "Wings by Wings",
+                "type": "Special",
+                "cooldown": "23.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/pharsa_4.png",
+                "description": "Pharsa becomes a mist around Verri, flying over terrain with 80% increased Movement Speed until hit by crowd control or attacking."
+        }
+      ],
     "portrait": "/assets/images/heroes/pharsa.png"
   },
   {
@@ -5607,52 +5640,61 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "lunox_p",
-        "name": "Dreamland Twist",
-        "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/lunox_0.png",
-        "description": "Lunox converts Cooldown Reduction into Physical & Magic Defense (when Order is active) or Magic Penetration (when Chaos is active)."
-      },
-      {
-        "id": "lunox_s1",
-        "name": "Starlight Pulse",
-        "type": "Skill 1",
-        "cooldown": "2.0s",
-        "cost": "30 Mana",
-        "icon": "/assets/images/skills/lunox_1.png",
-        "description": "Lunox unleashes starlight rain that damages enemies and heals Lunox and nearby allied heroes."
-      },
-      {
-        "id": "lunox_s2",
-        "name": "Chaos Assault",
-        "type": "Skill 2",
-        "cooldown": "2.0s",
-        "cost": "30 Mana",
-        "icon": "/assets/images/skills/lunox_2.png",
-        "description": "Lunox fires chaos energy forward, dealing magic damage plus a percentage of target's Max HP."
-      },
-      {
-        "id": "lunox_s3",
-        "name": "Cosmic Fission",
-        "type": "Skill 3",
-        "cooldown": "8.0s",
-        "cost": "70 Mana",
-        "icon": "/assets/images/skills/lunox_3.png",
-        "description": "Lunox casts a wave of cosmic energy forward in a line, dealing damage and heavily slowing enemies."
-      },
-      {
-        "id": "lunox_ult",
-        "name": "Order & Chaos",
-        "type": "Ultimate",
-        "cooldown": "24.0s",
-        "cost": "120 Mana",
-        "icon": "/assets/images/skills/lunox_4.png",
-        "description": "Lunox unleashes Twilight power: Brilliance turns her into an invulnerable light sphere dealing continuous DPS; Darkening blinks forward and removes Chaos Assault cooldown."
-      }
-    ],
+        {
+                "id": "lunox_p",
+                "name": "Dreamland Twist",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/lunox_0.png",
+                "description": "Lunox converts Cooldown Reduction into Magic Penetration (Chaos) or Physical & Magic Defense (Order)."
+        },
+        {
+                "id": "lunox_s1",
+                "name": "Starlight Pulse",
+                "type": "Order Skill",
+                "cooldown": "2.0s",
+                "cost": "50-80 Mana",
+                "icon": "/assets/images/skills/lunox_1.png",
+                "description": "Lunox summons rain of starlight, dealing magic damage and healing herself based on targets hit."
+        },
+        {
+                "id": "lunox_s2",
+                "name": "Chaos Assault",
+                "type": "Chaos Skill",
+                "cooldown": "2.0s",
+                "cost": "50-80 Mana",
+                "icon": "/assets/images/skills/lunox_2.png",
+                "description": "Lunox unleashes chaos energy forward, dealing Magic Damage plus percentage of target max HP."
+        },
+        {
+                "id": "lunox_s3",
+                "name": "Cosmic Fission",
+                "type": "Skill 3",
+                "cooldown": "10.0-8.0s",
+                "cost": "70-95 Mana",
+                "icon": "/assets/images/skills/lunox_3.png",
+                "description": "Lunox fuses energy to slow and damage enemies in a path."
+        },
+        {
+                "id": "lunox_ult_order",
+                "name": "Power of Order: Brilliance",
+                "type": "Ultimate (Order)",
+                "cooldown": "25.0-17.0s",
+                "cost": "120 Mana",
+                "icon": "/assets/images/skills/lunox_4.png",
+                "description": "Lunox enters the Light barrier, becoming invulnerable while continuously dealing magic damage to surrounding enemies."
+        },
+        {
+                "id": "lunox_ult_chaos",
+                "name": "Power of Chaos: Darkening",
+                "type": "Ultimate (Chaos)",
+                "cooldown": "25.0-17.0s",
+                "cost": "120 Mana",
+                "icon": "/assets/images/skills/lunox_5.png",
+                "description": "Lunox blinks forward and enters Darkening state, removing cooldown on Chaos Assault for 4s."
+        }
+      ],
     "portrait": "/assets/images/heroes/lunox.png"
   },
   {
@@ -5693,76 +5735,70 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "hanzo_p",
-        "name": "Ame no Habakiri",
-        "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/hanzo_0.png",
-        "description": "Hanzo harvests Demon Blood from fallen units to feed his demon blade and maintain his Demon Pneuma."
-      },
-      {
-        "id": "hanzo_h_s1",
-        "name": "Ninjutsu: Demon Feast",
-        "type": "Skill 1",
-        "form": "Human Body",
-        "cooldown": "15.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/hanzo_1.png",
-        "description": "Unlocks after 5 basic attacks to instantly devour a jungle creep or minion, converting it into Demon Blood."
-      },
-      {
-        "id": "hanzo_h_s2",
-        "name": "Ninjutsu: Soul Reap",
-        "type": "Skill 2",
-        "form": "Human Body",
-        "cooldown": "10.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/hanzo_2.png",
-        "description": "Opens a soul portal at target location, dealing periodic physical damage and slowing enemies."
-      },
-      {
-        "id": "hanzo_h_ult",
-        "name": "Kinjutsu: Pinnacle Ninja",
-        "type": "Ultimate",
-        "form": "Human Body",
-        "cooldown": "21.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/hanzo_3.png",
-        "description": "Hanzo unleashes his Demon Pneuma to fly through obstacles with bonus movement speed while leaving his physical body behind."
-      },
-      {
-        "id": "hanzo_d_s1",
-        "name": "Ninjutsu: Demon Thorn",
-        "type": "Skill 1",
-        "form": "Demon Pneuma",
-        "cooldown": "7.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/hanzo_4.png",
-        "description": "Demon Pneuma unleashes 5 phantom spikes forward, becoming untargetable and dealing burst damage."
-      },
-      {
-        "id": "hanzo_d_s2",
-        "name": "Ninjutsu: Devastator",
-        "type": "Skill 2",
-        "form": "Demon Pneuma",
-        "cooldown": "10.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/hanzo_5.png",
-        "description": "Pneuma leaps forward and strikes the area, becoming invulnerable and slowing targets."
-      },
-      {
-        "id": "hanzo_d_ult",
-        "name": "Pinnacle Ninja (Recall)",
-        "type": "Ultimate",
-        "form": "Demon Pneuma",
-        "cooldown": "3.0s",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/hanzo_6.png",
-        "description": "Recalls the Demon Pneuma back to the main body, or commands the main body to rush to Pneuma's position."
-      }
-    ],
+        {
+                "id": "hanzo_p",
+                "name": "Ame no Habakiri",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/hanzo_0.png",
+                "description": "When units die near Hanzo, he absorbs their demonic blood to feed his Demon Blood gauge."
+        },
+        {
+                "id": "hanzo_s1",
+                "name": "Ninjutsu: Demon Feast",
+                "type": "Skill 1",
+                "cooldown": "9.0-6.5s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/hanzo_1.png",
+                "description": "Unlocks after 5 basic attacks. Hanzo devours target jungle creep or minion, converting it to Demon Blood."
+        },
+        {
+                "id": "hanzo_s2",
+                "name": "Ninjutsu: Dark Mist",
+                "type": "Skill 2",
+                "cooldown": "7.5-5.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/hanzo_2.png",
+                "description": "Hanzo opens a demonic zone, dealing physical damage over time and slowing enemies while collecting Demon Blood."
+        },
+        {
+                "id": "hanzo_ult",
+                "name": "Kinjutsu: Pinnacle Ninja",
+                "type": "Ultimate",
+                "cooldown": "35.0-25.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/hanzo_3.png",
+                "description": "Hanzo projects Hanekage (Supreme Demon Ninja) forward across obstacles while leaving his physical body hidden behind."
+        },
+        {
+                "id": "hanzo_s1_demon",
+                "name": "Forbidden Ninjutsu: Soul Snatch",
+                "type": "Demon Skill 1",
+                "cooldown": "3.0s",
+                "cost": "Demon Blood",
+                "icon": "/assets/images/skills/hanzo_4.png",
+                "description": "Hanekage vaults forward and delivers a wide claw swipe dealing physical damage based on target max HP."
+        },
+        {
+                "id": "hanzo_s2_demon",
+                "name": "Forbidden Ninjutsu: Black Mist",
+                "type": "Demon Skill 2",
+                "cooldown": "6.0s",
+                "cost": "Demon Blood",
+                "icon": "/assets/images/skills/hanzo_5.png",
+                "description": "Hanekage transforms into dark mist and strikes enemies in the target area multiple times with invulnerability."
+        },
+        {
+                "id": "hanzo_ult_recall",
+                "name": "Ninjutsu: Flee Return",
+                "type": "Demon Form Recall",
+                "cooldown": "1.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/hanzo_6.png",
+                "description": "Hanzo immediately recedes Hanekage back to his body or pulls his body to Hanekage location."
+        }
+      ],
     "portrait": "/assets/images/heroes/hanzo.png"
   },
   {
@@ -5803,43 +5839,43 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "belerick_p",
-        "name": "Ancient Seed",
-        "type": "Passive",
-        "cooldown": "8.0 / 7.6 / 7.2 / 6.8 / 6.4 / 6.0",
-        "cost": "60 / 66 / 72 / 78 / 84 / 90",
-        "icon": "/assets/images/skills/belerick_0.png",
-        "description": "Belerick releases vines in a designated direction, dealing {{scale"
-      },
-      {
-        "id": "belerick_s1",
-        "name": "Nature's Strike",
-        "type": "Skill 1",
-        "cooldown": "12.0 / 11.4 / 10.8 / 10.2 / 9.6 / 9.0s",
-        "cost": "90 / 102 / 114 / 126 / 138 / 150",
-        "icon": "/assets/images/skills/belerick_1.png",
-        "description": "Belerick increases his Movement Speed by 80% and strengthens his next Basic Attack. (The Movement Speed gain will decay in 2 seconds.) This enhanced Basic Attack deals {{scale"
-      },
-      {
-        "id": "belerick_s2",
-        "name": "Wrath of Dryad",
-        "type": "Skill 2",
-        "cooldown": "50.0 / 46.0 / 42.0s",
-        "cost": "150",
-        "icon": "/assets/images/skills/belerick_2.png",
-        "description": "Belerick conjures spreading vines around him, dealing {{scale"
-      },
-      {
-        "id": "belerick_ult",
-        "name": "Wrath of Dryad",
-        "type": "Ultimate",
-        "cooldown": "38.0s",
-        "cost": "100 Mana",
-        "icon": "/assets/images/skills/belerick_3.png",
-        "description": "Unleashes vines that spread in waves, taunting and immobilizing all caught enemy champions."
-      }
-    ],
+        {
+                "id": "belerick_p",
+                "name": "Deadly Thorns",
+                "type": "Passive",
+                "cooldown": "0.4s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/belerick_0.png",
+                "description": "Belerick gains 30% extra HP from equipment. Whenever he takes damage, he has a chance to shoot thorns at nearby enemies."
+        },
+        {
+                "id": "belerick_s1",
+                "name": "Ancient Seed",
+                "type": "Skill 1",
+                "cooldown": "8.0-6.0s",
+                "cost": "60-85 Mana",
+                "icon": "/assets/images/skills/belerick_1.png",
+                "description": "Belerick releases vines forward, dealing magic damage and taunting enemies trapped in the path after a delay."
+        },
+        {
+                "id": "belerick_s2",
+                "name": "Nature's Strike",
+                "type": "Skill 2",
+                "cooldown": "8.0-5.5s",
+                "cost": "50-75 Mana",
+                "icon": "/assets/images/skills/belerick_2.png",
+                "description": "Belerick gains 80% bonus Movement Speed and heals HP on his next empowered Basic Attack."
+        },
+        {
+                "id": "belerick_ult",
+                "name": "Wrath of Dryad",
+                "type": "Ultimate",
+                "cooldown": "40.0-30.0s",
+                "cost": "100-140 Mana",
+                "icon": "/assets/images/skills/belerick_3.png",
+                "description": "Belerick erupts ancient vines in a wide expanding circle, taunting all nearby enemies and dealing Magic Damage."
+        }
+      ],
     "portrait": "/assets/images/heroes/belerick.png"
   },
   {
@@ -8771,43 +8807,52 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "yin_p",
-        "name": "Leave It to Me",
-        "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/yin_0.png",
-        "description": "If there are no nearby allies within 4 units, Yin's damage is {{AVC1"
-      },
-      {
-        "id": "yin_s1",
-        "name": "Charged Punch",
-        "type": "Skill 1",
-        "cooldown": "10.0 / 9.4 / 8.8 / 8.2 / 7.6 / 7.0s",
-        "cost": "50 Mana",
-        "icon": "/assets/images/skills/yin_1.png",
-        "description": "Yin gains 60% extra {{AVC1"
-      },
-      {
-        "id": "yin_s2",
-        "name": "Frenzy Strike",
-        "type": "Skill 2",
-        "cooldown": "22.0 / 20.8 / 19.6 / 18.4 / 17.2 / 16.0s",
-        "cost": "65 Mana",
-        "icon": "/assets/images/skills/yin_2.png",
-        "description": "Lieh smashes an area ahead up to 9 times, each smash dealing {{scale"
-      },
-      {
-        "id": "yin_ult",
-        "name": "Instant Blast",
-        "type": "Ultimate",
-        "cooldown": "14.0 / 13.2 / 12.4 / 11.6 / 10.8 / 10.0s",
-        "cost": "100 Mana",
-        "icon": "/assets/images/skills/yin_3.png",
-        "description": "Yin dashes forward, leaving [ {{AVC1"
-      }
-    ],
+        {
+                "id": "yin_p",
+                "name": "Leave It to Me",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/yin_0.png",
+                "description": "When there are no allied heroes nearby, Yin gains increased damage and physical penetration."
+        },
+        {
+                "id": "yin_s1",
+                "name": "Charged Punch",
+                "type": "Skill 1",
+                "cooldown": "8.0-6.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/yin_1.png",
+                "description": "Yin gains 60% Movement Speed and empowers his Basic Attack to strike forward with a charged punch."
+        },
+        {
+                "id": "yin_s2",
+                "name": "Instant Blast",
+                "type": "Skill 2",
+                "cooldown": "12.0-9.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/yin_2.png",
+                "description": "Yin dashes forward, leaving golden rings behind that stun enemies they touch and reduce skill cooldown."
+        },
+        {
+                "id": "yin_ult",
+                "name": "My Turn",
+                "type": "Ultimate",
+                "cooldown": "60.0-45.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/yin_3.png",
+                "description": "Yin pulls target enemy hero into his Domain for an isolated 1v1 duel, turning into Lieh with enhanced skills."
+        },
+        {
+                "id": "yin_s1_lieh",
+                "name": "Frenzy Strike",
+                "type": "Lieh Form Skill 1",
+                "cooldown": "6.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/yin_4.png",
+                "description": "As Lieh, strikes the ground repeatedly with devastating shockwaves while immune to crowd control."
+        }
+      ],
     "portrait": "/assets/images/heroes/yin.png"
   },
   {
@@ -9924,43 +9969,52 @@ export const HEROES = [
       }
     ],
     "abilities": [
-      {
-        "id": "lukas_p",
-        "name": "Hero's Resolve",
-        "type": "Passive",
-        "cooldown": "Passive",
-        "cost": "No Cost",
-        "icon": "/assets/images/skills/lukas_0.png",
-        "description": "Lukas gains 1 Resolve per second and an additional 2 Resolve when dealing damage to heroes. Lukas consumes 10 Resolve per second while in {{Link"
-      },
-      {
-        "id": "lukas_s1",
-        "name": "Flash Combo",
-        "type": "Skill 1",
-        "cooldown": "5.5s",
-        "cost": "50 Mana",
-        "icon": "/assets/images/skills/lukas_1.png",
-        "description": "{{Link"
-      },
-      {
-        "id": "lukas_s2",
-        "name": "Flash Combo",
-        "type": "Skill 2",
-        "cooldown": "5.5s",
-        "cost": "65 Mana",
-        "icon": "/assets/images/skills/lukas_2.png",
-        "description": "{{Link"
-      },
-      {
-        "id": "lukas_ult",
-        "name": "Flash Step",
-        "type": "Ultimate",
-        "cooldown": "12.0 / 11.2 / 10.4 / 9.6 / 8.8 / 8.0s",
-        "cost": "100 Mana",
-        "icon": "/assets/images/skills/lukas_3.png",
-        "description": "Lukas dashes in the target direction and turns his next Basic Attack within 4s into {{Link"
-      }
-    ],
+        {
+                "id": "lukas_p",
+                "name": "Hero's Resolve",
+                "type": "Passive",
+                "cooldown": "Passive",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/lukas_0.png",
+                "description": "Lukas accumulates sacred beast energy during combat, empowering his physical combat abilities."
+        },
+        {
+                "id": "lukas_s1",
+                "name": "Flash Combo",
+                "type": "Skill 1",
+                "cooldown": "7.0-5.0s",
+                "cost": "40-60 Energy",
+                "icon": "/assets/images/skills/lukas_1.png",
+                "description": "Lukas strikes forward in rapid succession, dealing Physical Damage to enemies in front."
+        },
+        {
+                "id": "lukas_s2",
+                "name": "Flash Step",
+                "type": "Skill 2",
+                "cooldown": "8.0-6.0s",
+                "cost": "40-60 Energy",
+                "icon": "/assets/images/skills/lukas_2.png",
+                "description": "Lukas dashes toward target location, gaining a protective shield and physical penetration."
+        },
+        {
+                "id": "lukas_ult",
+                "name": "Unleash the Beast",
+                "type": "Ultimate",
+                "cooldown": "45.0-35.0s",
+                "cost": "100 Energy",
+                "icon": "/assets/images/skills/lukas_3.png",
+                "description": "Lukas transforms into his sacred beast form, gaining massive HP, resistance, and enhanced abilities."
+        },
+        {
+                "id": "lukas_s4",
+                "name": "Shockwave Blast",
+                "type": "Transformed Skill",
+                "cooldown": "6.0s",
+                "cost": "No Cost",
+                "icon": "/assets/images/skills/lukas_4.png",
+                "description": "In beast form, Lukas unleashes a seismic roar dealing devastating area physical damage."
+        }
+      ],
     "portrait": "/assets/images/heroes/lukas.png"
   },
   {
