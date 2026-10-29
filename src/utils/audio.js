@@ -278,6 +278,72 @@ class AudioManager {
       // ignore
     }
   }
+
+  playAwakening() {
+    this.init();
+    if (!this.ctx) return;
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+    try {
+      const notes = [329.63, 415.30, 493.88, 659.25, 987.77]; // E major radiant pentachord
+      const t = this.ctx.currentTime;
+      notes.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = idx === 0 ? 'triangle' : 'sine';
+        osc.frequency.setValueAtTime(freq, t);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.05, t + 0.8);
+
+        const delay = idx * 0.05;
+        gain.gain.setValueAtTime(0.0001, t + delay);
+        gain.gain.exponentialRampToValueAtTime(0.04, t + delay + 0.15);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + delay + 1.2);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(t + delay);
+        osc.stop(t + delay + 1.25);
+      });
+    } catch {
+      // ignore
+    }
+  }
+
+  playWarp() {
+    this.init();
+    if (!this.ctx) return;
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+    try {
+      const t = this.ctx.currentTime;
+      // Sub-bass impact
+      const sub = this.ctx.createOscillator();
+      const subGain = this.ctx.createGain();
+      sub.type = 'sine';
+      sub.frequency.setValueAtTime(120, t);
+      sub.frequency.exponentialRampToValueAtTime(38, t + 0.6);
+      subGain.gain.setValueAtTime(0.12, t);
+      subGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.8);
+      sub.connect(subGain);
+      subGain.connect(this.ctx.destination);
+      sub.start(t);
+      sub.stop(t + 0.85);
+
+      // High rushing energy sweep
+      const sweep = this.ctx.createOscillator();
+      const sweepGain = this.ctx.createGain();
+      sweep.type = 'triangle';
+      sweep.frequency.setValueAtTime(220, t);
+      sweep.frequency.exponentialRampToValueAtTime(1400, t + 0.4);
+      sweep.frequency.exponentialRampToValueAtTime(440, t + 0.7);
+      sweepGain.gain.setValueAtTime(0.04, t);
+      sweepGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.75);
+      sweep.connect(sweepGain);
+      sweepGain.connect(this.ctx.destination);
+      sweep.start(t);
+      sweep.stop(t + 0.8);
+    } catch {
+      // ignore
+    }
+  }
 }
 
 export const audioManager = new AudioManager();

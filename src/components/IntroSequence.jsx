@@ -1,44 +1,55 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Sparkles, Shield, ArrowRight, Zap, Eye, EyeOff } from 'lucide-react';
+import { Shield, ArrowRight, Eye, EyeOff, Volume2, VolumeX } from 'lucide-react';
 import { audioManager } from '../utils/audio';
 
-const LOADING_STAGES = [
-  { threshold: 25, label: 'AWAKENING THE SACRED REALM' },
-  { threshold: 55, label: 'ASSEMBLING ALL 133 HEROES' },
-  { threshold: 85, label: 'HARNESSING THE TWILIGHT ORB' },
-  { threshold: 100, label: 'THE BATTLEFIELD IS READY' },
+const LOADING_STEPS = [
+  { threshold: 25, label: 'AWAKENING THE REALM' },
+  { threshold: 55, label: 'SYNCHRONIZING 133 HEROES' },
+  { threshold: 85, label: 'ALIGNING THE TWILIGHT ORB' },
+  { threshold: 100, label: 'SANCTUM ISLAND READY' },
 ];
 
 export default function IntroSequence({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
   const [showFullRoster, setShowFullRoster] = useState(false);
-  const showFullRosterRef = useRef(false);
+  const [isMuted, setIsMuted] = useState(true);
+
   const canvasRef = useRef(null);
   const barRef = useRef(null);
   const bgImageRef = useRef(null);
-  const cardRef = useRef(null);
-  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0, rawX: -9999, rawY: -9999 });
+  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
+  const hasTriggeredAwakening = useRef(false);
 
+  // Keyboard shortcut listener (ESC, Enter, Space)
   useEffect(() => {
-    showFullRosterRef.current = showFullRoster;
-    if (showFullRoster) {
-      if (bgImageRef.current) bgImageRef.current.style.transform = 'none';
-      if (cardRef.current) cardRef.current.style.transform = 'none';
-    }
-  }, [showFullRoster]);
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+        handleEnter();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
-  // Kinetic Arcane Canvas: Concentric Rune Rings & Floating Solar Embers
+  // Living Cinematic Canvas: Golden Embers, Celestial Gyroscope Locked to 100% Dead Center
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    let animationFrame;
-    let tick = 0;
+    let animId;
+    let time = 0;
 
+    // High-DPI exact pixel buffer sizing & CSS synchronization
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
     };
     resize();
     window.addEventListener('resize', resize);
@@ -47,194 +58,156 @@ export default function IntroSequence({ onComplete }) {
       const { innerWidth, innerHeight } = window;
       mouseRef.current.targetX = (e.clientX - innerWidth / 2) / (innerWidth / 2);
       mouseRef.current.targetY = (e.clientY - innerHeight / 2) / (innerHeight / 2);
-      mouseRef.current.rawX = e.clientX;
-      mouseRef.current.rawY = e.clientY;
     };
 
     const handleMouseLeave = () => {
       mouseRef.current.targetX = 0;
       mouseRef.current.targetY = 0;
-      mouseRef.current.rawX = -9999;
-      mouseRef.current.rawY = -9999;
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave);
 
-    // Curated, elegant celestial warp sparks (16 rays - clean, non-intrusive)
-    const sparks = Array.from({ length: 16 }, () => {
-      const rand = Math.random();
-      let color;
-      if (rand < 0.45) color = '#38bdf8'; // Arcane celestial cyan
-      else if (rand < 0.70) color = '#ffffff'; // Diamond starlight
-      else if (rand < 0.85) color = '#818cf8'; // Twilight astral indigo
-      else color = '#fbbf24'; // Mythic solar gold
-      return {
-        angle: Math.random() * Math.PI * 2,
-        dist: Math.random() * 320 + 30,
-        speed: Math.random() * 1.4 + 0.9,
-        size: Math.random() * 1.1 + 0.7,
-        alpha: Math.random() * 0.45 + 0.25,
-        color,
-      };
-    });
-
-    // Curated ambient arcane embers (20 motes - buttery smooth floating)
-    const embers = Array.from({ length: 20 }, () => {
-      const rand = Math.random();
-      let color;
-      if (rand < 0.45) color = '#38bdf8'; // Arcane cyan
-      else if (rand < 0.75) color = '#a855f7'; // Astral violet
-      else color = '#fbbf24'; // Solar gold
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 1.2 + 0.8,
-        speedY: -(Math.random() * 0.45 + 0.35),
-        swaySpeed: Math.random() * 0.8 + 0.8,
-        swayAmp: Math.random() * 0.45 + 0.25,
-        swayOffset: Math.random() * Math.PI * 2,
-        vx: 0,
-        vy: 0,
-        alpha: Math.random() * 0.5 + 0.3,
-        color,
-      };
-    });
+    // 32 Atmospheric Battlefield Embers (Rising with organic micro-currents)
+    const embers = Array.from({ length: 32 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      radius: Math.random() * 1.4 + 0.6,
+      speedY: -(Math.random() * 0.45 + 0.25),
+      swaySpeed: Math.random() * 0.8 + 0.4,
+      swayAmp: Math.random() * 0.6 + 0.3,
+      swayOffset: Math.random() * Math.PI * 2,
+      alpha: Math.random() * 0.55 + 0.25,
+      hue: Math.random() > 0.35 ? '#fbbf24' : '#38bdf8' // Solar gold or celestial cyan
+    }));
 
     const render = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      // Reset transform and clear physical buffer
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Buttery exponential smoothing (lerp)
-      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.06;
-      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.06;
+      // Apply DPR scaling for crisp sub-pixel rendering
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // Parallax update for background & card at native display refresh rate without React re-render
-      if (bgImageRef.current && !showFullRosterRef.current) {
-        bgImageRef.current.style.transform = `scale(1.1) translate3d(${-mouseRef.current.x * 16}px, ${-mouseRef.current.y * 12}px, 0)`;
+      time += 0.01;
+
+      // Smooth mouse lerp for background parallax
+      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.05;
+      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.05;
+
+      // Parallax update strictly on background image
+      if (bgImageRef.current && !showFullRoster) {
+        bgImageRef.current.style.transform = `scale(1.06) translate3d(${-mouseRef.current.x * 20}px, ${-mouseRef.current.y * 14}px, 0)`;
       }
-      if (cardRef.current && !showFullRosterRef.current) {
-        cardRef.current.style.transform = `translate3d(${mouseRef.current.x * 6}px, ${mouseRef.current.y * 4}px, 0)`;
-      }
 
-      const cx = canvas.width / 2 + mouseRef.current.x * 20;
-      const cy = canvas.height / 2 + mouseRef.current.y * 15;
-      tick += 0.015;
+      // Mathematical 100% Dead Center of the Screen Viewport
+      const cx = w / 2;
+      const cy = h / 2;
 
-      // 1. Concentric Runic Circles: Cosmic Twilight Synergy
+      // 1. Ambient Central Twilight Core Glow (Locked to Screen Center)
+      const coreGlow = ctx.createRadialGradient(cx, cy, 10, cx, cy, 260);
+      coreGlow.addColorStop(0.0, 'rgba(234, 179, 8, 0.12)');
+      coreGlow.addColorStop(0.3, 'rgba(56, 189, 248, 0.06)');
+      coreGlow.addColorStop(0.7, 'rgba(217, 119, 6, 0.02)');
+      coreGlow.addColorStop(1.0, 'rgba(2, 4, 9, 0)');
+      ctx.fillStyle = coreGlow;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 260, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 2. Refined Minimalist Astronomical Gyroscope (Locked to 100% Screen Center)
       ctx.save();
       ctx.translate(cx, cy);
 
-      // Outer arcane cyan rune ring (celestial aura)
-      ctx.beginPath();
-      ctx.arc(0, 0, 230 + Math.sin(tick * 1.5) * 6, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.22)';
-      ctx.lineWidth = 1.2;
-      ctx.setLineDash([12, 18]);
-      ctx.stroke();
-
-      // Middle rotating twilight violet counter-ring
-      ctx.rotate(-tick * 0.35);
+      // Outer Prime Meridian Ring (Warm Solar Gold Hairline)
+      ctx.save();
+      ctx.rotate(time * 0.22);
       ctx.beginPath();
       ctx.arc(0, 0, 180, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(129, 140, 248, 0.24)';
-      ctx.lineWidth = 1.0;
-      ctx.setLineDash([25, 10, 8, 12]);
+      ctx.strokeStyle = 'rgba(234, 179, 8, 0.28)';
+      ctx.lineWidth = 0.85;
       ctx.stroke();
 
-      // Inner fast spinning radiant solar gold energy circle
-      ctx.rotate(tick * 0.8);
+      // Cardinal Axis Hash Marks
+      for (let i = 0; i < 4; i++) {
+        const angle = (i * Math.PI) / 2;
+        const x1 = Math.cos(angle) * 173;
+        const y1 = Math.sin(angle) * 173;
+        const x2 = Math.cos(angle) * 187;
+        const y2 = Math.sin(angle) * 187;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = 'rgba(234, 179, 8, 0.65)';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // Middle Counter-Rotating Orbit Ring (Dashed Celestial Cyan)
+      ctx.save();
+      ctx.rotate(-time * 0.32);
       ctx.beginPath();
-      ctx.arc(0, 0, 130, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(251, 191, 36, 0.3)';
-      ctx.lineWidth = 1.2;
-      ctx.setLineDash([40, 15]);
+      ctx.arc(0, 0, 140, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
+      ctx.lineWidth = 0.75;
+      ctx.setLineDash([10, 16]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+
+      // Innermost Soft Focus Ring
+      ctx.beginPath();
+      ctx.arc(0, 0, 100, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(234, 179, 8, 0.16)';
+      ctx.lineWidth = 0.65;
       ctx.stroke();
 
       ctx.restore();
 
-      // 2. Warp starburst particles (16 rays)
-      const maxDist = Math.max(canvas.width, canvas.height) * 0.65;
-      sparks.forEach((s) => {
-        s.dist += s.speed;
-        if (s.dist > maxDist) {
-          s.dist = Math.random() * 30 + 20;
-          s.angle = Math.random() * Math.PI * 2;
-        }
-
-        const px = cx + Math.cos(s.angle) * s.dist;
-        const py = cy + Math.sin(s.angle) * s.dist;
-        const tailLength = Math.min(s.speed * 4, 14);
-        const tx = cx + Math.cos(s.angle) * (s.dist - tailLength);
-        const ty = cy + Math.sin(s.angle) * (s.dist - tailLength);
-
-        ctx.beginPath();
-        ctx.moveTo(tx, ty);
-        ctx.lineTo(px, py);
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = Math.min(s.alpha, (s.dist / 280) * s.alpha);
-        ctx.lineWidth = s.size;
-        ctx.stroke();
-      });
-
-      // 3. Ambient arcane embers with soft cursor fluid deflection
+      // 3. Living Battlefield Embers with Glowing Halos
       embers.forEach((p) => {
-        // Soft cursor deflection
-        const dx = p.x - mouseRef.current.rawX;
-        const dy = p.y - mouseRef.current.rawY;
-        const distSq = dx * dx + dy * dy;
-        const repulseRadius = 100;
-        if (distSq < repulseRadius * repulseRadius && distSq > 4) {
-          const dist = Math.sqrt(distSq);
-          const force = (1 - dist / repulseRadius) * 1.3;
-          p.vx += (dx / dist) * force;
-          p.vy += (dy / dist) * force;
-        }
+        p.y += p.speedY;
+        p.x += Math.sin(time * p.swaySpeed + p.swayOffset) * p.swayAmp;
 
-        p.vx *= 0.93;
-        p.vy *= 0.93;
-
-        p.x += p.vx + Math.sin(tick * p.swaySpeed + p.swayOffset) * p.swayAmp;
-        p.y += p.speedY + p.vy;
-
-        // Wrap around borders
         if (p.y < -15) {
-          p.y = canvas.height + 15;
-          p.x = Math.random() * canvas.width;
-          p.vx = 0;
-          p.vy = 0;
+          p.y = h + 15;
+          p.x = Math.random() * w;
         }
-        if (p.x < -15) p.x = canvas.width + 15;
-        if (p.x > canvas.width + 15) p.x = -15;
 
+        ctx.save();
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
+        ctx.fillStyle = p.hue;
         ctx.globalAlpha = p.alpha;
-        ctx.shadowColor = p.color;
+        ctx.shadowColor = p.hue;
         ctx.shadowBlur = 6;
         ctx.fill();
-        ctx.shadowBlur = 0;
+        ctx.restore();
       });
 
-      ctx.globalAlpha = 1.0;
-      animationFrame = requestAnimationFrame(render);
+      animId = requestAnimationFrame(render);
     };
 
     render();
 
     return () => {
-      cancelAnimationFrame(animationFrame);
+      cancelAnimationFrame(animId);
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, []);
+  }, [showFullRoster]);
 
-  // 60FPS Buttery Smooth Loading Progression via requestAnimationFrame
+  // Smooth Loading Progression
   useEffect(() => {
     let animId;
     let startTime = null;
-    const duration = 2600; // 2.6s silky smooth cinematic progression
+    const duration = 2400; // 2.4s calm, refined progression
     let lastInt = 0;
 
     const animate = (timestamp) => {
@@ -242,16 +215,14 @@ export default function IntroSequence({ onComplete }) {
       const elapsed = timestamp - startTime;
       const t = Math.min(elapsed / duration, 1);
 
-      // Smooth custom game-feel easing (easeInOutQuad)
-      const p = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      // Smooth easeInOutCubic
+      const p = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
       const pct = Math.min(100, p * 100);
 
-      // Directly update the progress bar DOM element on every display frame (60-120fps)
       if (barRef.current) {
         barRef.current.style.width = `${pct}%`;
       }
 
-      // Update React state for the percentage label only when integer advances
       const currentInt = Math.floor(pct);
       if (currentInt !== lastInt) {
         lastInt = currentInt;
@@ -264,205 +235,224 @@ export default function IntroSequence({ onComplete }) {
         if (barRef.current) barRef.current.style.width = '100%';
         setProgress(100);
         setIsReady(true);
+        if (!hasTriggeredAwakening.current) {
+          hasTriggeredAwakening.current = true;
+          audioManager.playAwakening();
+        }
       }
     };
 
     animId = requestAnimationFrame(animate);
-
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
-        handleEnter();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('keydown', handleKeyDown);
-    };
+    return () => cancelAnimationFrame(animId);
   }, []);
 
-  const handleEnter = () => {
-    audioManager.init();
-    audioManager.playSkillFlare();
-    onComplete();
+  const handleToggleSound = () => {
+    const active = audioManager.toggleMusic();
+    setIsMuted(!active);
   };
 
-  const currentStage =
-    LOADING_STAGES.find((stage) => progress <= stage.threshold) ||
-    LOADING_STAGES[LOADING_STAGES.length - 1];
+  const handleEnter = () => {
+    if (isExiting) return;
+    setIsExiting(true);
+    audioManager.playSkillFlare();
+    setTimeout(() => {
+      onComplete();
+    }, 450);
+  };
+
+  const currentStep =
+    LOADING_STEPS.find((step) => progress <= step.threshold) ||
+    LOADING_STEPS[LOADING_STEPS.length - 1];
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-[#020409] text-white overflow-y-auto sm:overflow-hidden transition-opacity duration-700 p-3.5 xs:p-5 sm:p-6 md:p-8 lg:p-10 select-none">
-      
-      {/* 1. Master Background: All 133 Heroes Single Composite Image */}
-      <div className={`absolute inset-0 flex items-center justify-center bg-[#020409] ${showFullRoster ? 'pointer-events-auto overflow-auto sm:overflow-hidden' : 'pointer-events-none overflow-hidden'}`}>
-        <img
-          ref={bgImageRef}
-          src="/assets/images/all_133_heroes_mosaic.jpg"
-          alt="Mobile Legends: Bang Bang 133 Heroes Roster"
-          className={`w-full h-full ${showFullRoster ? 'object-contain p-1 sm:p-2 md:p-4' : 'object-cover'} transition-all duration-500 will-change-transform`}
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-[#020409] text-white overflow-hidden select-none transition-opacity duration-500 ${
+        isExiting ? 'opacity-0' : 'opacity-100'
+      }`}
+    >
+      {/* 1. Master Official MLBB Heroes Battle Backdrop: 100% Responsive on Mobile, Tablet & Desktop */}
+      <div className={`absolute inset-0 flex items-center justify-center overflow-hidden ${showFullRoster ? 'pointer-events-auto overflow-auto' : 'pointer-events-none'}`}>
+        {showFullRoster ? (
+          <img
+            src="/assets/images/all_133_heroes_mosaic.jpg"
+            alt="Mobile Legends: Bang Bang All 133 Heroes Roster"
+            className="w-full h-full object-contain p-2 sm:p-4 transition-all duration-500"
+            style={{ filter: 'brightness(1) contrast(108%)' }}
+          />
+        ) : (
+          <picture className="w-full h-full">
+            {/* Mobile Viewports (<= 640px): 9:16 vertical portrait tailored for phones */}
+            <source
+              media="(max-width: 640px)"
+              srcSet="/assets/images/mlbb_heroes_mobile.jpg"
+            />
+            {/* Tablet Viewports (641px - 1024px): 4:3 balanced composition for iPads & Tablets */}
+            <source
+              media="(max-width: 1024px)"
+              srcSet="/assets/images/mlbb_heroes_tablet.jpg"
+            />
+            {/* Desktop & Widescreen (>= 1025px): Full 16:9 panoramic hero lineup */}
+            <img
+              ref={bgImageRef}
+              src="/assets/images/mlbb_heroes_desktop.jpg"
+              alt="Mobile Legends: Bang Bang Official Heroes Lineup"
+              className="w-full h-full object-cover object-center transition-all duration-700 will-change-transform"
+              style={{
+                filter: 'brightness(0.78) contrast(116%) saturate(114%)',
+                transform: 'scale(1.06)'
+              }}
+            />
+          </picture>
+        )}
+
+        {/* Cinematic Vignette Framing: Top and Bottom Letterbox Depth */}
+        <div className={`absolute inset-0 bg-gradient-to-t from-[#020409] via-transparent to-[#020409]/80 transition-opacity duration-500 ${showFullRoster ? 'opacity-0' : 'opacity-100'}`} />
+
+        {/* Soft Center Radial Spotlight: Preserves Hero Backdrop Vibrancy while Keeping UI Crystal Clear */}
+        <div 
+          className={`absolute inset-0 transition-opacity duration-500 ${showFullRoster ? 'opacity-0' : 'opacity-100'}`}
           style={{
-            transform: showFullRoster ? 'none' : 'scale(1.1)',
-            filter: showFullRoster ? 'brightness(1) contrast(108%)' : 'brightness(0.38) contrast(125%)',
+            background: 'radial-gradient(circle at 50% 50%, rgba(2,4,9,0.50) 0%, rgba(2,4,9,0.18) 50%, rgba(2,4,9,0.85) 100%)'
           }}
         />
-        {/* Subtle cinematic golden twilight vignette (cleared in static roster view) */}
-        <div className={`absolute inset-0 bg-gradient-to-t from-[#020409] via-[#020409]/60 to-[#020409]/80 transition-opacity duration-500 ${showFullRoster ? 'opacity-0' : 'opacity-100'}`} />
-        <div className={`absolute inset-0 bg-radial from-transparent via-[#020409]/45 to-[#020409] transition-opacity duration-500 ${showFullRoster ? 'opacity-0' : 'opacity-100'}`} />
+
+        {/* Subtle Warm Amber & Celestial Cyan Horizon Flares */}
+        <div className={`absolute -top-24 left-1/4 w-[450px] h-[300px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none transition-opacity duration-500 ${showFullRoster ? 'opacity-0' : 'opacity-100'}`} />
+        <div className={`absolute -bottom-24 right-1/4 w-[450px] h-[300px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none transition-opacity duration-500 ${showFullRoster ? 'opacity-0' : 'opacity-100'}`} />
       </div>
 
-      {/* 2. Runic Canvas Layer */}
-      <canvas ref={canvasRef} className={`absolute inset-0 pointer-events-none z-10 transition-opacity duration-500 ${showFullRoster ? 'opacity-0' : 'opacity-100'}`} />
+      {/* 2. Living Astronomical Gyroscope & Floating Embers Canvas (100% Viewport Synchronization) */}
+      <canvas
+        ref={canvasRef}
+        className={`absolute inset-0 pointer-events-none z-10 w-full h-full transition-opacity duration-500 ${showFullRoster ? 'opacity-0' : 'opacity-100'}`}
+      />
 
-      {/* 3. Top Controls Bar: Clean, Minimalist & Responsive */}
-      <div className="relative z-20 w-full flex items-center justify-between max-w-7xl pt-1 sm:pt-0">
-        {/* Sleek Cyan-Gold Eye Toggle Button */}
-        <button
-          onClick={() => setShowFullRoster(!showFullRoster)}
-          title={showFullRoster ? "Restore Codex Focus" : "View 133 Heroes Static Roster"}
-          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 border cursor-pointer backdrop-blur-xl shadow-lg group ${
-            showFullRoster
-              ? 'bg-cyan-500/25 border-cyan-400 text-cyan-200 shadow-[0_0_25px_rgba(6,182,212,0.7)]'
-              : 'bg-slate-950/70 border-cyan-500/40 hover:border-cyan-300 text-cyan-300 hover:text-white shadow-[0_0_15px_rgba(6,182,212,0.25)]'
-          }`}
-          aria-label="Toggle 133 Heroes View"
-        >
-          {showFullRoster ? (
-            <EyeOff className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-300 group-hover:scale-115 transition-transform" />
-          ) : (
-            <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 group-hover:scale-115 transition-transform" />
-          )}
-        </button>
+      {/* 3. Top Header: Positioned as Fixed Absolute Overlay */}
+      <header className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-6 sm:px-10 py-6 sm:py-8 max-w-7xl mx-auto pointer-events-none">
+        {/* Left Utility Controls: Sound + Roster Mode Switcher */}
+        <div className="pointer-events-auto flex items-center gap-3">
+          <button
+            onClick={handleToggleSound}
+            title={isMuted ? 'Enable Audio' : 'Mute Audio'}
+            className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border cursor-pointer ${
+              !isMuted
+                ? 'bg-amber-500/15 border-amber-400/60 text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.3)]'
+                : 'bg-black/40 border-white/10 hover:border-white/30 text-zinc-400 hover:text-white'
+            }`}
+            aria-label="Toggle Sound"
+          >
+            {!isMuted ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+          </button>
 
-        {/* Fancy Skip CTA */}
-        <button
-          onClick={handleEnter}
-          className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full font-serif text-[11px] sm:text-xs tracking-[0.16em] sm:tracking-[0.2em] uppercase text-zinc-300 hover:text-cyan-300 border border-slate-700/80 hover:border-cyan-400/80 bg-slate-950/70 backdrop-blur-md transition-all duration-300 cursor-pointer shadow-lg group"
-        >
-          <span>SKIP</span>
-          <span className="text-[9px] sm:text-[10px] text-cyan-400 font-mono tracking-normal bg-cyan-500/15 px-1 sm:px-1.5 py-0.5 rounded border border-cyan-500/35">
-            ESC
-          </span>
-        </button>
-      </div>
+          {/* Roster View Switcher */}
+          <button
+            onClick={() => setShowFullRoster(!showFullRoster)}
+            title={showFullRoster ? "Back to Heroes Lineup" : "Inspect All 133 Heroes Roster"}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-300 cursor-pointer backdrop-blur-sm ${
+              showFullRoster
+                ? 'bg-amber-500/20 border-amber-400 text-amber-200'
+                : 'border-white/10 hover:border-amber-400/50 bg-black/40 hover:bg-black/60 text-zinc-300 hover:text-amber-200'
+            }`}
+            aria-label="Toggle 133 Heroes View"
+          >
+            {showFullRoster ? <EyeOff className="w-3.5 h-3.5 text-amber-400" /> : <Eye className="w-3.5 h-3.5 text-amber-400" />}
+            <span className="hidden sm:inline-block font-mono text-[10px] tracking-wider uppercase">
+              {showFullRoster ? 'HEROES LINEUP' : '133 HEROES ROSTER'}
+            </span>
+          </button>
+        </div>
 
-      {/* 4. Center Stage: Official Logo & WOW-Level Mythological Controls */}
-      <div
-        ref={cardRef}
-        className={`relative z-20 flex flex-col items-center text-center px-2 xs:px-4 max-w-3xl my-auto transition-opacity duration-500 w-full will-change-transform ${
-          showFullRoster ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}
-        style={{
-          transition: 'opacity 0.5s ease',
-        }}
-      >
-        {/* Official Game Logo with Radiant Twilight Aura (Cyan & Solar Gold) */}
-        <div className="relative mb-2 sm:mb-3.5 flex flex-col items-center group">
-          <div className="absolute -inset-10 sm:-inset-14 bg-gradient-to-r from-cyan-500/30 via-amber-400/35 to-indigo-500/30 rounded-full blur-2xl sm:blur-3xl opacity-80 pointer-events-none animate-pulse" />
-          
+        {/* Center Minimalist Brand Indicator */}
+        <div className="text-[10px] font-mono tracking-[0.25em] uppercase text-zinc-300 hidden md:block">
+          SANCTUM ISLAND // OFFICIAL HEROES
+        </div>
+
+        {/* Right Action: Clean Skip */}
+        <div className="pointer-events-auto">
+          <button
+            onClick={handleEnter}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full font-serif text-[11px] tracking-[0.18em] uppercase text-zinc-300 hover:text-amber-300 border border-white/10 hover:border-amber-500/40 bg-black/40 backdrop-blur-sm transition-all duration-300 cursor-pointer"
+          >
+            <span>SKIP</span>
+            <span className="text-[9px] text-zinc-400 font-mono tracking-normal bg-white/5 px-1 py-0.2 rounded border border-white/10">
+              ESC
+            </span>
+          </button>
+        </div>
+      </header>
+
+      {/* 4. Center Stage: Exact 100% Dead Center Positioning */}
+      <main className={`relative z-20 flex flex-col items-center justify-center text-center px-4 max-w-xl mx-auto w-full my-auto pointer-events-auto transition-opacity duration-500 ${showFullRoster ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        {/* Official MLBB Logo in Clean Form with Soft Bloom */}
+        <div className="relative mb-3 flex flex-col items-center">
           <img
             src="/assets/images/mlbb_official_logo.png"
             alt="Mobile Legends: Bang Bang"
-            className="w-48 xs:w-60 sm:w-72 md:w-88 lg:w-[420px] max-w-[85vw] h-auto object-contain filter drop-shadow-[0_0_30px_rgba(56,189,248,0.65)] drop-shadow-[0_0_55px_rgba(245,158,11,0.45)] group-hover:scale-103 transition-transform duration-500 relative z-10"
+            className="w-44 sm:w-56 md:w-64 h-auto object-contain filter drop-shadow-[0_4px_28px_rgba(0,0,0,0.95)] opacity-95"
           />
         </div>
 
-        {/* WOW-Level 3D Chiseled Metallic Twilight Typography */}
-        <div className="flex flex-col items-center mb-3.5 sm:mb-5 w-full">
-          {/* Ethereal Super-title in Celestial Cyan */}
-          <div className="flex items-center gap-2 sm:gap-2.5 mb-0.5 sm:mb-1">
-            <span className="w-5 sm:w-10 h-[1px] bg-gradient-to-r from-transparent to-cyan-400/80" />
-            <span className="font-serif text-[9px] xs:text-[10px] sm:text-xs tracking-[0.35em] sm:tracking-[0.55em] uppercase text-cyan-400 font-bold drop-shadow-[0_0_10px_rgba(56,189,248,0.7)]">
-              CHRONICLES OF
-            </span>
-            <span className="w-5 sm:w-10 h-[1px] bg-gradient-to-l from-transparent to-cyan-400/80" />
-          </div>
-
-          {/* Imperial Classical Title for Land of Dawn */}
-          <div className="relative my-0.5 sm:my-1.5 flex items-center justify-center">
-            {/* Subtle Ethereal Ambient Aura */}
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-sky-400/20 to-amber-400/10 rounded-full pointer-events-none blur-lg" />
-            
-            <h1 className="relative z-10 text-land-of-dawn whitespace-nowrap text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[40px] font-bold uppercase my-0.5 sm:my-1 select-none leading-none">
-              LAND OF DAWN
-            </h1>
-          </div>
-
-          {/* Regal Runic Ornament Line with Cyan & Gold Stars */}
-          <div className="flex items-center justify-center gap-2 sm:gap-3 mt-0.5 sm:mt-1">
-            <span className="w-8 sm:w-14 h-[1px] sm:h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/80 to-amber-300" />
-            <span className="flex items-center gap-1.5 text-[10px] sm:text-xs">
-              <span className="text-cyan-400 drop-shadow-[0_0_8px_#38bdf8]">✦</span>
-              <span className="text-zinc-300">⚔</span>
-              <span className="text-amber-400 drop-shadow-[0_0_8px_#f59e0b]">✦</span>
-            </span>
-            <span className="w-8 sm:w-14 h-[1px] sm:h-[1.5px] bg-gradient-to-l from-transparent via-cyan-400/80 to-amber-300" />
-          </div>
+        {/* Editorial Subtitle */}
+        <div className="flex flex-col items-center mb-5">
+          <span className="font-serif text-[9px] sm:text-[10px] tracking-[0.45em] uppercase text-amber-400/90 font-medium mb-1">
+            CHRONICLES OF
+          </span>
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl tracking-[0.22em] text-zinc-100 font-normal uppercase select-none">
+            LAND OF DAWN
+          </h1>
+          <span className="w-12 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent mt-2.5" />
         </div>
 
-        {/* Luxury Twilight Arcane Progress Rail */}
-        <div className="w-full max-w-[240px] xs:max-w-[280px] sm:max-w-xs md:max-w-sm lg:max-w-md flex flex-col items-center mb-4 sm:mb-6">
-          <div className="relative w-full h-2 sm:h-2.5 bg-[#030712]/90 rounded-full overflow-hidden p-[2px] border border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+        {/* Ultra-Minimalist Hairline Progress Bar */}
+        <div className="w-full max-w-xs sm:max-w-sm flex flex-col items-center mb-5">
+          {/* 1.5px Hairline Rail */}
+          <div className="relative w-full h-[1.5px] bg-white/15 rounded-full overflow-hidden">
             <div
               ref={barRef}
-              className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-amber-400 rounded-full relative shadow-[0_0_16px_rgba(56,189,248,0.7)] will-change-[width]"
+              className="h-full bg-gradient-to-r from-amber-500 via-yellow-200 to-amber-400 rounded-full will-change-[width] shadow-[0_0_10px_rgba(234,179,8,0.7)]"
               style={{ width: '0%' }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[shimmer_1.4s_infinite]" />
-            </div>
+            />
           </div>
 
-          {/* Fancy Stage Label & Dynamic Percentage */}
-          <div className="flex justify-between items-center w-full mt-2 px-0.5 gap-2">
-            <span className="font-serif text-[10px] xs:text-[11px] sm:text-xs text-cyan-200 tracking-[0.16em] sm:tracking-[0.22em] uppercase font-bold flex items-center gap-1.5 drop-shadow truncate max-w-[70%]">
-              <Zap className="w-3 h-3 text-cyan-400 animate-pulse flex-shrink-0" />
-              <span className="truncate">{currentStage.label}</span>
+          {/* Understated Stage Label & Percentage Readout */}
+          <div className="flex justify-between items-center w-full mt-2 px-0.5 text-zinc-400 font-mono text-[10px] sm:text-[11px] tracking-wider">
+            <span className="uppercase tracking-[0.16em] text-zinc-300 font-sans font-medium">
+              {currentStep.label}
             </span>
-            <span className="font-display text-base sm:text-lg md:text-xl text-cyan-300 tracking-wider text-wow-gold font-bold flex-shrink-0 drop-shadow-[0_0_12px_rgba(56,189,248,0.7)]">
+            <span className="text-amber-400 font-mono font-medium drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]">
               {progress}%
             </span>
           </div>
         </div>
 
-        {/* 5. Sleek Refined CTA Button with Rotating 50-50 Dual-Color Border */}
-        <div className="min-h-[46px] sm:min-h-[52px] flex items-center justify-center">
+        {/* 5. Minimalist CTA Button */}
+        <div className="min-h-[44px] flex items-center justify-center">
           {isReady ? (
             <button
               onClick={handleEnter}
-              className="relative inline-flex items-center justify-center p-[2px] rounded-full overflow-hidden cursor-pointer group hover:scale-103 transition-transform duration-300 shadow-[0_0_25px_rgba(0,0,0,0.9)]"
+              className="group inline-flex items-center gap-2.5 px-7 py-2.5 rounded-full border border-amber-500/50 hover:border-amber-400 bg-black/60 hover:bg-black/90 text-amber-200 hover:text-white font-serif text-xs tracking-[0.22em] uppercase transition-all duration-300 shadow-[0_0_20px_rgba(217,119,6,0.25)] hover:shadow-[0_0_30px_rgba(217,119,6,0.45)] cursor-pointer"
             >
-              {/* Rotating 50-50 Dual-Color Border Line (50% Cyan, 50% Gold) */}
-              <div className="border-50-50-rotating" />
-
-              {/* Static Solid Button Plate (No background color animation) */}
-              <div className="relative z-1 flex items-center gap-2 sm:gap-2.5 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-[#060b14] hover:bg-[#0b1326] transition-colors">
-                <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 drop-shadow-[0_0_8px_#38bdf8] group-hover:scale-110 transition-transform" />
-                <span className="font-serif text-[11px] xs:text-xs sm:text-sm tracking-[0.18em] sm:tracking-[0.22em] uppercase text-zinc-100 group-hover:text-white font-bold drop-shadow-[0_1px_8px_rgba(0,0,0,0.95)]">
-                  ENTER THE BATTLEFIELD
-                </span>
-                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 drop-shadow-[0_0_8px_#f59e0b] group-hover:translate-x-1 transition-transform" />
-              </div>
+              <Shield className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
+              <span>ENTER THE BATTLEFIELD</span>
+              <ArrowRight className="w-3.5 h-3.5 text-amber-400 group-hover:translate-x-1 transition-transform" />
             </button>
           ) : (
-            <button
-              onClick={handleEnter}
-              className="group inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-cyan-500/40 bg-slate-950/70 backdrop-blur-md hover:border-cyan-300 text-cyan-300 hover:text-white transition-all duration-300 cursor-pointer shadow-[0_0_15px_rgba(6,182,212,0.25)]"
-            >
-              <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-cyan-500" />
-              </span>
-              <span className="font-serif text-[10px] xs:text-[11px] tracking-[0.16em] sm:tracking-[0.22em] uppercase text-cyan-200 group-hover:text-white">
-                AWAKENING REALM... <span className="text-[9px] sm:text-[10px] text-zinc-400 font-mono">[CLICK TO SKIP]</span>
-              </span>
-            </button>
+            <div className="inline-flex items-center gap-2 text-zinc-300 font-serif text-[10px] tracking-[0.2em] uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400/80 animate-pulse" />
+              <span>INITIALIZING...</span>
+            </div>
           )}
         </div>
-      </div>
+      </main>
 
-      {/* Invisible bottom spacer to balance top controls and maintain 100% vertical centering */}
-      <div className="relative z-20 w-full h-9 sm:h-10 opacity-0 pointer-events-none select-none" />
+      {/* 6. Minimalist Footer: Positioned as Fixed Absolute Overlay */}
+      <footer className="absolute bottom-0 left-0 right-0 z-30 flex items-center justify-between px-6 sm:px-10 py-6 text-[10px] font-mono text-zinc-400 max-w-7xl mx-auto pointer-events-none">
+        <span className="tracking-wider text-zinc-300">133 LEGENDS ASSEMBLED</span>
+        <span className="hidden sm:inline-block tracking-wider text-zinc-400">
+          8K SANCTUM ISLAND ARENA
+        </span>
+        <span className="tracking-wider text-right text-zinc-300">SECURE PROTOCOL</span>
+      </footer>
     </div>
   );
 }
