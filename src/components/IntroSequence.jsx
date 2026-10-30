@@ -10,7 +10,6 @@ const LOADING_STEPS = [
 ];
 
 export default function IntroSequence({ onComplete }) {
-  const [progress, setProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
   const [showFullRoster, setShowFullRoster] = useState(false);
@@ -18,6 +17,8 @@ export default function IntroSequence({ onComplete }) {
 
   const canvasRef = useRef(null);
   const barRef = useRef(null);
+  const percentRef = useRef(null);
+  const stepLabelRef = useRef(null);
   const bgImageRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
   const hasTriggeredAwakening = useRef(false);
@@ -169,8 +170,9 @@ export default function IntroSequence({ onComplete }) {
 
       ctx.restore();
 
-      // 3. Living Battlefield Embers with Glowing Halos
-      embers.forEach((p) => {
+      // 3. Living Battlefield Embers with Glowing Halos (High-performance multi-tier arcs, 0 shadowBlur overhead)
+      for (let i = 0; i < embers.length; i++) {
+        const p = embers[i];
         p.y += p.speedY;
         p.x += Math.sin(time * p.swaySpeed + p.swayOffset) * p.swayAmp;
 
@@ -179,16 +181,21 @@ export default function IntroSequence({ onComplete }) {
           p.x = Math.random() * w;
         }
 
-        ctx.save();
+        // Soft outer ambient halo
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = p.hue;
+        ctx.globalAlpha = p.alpha * 0.25;
+        ctx.fill();
+
+        // Bright luminous core
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.hue;
-        ctx.globalAlpha = p.alpha;
-        ctx.shadowColor = p.hue;
-        ctx.shadowBlur = 6;
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = p.alpha * 0.85;
         ctx.fill();
-        ctx.restore();
-      });
+      }
+      ctx.globalAlpha = 1.0;
 
       animId = requestAnimationFrame(render);
     };
@@ -203,37 +210,56 @@ export default function IntroSequence({ onComplete }) {
     };
   }, [showFullRoster]);
 
-  // Smooth Loading Progression
+  // Buttery-Smooth 60/120FPS Hardware-Accelerated Progression
   useEffect(() => {
     let animId;
     let startTime = null;
     const duration = 2400; // 2.4s calm, refined progression
-    let lastInt = 0;
+    let lastInt = -1;
+    let currentStepLabel = LOADING_STEPS[0].label;
 
     const animate = (timestamp) => {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
       const t = Math.min(elapsed / duration, 1);
 
-      // Smooth easeInOutCubic
-      const p = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-      const pct = Math.min(100, p * 100);
+      // Ken Perlin's Smootherstep (6t^5 - 15t^4 + 10t^3)
+      // Zero 1st & 2nd derivatives at both ends: pure liquid gold continuity
+      const p = 6 * Math.pow(t, 5) - 15 * Math.pow(t, 4) + 10 * Math.pow(t, 3);
+      const clampedP = Math.max(0, Math.min(1, p));
 
+      // Direct GPU compositor transform (zero layout reflow)
       if (barRef.current) {
-        barRef.current.style.width = `${pct}%`;
+        barRef.current.style.transform = `scaleX(${clampedP})`;
       }
 
-      const currentInt = Math.floor(pct);
+      const currentInt = Math.min(100, Math.floor(clampedP * 100));
       if (currentInt !== lastInt) {
         lastInt = currentInt;
-        setProgress(currentInt);
+        if (percentRef.current) {
+          percentRef.current.textContent = `${currentInt}%`;
+        }
+
+        const step =
+          LOADING_STEPS.find((s) => currentInt <= s.threshold) ||
+          LOADING_STEPS[LOADING_STEPS.length - 1];
+
+        if (step.label !== currentStepLabel) {
+          currentStepLabel = step.label;
+          if (stepLabelRef.current) {
+            stepLabelRef.current.textContent = step.label;
+          }
+        }
       }
 
       if (t < 1) {
         animId = requestAnimationFrame(animate);
       } else {
-        if (barRef.current) barRef.current.style.width = '100%';
-        setProgress(100);
+        if (barRef.current) barRef.current.style.transform = 'scaleX(1)';
+        if (percentRef.current) percentRef.current.textContent = '100%';
+        if (stepLabelRef.current) {
+          stepLabelRef.current.textContent = LOADING_STEPS[LOADING_STEPS.length - 1].label;
+        }
         setIsReady(true);
         if (!hasTriggeredAwakening.current) {
           hasTriggeredAwakening.current = true;
@@ -259,10 +285,6 @@ export default function IntroSequence({ onComplete }) {
       onComplete();
     }, 450);
   };
-
-  const currentStep =
-    LOADING_STEPS.find((step) => progress <= step.threshold) ||
-    LOADING_STEPS[LOADING_STEPS.length - 1];
 
   return (
     <div
@@ -403,24 +425,30 @@ export default function IntroSequence({ onComplete }) {
           <span className="w-12 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent mt-2.5" />
         </div>
 
-        {/* Ultra-Minimalist Hairline Progress Bar */}
+        {/* Ultra-Minimalist Hairline Progress Bar (60/120FPS GPU Accelerated) */}
         <div className="w-full max-w-xs sm:max-w-sm flex flex-col items-center mb-5">
-          {/* 1.5px Hairline Rail */}
-          <div className="relative w-full h-[1.5px] bg-white/15 rounded-full overflow-hidden">
+          {/* 2px Precision Hairline Rail */}
+          <div className="relative w-full h-[2px] bg-white/15 rounded-full overflow-hidden backdrop-blur-xs">
             <div
               ref={barRef}
-              className="h-full bg-gradient-to-r from-amber-500 via-yellow-200 to-amber-400 rounded-full will-change-[width] shadow-[0_0_10px_rgba(234,179,8,0.7)]"
-              style={{ width: '0%' }}
+              className="h-full w-full bg-gradient-to-r from-amber-500 via-yellow-200 to-amber-300 rounded-full will-change-transform shadow-[0_0_12px_rgba(234,179,8,0.85)] origin-left"
+              style={{ transform: 'scaleX(0)' }}
             />
           </div>
 
           {/* Understated Stage Label & Percentage Readout */}
           <div className="flex justify-between items-center w-full mt-2 px-0.5 text-zinc-400 font-mono text-[10px] sm:text-[11px] tracking-wider">
-            <span className="uppercase tracking-[0.16em] text-zinc-300 font-sans font-medium">
-              {currentStep.label}
+            <span
+              ref={stepLabelRef}
+              className="uppercase tracking-[0.16em] text-zinc-300 font-sans font-medium"
+            >
+              {LOADING_STEPS[0].label}
             </span>
-            <span className="text-amber-400 font-mono font-medium drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]">
-              {progress}%
+            <span
+              ref={percentRef}
+              className="text-amber-400 font-mono font-medium drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]"
+            >
+              0%
             </span>
           </div>
         </div>
