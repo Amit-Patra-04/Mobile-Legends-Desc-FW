@@ -10,22 +10,22 @@ export default function FinalCTA() {
   };
 
   return (
-    <section className="relative w-full py-28 bg-[#030509] overflow-hidden">
+    <section className="relative w-full py-28 bg-gradient-to-b from-[#070b16] via-[#0c152c] to-[#060a14] overflow-hidden">
       {/* Background Cinematic Key Visual */}
       <div className="absolute inset-0 z-0">
         <img
           src="/assets/images/clash_keyart.jpg"
           alt="MLBB Battlefield Clash"
-          className="w-full h-full object-cover object-center filter brightness-50"
+          className="w-full h-full object-cover object-center filter brightness-60 contrast-110"
         />
         {/* Cinematic atmospheric overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030509] via-[#030509]/60 to-[#030509]/80" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(234,179,8,0.15)_0%,transparent_75%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060a14] via-[#091124]/70 to-[#070b16]/90" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.22)_0%,transparent_75%)]" />
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center space-y-8">
         {/* Top Monogram */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-white/[0.1] backdrop-blur-xl text-[10px] font-mono tracking-[0.3em] text-[#f3d288] uppercase">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/80 backdrop-blur-xl text-[10px] font-mono tracking-[0.3em] text-[#f3d288] uppercase shadow-lg">
           <Sparkles className="w-3.5 h-3.5 text-[#f3d288]" />
           <span>[ 07 // ZENITH ] • JOIN THE CHRONICLE</span>
         </div>

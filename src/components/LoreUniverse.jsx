@@ -15,11 +15,15 @@ export default function LoreUniverse({ onSelectHeroByName }) {
   };
 
   return (
-    <section id="lore" className="relative w-full py-28 bg-[#04060b] text-white overflow-hidden">
+    <section id="lore" className="relative w-full py-28 bg-gradient-to-b from-[#080d1b] via-[#0b142c] to-[#080e1e] text-white overflow-hidden">
       {/* Monumental Watermark Typography */}
       <div className="absolute top-12 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(5rem,15vw,16rem)] tracking-[0.12em] opacity-40 select-none pointer-events-none whitespace-nowrap z-0">
         TERRITORIES
       </div>
+
+      {/* Atmospheric Ambient Glows */}
+      <div className="absolute top-1/3 -left-20 w-[36rem] h-[36rem] bg-amber-400/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/3 -right-20 w-[36rem] h-[36rem] bg-cyan-400/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
@@ -41,7 +45,7 @@ export default function LoreUniverse({ onSelectHeroByName }) {
             </p>
           </div>
 
-          <div className="font-mono text-[11px] text-[#94a3b8] flex items-center gap-2.5 bg-black/50 px-4 py-2.5 rounded-full border border-white/[0.08] backdrop-blur-xl">
+          <div className="font-mono text-[11px] text-[#94a3b8] flex items-center gap-2.5 bg-slate-900/80 px-4 py-2.5 rounded-full border border-slate-700/80 backdrop-blur-xl shadow-md">
             <Compass className="w-3.5 h-3.5 text-[#f3d288]" />
             <span className="tracking-widest uppercase">REALMS // 06 SOVEREIGN TERRITORIES</span>
           </div>
@@ -51,7 +55,7 @@ export default function LoreUniverse({ onSelectHeroByName }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
           
           {/* Left Column: Interactive Map Graphic with Haute Architectural Reticle Pins */}
-          <div className="lg:col-span-7 relative rounded-3xl overflow-hidden card-awwwards crosshairs-container border border-white/[0.08] shadow-2xl aspect-[16/10] bg-[#070b14] group">
+          <div className="lg:col-span-7 relative rounded-3xl overflow-hidden card-awwwards crosshairs-container border border-slate-700/80 shadow-2xl aspect-[16/10] bg-gradient-to-b from-[#0d1730] to-[#080e1e] group">
             <div className="crosshair-tl" />
             <div className="crosshair-tr" />
             <div className="crosshair-bl" />
@@ -65,7 +69,7 @@ export default function LoreUniverse({ onSelectHeroByName }) {
             />
 
             {/* Dark Vignette Overlay */}
-            <div className="absolute inset-0 bg-radial from-transparent via-[#030509]/30 to-[#030509]/80 pointer-events-none" />
+            <div className="absolute inset-0 bg-radial from-transparent via-[#080e1e]/20 to-[#080e1e]/70 pointer-events-none" />
 
             {/* Expand Map to Fullscreen Lightbox Button */}
             <button
@@ -73,7 +77,7 @@ export default function LoreUniverse({ onSelectHeroByName }) {
                 audioManager.playClick();
                 setIsMapLightboxOpen(true);
               }}
-              className="absolute top-4 right-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 hover:bg-black border border-white/20 text-xs font-mono text-zinc-200 hover:text-[#f3d288] backdrop-blur-xl transition-all cursor-pointer shadow-lg"
+              className="absolute top-4 right-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-zinc-200 hover:text-[#f3d288] backdrop-blur-xl transition-all cursor-pointer shadow-lg"
               title="Inspect full uncropped map in high resolution"
             >
               <Maximize2 className="w-3.5 h-3.5" />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Lenis from 'lenis';
 import CustomCursor from './components/CustomCursor';
 import GlowCursor from './components/GlowCursor';
@@ -70,11 +70,11 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const handleOpenDetail = (hero) => {
+  const handleOpenDetail = useCallback((hero) => {
     setSelectedHeroForDetail(hero);
-  };
+  }, []);
 
-  const handleOpenChamber = (hero) => {
+  const handleOpenChamber = useCallback((hero) => {
     setChamberHeroId(hero.id);
     const chamberEl = document.querySelector('#chamber');
     if (chamberEl) {
@@ -84,9 +84,9 @@ export default function App() {
         chamberEl.scrollIntoView({ behavior: 'smooth' });
       }
     }
-  };
+  }, []);
 
-  const handleSelectSkillHero = (hero) => {
+  const handleSelectSkillHero = useCallback((hero) => {
     setSkillHeroId(hero.id);
     const skillsEl = document.querySelector('#skills-lab');
     if (skillsEl) {
@@ -96,28 +96,37 @@ export default function App() {
         skillsEl.scrollIntoView({ behavior: 'smooth' });
       }
     }
-  };
+  }, []);
 
-  const handleAddToCompare = (hero) => {
+  const handleAddToCompare = useCallback((hero) => {
     setCompareInitialHero(hero);
     setCompareModalOpen(true);
-  };
+  }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#030509] text-white selection:bg-amber-500/30 selection:text-amber-200">
+    <div className="relative min-h-screen portal-universe-bg text-white selection:bg-amber-500/30 selection:text-amber-200">
+      {/* Subtle Architectural Celestial Mesh Texture Overlay */}
+      <div className="fixed inset-0 bg-celestial-mesh opacity-30 pointer-events-none z-0" />
+
+      {/* Radiant Global Ambient Horizon Glow Nodes */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-amber-500/[0.05] rounded-full blur-[160px] pointer-events-none z-0" />
+      <div className="fixed top-1/3 -left-40 w-[600px] h-[600px] bg-cyan-500/[0.04] rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="fixed top-2/3 -right-40 w-[600px] h-[600px] bg-indigo-500/[0.04] rounded-full blur-[140px] pointer-events-none z-0" />
+
       {/* Cinematic Film Grain Overlay */}
       <div className="film-grain" />
 
-      {/* WebGL2 Fluid Glow Cursor Animation (MLBB Signature Theme) */}
+      {/* WebGL2 Fluid Glow Cursor Animation (MLBB Signature Theme - Optimized Lightweight Grid) */}
       <div className="fixed inset-0 pointer-events-none z-[9990] overflow-hidden">
         <GlowCursor
           color="#ffb800"
           secondaryColor="#f97316"
-          intensity={1.2}
-          trailWidth={2.8}
-          linger={0.6}
-          glow={1.0}
-          hotspot={0.8}
+          intensity={1.0}
+          trailWidth={2.4}
+          linger={0.45}
+          glow={0.8}
+          hotspot={0.7}
+          quality="low"
           maxDevicePixelRatio={1}
           clickBurst
           theme="dark"
@@ -134,7 +143,7 @@ export default function App() {
       )}
 
       {/* Main Experience Layout */}
-      <div className={`transition-opacity duration-1000 ${introCompleted ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`relative z-10 transition-opacity duration-1000 ${introCompleted ? 'opacity-100' : 'opacity-0'}`}>
         
         {/* Navigation Bar */}
         <Navbar

@@ -251,12 +251,12 @@ void main() {
 }`;
 
 const QUALITY = {
-  low: { sim: 96, dye: 384 },
-  medium: { sim: 128, dye: 576 },
-  high: { sim: 160, dye: 768 }
+  low: { sim: 96, dye: 384, steps: 8 },
+  medium: { sim: 128, dye: 576, steps: 12 },
+  high: { sim: 160, dye: 768, steps: 16 }
 };
 
-const PRESSURE_STEPS = 20;
+const PRESSURE_STEPS = 10;
 const FLOW = 0.75;
 const BLOOM_LEVELS = 5;
 
@@ -346,6 +346,7 @@ const GlowCursor = ({
       depth: false,
       stencil: false
     });
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return undefined;
     if (!container || !canvas || !gl || !gl.getExtension('EXT_color_buffer_float')) return undefined;
 
     const vertexShader = compile(gl, gl.VERTEX_SHADER, VERTEX);
@@ -703,7 +704,8 @@ const GlowCursor = ({
 
         u = use(passes.pressure, pressure.read.texel);
         gl.uniform1i(u.uDivergence, bind(1, divergence));
-        for (let i = 0; i < PRESSURE_STEPS; i++) {
+        const steps = QUALITY[s.quality]?.steps || 8;
+        for (let i = 0; i < steps; i++) {
           gl.uniform1i(u.uPressure, bind(0, pressure.read));
           draw(pressure.write);
           pressure.swap();

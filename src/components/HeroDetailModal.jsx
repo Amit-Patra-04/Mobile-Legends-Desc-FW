@@ -40,7 +40,7 @@ export default function HeroDetailModal({ hero, onClose, onSelectHero, onOpenCha
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-black/90 backdrop-blur-2xl animate-fadeIn">
       
       {/* Modal Dialog Window */}
-      <div className="relative w-full max-w-5xl rounded-3xl overflow-hidden glass-panel border border-zinc-800 shadow-[0_30px_90px_rgba(0,0,0,0.98)] max-h-[94vh] flex flex-col my-auto bg-[#070b14]">
+      <div className="relative w-full max-w-5xl rounded-3xl overflow-hidden glass-panel border border-slate-700/80 shadow-[0_30px_90px_rgba(2,6,23,0.98)] max-h-[94vh] flex flex-col my-auto bg-gradient-to-b from-[#0c152c] via-[#090f22] to-[#070c18]">
         
         {/* Top Floating Close Button */}
         <button
@@ -48,14 +48,14 @@ export default function HeroDetailModal({ hero, onClose, onSelectHero, onOpenCha
             audioManager.playClick();
             onClose();
           }}
-          className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/80 hover:bg-zinc-800 border border-zinc-700/80 text-zinc-300 hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-xl"
+          className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-zinc-300 hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-xl"
           title="Close Chronicle (Esc)"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Hero Showcase Header: Dedicated Dual-Column Display (Zero Image Obstruction) */}
-        <div className="relative border-b border-zinc-800/80 bg-gradient-to-b from-zinc-950 via-zinc-950/80 to-[#070b14] p-5 sm:p-6 md:p-8 flex-shrink-0">
+        <div className="relative border-b border-slate-800/80 bg-gradient-to-b from-slate-900 via-slate-900/80 to-[#0c152c] p-5 sm:p-6 md:p-8 flex-shrink-0">
           
           {/* Ambient Lighting Glow */}
           <div

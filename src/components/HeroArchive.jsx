@@ -78,15 +78,15 @@ export default function HeroArchive({
   };
 
   return (
-    <section id="heroes" className="relative w-full py-28 bg-[#04060b] text-white overflow-hidden">
+    <section id="heroes" className="relative w-full py-28 bg-gradient-to-b from-[#080d1a] via-[#0c142a] to-[#080e1e] text-white overflow-hidden">
       {/* Monumental Watermark Typography */}
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(5rem,15vw,16rem)] tracking-[0.12em] opacity-30 select-none pointer-events-none whitespace-nowrap z-0">
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(5rem,15vw,16rem)] tracking-[0.12em] opacity-40 select-none pointer-events-none whitespace-nowrap z-0">
         CHAMPIONS
       </div>
 
       {/* Atmospheric Ambient Glows */}
-      <div className="absolute top-1/4 left-0 w-[28rem] h-[28rem] bg-[#f3d288]/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-[28rem] h-[28rem] bg-[#38bdf8]/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 -left-20 w-[36rem] h-[36rem] bg-amber-400/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-20 w-[36rem] h-[36rem] bg-cyan-400/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
@@ -110,7 +110,7 @@ export default function HeroArchive({
         </div>
 
         {/* Filter Controls Bar with Haute Corner Crosshairs */}
-        <div className="card-awwwards crosshairs-container p-6 rounded-2xl border border-white/[0.08] shadow-2xl space-y-5 mb-12 bg-[#060914]/90">
+        <div className="card-awwwards crosshairs-container p-6 rounded-2xl border border-slate-700/70 shadow-[0_20px_50px_rgba(0,0,0,0.65)] space-y-5 mb-12 bg-gradient-to-br from-slate-900/90 via-[#0e1832]/95 to-slate-900/90">
           <div className="crosshair-tl" />
           <div className="crosshair-tr" />
           <div className="crosshair-bl" />
@@ -127,7 +127,7 @@ export default function HeroArchive({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by hero name, faction, title..."
-                className="w-full bg-zinc-900/90 border border-zinc-700/80 focus:border-amber-500 rounded-xl pl-10 pr-4 py-2.5 text-xs font-mono text-zinc-200 placeholder:text-zinc-500 outline-none transition-all"
+                className="w-full bg-slate-950/70 border border-slate-700/80 focus:border-amber-400 rounded-xl pl-10 pr-4 py-2.5 text-xs font-mono text-zinc-200 placeholder:text-zinc-500 outline-none transition-all shadow-inner"
               />
               {searchQuery && (
                 <button
@@ -141,7 +141,7 @@ export default function HeroArchive({
 
             {/* Sorting Dropdown & Reset */}
             <div className="flex items-center gap-3 w-full md:w-auto justify-end">
-              <div className="flex items-center gap-2 bg-zinc-900/90 border border-zinc-700/80 rounded-xl px-3 py-2">
+              <div className="flex items-center gap-2 bg-slate-950/70 border border-slate-700/80 rounded-xl px-3 py-2 shadow-inner">
                 <SlidersHorizontal className="w-3.5 h-3.5 text-amber-400" />
                 <span className="text-[11px] font-mono text-zinc-400">SORT:</span>
                 <select
@@ -149,18 +149,18 @@ export default function HeroArchive({
                   onChange={(e) => setSortBy(e.target.value)}
                   className="bg-transparent text-xs font-mono text-zinc-200 outline-none cursor-pointer"
                 >
-                  <option value="default" className="bg-zinc-900">Default (Featured)</option>
-                  <option value="winrate" className="bg-zinc-900">Highest Win Rate</option>
-                  <option value="diff-desc" className="bg-zinc-900">Difficulty (Hard first)</option>
-                  <option value="diff-asc" className="bg-zinc-900">Difficulty (Easy first)</option>
-                  <option value="name" className="bg-zinc-900">Alphabetical (A-Z)</option>
+                  <option value="default" className="bg-slate-900 text-white">Default (Featured)</option>
+                  <option value="winrate" className="bg-slate-900 text-white">Highest Win Rate</option>
+                  <option value="diff-desc" className="bg-slate-900 text-white">Difficulty (Hard first)</option>
+                  <option value="diff-asc" className="bg-slate-900 text-white">Difficulty (Easy first)</option>
+                  <option value="name" className="bg-slate-900 text-white">Alphabetical (A-Z)</option>
                 </select>
               </div>
 
               {(searchQuery || selectedRole !== 'ALL' || selectedLane !== 'ALL' || selectedDifficulty !== 'ALL' || sortBy !== 'default') && (
                 <button
                   onClick={resetFilters}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-zinc-300 hover:text-white transition-all cursor-pointer shadow-sm"
                   title="Reset all filters"
                 >
                   <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
@@ -171,7 +171,7 @@ export default function HeroArchive({
           </div>
 
           {/* Role Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-zinc-800/80">
+          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800/80">
             <span className="text-[10px] font-mono tracking-widest text-zinc-500 mr-2 uppercase">
               ROLE:
             </span>
@@ -185,7 +185,7 @@ export default function HeroArchive({
                 className={`px-3 py-1 rounded-full text-xs font-mono tracking-wider transition-all duration-200 cursor-pointer ${
                   selectedRole === r
                     ? 'bg-[#f3d288] text-black font-semibold shadow-[0_0_15px_rgba(243,210,136,0.35)]'
-                    : 'bg-black/40 hover:bg-white/[0.06] text-[#94a3b8] hover:text-white border border-white/[0.06]'
+                    : 'bg-slate-950/60 hover:bg-slate-800/80 text-[#94a3b8] hover:text-white border border-slate-800'
                 }`}
               >
                 {r}
@@ -208,7 +208,7 @@ export default function HeroArchive({
                 className={`px-3 py-1 rounded-full text-[11px] font-mono tracking-wider transition-all duration-200 cursor-pointer ${
                   selectedLane === lane
                     ? 'bg-[#38bdf8] text-black font-semibold shadow-[0_0_15px_rgba(56,189,248,0.35)]'
-                    : 'bg-black/40 hover:bg-white/[0.06] text-[#94a3b8] hover:text-white border border-white/[0.06]'
+                    : 'bg-slate-950/60 hover:bg-slate-800/80 text-[#94a3b8] hover:text-white border border-slate-800'
                 }`}
               >
                 {lane}
@@ -234,7 +234,7 @@ export default function HeroArchive({
 
             {/* Show More Command Bar */}
             {displayCount < filteredHeroes.length ? (
-              <div className="mt-14 flex flex-col items-center justify-center gap-5 p-6 rounded-2xl bg-[#060a14]/90 border border-white/[0.08] shadow-2xl">
+              <div className="mt-14 flex flex-col items-center justify-center gap-5 p-6 rounded-2xl bg-gradient-to-r from-slate-900/90 via-[#0e1832]/95 to-slate-900/90 border border-slate-700/70 shadow-2xl">
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-phi-xs text-[#94a3b8] uppercase tracking-wider">
                     SHOWING {visibleHeroes.length} OF {filteredHeroes.length} CHAMPIONS

@@ -767,6 +767,22 @@ export default function HeroModelChamber({ initialHeroId }) {
   const [showSkillDetail, setShowSkillDetail] = useState(true);
 
   const controlsRef = useRef();
+  const sectionRef = useRef(null);
+  const [isChamberVisible, setIsChamberVisible] = useState(true);
+
+  // Viewport intersection observer to freeze 3D canvas when scrolled out of view
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsChamberVisible(entry.isIntersecting);
+      },
+      { threshold: 0, rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Sync when initialHeroId changes from external launch buttons
   useEffect(() => {
@@ -867,13 +883,18 @@ export default function HeroModelChamber({ initialHeroId }) {
 
   return (
     <section
+      ref={sectionRef}
       id="chamber"
-      className="relative w-full py-12 sm:py-16 bg-[#030509] text-white overflow-hidden"
+      className="relative w-full py-12 sm:py-16 bg-gradient-to-b from-[#090f22] via-[#0c152c] to-[#080d1e] text-white overflow-hidden"
     >
       {/* Background Watermark */}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(4.5rem,12vw,13rem)] tracking-[0.14em] opacity-30 select-none pointer-events-none whitespace-nowrap z-0">
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(4.5rem,12vw,13rem)] tracking-[0.14em] opacity-35 select-none pointer-events-none whitespace-nowrap z-0">
         CHAMBER
       </div>
+
+      {/* Atmospheric Ambient Glows */}
+      <div className="absolute top-1/4 -right-20 w-[36rem] h-[36rem] bg-amber-400/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -left-20 w-[36rem] h-[36rem] bg-cyan-400/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 space-y-4 sm:space-y-6">
         {/* ==============================================================
@@ -929,7 +950,7 @@ export default function HeroModelChamber({ initialHeroId }) {
           </div>
 
           {/* Search Bar & Role Filter Pills across all 133 heroes */}
-          <div className="p-3.5 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 space-y-2.5">
+          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-slate-900/90 via-[#0e1832]/90 to-slate-900/90 border border-slate-700/70 shadow-lg space-y-2.5">
             <div className="flex flex-col sm:flex-row items-center gap-2.5">
               <div className="relative w-full sm:w-80">
                 <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -938,7 +959,7 @@ export default function HeroModelChamber({ initialHeroId }) {
                   placeholder="Search 133 heroes by name, title, origin..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 bg-black/60 border border-zinc-700/80 rounded-xl text-xs font-mono text-white placeholder-zinc-500 outline-none focus:border-amber-400 transition-colors"
+                  className="w-full pl-9 pr-3 py-1.5 bg-slate-950/80 border border-slate-700/80 rounded-xl text-xs font-mono text-white placeholder-zinc-500 outline-none focus:border-amber-400 transition-colors shadow-inner"
                 />
               </div>
 
@@ -954,7 +975,7 @@ export default function HeroModelChamber({ initialHeroId }) {
                     className={`px-2.5 py-1 rounded-lg text-[10px] font-mono uppercase font-bold tracking-wider transition-all cursor-pointer whitespace-nowrap ${
                       selectedRole === r
                         ? 'bg-amber-500 text-black shadow-[0_0_12px_rgba(234,179,8,0.4)]'
-                        : 'bg-zinc-900/80 text-zinc-400 hover:text-white border border-zinc-800'
+                        : 'bg-slate-950/70 text-zinc-400 hover:text-white border border-slate-800'
                     }`}
                   >
                     {r}
@@ -977,8 +998,8 @@ export default function HeroModelChamber({ initialHeroId }) {
                     onClick={() => handleSelectHero(h)}
                     className={`flex items-center gap-2 px-2.5 py-1 rounded-xl border transition-all cursor-pointer whitespace-nowrap group shrink-0 ${
                       isSelected
-                        ? 'bg-zinc-800 border-amber-400 text-white shadow-[0_0_16px_rgba(234,179,8,0.35)] scale-102'
-                        : 'bg-zinc-900/60 border-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-800/60'
+                        ? 'bg-gradient-to-b from-amber-500/20 to-slate-900 border-amber-400 text-white shadow-[0_0_16px_rgba(234,179,8,0.35)] scale-102'
+                        : 'bg-slate-950/60 border-slate-800 text-zinc-400 hover:text-white hover:bg-slate-900/60'
                     }`}
                   >
                     <img
@@ -1007,9 +1028,9 @@ export default function HeroModelChamber({ initialHeroId }) {
             3D CHAMBER STAGE CONTAINER
             Seamlessly merged with the 3D scene (zero blue seams or dead gaps)
             ============================================================== */}
-        <div className="relative w-full h-[620px] sm:h-[680px] lg:h-[740px] rounded-3xl overflow-hidden flex flex-col justify-between border border-zinc-800/90 bg-[#030509] shadow-[0_20px_70px_rgba(0,0,0,0.95)]">
+        <div className="relative w-full h-[620px] sm:h-[680px] lg:h-[740px] rounded-3xl overflow-hidden flex flex-col justify-between border border-slate-700/80 bg-gradient-to-b from-[#0c142b] via-[#090f22] to-[#0b1328] shadow-[0_25px_80px_rgba(2,6,23,0.95)]">
           {/* Top Control Bar inside Chamber */}
-          <div className="relative z-20 flex flex-wrap items-center justify-between p-3.5 sm:p-5 gap-2.5 bg-gradient-to-b from-[#030509]/95 via-[#030509]/70 to-transparent">
+          <div className="relative z-20 flex flex-wrap items-center justify-between p-3.5 sm:p-5 gap-2.5 bg-gradient-to-b from-[#0a1124]/95 via-[#0a1124]/75 to-transparent">
             {/* Hero Title & Telemetry Header */}
             <div>
               <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-400 tracking-widest uppercase mb-0.5">
@@ -1147,12 +1168,12 @@ export default function HeroModelChamber({ initialHeroId }) {
           <div className="absolute inset-0 z-10">
             {viewMode === '3d' ? (
               <Canvas
-                frameloop="always"
+                frameloop={isChamberVisible ? 'always' : 'never'}
                 camera={{ position: [0, 0.6, 4.8], fov: 44 }}
                 className="w-full h-full cursor-grab active:cursor-grabbing"
               >
-                <color attach="background" args={['#030509']} />
-                <fog attach="fog" args={['#030509', 5.0, 16]} />
+                <color attach="background" args={['#0a1124']} />
+                <fog attach="fog" args={['#0a1124', 6.0, 18]} />
 
                 {/* Cinematic Studio Sanctum Lighting: Solid, Bright & Balanced */}
                 <ambientLight intensity={0.92} />
@@ -1223,7 +1244,7 @@ export default function HeroModelChamber({ initialHeroId }) {
                   alt={selectedHero.name}
                   className="max-h-[82%] max-w-[82%] object-contain rounded-2xl shadow-2xl border border-white/10"
                 />
-                <div className="absolute inset-0 bg-radial from-transparent to-[#030509] pointer-events-none" />
+                <div className="absolute inset-0 bg-radial from-transparent to-[#0a1124] pointer-events-none" />
               </div>
             )}
           </div>
@@ -1231,7 +1252,7 @@ export default function HeroModelChamber({ initialHeroId }) {
           {/* Left Tactical Telemetry Overlay: Authentic Hero Combat Attributes (Collapsible & Non-blocking) */}
           {showStats && (
             <div className="absolute left-4 top-20 z-20 max-w-[270px] pointer-events-auto animate-fadeIn">
-              <div className="bg-[#050914]/92 backdrop-blur-xl border border-zinc-700/80 rounded-2xl p-3.5 shadow-2xl space-y-3">
+              <div className="bg-[#0c152e]/95 backdrop-blur-xl border border-slate-700/80 rounded-2xl p-3.5 shadow-2xl space-y-3">
                 <div className="flex items-center justify-between pb-2 border-b border-zinc-800">
                   <span className="text-[10px] font-mono tracking-widest text-amber-400 uppercase font-semibold flex items-center gap-1.5">
                     <BarChart3 className="w-3.5 h-3.5 text-amber-400" />
@@ -1342,9 +1363,9 @@ export default function HeroModelChamber({ initialHeroId }) {
           )}
 
           {/* Bottom Telemetry HUD Overlay & Skill Arsenal Strip inside Chamber (Streamlined & Space-Efficient) */}
-          <div className="relative z-20 p-3 sm:p-4 bg-gradient-to-t from-[#030509]/95 via-[#030509]/75 to-transparent flex flex-col gap-2 pointer-events-auto">
+          <div className="relative z-20 p-3 sm:p-4 bg-gradient-to-t from-[#0a1124]/95 via-[#0a1124]/75 to-transparent flex flex-col gap-2 pointer-events-auto">
             {/* Interactive Hero Skill Strip & Active Skill Diagnostic Card */}
-            <div className="flex flex-col gap-2 bg-[#050914]/90 backdrop-blur-md px-3.5 py-2.5 rounded-2xl border border-zinc-800/90 shadow-xl">
+            <div className="flex flex-col gap-2 bg-[#0c152e]/92 backdrop-blur-md px-3.5 py-2.5 rounded-2xl border border-slate-700/80 shadow-xl">
               <div className="flex flex-wrap items-center justify-between gap-2.5">
                 <div className="flex items-center gap-2.5">
                   <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-1">

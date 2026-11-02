@@ -61,11 +61,15 @@ export default function SkinGallery() {
   const currentDisplayImage = compareMode ? skin.defaultImage : skin.image;
 
   return (
-    <section id="skins" className="relative w-full py-28 bg-[#04060b] text-white overflow-hidden">
+    <section id="skins" className="relative w-full py-28 bg-gradient-to-b from-[#080e1e] via-[#10122e] to-[#080d1b] text-white overflow-hidden">
       {/* Monumental Watermark Typography */}
       <div className="absolute top-12 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(5rem,15vw,16rem)] tracking-[0.12em] opacity-40 select-none pointer-events-none whitespace-nowrap z-0">
         EVOLUTION
       </div>
+
+      {/* Atmospheric Ambient Glows */}
+      <div className="absolute top-1/4 -right-20 w-[36rem] h-[36rem] bg-purple-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -left-20 w-[36rem] h-[36rem] bg-amber-400/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
@@ -96,7 +100,7 @@ export default function SkinGallery() {
                 className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-200 cursor-pointer whitespace-nowrap ${
                   activeSkinIndex === idx
                     ? 'bg-[#c084fc] border-[#c084fc] text-black font-semibold shadow-[0_0_15px_rgba(192,132,252,0.35)]'
-                    : 'bg-black/40 border-white/[0.08] text-[#94a3b8] hover:text-white hover:bg-white/[0.06]'
+                    : 'bg-slate-950/60 border-slate-700/60 text-[#94a3b8] hover:text-white hover:bg-slate-800/60'
                 }`}
               >
                 <Crown className="w-3.5 h-3.5" />
@@ -107,7 +111,7 @@ export default function SkinGallery() {
         </div>
 
         {/* Main Skin Showcase Stage with Corner Crosshairs */}
-        <div className="card-awwwards crosshairs-container grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-8 rounded-3xl border border-white/[0.08] shadow-2xl">
+        <div className="card-awwwards crosshairs-container grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-8 rounded-3xl border border-slate-700/70 shadow-2xl">
           <div className="crosshair-tl" />
           <div className="crosshair-tr" />
           <div className="crosshair-bl" />
@@ -116,7 +120,7 @@ export default function SkinGallery() {
           {/* Left Column: Visual Artwork Display (Completely Uncropped & Clean) */}
           <div className="lg:col-span-7 flex flex-col space-y-3">
             <div
-              className="relative w-full h-[380px] sm:h-[480px] rounded-2xl overflow-hidden glass-panel border border-zinc-700/80 shadow-2xl group bg-zinc-950 flex items-center justify-center cursor-pointer"
+              className="relative w-full h-[380px] sm:h-[480px] rounded-2xl overflow-hidden glass-panel border border-slate-700/70 shadow-2xl group bg-gradient-to-b from-[#0c142c] to-[#080e20] flex items-center justify-center cursor-pointer"
               onClick={() => {
                 audioManager.playClick();
                 setIsLightboxOpen(true);

@@ -122,7 +122,7 @@ function HeroCard({
       <LiquidGlassCard
         glowColor={hero.themeColor}
         enableTilt={false}
-        className="group relative flex flex-col h-full cursor-default card-awwwards crosshairs-container overflow-hidden select-none border border-white/[0.08] hover:border-[#f3d288]/40 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(0,0,0,0.9)] transition-all duration-300 ease-out rounded-2xl bg-[#060810]"
+        className="group relative flex flex-col h-full cursor-default luxury-hero-card crosshairs-container overflow-hidden select-none border border-slate-700/60 hover:border-amber-400/50 hover:-translate-y-1 hover:shadow-[0_25px_50px_rgba(2,6,23,0.95)] transition-all duration-300 ease-out rounded-2xl"
       >
         {/* Subtle Corner Registration Crosshairs */}
         <div className="crosshair-tl" />
@@ -132,7 +132,7 @@ function HeroCard({
 
         {/* Ambient Hero Spectral Aura Behind the Poster (Active on hover) */}
         <div
-          className="absolute -top-16 -left-16 w-52 h-52 rounded-full pointer-events-none blur-[60px] opacity-10 group-hover:opacity-25 transition-opacity duration-500"
+          className="absolute -top-16 -left-16 w-52 h-52 rounded-full pointer-events-none blur-[60px] opacity-15 group-hover:opacity-35 transition-opacity duration-500"
           style={{
             backgroundColor: hero.themeColor,
           }}
@@ -141,7 +141,7 @@ function HeroCard({
         {/* ==============================================================
             POSTER ARCHIVAL HEADER: Serial, Faction, Rank & Telemetry
             ============================================================== */}
-        <div className="relative px-3.5 py-2.5 bg-[#060a14]/95 border-b border-white/[0.06] flex items-center justify-between text-[9px] font-mono tracking-widest z-20">
+        <div className="relative px-3.5 py-2.5 bg-gradient-to-r from-slate-900/90 via-[#0e172e]/95 to-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-[9px] font-mono tracking-widest z-20">
           <div className="flex items-center gap-1.5">
             <span
               className="w-1.5 h-1.5 rounded-full"
@@ -166,7 +166,7 @@ function HeroCard({
             Particles, Monumental Typography Watermark, & Hero Portrait
             ============================================================== */}
         <div
-          className="relative aspect-[3/3.9] overflow-hidden bg-[#04060b] cursor-pointer will-change-transform"
+          className="relative aspect-[3/3.9] overflow-hidden bg-gradient-to-b from-[#0a1122] to-[#070c18] cursor-pointer will-change-transform"
           style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
           onClick={() => {
             audioManager.playClick();
@@ -219,7 +219,7 @@ function HeroCard({
           />
 
           {/* Cinematic Vignette */}
-          <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#060810] via-transparent to-black/30 opacity-70 pointer-events-none" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0a1226] via-transparent to-black/25 opacity-70 pointer-events-none" />
           <div
             className="absolute inset-0 z-10 opacity-0 group-hover:opacity-15 transition-opacity duration-300 pointer-events-none"
             style={{ backgroundColor: hero.themeColor }}
@@ -228,10 +228,10 @@ function HeroCard({
           {/* Top Floating MLBB Archetype & Lane Badges */}
           <div className="absolute top-2.5 left-2.5 right-2.5 z-20 flex items-center justify-between pointer-events-none">
             <span
-              className="px-2 py-0.5 rounded-full text-[9px] font-mono font-medium tracking-widest uppercase border flex items-center gap-1.5 shadow-lg"
+              className="px-2 py-0.5 rounded-full text-[9px] font-mono font-medium tracking-widest uppercase border flex items-center gap-1.5 shadow-lg backdrop-blur-md"
               style={{
                 borderColor: `${hero.themeColor}88`,
-                backgroundColor: 'rgba(4, 6, 12, 0.85)',
+                backgroundColor: 'rgba(11, 19, 38, 0.88)',
                 color: '#ffffff',
               }}
             >
@@ -239,7 +239,7 @@ function HeroCard({
               <span>{hero.role}</span>
             </span>
 
-            <span className="px-2 py-0.5 rounded-full text-[9px] font-mono text-[#cbd5e1] bg-[#04060c]/85 border border-white/[0.08] flex items-center gap-1 shadow-lg">
+            <span className="px-2 py-0.5 rounded-full text-[9px] font-mono text-[#cbd5e1] bg-slate-900/85 border border-slate-700/60 flex items-center gap-1 shadow-lg backdrop-blur-md">
               <MLBBLaneIcon lane={hero.lane} className="w-3 h-3 text-[#38bdf8]" />
               <span>{hero.lane}</span>
             </span>
@@ -300,7 +300,7 @@ function HeroCard({
         {/* ==============================================================
             KINETIC MARQUEE RIBBON: Voice Quote & Lore Narrative Ticker
             ============================================================== */}
-        <div className="relative overflow-hidden bg-black/90 border-y border-white/[0.06] py-1 text-[9px] font-mono tracking-wider text-[#94a3b8] z-20">
+        <div className="relative overflow-hidden bg-slate-900/80 border-y border-slate-700/60 py-1 text-[9px] font-mono tracking-wider text-[#94a3b8] z-20">
           <div className="animate-poster-marquee flex items-center gap-6">
             <span className="flex items-center gap-2">
               <span className="text-[#f3d288]">✦</span>
@@ -433,7 +433,7 @@ function HeroCard({
 
             {/* Interactive Tactical Ability HUD Drawer (Revealed on Rune Click/Hover) */}
             {activeAbility && (
-              <div className="p-3 rounded-2xl bg-[#080d1a] border border-[#f3d288]/40 shadow-2xl space-y-2 animate-fadeIn">
+              <div className="p-3 rounded-2xl bg-gradient-to-b from-[#0d1730] to-[#0a1124] border border-amber-400/40 shadow-2xl space-y-2 animate-fadeIn">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <SkillIcon
@@ -467,7 +467,7 @@ function HeroCard({
                   </button>
                 </div>
 
-                <div className="flex items-center gap-2 text-[9px] font-mono text-[#f3d288] bg-black/40 px-2 py-1 rounded-lg border border-white/[0.04]">
+                <div className="flex items-center gap-2 text-[9px] font-mono text-[#f3d288] bg-slate-950/60 px-2 py-1 rounded-lg border border-slate-800">
                   <span>CD: {activeAbility.cooldown || 'N/A'}</span>
                   <span>•</span>
                   <span>COST: {activeAbility.cost || 'None'}</span>

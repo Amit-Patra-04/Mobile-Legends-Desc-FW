@@ -32,7 +32,7 @@ export default function HeroCompareModal({ initialHero, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn">
-      <div className="relative w-full max-w-4xl rounded-3xl overflow-hidden glass-panel border border-zinc-800 shadow-[0_25px_70px_rgba(0,0,0,0.95)] max-h-[92vh] flex flex-col my-auto bg-[#080c16]">
+      <div className="relative w-full max-w-4xl rounded-3xl overflow-hidden glass-panel border border-slate-700/80 shadow-[0_25px_70px_rgba(2,6,23,0.95)] max-h-[92vh] flex flex-col my-auto bg-gradient-to-b from-[#0c152c] to-[#070c18]">
         
         {/* Modal Header */}
         <div className="p-6 border-b border-zinc-800 flex items-center justify-between bg-zinc-950/60">

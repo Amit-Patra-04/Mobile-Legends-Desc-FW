@@ -20,13 +20,15 @@
 }
 
 :root {
-  --off-black: #13151f;
+  --off-black: #080d1a;
+  --midnight-slate: #0b1328;
+  --midnight-sapphire: #0e1834;
   --off-white: #e9ecee;
   --color-secondary: #aab9c7;
   --gray: #6e8799;
   --dark-gray: #4c5e6b;
-  --border: hsla(0, 0%, 91%, 0.1);
-  --surface: #1a1a1a;
+  --border: hsla(0, 0%, 91%, 0.12);
+  --surface: #10192e;
   --chrome-bottom: 2.6rem;
   --expo-out: cubic-bezier(0.14, 1, 0.34, 1);
   --quint-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -105,30 +107,33 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #030509;
+  background: #080d1a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #223254;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #eab308;
+  background: #f59e0b;
 }
 
 /* Luxury Glow & Glassmorphism Utilities */
 .glass-panel {
-  background: rgba(8, 12, 22, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(145deg, rgba(16, 25, 46, 0.78) 0%, rgba(10, 16, 32, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(243, 210, 136, 0.28);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .glass-panel-glow {
-  background: rgba(10, 16, 30, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(234, 179, 8, 0.2);
-  box-shadow: 0 0 35px -10px rgba(234, 179, 8, 0.15);
+  background: linear-gradient(145deg, rgba(18, 28, 52, 0.82) 0%, rgba(11, 18, 36, 0.92) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(234, 179, 8, 0.35);
+  border-top: 1px solid rgba(254, 240, 138, 0.6);
+  box-shadow: 0 0 35px -8px rgba(234, 179, 8, 0.22), 0 20px 45px -12px rgba(2, 6, 23, 0.85);
 }
 
 .text-gold-gradient {
@@ -262,6 +267,154 @@
   will-change: transform;
 }
 
+/* ==========================================================================
+   AUTHENTIC MLBB MOBA BATTLE ENTRY CREST BUTTON
+   Multi-Tier Chamfered Armor, Moniyan Gold Filigree, Energy Core, 
+   Rotating Perimeter Beam & Ambient Corona Aura
+   ========================================================================== */
+
+/* Outer Glowing Corona Behind the Button */
+@keyframes gameButtonPulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(0.98);
+    filter: blur(14px);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.05);
+    filter: blur(24px);
+  }
+}
+
+.game-btn-aura {
+  position: absolute;
+  inset: -6px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.45), rgba(245, 158, 11, 0.6), rgba(56, 189, 248, 0.45));
+  border-radius: 14px;
+  animation: gameButtonPulse 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Authentic Chamfered Polygon Cut */
+.game-btn-chamfer {
+  clip-path: polygon(
+    14px 0%,
+    calc(100% - 14px) 0%,
+    100% 14px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0% calc(100% - 14px),
+    0% 14px
+  );
+}
+
+.game-btn-chamfer-inner {
+  clip-path: polygon(
+    13px 0%,
+    calc(100% - 13px) 0%,
+    100% 13px,
+    100% calc(100% - 13px),
+    calc(100% - 13px) 100%,
+    13px 100%,
+    0% calc(100% - 13px),
+    0% 13px
+  );
+}
+
+/* Master Gaming Launch Button */
+.btn-mlbb-battle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  background: linear-gradient(135deg, #fef08a 0%, #f59e0b 25%, #38bdf8 50%, #f59e0b 75%, #fef08a 100%);
+  background-size: 200% 200%;
+  box-shadow: 
+    0 0 25px rgba(245, 158, 11, 0.45),
+    0 0 45px rgba(56, 189, 248, 0.35),
+    0 12px 30px rgba(0, 0, 0, 0.85);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-mlbb-battle:hover {
+  transform: translateY(-2px) scale(1.035);
+  box-shadow: 
+    0 0 45px rgba(245, 158, 11, 0.8),
+    0 0 75px rgba(56, 189, 248, 0.55),
+    0 16px 40px rgba(0, 0, 0, 0.95);
+}
+
+.btn-mlbb-battle:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: 
+    0 0 20px rgba(245, 158, 11, 0.6),
+    0 0 30px rgba(56, 189, 248, 0.4);
+}
+
+/* Rotating Energy Beam */
+@keyframes beamTravel {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.btn-mlbb-battle-animated-border {
+  animation: beamTravel 4s ease infinite;
+}
+
+/* Inner Obsidian Core Plate */
+.btn-mlbb-battle-core {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #132035 0%, #08101e 40%, #040812 100%);
+  padding: 12px 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-mlbb-battle:hover .btn-mlbb-battle-core {
+  background: linear-gradient(180deg, #182a46 0%, #0d172c 40%, #060b18 100%);
+}
+
+/* Liquid Sheen Sweep across Core */
+@keyframes liquidGleam {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+  }
+  35%, 100% {
+    transform: translateX(250%) skewX(-25deg);
+  }
+}
+
+.btn-mlbb-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    rgba(254, 240, 138, 0.5),
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  animation: liquidGleam 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
 /* Refined Sleek Mythic Crest Button for MLBB Loading Screen with Rotating Border Light Animation */
 .btn-mythic-crest {
   position: relative;
@@ -299,6 +452,33 @@
 
 .btn-mythic-crest:active {
   transform: scale(0.98);
+}
+
+/* Authentic Epic MOBA Gaming Button Typography */
+.font-game-btn {
+  font-family: 'Cinzel', 'Cinzel Decorative', 'Philosopher', 'Outfit', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Masterclass Razor-Sharp Moniyan Imperial Gold */
+.text-game-gold {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #fef9c3 18%,
+    #fef08a 38%,
+    #fbbf24 62%,
+    #f59e0b 82%,
+    #b45309 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95))
+          drop-shadow(0 0 10px rgba(245, 158, 11, 0.45));
 }
 
 /* WOW-Level 3D Chiseled Metallic Gold & Twilight Typography */
@@ -518,26 +698,28 @@
 
 /* Awwwards Floating Island Glass Dock */
 .awwwards-dock {
-  background: rgba(4, 8, 20, 0.72);
+  background: rgba(11, 18, 36, 0.78);
   backdrop-filter: blur(28px) saturate(190%);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(243, 210, 136, 0.35);
   box-shadow: 
-    0 20px 50px -10px rgba(0, 0, 0, 0.85),
-    0 0 0 1px rgba(0, 0, 0, 0.5),
+    0 20px 50px -10px rgba(0, 0, 0, 0.8),
+    0 0 25px -5px rgba(56, 189, 248, 0.12),
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.6);
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.5);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .awwwards-dock-scrolled {
-  background: rgba(3, 6, 15, 0.88);
+  background: rgba(8, 14, 28, 0.92);
   backdrop-filter: blur(32px) saturate(200%);
   -webkit-backdrop-filter: blur(32px) saturate(200%);
-  border-color: rgba(56, 189, 248, 0.25);
+  border-color: rgba(56, 189, 248, 0.3);
+  border-top-color: rgba(243, 210, 136, 0.5);
   box-shadow: 
     0 25px 60px -10px rgba(0, 0, 0, 0.95),
-    0 0 35px -5px rgba(56, 189, 248, 0.15),
+    0 0 35px -5px rgba(56, 189, 248, 0.2),
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.22);
 }
 
@@ -559,14 +741,14 @@
 
 /* Awwwards Monumental Watermark Typography */
 .text-stroke-watermark {
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.05);
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.08);
   color: transparent;
   user-select: none;
   -webkit-user-select: none;
 }
 
 .text-stroke-gold {
-  -webkit-text-stroke: 1px rgba(243, 210, 136, 0.25);
+  -webkit-text-stroke: 1px rgba(243, 210, 136, 0.28);
   color: transparent;
 }
 
@@ -582,20 +764,74 @@
 
 /* Luxury Awwwards Glass & Card Architecture */
 .card-awwwards {
-  background: rgba(6, 10, 20, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(145deg, rgba(14, 22, 42, 0.82) 0%, rgba(9, 15, 30, 0.92) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(243, 210, 136, 0.32);
   box-shadow: 
-    0 20px 40px -15px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    0 20px 50px -12px rgba(2, 6, 23, 0.8),
+    0 0 25px -8px rgba(56, 189, 248, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-awwwards:hover {
-  border-color: rgba(243, 210, 136, 0.35);
+  border-color: rgba(243, 210, 136, 0.45);
+  border-top-color: rgba(254, 240, 138, 0.8);
   box-shadow: 
-    0 30px 60px -20px rgba(0, 0, 0, 0.85),
-    0 0 30px -10px rgba(243, 210, 136, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 30px 65px -15px rgba(2, 6, 23, 0.95),
+    0 0 35px -8px rgba(243, 210, 136, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+/* Luxury Masterwork Hero Poster Card */
+.luxury-hero-card {
+  background: linear-gradient(175deg, rgba(15, 24, 46, 0.88) 0%, rgba(10, 17, 34, 0.94) 60%, rgba(7, 12, 24, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(243, 210, 136, 0.3);
+  box-shadow: 
+    0 18px 40px -10px rgba(2, 6, 23, 0.85),
+    0 0 20px -5px rgba(56, 189, 248, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-hero-card:hover {
+  border-color: rgba(243, 210, 136, 0.45);
+  border-top-color: rgba(254, 240, 138, 0.8);
+  box-shadow: 
+    0 28px 65px -15px rgba(2, 6, 23, 0.95),
+    0 0 35px -8px rgba(243, 210, 136, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+/* Atmospheric Celestial Mesh Grid Overlay */
+.bg-celestial-mesh {
+  background-image: 
+    radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 32px 32px, 64px 64px, 64px 64px;
+}
+
+/* Master Portal Universe Deep Navy Atmosphere */
+.portal-universe-bg {
+  background-color: #070c18;
+  background-image: 
+    radial-gradient(ellipse 90% 45% at 50% 0%, rgba(245, 158, 11, 0.09), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 90% 25%, rgba(56, 189, 248, 0.08), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 10% 55%, rgba(129, 140, 248, 0.07), transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(14, 165, 233, 0.08), transparent 70%);
+}
+
+/* Glowing Architectural Horizon Seam Divider */
+.portal-section-divider {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.3) 20%, rgba(243, 210, 136, 0.6) 50%, rgba(56, 189, 248, 0.3) 80%, transparent);
+  box-shadow: 0 0 16px rgba(243, 210, 136, 0.3);
 }
 
 /* Precision Corner Crosshair Registration Marks */

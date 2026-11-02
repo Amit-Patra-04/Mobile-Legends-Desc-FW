@@ -151,6 +151,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
   const [activeStageIndex, setActiveStageIndex] = useState(0);
   const activeStageRef = useRef(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const lastReportedPct = useRef(-1);
   const [isAudioActive, setIsAudioActive] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [activePing, setActivePing] = useState(null);
@@ -296,7 +297,11 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
             if (totalScrollable > 0) {
               const progress = Math.max(0, Math.min(1.0, -rect.top / totalScrollable));
               targetProgress.current = progress;
-              setScrollProgress(progress);
+              const roundedPct = Math.round(progress * 100);
+              if (roundedPct !== lastReportedPct.current) {
+                lastReportedPct.current = roundedPct;
+                setScrollProgress(progress);
+              }
             }
           }
           ticking = false;
@@ -377,9 +382,14 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     abyssalFill.position.set(55, 32, -45);
     scene.add(abyssalFill);
 
-    // 5. Official MLBB Reference Map Texture (8K Ultra-Definition with Anisotropic Filtering & Micro-Depth)
+    // 5. Official MLBB Reference Map Texture (Dynamic High-Clarity Resolution based on Viewport)
     const textureLoader = new THREE.TextureLoader();
-    const mapTexture = textureLoader.load('/assets/images/mlbb_official_map_reference_8k.jpg', (tex) => {
+    const isUltraDisplay = typeof window !== 'undefined' && (window.innerWidth * Math.min(window.devicePixelRatio || 1, 2) > 2800);
+    const mapSrc = isUltraDisplay
+      ? '/assets/images/mlbb_official_map_reference_8k.jpg'
+      : '/assets/images/mlbb_official_map_reference_4k.jpg';
+
+    const mapTexture = textureLoader.load(mapSrc, (tex) => {
       tex.colorSpace = THREE.SRGBColorSpace;
       tex.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 16);
       tex.generateMipmaps = true;
@@ -1148,15 +1158,25 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     };
     window.addEventListener('resize', handleResize);
 
-    // 18. Animation Loop (60-120fps Steadicam Glide - Mathematically ZERO Tilt Wobble)
+    // 18. Animation Loop with Viewport Observer (Pauses draw calls when scrolled away for 60-120fps efficiency)
     let animationFrameId;
     let clock = new THREE.Clock();
     const tempVec = new THREE.Vector3();
     const targetVec = new THREE.Vector3();
     const camTargetPos = new THREE.Vector3();
 
+    let isLandingVisible = true;
+    let observer = null;
+    if (typeof IntersectionObserver !== 'undefined' && trackRef.current) {
+      observer = new IntersectionObserver(([entry]) => {
+        isLandingVisible = entry.isIntersecting;
+      }, { threshold: 0, rootMargin: '100px' });
+      observer.observe(trackRef.current);
+    }
+
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
+      if (!isLandingVisible) return;
 
       const delta = clock.getDelta();
       const time = clock.getElapsedTime();
@@ -1275,6 +1295,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      if (observer) observer.disconnect();
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
       terrainGeo.dispose();
@@ -1376,7 +1397,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       ref={trackRef}
       id="overview"
       data-track="battlefield-track"
-      className="relative w-full h-[380vh] bg-[#060a14]"
+      className="relative w-full h-[380vh] bg-[#080d1a]"
     >
       {/* Sticky Pinned Viewport Container */}
       <div
@@ -1384,7 +1405,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
-        className={`sticky top-0 left-0 w-full h-[100dvh] min-h-[640px] flex flex-col justify-between overflow-hidden bg-[#060a14] text-[#e9ecee] select-none is-scene-pannable ${
+        className={`sticky top-0 left-0 w-full h-[100dvh] min-h-[640px] flex flex-col justify-between overflow-hidden bg-[#080d1a] text-[#e9ecee] select-none is-scene-pannable ${
           isDragging ? 'is-scene-grabbing' : ''
         }`}
       >
@@ -1392,11 +1413,11 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-0 pointer-events-auto" />
 
       {/* 2. Soft Edge Atmospheric Vignette */}
-      <div className="absolute inset-0 bg-radial from-transparent via-transparent to-[#060a14]/40 pointer-events-none z-10" />
+      <div className="absolute inset-0 bg-radial from-transparent via-transparent to-[#080d1a]/30 pointer-events-none z-10" />
 
       {/* 3. AUTHENTIC MLBB IN-GAME MATCH HEADER HUD (Top Bar) */}
       {/* 3. AWWWARDS LUXURY TELEMETRY BAR (Top Header) */}
-      <header className="absolute top-0 left-0 w-full z-30 pointer-events-none px-4 sm:px-8 py-3.5 flex items-center justify-between bg-gradient-to-b from-[#060a14]/90 via-[#060a14]/40 to-transparent">
+      <header className="absolute top-0 left-0 w-full z-30 pointer-events-none px-4 sm:px-8 py-3.5 flex items-center justify-between bg-gradient-to-b from-[#080d1a]/95 via-[#080d1a]/50 to-transparent">
         {/* Left: Architectural Registry */}
         <div className="flex items-center gap-3 pointer-events-auto">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 border border-white/[0.08] backdrop-blur-xl">
@@ -1597,7 +1618,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
             >
               <div className="flex flex-col items-center">
                 {/* Tactical Pinpoint Marker Label Badge */}
-                <div className="px-3 py-1.5 rounded-full bg-[#060a14]/90 border border-white/[0.14] group-hover:border-[#f3d288] backdrop-blur-xl text-[#e9ecee] shadow-2xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(243,210,136,0.35)] flex items-center gap-2">
+                <div className="px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 group-hover:border-[#f3d288] backdrop-blur-xl text-[#e9ecee] shadow-2xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(243,210,136,0.35)] flex items-center gap-2">
                   <MapPin
                     className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5"
                     style={{ color: marker.color }}
@@ -1681,7 +1702,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
           <div className="pointer-events-auto">
             <button
               onClick={() => scrollToSection('#heroes')}
-              className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full border border-white/[0.12] hover:border-[#f3d288]/80 bg-[#060a14]/85 hover:bg-[#060a14] text-white transition-all duration-300 shadow-2xl cursor-pointer backdrop-blur-xl"
+              className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full border border-slate-700/80 hover:border-[#f3d288]/80 bg-slate-900/85 hover:bg-slate-900 text-white transition-all duration-300 shadow-2xl cursor-pointer backdrop-blur-xl"
               title="Explore all 133 champions in the archive"
             >
               <Sparkles className="w-3.5 h-3.5 text-[#f3d288] group-hover:rotate-45 transition-transform duration-300" />
@@ -1692,7 +1713,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
           </div>
 
           {/* Center: Stage Roman Selector */}
-          <div className="pointer-events-auto flex items-center gap-1 p-1 rounded-full bg-[#060a14]/80 border border-white/[0.1] backdrop-blur-xl shadow-2xl">
+          <div className="pointer-events-auto flex items-center gap-1 p-1 rounded-full bg-slate-900/85 border border-slate-700/80 backdrop-blur-xl shadow-2xl">
             {TACTICAL_STAGES.map((stg, idx) => (
               <button
                 key={stg.id}
@@ -1719,7 +1740,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
               className={`p-2 rounded-full border backdrop-blur-xl transition-all cursor-pointer ${
                 activeStageIndex === 0
                   ? 'border-white/[0.05] text-white/20 cursor-not-allowed'
-                  : 'border-white/[0.12] bg-[#060a14]/80 hover:border-[#f3d288] text-[#aab9c7] hover:text-white'
+                  : 'border-slate-700/80 bg-slate-900/85 hover:border-[#f3d288] text-[#aab9c7] hover:text-white'
               }`}
               title="Previous Sector"
             >

@@ -15,14 +15,15 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative w-full bg-[#020306] text-[#94a3b8] border-t border-white/[0.08] pt-20 pb-12 overflow-hidden">
+    <footer className="relative w-full bg-[#060a14] text-[#94a3b8] border-t border-slate-800/90 pt-20 pb-12 overflow-hidden">
       {/* Background Ambient Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40rem] h-40 bg-[#f3d288]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[46rem] h-48 bg-amber-400/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-[30rem] h-32 bg-cyan-400/8 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Main Footer Row */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/[0.06]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800/80">
           
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">

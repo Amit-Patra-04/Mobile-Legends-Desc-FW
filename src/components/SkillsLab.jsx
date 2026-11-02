@@ -52,12 +52,24 @@ export default function SkillsLab({ selectedHeroId }) {
     }
   }, [ability?.icon]);
 
-  // Dynamic Skill FX Particle Canvas
+  // Dynamic Skill FX Particle Canvas (Optimized with Viewport Observer & Zero shadowBlur)
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let animationFrame;
+
+    let isCanvasVisible = true;
+    let observer = null;
+    if (typeof IntersectionObserver !== 'undefined') {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          isCanvasVisible = entry.isIntersecting;
+        },
+        { threshold: 0, rootMargin: '100px' }
+      );
+      observer.observe(canvas);
+    }
 
     const resize = () => {
       canvas.width = canvas.parentElement.clientWidth;
@@ -73,23 +85,26 @@ export default function SkillsLab({ selectedHeroId }) {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 3; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 4 + 1;
+        const speed = Math.random() * 3.5 + 1;
         particles.push({
-          x: centerX + (Math.random() - 0.5) * 40,
-          y: centerY + (Math.random() - 0.5) * 40,
+          x: centerX + (Math.random() - 0.5) * 35,
+          y: centerY + (Math.random() - 0.5) * 35,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          radius: Math.random() * 3.5 + 1.5,
+          radius: Math.random() * 3 + 1.2,
           alpha: 1,
-          decay: Math.random() * 0.02 + 0.015,
+          decay: Math.random() * 0.025 + 0.018,
           color: activeHero.themeColor,
         });
       }
     };
 
     const render = () => {
+      animationFrame = requestAnimationFrame(render);
+      if (!isCanvasVisible) return; // Completely sleep when scrolled away!
+
       tick++;
       ctx.fillStyle = 'rgba(6, 10, 20, 0.25)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -145,7 +160,7 @@ export default function SkillsLab({ selectedHeroId }) {
 
       ctx.restore();
 
-      // Update and draw particles
+      // Update and draw particles (high-performance GPU alpha arcs, 0 shadowBlur)
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.x += p.vx;
@@ -157,23 +172,28 @@ export default function SkillsLab({ selectedHeroId }) {
           continue;
         }
 
+        // Soft outer glow halo
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 2, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha * 0.3;
+        ctx.fill();
+
+        // Core particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = p.color;
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = p.alpha * 0.9;
         ctx.fill();
         ctx.globalAlpha = 1;
       }
-
-      animationFrame = requestAnimationFrame(render);
     };
 
     render();
 
     return () => {
       cancelAnimationFrame(animationFrame);
+      if (observer) observer.disconnect();
       window.removeEventListener('resize', resize);
     };
   }, [activeHero, activeAbilityIndex, ability]);
@@ -222,11 +242,15 @@ export default function SkillsLab({ selectedHeroId }) {
   };
 
   return (
-    <section id="skills-lab" className="relative w-full py-28 bg-[#04060b] text-white overflow-hidden">
+    <section id="skills-lab" className="relative w-full py-28 bg-gradient-to-b from-[#080e1e] via-[#0c152e] to-[#090f22] text-white overflow-hidden">
       {/* Monumental Watermark Typography */}
       <div className="absolute top-12 left-1/2 -translate-x-1/2 text-stroke-watermark font-serif text-[clamp(5rem,15vw,16rem)] tracking-[0.12em] opacity-40 select-none pointer-events-none whitespace-nowrap z-0">
         SYNTHESIS
       </div>
+
+      {/* Atmospheric Ambient Glows */}
+      <div className="absolute top-1/3 -right-20 w-[36rem] h-[36rem] bg-cyan-400/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/3 -left-20 w-[36rem] h-[36rem] bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
@@ -260,7 +284,7 @@ export default function SkillsLab({ selectedHeroId }) {
                 placeholder="Search heroes..."
                 value={heroSearch}
                 onChange={(e) => setHeroSearch(e.target.value)}
-                className="px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-[#38bdf8] w-36 sm:w-44"
+                className="px-2.5 py-1 rounded-lg bg-slate-950/80 border border-slate-700/70 text-xs font-mono text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-[#38bdf8] w-36 sm:w-44 shadow-inner"
               />
             </div>
             <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none w-full min-w-0">
@@ -271,7 +295,7 @@ export default function SkillsLab({ selectedHeroId }) {
                   className={`shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-200 cursor-pointer max-w-[150px] ${
                     activeHero.id === h.id
                       ? 'bg-[#38bdf8] border-[#38bdf8] text-black font-semibold shadow-[0_0_15px_rgba(56,189,248,0.35)]'
-                      : 'bg-black/50 border-white/[0.08] text-[#94a3b8] hover:text-white hover:bg-white/[0.06]'
+                      : 'bg-slate-950/60 border-slate-700/60 text-[#94a3b8] hover:text-white hover:bg-slate-800/60'
                   }`}
                   title={h.name}
                 >
@@ -284,7 +308,7 @@ export default function SkillsLab({ selectedHeroId }) {
         </div>
 
         {/* Main Skills Lab Display Card with Corner Crosshairs */}
-        <div className="card-awwwards crosshairs-container grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-8 rounded-3xl border border-white/[0.08] shadow-2xl">
+        <div className="card-awwwards crosshairs-container grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-8 rounded-3xl border border-slate-700/70 shadow-2xl">
           <div className="crosshair-tl" />
           <div className="crosshair-tr" />
           <div className="crosshair-bl" />
@@ -294,7 +318,7 @@ export default function SkillsLab({ selectedHeroId }) {
           <div className="lg:col-span-7 space-y-6 min-w-0">
             
             {/* Active Champion Profile Header inside the Lab */}
-            <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-zinc-900/80 border border-zinc-800/80 min-w-0 overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-gradient-to-r from-slate-900/90 via-[#0e1832]/90 to-slate-900/90 border border-slate-700/70 min-w-0 overflow-hidden shadow-lg">
               <div className="flex items-center gap-3.5 min-w-0 flex-1">
                 <div className="relative shrink-0">
                   <img
@@ -329,11 +353,11 @@ export default function SkillsLab({ selectedHeroId }) {
                     const h = HEROES.find((item) => item.id === e.target.value);
                     if (h) handleHeroSelect(h);
                   }}
-                  className="px-3 py-1.5 rounded-xl bg-zinc-950 border border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white cursor-pointer focus:outline-none focus:border-amber-400 transition-colors max-w-[180px] truncate"
+                  className="px-3 py-1.5 rounded-xl bg-slate-950/90 border border-slate-700 text-xs font-mono text-zinc-300 hover:text-white cursor-pointer focus:outline-none focus:border-amber-400 transition-colors max-w-[180px] truncate"
                   title="Select Champion"
                 >
                   {HEROES.map((h) => (
-                    <option key={h.id} value={h.id} className="bg-zinc-900 text-white">
+                    <option key={h.id} value={h.id} className="bg-slate-900 text-white">
                       {h.name} ({h.role})
                     </option>
                   ))}
@@ -355,8 +379,8 @@ export default function SkillsLab({ selectedHeroId }) {
                   onClick={() => handleAbilitySelect(idx)}
                   className={`min-w-0 w-full overflow-hidden flex flex-col items-center p-2 sm:p-2.5 rounded-2xl border transition-all cursor-pointer text-center group ${
                     activeAbilityIndex === idx
-                      ? 'bg-zinc-800/90 border-amber-400 text-white shadow-[0_0_20px_rgba(234,179,8,0.25)] scale-102'
-                      : 'bg-zinc-900/60 border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
+                      ? 'bg-gradient-to-b from-amber-500/20 to-slate-900/90 border-amber-400 text-white shadow-[0_0_20px_rgba(234,179,8,0.25)] scale-102'
+                      : 'bg-slate-950/70 border-slate-800 text-zinc-400 hover:text-zinc-200 hover:bg-slate-900/70'
                   }`}
                   title={`${ab.type}: ${ab.name}${ab.form ? ` (${ab.form})` : ''}`}
                 >
@@ -385,8 +409,8 @@ export default function SkillsLab({ selectedHeroId }) {
             </div>
 
             {/* Selected Ability Telemetry Card */}
-            <div className="p-6 rounded-2xl bg-zinc-900/80 border border-zinc-800/80 space-y-4 min-w-0 overflow-hidden">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 pb-3">
+            <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#0c1630]/90 border border-slate-700/70 space-y-4 min-w-0 overflow-hidden shadow-xl">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
                 <div className="flex items-center gap-3.5 min-w-0 flex-1">
                   <SkillIcon
                     ability={ability}
@@ -449,7 +473,7 @@ export default function SkillsLab({ selectedHeroId }) {
                 </div>
 
                 {/* Combo Sequence Pills */}
-                <div className="flex flex-wrap items-center gap-2 min-h-[36px] bg-zinc-950 p-2 rounded-xl border border-zinc-800">
+                <div className="flex flex-wrap items-center gap-2 min-h-[36px] bg-slate-950/80 p-2 rounded-xl border border-slate-800 shadow-inner">
                   {comboSequence.length > 0 ? (
                     comboSequence.map((step, i) => (
                       <span
@@ -468,7 +492,7 @@ export default function SkillsLab({ selectedHeroId }) {
 
                 {/* Combo Rank Output */}
                 {comboRank && (
-                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs font-mono text-amber-300">
+                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/15 border border-amber-500/35 text-xs font-mono text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
                     <div className="flex items-center gap-2">
                       <Award className="w-4 h-4 text-amber-400" />
                       <span className="font-bold">{comboRank}</span>
@@ -480,7 +504,7 @@ export default function SkillsLab({ selectedHeroId }) {
             </div>
 
             {/* Quick Hero Synergy Strip */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/80 text-xs font-mono text-zinc-400 overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 text-xs font-mono text-zinc-400 overflow-hidden">
               <div className="flex items-center gap-2 flex-wrap min-w-0">
                 <span className="text-white font-bold truncate max-w-[160px]">{activeHero.name}</span>
                 <span>•</span>
@@ -493,7 +517,7 @@ export default function SkillsLab({ selectedHeroId }) {
           </div>
 
           {/* Right Column: Real-Time Animated Ability Visualizer Canvas */}
-          <div className="lg:col-span-5 relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden border border-zinc-800 bg-[#040711] flex items-center justify-center shadow-inner">
+          <div className="lg:col-span-5 relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden border border-slate-700/70 bg-gradient-to-b from-[#0a1226] to-[#070d1c] flex items-center justify-center shadow-inner">
             <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
             <div className="absolute inset-0 bg-noise opacity-30 pointer-events-none" />
