@@ -1,273 +1,908 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import * as THREE from 'three';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
+  Shield,
+  Swords,
+  Flame,
+  Sparkles,
+  Crosshair,
+  Zap,
   Volume2,
   VolumeX,
   ChevronRight,
   ChevronLeft,
-  Shield,
-  Swords,
-  AlertTriangle,
-  Flame,
-  Zap,
-  Crosshair,
-  MapPin,
-  Sparkles,
-  Compass
+  ArrowUpRight,
+  Box,
+  Compass,
+  Orbit,
+  Eye,
+  Activity,
+  Layers,
+  Sparkle,
+  Radio,
+  Sliders,
+  Cross
 } from 'lucide-react';
 import { audioManager } from '../utils/audio';
+import { HEROES } from '../data/heroesData';
 
-// 4 Curated Mid-Lane Cinematic Stages from Enemy Turret to Allied Base Turret
-const TACTICAL_STAGES = [
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// ============================================================================
+// 1. THREE WEAPON STANCES (GAME-SPECIFIC 3D WEAPONS & AURA THEMES)
+// ============================================================================
+const WEAPON_STANCES = [
   {
-    id: 'overview',
-    code: '01',
-    roman: 'I',
-    progress: 0.0,
-    tag: 'SANCTUARY // FULL SECTOR',
-    titlePrefix: 'The Sovereign',
-    titleMain: 'PROVING GROUNDS',
-    subtitle: 'Three contested corridors carved through primordial stone, where celestial magic and abyssal sorcery converge under the eternal gaze of the Land of Dawn.',
-    telemetry: { elev: '5,400M', coord: "LAT 04°21'N • 114°55'E", sector: 'IMPERIAL SCAN' },
-    audioId: 'overview'
+    id: 'excalibur',
+    name: 'Dawn Excalibur',
+    tagline: 'SACRED MONIYAN ARTIFACT',
+    hero: 'Tigreal & Alucard',
+    primaryColor: '#f59e0b',
+    secondaryColor: '#38bdf8',
+    glowColor: 'rgba(245, 158, 11, 0.55)',
+    emissiveIntensity: 2.8,
+    stats: { attack: '+480 TRUE DMG', crit: '35% CRIT RATE', specialty: 'DIVINE RETRIBUTION' },
+    lore: 'Forged in the heart of Sanctum Island from celestial star-metal to banish the abyssal horde.'
   },
   {
-    id: 'enemy_turret',
-    code: '02',
-    roman: 'II',
-    progress: 0.30,
-    tag: 'ABYSSAL PERIMETER // RED INHIBITOR',
-    titlePrefix: 'The Obsidian',
-    titleMain: 'CRIMSON BASTION',
-    subtitle: 'Formidable outer defense bastions bristling with void fire. Breaching the tier-three inhibitors requires decisive tactical coordination and siege command.',
-    telemetry: { elev: '1,420M', coord: "LAT 06°12'N • 116°08'E", sector: 'RED T3 INHIBITOR' },
-    audioId: 'crucible'
+    id: 'abyssal',
+    name: 'Abyssal Doomreaver',
+    tagline: 'CORRUPTED VOID CLAYMORE',
+    hero: 'Thamuz & Dyrroth',
+    primaryColor: '#ef4444',
+    secondaryColor: '#f97316',
+    glowColor: 'rgba(239, 68, 68, 0.55)',
+    emissiveIntensity: 3.4,
+    stats: { attack: '+540 VOID BURST', crit: '45% PENETRATION', specialty: 'SOUL CONSUMPTION' },
+    lore: 'Tempered in hellfire beneath the Crack of the Abyss, burning through shields and armor.'
   },
   {
-    id: 'river_crucible',
-    code: '03',
-    roman: 'III',
-    progress: 0.65,
-    tag: 'THE CRUCIBLE // RIVER CROSSING',
-    titlePrefix: 'Where Destinies',
-    titleMain: 'CLASH IN THE MIST',
-    subtitle: "The strategic pivot of the Land of Dawn. Flanked by the Lord's ancient sanctum to the north and the slumbering Turtle grotto to the south.",
-    telemetry: { elev: '920M', coord: "LAT 05°00'N • 115°30'E", sector: 'RIVER & ANCIENT BOSS PITS' },
-    audioId: 'lord'
-  },
-  {
-    id: 'allied_turret',
-    code: '04',
-    roman: 'IV',
-    progress: 1.0,
-    tag: 'MONIYAN CITADEL // BLUE CORE',
-    titlePrefix: 'Shield the Divine',
-    titleMain: 'CORE NEXUS',
-    subtitle: 'The pulsing crystalline heart of the Moniyan Empire. Radiant defensive pylons stand vigil against the encroaching darkness.',
-    telemetry: { elev: '620M', coord: "LAT 03°45'N • 114°10'E", sector: 'ALLIED DIVINE NEXUS' },
-    audioId: 'nexus'
+    id: 'astral',
+    name: 'Astral Stormblade',
+    tagline: 'CELESTIAL TEMPEST RAPIER',
+    hero: 'Gusion & Ling',
+    primaryColor: '#06b6d4',
+    secondaryColor: '#a855f7',
+    glowColor: 'rgba(6, 182, 212, 0.55)',
+    emissiveIntensity: 3.0,
+    stats: { attack: '+420 SWIFT BURST', crit: '25% COOLDOWN', specialty: 'SPATIAL WARP' },
+    lore: 'Infused with the eternal Twilight Orb, granting its bearer instant teleportation between blade strikes.'
   }
 ];
 
-// Exact MLBB Official Reference Map Coordinates on the Horizontal X-Z Plane
-const TACTICAL_MARKERS = [
+// ============================================================================
+// 2. SIX SOVEREIGN DISCIPLINES (ROLES SHOWCASE WITH OFFICIAL HEROES)
+// ============================================================================
+const ROLES_SHOWCASE = [
   {
-    id: 'blue_nexus',
-    code: 'NEXUS-01',
-    name: 'Moniyan Core Nexus',
-    tier: 'SOVEREIGN CORE',
-    status: 'ACTIVE',
-    worldPos: [-38.2, 2.2, 17.8],
-    color: '#38bdf8',
-    progress: 1.0
+    id: 'tank',
+    name: 'Tank',
+    icon: Shield,
+    heroName: 'Tigreal',
+    heroTitle: 'Warrior of Dawn',
+    heroId: 'tigreal',
+    image: '/assets/images/heroes/tigreal.png',
+    color: '#eab308',
+    glowColor: 'rgba(234, 179, 8, 0.45)',
+    desc: 'Unshakable vanguards wielding celestial shields and heavy crowd control to protect the allied core.',
+    winRate: '53.4%',
+    lane: 'Roamer / EXP Lane',
+    stats: { durability: 96, offense: 42, control: 95 }
   },
   {
-    id: 'allied_turret',
-    code: 'TURRET-01',
-    name: 'Allied Mid Inhibitor',
-    tier: 'T3 INHIBITOR',
-    status: 'ACTIVE',
-    worldPos: [-28.2, 2.2, 12.2],
-    color: '#38bdf8',
-    progress: 1.0
+    id: 'fighter',
+    name: 'Fighter',
+    icon: Swords,
+    heroName: 'Alucard',
+    heroTitle: 'Demon Hunter',
+    heroId: 'alucard',
+    image: '/assets/images/heroes/alucard.png',
+    color: '#f59e0b',
+    glowColor: 'rgba(245, 158, 11, 0.45)',
+    desc: 'Relentless close-quarters brawlers blending devastating physical burst with vampiric life steal.',
+    winRate: '52.1%',
+    lane: 'Jungle / EXP Lane',
+    stats: { durability: 76, offense: 92, control: 60 }
   },
   {
-    id: 'mid_crucible',
-    code: 'CHOKE-01',
-    name: 'Mid Stone Bridge',
-    tier: 'CONVERGENCE',
-    status: 'CONTESTED',
-    worldPos: [0, 0.8, 0],
-    color: '#f3d288',
-    progress: 0.65
+    id: 'assassin',
+    name: 'Assassin',
+    icon: Flame,
+    heroName: 'Gusion',
+    heroTitle: 'Holy Blade',
+    heroId: 'gusion',
+    image: '/assets/images/heroes/gusion.png',
+    color: '#ef4444',
+    glowColor: 'rgba(239, 68, 68, 0.45)',
+    desc: 'Hyper-agile tactical killers who weave through arcane daggers to obliterate priority carries.',
+    winRate: '54.6%',
+    lane: 'Mid Lane / Jungle',
+    stats: { durability: 35, offense: 98, control: 52 }
   },
   {
-    id: 'lord_pit',
-    code: 'BOSS-01',
-    name: "The Lord's Grotto",
-    tier: 'SANCTUARY LORD',
-    status: 'READY',
-    worldPos: [-18, 1.0, -11],
-    color: '#c084fc',
-    progress: 0.65
+    id: 'mage',
+    name: 'Mage',
+    icon: Sparkles,
+    heroName: 'Kagura',
+    heroTitle: 'Onmyouji Master',
+    heroId: 'kagura',
+    image: '/assets/images/heroes/kagura.png',
+    color: '#06b6d4',
+    glowColor: 'rgba(6, 182, 212, 0.45)',
+    desc: 'Mystical spellcasters commanding the Seimei Umbrella to manipulate spatial vortexes and wipe waves.',
+    winRate: '53.8%',
+    lane: 'Mid Lane',
+    stats: { durability: 42, offense: 95, control: 88 }
   },
   {
-    id: 'turtle_nest',
-    code: 'OBJ-02',
-    name: "The Turtle Grotto",
-    tier: 'CELESTIAL TURTLE',
-    status: 'SHIELD BUFF',
-    worldPos: [18, 1.0, 11],
-    color: '#38bdf8',
-    progress: 0.65
+    id: 'marksman',
+    name: 'Marksman',
+    icon: Crosshair,
+    heroName: 'Miya',
+    heroTitle: 'Moonlight Archer',
+    heroId: 'miya',
+    image: '/assets/images/heroes/miya.png',
+    color: '#10b981',
+    glowColor: 'rgba(16, 185, 129, 0.45)',
+    desc: 'Blessed by the Moon Goddess, delivering unmatched sustained physical DPS to shred enemy armor.',
+    winRate: '51.8%',
+    lane: 'Gold Lane',
+    stats: { durability: 30, offense: 99, control: 45 }
   },
   {
-    id: 'enemy_turret',
-    code: 'TURRET-02',
-    name: 'Enemy Mid Inhibitor',
-    tier: 'T3 INHIBITOR',
-    status: 'ACTIVE',
-    worldPos: [28.2, 2.2, -12.2],
-    color: '#f43f5e',
-    progress: 0.30
-  },
-  {
-    id: 'red_nexus',
-    code: 'NEXUS-02',
-    name: 'Abyssal Fortress Core',
-    tier: 'SOVEREIGN CORE',
-    status: 'FORTIFIED',
-    worldPos: [38.2, 2.2, -17.8],
-    color: '#f43f5e',
-    progress: 0.30
+    id: 'support',
+    name: 'Support',
+    icon: Zap,
+    heroName: 'Angela',
+    heroTitle: 'Bunnylove',
+    heroId: 'angela',
+    image: '/assets/images/heroes/angela.png',
+    color: '#a855f7',
+    glowColor: 'rgba(168, 85, 247, 0.45)',
+    desc: 'Possesses allied champions across the entire map, projecting radiant shields and healing waves.',
+    winRate: '55.2%',
+    lane: 'Roamer',
+    stats: { durability: 48, offense: 45, control: 92 }
   }
+];
+
+// Interactive 3D Model Hotspot Coordinates (Normalized Screen Space Offsets)
+const WEAPON_HOTSPOTS = [
+  {
+    id: 'tip',
+    label: 'APEX RAZOR EDGE',
+    stat: '4,800 TRUE DAMAGE',
+    desc: 'Forged diamond bevel capable of cleaving through abyssal titan armor.',
+    tag: 'BLADE TIP'
+  },
+  {
+    id: 'core',
+    label: 'TWILIGHT GEM',
+    stat: 'IMMORTALITY MATRIX',
+    desc: 'Pulsing arcane core that channels celestial mana directly to the wielder.',
+    tag: 'HILT SOCKET'
+  },
+  {
+    id: 'guard',
+    label: 'MONIYAN WINGS',
+    stat: '+65% TENACITY',
+    desc: 'Imperial golden crossguard enchanted with crowd-control defiance.',
+    tag: 'CROSSGUARD'
+  }
+];
+
+// 3 Curated ScrollTrigger Acts
+const SCROLL_ACTS = [
+  { id: 'forge', code: '01', roman: 'I', label: 'THE CELESTIAL FORGE', progress: 0.0 },
+  { id: 'roles', code: '02', roman: 'II', label: 'SOVEREIGN DISCIPLINES', progress: 0.52 },
+  { id: 'deploy', code: '03', roman: 'III', label: 'BATTLE COMMAND', progress: 0.95 }
 ];
 
 export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForChamber }) {
   const trackRef = useRef(null);
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const markerRefs = useRef({});
-  const [activeStageIndex, setActiveStageIndex] = useState(0);
-  const activeStageRef = useRef(0);
+
+  // States
   const [scrollProgress, setScrollProgress] = useState(0);
-  const lastReportedPct = useRef(-1);
+  const [activeAct, setActiveAct] = useState(0);
+  const [activeStanceIndex, setActiveStanceIndex] = useState(0);
+  const [activeRoleIndex, setActiveRoleIndex] = useState(1);
+  const [activeHotspot, setActiveHotspot] = useState(null);
   const [isAudioActive, setIsAudioActive] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [activePing, setActivePing] = useState(null);
+  const [isCharging, setIsCharging] = useState(false);
+  const [overdriveActive, setOverdriveActive] = useState(false);
 
-  // Animation & Camera Spline References
-  const currentProgress = useRef(0.0);
-  const targetProgress = useRef(0.0);
-  const dragStart = useRef({ x: 0, y: 0 });
-  const rotTarget = useRef({ x: 0, y: 0 });
-  const rotCurrent = useRef({ x: 0, y: 0 });
-
-  // 3D Scene References
+  // Three.js References
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
   const rendererRef = useRef(null);
-  const beaconGroupRef = useRef(null);
-  const pulsesRef = useRef([]);
+  const swordMasterGroupRef = useRef(null);
+  const bladeSpineMatRef = useRef(null);
+  const gemMeshRef = useRef(null);
+  const coreLightRef = useRef(null);
+  const tipLightRef = useRef(null);
+  const monolithMatsRef = useRef([]);
+  const daggerMatsRef = useRef([]);
+  const targetColorRef = useRef(new THREE.Color('#f59e0b'));
+  const targetSecondaryColorRef = useRef(new THREE.Color('#38bdf8'));
 
-  // MATHEMATICALLY STABLE CAMERA FLIGHT:
-  // Viewing direction vector is 100% LOCKED to a constant orientation along the Mid-Lane!
-  // CameraPos(progress) = TargetPos(progress) + VIEW_DIR * Distance(progress)
-  // Because the viewing ray is strictly constant, pitch and yaw never twist or wobble:
-  // ZERO uneven tilt, ZERO sideways roll, buttery-smooth cinematic track!
-  const VIEW_DIR = useMemo(() => {
-    return new THREE.Vector3(7.0, 19.5, 23.5).normalize();
-  }, []);
+  // Pointer & Parallax
+  const rotTarget = useRef({ x: 0, y: 0 });
+  const rotCurrent = useRef({ x: 0, y: 0 });
+  const dragStart = useRef({ x: 0, y: 0 });
+  const dragOffset = useRef({ x: 0, y: 0 });
+  const targetProgressRef = useRef(0.0);
+  const screenShakeRef = useRef(0.0);
 
-  // Mid-Lane Target Spline: Smoothly guides focus along the Mid-Lane from Enemy Base to Allied Base
-  const targetSpline = useMemo(() => {
-    return new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0, 0, 0),          // 0.0: Center of Battlefield (Overview)
-      new THREE.Vector3(28.2, 0.2, -12.2), // 0.30: Enemy Base Inhibitor Turret
-      new THREE.Vector3(14.0, 0.1, -6.0),  // 0.48: Enemy Outer Mid Turret
-      new THREE.Vector3(0, 0.05, 0),        // 0.65: Mid-Lane River Crossing (Lord left, Turtle right)
-      new THREE.Vector3(-14.0, 0.1, 6.0),  // 0.82: Allied Outer Mid Turret
-      new THREE.Vector3(-28.2, 0.2, 12.2)  // 1.0: Allied Base Inhibitor Turret & Nexus
-    ]);
-  }, []);
+  const activeStance = WEAPON_STANCES[activeStanceIndex] || WEAPON_STANCES[0];
+  const activeRole = ROLES_SHOWCASE[activeRoleIndex] || ROLES_SHOWCASE[0];
 
-  // Distance curve: Controls camera zoom level at each stage (optimal MOBA viewing distance)
-  const getCameraDistance = (prog) => {
-    if (prog <= 0.30) {
-      const t = prog / 0.30;
-      const smooth = t * t * (3 - 2 * t);
-      return 52 - smooth * 24; // Overview: 52 -> Enemy Base Turret: 28
-    } else if (prog <= 0.65) {
-      const t = (prog - 0.30) / 0.35;
-      const smooth = t * t * (3 - 2 * t);
-      return 28 - smooth * 4;  // Enemy Base: 28 -> River Crucible: 24
-    } else {
-      const t = (prog - 0.65) / 0.35;
-      const smooth = t * t * (3 - 2 * t);
-      return 24 + smooth * 4;  // River: 24 -> Allied Base Turret: 28
+  // ============================================================================
+  // 3. THREE.JS 3D GAME MODEL ENGINE: THE SACRED SOVEREIGN GREATSWORD SHRINE
+  // ============================================================================
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const width = canvas.clientWidth || window.innerWidth;
+    const height = canvas.clientHeight || window.innerHeight;
+
+    // 1. Scene & Deep Celestial Atmosphere Fog
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x080d1a);
+    scene.fog = new THREE.FogExp2(0x080d1a, 0.02);
+    sceneRef.current = scene;
+
+    // 2. Camera Setup
+    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 1000);
+    camera.position.set(0, 1.0, 16.0);
+    camera.lookAt(0, 0.5, 0);
+    cameraRef.current = camera;
+
+    // 3. WebGL Renderer with Tone Mapping & Specular Sharpness
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: false,
+      powerPreference: 'high-performance'
+    });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.35;
+    rendererRef.current = renderer;
+
+    // 4. Master Shrine Assembly Group
+    const shrineGroup = new THREE.Group();
+    scene.add(shrineGroup);
+
+    // ========================================================================
+    // A. THE MYTHIC SOVEREIGN GREATSWORD (COMPLEX GAME WEAPON MODEL)
+    // ========================================================================
+    const swordGroup = new THREE.Group();
+    shrineGroup.add(swordGroup);
+    swordMasterGroupRef.current = swordGroup;
+
+    // 1. Double-Edged Diamond Blade Profile (Forged Damascus Steel)
+    // 4-sided cylinder rotated 45 deg + scaled creates sharp double-edge bevel
+    const bladeGeo = new THREE.CylinderGeometry(0.04, 0.64, 8.4, 4, 1);
+    bladeGeo.rotateY(Math.PI / 4);
+    const bladeMat = new THREE.MeshPhysicalMaterial({
+      color: 0x111c2e,
+      emissive: 0x182842,
+      emissiveIntensity: 0.25,
+      metalness: 0.96,
+      roughness: 0.11,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.08,
+      flatShading: true
+    });
+    const bladeMesh = new THREE.Mesh(bladeGeo, bladeMat);
+    bladeMesh.scale.set(0.24, 1.0, 1.0); // Flatten horizontally into razor blade
+    bladeMesh.position.set(0, 3.8, 0);
+    swordGroup.add(bladeMesh);
+
+    // 2. Central Glowing Mana Fuller (The Runic Spine)
+    const fullerGeo = new THREE.BoxGeometry(0.08, 6.8, 0.15);
+    const fullerMat = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      emissive: 0xf59e0b,
+      emissiveIntensity: 3.2,
+      roughness: 0.2
+    });
+    bladeSpineMatRef.current = fullerMat;
+    const fullerMesh = new THREE.Mesh(fullerGeo, fullerMat);
+    fullerMesh.position.set(0, 3.4, 0);
+    swordGroup.add(fullerMesh);
+
+    // 3. Five Inlaid Runic Nodes along the Fuller
+    const runicNodes = [];
+    for (let i = 0; i < 5; i++) {
+      const rNodeGeo = new THREE.OctahedronGeometry(0.12, 0);
+      const rNodeMesh = new THREE.Mesh(rNodeGeo, fullerMat);
+      rNodeMesh.position.set(0, 1.2 + i * 1.1, 0);
+      swordGroup.add(rNodeMesh);
+      runicNodes.push(rNodeMesh);
     }
-  };
 
-  const activeStage = TACTICAL_STAGES[activeStageIndex] || TACTICAL_STAGES[0];
+    // 4. Winged Moniyan Imperial Crossguard
+    const guardGroup = new THREE.Group();
+    guardGroup.position.set(0, -0.4, 0);
+    swordGroup.add(guardGroup);
 
-  // Glide smoothly to a specific stage by scrolling the window track
-  const handleGlideToStage = useCallback((stageIdx) => {
-    const safeIdx = Math.max(0, Math.min(TACTICAL_STAGES.length - 1, stageIdx));
-    activeStageRef.current = safeIdx;
-    setActiveStageIndex(safeIdx);
-    const targetProg = TACTICAL_STAGES[safeIdx].progress;
-    targetProgress.current = targetProg;
+    // Guard Center Hub
+    const guardCenterGeo = new THREE.BoxGeometry(0.85, 0.55, 0.75);
+    const goldArmorMat = new THREE.MeshStandardMaterial({
+      color: 0xf59e0b,
+      metalness: 0.94,
+      roughness: 0.16
+    });
+    const guardCenterMesh = new THREE.Mesh(guardCenterGeo, goldArmorMat);
+    guardGroup.add(guardCenterMesh);
 
-    const track = trackRef.current;
-    if (track) {
-      const trackTop = track.getBoundingClientRect().top + window.pageYOffset;
-      const totalScrollable = track.offsetHeight - window.innerHeight;
-      const targetScrollY = trackTop + targetProg * totalScrollable;
-      if (window.lenis) {
-        window.lenis.scrollTo(targetScrollY, { duration: 1.2 });
-      } else {
-        window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+    // Left Swept Wing
+    const wingGeo = new THREE.ConeGeometry(0.36, 1.7, 4);
+    wingGeo.rotateY(Math.PI / 4);
+    const leftWing = new THREE.Mesh(wingGeo, goldArmorMat);
+    leftWing.position.set(-1.0, 0.25, 0);
+    leftWing.rotation.z = -Math.PI / 2.8;
+    guardGroup.add(leftWing);
+
+    // Right Swept Wing
+    const rightWing = new THREE.Mesh(wingGeo, goldArmorMat);
+    rightWing.position.set(1.0, 0.25, 0);
+    rightWing.rotation.z = Math.PI / 2.8;
+    guardGroup.add(rightWing);
+
+    // Twilight Heart Gem Socket & Rotating Crystal
+    const gemSocketGeo = new THREE.TorusGeometry(0.42, 0.09, 16, 32);
+    const gemSocketMesh = new THREE.Mesh(gemSocketGeo, goldArmorMat);
+    gemSocketMesh.rotation.x = Math.PI / 2;
+    guardGroup.add(gemSocketMesh);
+
+    const gemGeo = new THREE.IcosahedronGeometry(0.32, 0);
+    const gemMat = new THREE.MeshStandardMaterial({
+      color: 0xfef08a,
+      emissive: 0xf59e0b,
+      emissiveIntensity: 3.5,
+      roughness: 0.1
+    });
+    const gemMesh = new THREE.Mesh(gemGeo, gemMat);
+    gemMeshRef.current = gemMesh;
+    guardGroup.add(gemMesh);
+
+    // 5. Hand-Wrapped Leather Grip
+    const gripGeo = new THREE.CylinderGeometry(0.16, 0.18, 2.7, 16);
+    const gripMat = new THREE.MeshStandardMaterial({
+      color: 0x090f1d,
+      roughness: 0.7,
+      metalness: 0.3
+    });
+    const gripMesh = new THREE.Mesh(gripGeo, gripMat);
+    gripMesh.position.set(0, -1.95, 0);
+    swordGroup.add(gripMesh);
+
+    // 5 Gold Spiral Grip Ribs
+    for (let i = 0; i < 5; i++) {
+      const ribGeo = new THREE.TorusGeometry(0.19, 0.024, 8, 24);
+      const ribMesh = new THREE.Mesh(ribGeo, goldArmorMat);
+      ribMesh.position.set(0, -1.2 - i * 0.35, 0);
+      swordGroup.add(ribMesh);
+    }
+
+    // 6. Crown Weighted Pommel & Finial Counterweight
+    const pommelGeo = new THREE.CylinderGeometry(0.38, 0.19, 0.5, 8);
+    const pommelMesh = new THREE.Mesh(pommelGeo, goldArmorMat);
+    pommelMesh.position.set(0, -3.5, 0);
+    swordGroup.add(pommelMesh);
+
+    const finialGeo = new THREE.OctahedronGeometry(0.24, 0);
+    const finialMesh = new THREE.Mesh(finialGeo, gemMat);
+    finialMesh.position.set(0, -3.9, 0);
+    swordGroup.add(finialMesh);
+
+    // ========================================================================
+    // B. FOUR ORBITING SPECTRAL AEGIS DAGGERS
+    // ========================================================================
+    const daggers = [];
+    const daggerMats = [];
+    const daggerOrbitRadius = 3.2;
+
+    for (let i = 0; i < 4; i++) {
+      const dGroup = new THREE.Group();
+      shrineGroup.add(dGroup);
+
+      const dBladeGeo = new THREE.CylinderGeometry(0.02, 0.2, 2.2, 4);
+      dBladeGeo.rotateY(Math.PI / 4);
+      const dMat = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        emissive: 0x38bdf8,
+        emissiveIntensity: 2.2,
+        roughness: 0.2
+      });
+      daggerMats.push(dMat);
+
+      const dBlade = new THREE.Mesh(dBladeGeo, dMat);
+      dBlade.scale.set(0.2, 1, 1);
+      dGroup.add(dBlade);
+
+      const dHilt = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.08, 0.08), goldArmorMat);
+      dHilt.position.y = -1.1;
+      dGroup.add(dHilt);
+
+      const initialAngle = (i * Math.PI * 2) / 4;
+      dGroup.position.set(
+        Math.cos(initialAngle) * daggerOrbitRadius,
+        2.5 + (i % 2 === 0 ? 0.8 : -0.8),
+        Math.sin(initialAngle) * daggerOrbitRadius
+      );
+
+      daggers.push({
+        group: dGroup,
+        angle: initialAngle,
+        speed: 0.55 + (i % 2) * 0.2,
+        heightBase: 2.5 + (i % 2 === 0 ? 0.8 : -0.8)
+      });
+    }
+    daggerMatsRef.current = daggerMats;
+
+    // ========================================================================
+    // C. FOUR ANCIENT LEVITATING MONOLITHS (SHRINE PILLARS)
+    // ========================================================================
+    const monoliths = [];
+    const monolithMats = [];
+    const monolithRadius = 5.8;
+
+    for (let i = 0; i < 4; i++) {
+      const mGroup = new THREE.Group();
+      shrineGroup.add(mGroup);
+
+      // Weathered Stone Shaft
+      const shaftGeo = new THREE.BoxGeometry(0.55, 4.2, 0.55);
+      const stoneMat = new THREE.MeshStandardMaterial({
+        color: 0x0a1222,
+        roughness: 0.65,
+        metalness: 0.6
+      });
+      const shaft = new THREE.Mesh(shaftGeo, stoneMat);
+      mGroup.add(shaft);
+
+      // Beveled Pyramid Cap
+      const capGeo = new THREE.ConeGeometry(0.48, 0.8, 4);
+      capGeo.rotateY(Math.PI / 4);
+      const cap = new THREE.Mesh(capGeo, stoneMat);
+      cap.position.y = 2.4;
+      mGroup.add(cap);
+
+      // Vertical Glowing Runic Inlay
+      const runeGeo = new THREE.BoxGeometry(0.08, 3.2, 0.58);
+      const rMat = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        emissive: 0xf59e0b,
+        emissiveIntensity: 2.2
+      });
+      monolithMats.push(rMat);
+      const runeMesh = new THREE.Mesh(runeGeo, rMat);
+      mGroup.add(runeMesh);
+
+      const mAngle = (i * Math.PI * 2) / 4 + Math.PI / 4;
+      mGroup.position.set(
+        Math.cos(mAngle) * monolithRadius,
+        0.5,
+        Math.sin(mAngle) * monolithRadius
+      );
+
+      monoliths.push({
+        group: mGroup,
+        angle: mAngle,
+        baseY: 0.5,
+        phase: i * 1.5
+      });
+    }
+    monolithMatsRef.current = monolithMats;
+
+    // ========================================================================
+    // D. CONCENTRIC ARCANE GROUND RINGS
+    // ========================================================================
+    const ringGroup = new THREE.Group();
+    ringGroup.position.y = -4.5;
+    shrineGroup.add(ringGroup);
+
+    // Outer Runic Orbit
+    const outerRingGeo = new THREE.RingGeometry(5.2, 7.8, 64);
+    const outerRingMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.16,
+      side: THREE.DoubleSide
+    });
+    const outerRing = new THREE.Mesh(outerRingGeo, outerRingMat);
+    outerRing.rotation.x = -Math.PI / 2;
+    ringGroup.add(outerRing);
+
+    // Inner Counter-Rotating Orbit
+    const innerRingGeo = new THREE.RingGeometry(2.4, 4.2, 48);
+    const innerRingMat = new THREE.MeshBasicMaterial({
+      color: 0xf59e0b,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.22,
+      side: THREE.DoubleSide
+    });
+    const innerRing = new THREE.Mesh(innerRingGeo, innerRingMat);
+    innerRing.rotation.x = -Math.PI / 2;
+    ringGroup.add(innerRing);
+
+    // Central Crucible Disc
+    const centerRingGeo = new THREE.RingGeometry(0.8, 1.8, 32);
+    const centerRingMat = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.35,
+      side: THREE.DoubleSide
+    });
+    const centerRing = new THREE.Mesh(centerRingGeo, centerRingMat);
+    centerRing.rotation.x = -Math.PI / 2;
+    ringGroup.add(centerRing);
+
+    // ========================================================================
+    // E. 1,600 UPWARD-RISING STARDUST & FORGE SPARKS (PARTICLE SYSTEM)
+    // ========================================================================
+    const particleCount = 1600;
+    const pPositions = new Float32Array(particleCount * 3);
+    const pColors = new Float32Array(particleCount * 3);
+    const pVelocities = new Float32Array(particleCount);
+
+    const cColorA = new THREE.Color('#f59e0b');
+    const cColorB = new THREE.Color('#38bdf8');
+    const cColorC = new THREE.Color('#ffffff');
+
+    for (let i = 0; i < particleCount; i++) {
+      const radius = 0.5 + Math.random() * 8.0;
+      const angle = Math.random() * Math.PI * 2;
+      pPositions[i * 3] = Math.cos(angle) * radius;
+      pPositions[i * 3 + 1] = -4.5 + Math.random() * 14.0;
+      pPositions[i * 3 + 2] = Math.sin(angle) * radius;
+
+      pVelocities[i] = 0.02 + Math.random() * 0.04;
+
+      const dice = Math.random();
+      const pColor = dice < 0.5 ? cColorA : dice < 0.85 ? cColorB : cColorC;
+      pColors[i * 3] = pColor.r;
+      pColors[i * 3 + 1] = pColor.g;
+      pColors[i * 3 + 2] = pColor.b;
+    }
+
+    const pGeo = new THREE.BufferGeometry();
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
+    pGeo.setAttribute('color', new THREE.BufferAttribute(pColors, 3));
+
+    const pMat = new THREE.PointsMaterial({
+      size: 0.08,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.75,
+      blending: THREE.AdditiveBlending
+    });
+    const particlePoints = new THREE.Points(pGeo, pMat);
+    shrineGroup.add(particlePoints);
+
+    // ========================================================================
+    // F. LIGHTING RIG (AWWWARDS AAA GAME SHADING)
+    // ========================================================================
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+    scene.add(ambientLight);
+
+    const coreLight = new THREE.PointLight(0xf59e0b, 3.8, 25);
+    coreLight.position.set(0, 0, 1.0);
+    swordGroup.add(coreLight);
+    coreLightRef.current = coreLight;
+
+    const tipLight = new THREE.PointLight(0x38bdf8, 2.5, 18);
+    tipLight.position.set(0, 7.5, 0.5);
+    swordGroup.add(tipLight);
+    tipLightRef.current = tipLight;
+
+    const sunLight = new THREE.DirectionalLight(0xfff5ea, 1.8);
+    sunLight.position.set(15, 25, 20);
+    scene.add(sunLight);
+
+    const cyanRim = new THREE.DirectionalLight(0x38bdf8, 1.4);
+    cyanRim.position.set(-18, 18, -12);
+    scene.add(cyanRim);
+
+    // ========================================================================
+    // G. HIGH-PERFORMANCE 60/120FPS ANIMATION LOOP
+    // ========================================================================
+    let animId;
+    let clock = new THREE.Clock();
+
+    const render = () => {
+      const delta = clock.getDelta();
+      const elapsed = clock.getElapsedTime();
+
+      // Gem Continuous Gyro Rotation
+      if (gemMeshRef.current) {
+        gemMeshRef.current.rotation.x += delta * 1.5;
+        gemMeshRef.current.rotation.y += delta * 2.0;
       }
-    }
-    audioManager.playBattlefieldSwell(TACTICAL_STAGES[safeIdx].audioId);
+
+      // Floating Sword Breathing Physics (Zero Twist, Natural Weightless Bob)
+      swordGroup.position.y = Math.sin(elapsed * 1.6) * 0.22;
+
+      // Orbiting Daggers Rotation
+      for (let i = 0; i < daggers.length; i++) {
+        const d = daggers[i];
+        d.angle += delta * d.speed;
+        d.group.position.x = Math.cos(d.angle) * daggerOrbitRadius;
+        d.group.position.z = Math.sin(d.angle) * daggerOrbitRadius;
+        d.group.position.y = d.heightBase + Math.sin(elapsed * 2.0 + i) * 0.35;
+        d.group.rotation.y += delta * 2.5;
+      }
+
+      // Levitating Monoliths Float
+      for (let i = 0; i < monoliths.length; i++) {
+        const m = monoliths[i];
+        m.group.position.y = m.baseY + Math.sin(elapsed * 1.4 + m.phase) * 0.28;
+      }
+
+      // Concentric Floor Ring Rotations
+      outerRing.rotation.z += delta * 0.08;
+      innerRing.rotation.z -= delta * 0.14;
+      centerRing.rotation.z += delta * 0.22;
+
+      // Particle Upward Rise Loop
+      const posArr = pGeo.attributes.position.array;
+      for (let i = 0; i < particleCount; i++) {
+        posArr[i * 3 + 1] += pVelocities[i] * (1.0 + targetProgressRef.current * 1.5);
+        if (posArr[i * 3 + 1] > 9.5) {
+          posArr[i * 3 + 1] = -4.5;
+        }
+      }
+      pGeo.attributes.position.needsUpdate = true;
+
+      // Mouse Parallax & Drag Inertia
+      rotCurrent.current.x += (rotTarget.current.x - rotCurrent.current.x) * 0.055;
+      rotCurrent.current.y += (rotTarget.current.y - rotCurrent.current.y) * 0.055;
+
+      shrineGroup.rotation.y = rotCurrent.current.x * 0.65 + dragOffset.current.x;
+      shrineGroup.rotation.x = rotCurrent.current.y * 0.45 + dragOffset.current.y;
+
+      // Dynamic Color Interpolation toward active weapon stance
+      if (coreLightRef.current && targetColorRef.current) {
+        coreLightRef.current.color.lerp(targetColorRef.current, 0.08);
+      }
+      if (tipLightRef.current && targetSecondaryColorRef.current) {
+        tipLightRef.current.color.lerp(targetSecondaryColorRef.current, 0.08);
+      }
+      if (bladeSpineMatRef.current && targetColorRef.current) {
+        bladeSpineMatRef.current.emissive.lerp(targetColorRef.current, 0.08);
+      }
+      for (let mat of daggerMatsRef.current) {
+        mat.emissive.lerp(targetSecondaryColorRef.current, 0.08);
+      }
+      for (let mat of monolithMatsRef.current) {
+        mat.emissive.lerp(targetColorRef.current, 0.08);
+      }
+
+      // Camera & Shrine GSAP ScrollTrigger Scrubbing:
+      // Act 1 (0.0): Close-up heroic perspective on Greatsword (z=16.0, y=1.0)
+      // Act 2 (0.5): Camera glides back and reveals full shrine & orbiting blades (z=19.5, y=2.0)
+      // Act 3 (1.0): Camera plunges into hyperdrive alignment (z=11.5, y=0.0)
+      const currentScroll = targetProgressRef.current;
+      let targetCamZ = 16.0;
+      let targetCamY = 1.0;
+
+      if (currentScroll < 0.35) {
+        targetCamZ = 16.0 - currentScroll * 4.0;
+        targetCamY = 1.0;
+      } else if (currentScroll < 0.75) {
+        const t = (currentScroll - 0.35) / 0.4;
+        targetCamZ = 14.6 + t * 4.2; // pull back to show full shrine behind roles
+        targetCamY = 1.0 + t * 1.8;
+      } else {
+        const t = (currentScroll - 0.75) / 0.25;
+        targetCamZ = 18.8 - t * 7.5; // plunge in toward arena
+        targetCamY = 2.8 - t * 2.8;
+      }
+
+      // Screen Shake Decay
+      if (screenShakeRef.current > 0.001) {
+        camera.position.x = (Math.random() - 0.5) * screenShakeRef.current;
+        camera.position.y = targetCamY + (Math.random() - 0.5) * screenShakeRef.current;
+        screenShakeRef.current *= 0.88;
+      } else {
+        camera.position.x = 0;
+        camera.position.y += (targetCamY - camera.position.y) * 0.08;
+      }
+
+      camera.position.z += (targetCamZ - camera.position.z) * 0.08;
+
+      renderer.render(scene, camera);
+      animId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    // Window Resize Handler
+    const handleResize = () => {
+      if (!canvas) return;
+      const w = canvas.clientWidth || window.innerWidth;
+      const h = canvas.clientHeight || window.innerHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', handleResize);
+      renderer.dispose();
+      bladeGeo.dispose();
+      bladeMat.dispose();
+      fullerGeo.dispose();
+      fullerMat.dispose();
+      guardCenterGeo.dispose();
+      goldArmorMat.dispose();
+      wingGeo.dispose();
+      gemSocketGeo.dispose();
+      gemGeo.dispose();
+      gemMat.dispose();
+      gripGeo.dispose();
+      gripMat.dispose();
+      pommelGeo.dispose();
+      finialGeo.dispose();
+      outerRingGeo.dispose();
+      outerRingMat.dispose();
+      innerRingGeo.dispose();
+      innerRingMat.dispose();
+      centerRingGeo.dispose();
+      centerRingMat.dispose();
+      pGeo.dispose();
+      pMat.dispose();
+    };
   }, []);
 
-  // Marker click handler: smoothly glides directly to that marker's lane location
-  const handleMarkerClick = (marker) => {
-    targetProgress.current = marker.progress;
-    const track = trackRef.current;
-    if (track) {
-      const trackTop = track.getBoundingClientRect().top + window.pageYOffset;
-      const totalScrollable = track.offsetHeight - window.innerHeight;
-      const targetScrollY = trackTop + marker.progress * totalScrollable;
-      if (window.lenis) {
-        window.lenis.scrollTo(targetScrollY, { duration: 1.2 });
-      } else {
-        window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
-      }
+  // Sync colors when weapon stance changes
+  useEffect(() => {
+    if (activeStance) {
+      targetColorRef.current = new THREE.Color(activeStance.primaryColor);
+      targetSecondaryColorRef.current = new THREE.Color(activeStance.secondaryColor);
     }
-    audioManager.playBattlefieldSwell(
-      marker.id === 'lord_pit' ? 'lord' : marker.id.includes('nexus') ? 'nexus' : 'crucible'
-    );
+  }, [activeStance]);
+
+  // ============================================================================
+  // 4. GSAP SCROLLTRIGGER ORCHESTRATION & LENIS SMOOTH SYNC
+  // ============================================================================
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const handleLenisScroll = () => {
+      ScrollTrigger.update();
+    };
+    if (window.lenis) {
+      window.lenis.on('scroll', handleLenisScroll);
+    }
+
+    const st = ScrollTrigger.create({
+      trigger: track,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1.0,
+      onUpdate: (self) => {
+        const prog = self.progress;
+        setScrollProgress(prog);
+        targetProgressRef.current = prog;
+
+        if (prog < 0.33) {
+          setActiveAct(0);
+        } else if (prog < 0.72) {
+          setActiveAct(1);
+        } else {
+          setActiveAct(2);
+        }
+      }
+    });
+
+    return () => {
+      if (window.lenis) {
+        window.lenis.off('scroll', handleLenisScroll);
+      }
+      st.kill();
+    };
+  }, []);
+
+  // Pointer Move & Drag Interaction
+  useEffect(() => {
+    const handlePointerMove = (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 0.45;
+      const y = (e.clientY / window.innerHeight - 0.5) * 0.35;
+      rotTarget.current = { x, y };
+
+      if (isDragging) {
+        const dx = (e.clientX - dragStart.current.x) * 0.005;
+        const dy = (e.clientY - dragStart.current.y) * 0.005;
+        dragOffset.current.x += dx;
+        dragOffset.current.y += dy;
+        dragStart.current = { x: e.clientX, y: e.clientY };
+      }
+    };
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    return () => window.removeEventListener('pointermove', handlePointerMove);
+  }, [isDragging]);
+
+  const handlePointerDown = (e) => {
+    setIsDragging(true);
+    dragStart.current = { x: e.clientX, y: e.clientY };
   };
 
-  // Ping button trigger (Attack / Defend / Retreat)
-  const handleTriggerPing = (type) => {
-    audioManager.playClick();
-    setActivePing(type);
-    setTimeout(() => setActivePing(null), 2500);
+  const handlePointerUp = () => {
+    setIsDragging(false);
   };
 
-  // Audio toggle
+  // Sound Toggle
   const handleToggleSound = () => {
     const isPlaying = audioManager.toggleMusic();
     setIsAudioActive(isPlaying);
     if (isPlaying) {
-      audioManager.playBattlefieldSwell(activeStage.audioId);
+      audioManager.playSkillFlare();
     }
   };
 
-  // Scroll to page sections
+  // Interactive Overdrive Awaken Weapon Action
+  const handleAwakenWeapon = () => {
+    audioManager.playAwakening();
+    screenShakeRef.current = 0.55; // Screen shake impulse
+    setOverdriveActive(true);
+
+    if (coreLightRef.current) {
+      coreLightRef.current.intensity = 8.0;
+    }
+    if (bladeSpineMatRef.current) {
+      bladeSpineMatRef.current.emissiveIntensity = 6.0;
+    }
+
+    setTimeout(() => {
+      setOverdriveActive(false);
+      if (coreLightRef.current) {
+        coreLightRef.current.intensity = 3.8;
+      }
+      if (bladeSpineMatRef.current) {
+        bladeSpineMatRef.current.emissiveIntensity = 2.8;
+      }
+    }, 1800);
+  };
+
+  // Smooth Act Glide
+  const handleGlideToAct = (actIdx) => {
+    audioManager.playClick();
+    const track = trackRef.current;
+    if (!track) return;
+
+    const actProgress = [0.0, 0.52, 0.95][actIdx] ?? 0.0;
+    const trackTop = track.getBoundingClientRect().top + window.pageYOffset;
+    const totalScrollable = track.offsetHeight - window.innerHeight;
+    const targetScrollY = trackTop + actProgress * totalScrollable;
+
+    if (window.lenis) {
+      window.lenis.scrollTo(targetScrollY, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+    }
+  };
+
+  // Section Scroll Helper
   const scrollToSection = (id) => {
     audioManager.playClick();
     const el = document.querySelector(id);
@@ -283,1486 +918,619 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     }
   };
 
-  // Passive window scroll listener: tracks position along 380vh runway without hijacking
-  useEffect(() => {
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const track = trackRef.current;
-          if (track) {
-            const rect = track.getBoundingClientRect();
-            const totalScrollable = rect.height - window.innerHeight;
-            if (totalScrollable > 0) {
-              const progress = Math.max(0, Math.min(1.0, -rect.top / totalScrollable));
-              targetProgress.current = progress;
-              const roundedPct = Math.round(progress * 100);
-              if (roundedPct !== lastReportedPct.current) {
-                lastReportedPct.current = roundedPct;
-                setScrollProgress(progress);
-              }
-            }
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Subtle natural mouse parallax (ambient 3D gyro tilt)
-  useEffect(() => {
-    const handlePointerMove = (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 0.45;
-      const y = (e.clientY / window.innerHeight - 0.5) * 0.35;
-      rotTarget.current.x = x;
-      rotTarget.current.y = y;
-    };
-
-    window.addEventListener('pointermove', handlePointerMove, { passive: true });
-    return () => window.removeEventListener('pointermove', handlePointerMove);
-  }, []);
-
-  // Three.js 3D Battlefield Engine Setup
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const width = canvas.clientWidth || window.innerWidth;
-    const height = canvas.clientHeight || window.innerHeight;
-
-    // 1. Scene & Authentic MLBB Map Atmosphere
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x060a14); // Deep celestial space
-    scene.fog = new THREE.FogExp2(0x0a101f, 0.0028);
-    sceneRef.current = scene;
-
-    // 2. Camera Setup (Strictly perpendicular up vector ensures ZERO roll tilt!)
-    const camera = new THREE.PerspectiveCamera(46, width / height, 0.5, 2500);
-    camera.up.set(0, 1, 0); // World Up is strictly Y-axis!
-    
-    // Initial camera position from mathematical formula
-    const initTarget = targetSpline.getPointAt(0);
-    const initDist = getCameraDistance(0);
-    camera.position.copy(initTarget).addScaledVector(VIEW_DIR, initDist);
-    camera.lookAt(initTarget);
-    cameraRef.current = camera;
-
-    // 3. WebGL Renderer
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: false,
-      powerPreference: 'high-performance'
-    });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.14;
-    rendererRef.current = renderer;
-
-    // 4. Lighting Rig (High-End MOBA Arena Game Lighting - Rich Contrast, True Colors)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.98);
-    scene.add(ambientLight);
-
-    const sunLight = new THREE.DirectionalLight(0xfffaee, 1.40);
-    sunLight.position.set(38, 75, 28);
-    scene.add(sunLight);
-
-    const moniyanFill = new THREE.DirectionalLight(0x38bdf8, 0.55);
-    moniyanFill.position.set(-55, 32, 45);
-    scene.add(moniyanFill);
-
-    const abyssalFill = new THREE.DirectionalLight(0xf43f5e, 0.55);
-    abyssalFill.position.set(55, 32, -45);
-    scene.add(abyssalFill);
-
-    // 5. Official MLBB Reference Map Texture (Dynamic High-Clarity Resolution based on Viewport)
-    const textureLoader = new THREE.TextureLoader();
-    const isUltraDisplay = typeof window !== 'undefined' && (window.innerWidth * Math.min(window.devicePixelRatio || 1, 2) > 2800);
-    const mapSrc = isUltraDisplay
-      ? '/assets/images/mlbb_official_map_reference_8k.jpg'
-      : '/assets/images/mlbb_official_map_reference_4k.jpg';
-
-    const mapTexture = textureLoader.load(mapSrc, (tex) => {
-      tex.colorSpace = THREE.SRGBColorSpace;
-      tex.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 16);
-      tex.generateMipmaps = true;
-      tex.minFilter = THREE.LinearMipmapLinearFilter;
-      tex.magFilter = THREE.LinearFilter;
-      tex.wrapS = THREE.ClampToEdgeWrapping;
-      tex.wrapT = THREE.ClampToEdgeWrapping;
-      tex.needsUpdate = true;
-      if (rendererRef.current && cameraRef.current) {
-        rendererRef.current.render(scene, cameraRef.current);
-      }
-    });
-
-    mapTexture.colorSpace = THREE.SRGBColorSpace;
-    mapTexture.anisotropy = 16;
-    mapTexture.generateMipmaps = true;
-    mapTexture.minFilter = THREE.LinearMipmapLinearFilter;
-    mapTexture.magFilter = THREE.LinearFilter;
-    mapTexture.wrapS = THREE.ClampToEdgeWrapping;
-    mapTexture.wrapT = THREE.ClampToEdgeWrapping;
-
-    const normalTexture = textureLoader.load('/assets/images/mlbb_official_map_normal.jpg', (tex) => {
-      tex.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 16);
-      tex.generateMipmaps = true;
-      tex.minFilter = THREE.LinearMipmapLinearFilter;
-      tex.magFilter = THREE.LinearFilter;
-      tex.wrapS = THREE.ClampToEdgeWrapping;
-      tex.wrapT = THREE.ClampToEdgeWrapping;
-      tex.needsUpdate = true;
-    });
-
-    normalTexture.anisotropy = 16;
-    normalTexture.generateMipmaps = true;
-    normalTexture.minFilter = THREE.LinearMipmapLinearFilter;
-    normalTexture.magFilter = THREE.LinearFilter;
-    normalTexture.wrapS = THREE.ClampToEdgeWrapping;
-    normalTexture.wrapT = THREE.ClampToEdgeWrapping;
-
-    // 6. 3D TERRAIN SURFACE (Pristine 8K MLBB Sanctum Island Reference Map)
-    // Smooth planar surface ensures zero UV stretching, zero jagged normal creases,
-    // and displays the official 8K artwork with authentic AAA in-game clarity and relief depth.
-    const terrainGeo = new THREE.PlaneGeometry(120, 66.182, 32, 18);
-    const terrainMat = new THREE.MeshStandardMaterial({
-      color: 0xffffff,
-      map: mapTexture,
-      normalMap: normalTexture,
-      normalScale: new THREE.Vector2(0.38, 0.38),
-      roughness: 0.36,
-      metalness: 0.04
-    });
-    const terrainMesh = new THREE.Mesh(terrainGeo, terrainMat);
-    terrainMesh.rotation.x = -Math.PI / 2; // Horizontal X-Z plane!
-    terrainMesh.position.set(0, 0.05, 0); // Elevated to sit cleanly above underlying bedrock
-    scene.add(terrainMesh);
-
-    // 7. AUTHENTIC IN-GAME SANCTUM ISLAND FLOATING BEDROCK & CLIFF ARCHITECTURE
-    // Sits strictly beneath the terrain plane (y <= 0) to guarantee 100% unobstructed, crystal-clear 8K view.
-    const islandGroup = new THREE.Group();
-    scene.add(islandGroup);
-
-    // Bedrock cliff materials with ancient stone strata
-    const bedrockMat = new THREE.MeshStandardMaterial({
-      color: 0x121927,
-      roughness: 0.86,
-      metalness: 0.16
-    });
-    const cliffStrataMat = new THREE.MeshStandardMaterial({
-      color: 0x0f1523,
-      roughness: 0.90,
-      metalness: 0.12
-    });
-
-    // Tier 1: Carved sanctum perimeter cornice rim beneath the battlefield
-    const corniceGeo = new THREE.BoxGeometry(121.2, 1.8, 67.4);
-    const corniceMesh = new THREE.Mesh(corniceGeo, bedrockMat);
-    corniceMesh.position.set(0, -0.9, 0);
-    islandGroup.add(corniceMesh);
-
-    // Tier 2: Stepped crag strata shelf jutting outward naturally
-    const cliffTier1Geo = new THREE.BoxGeometry(123.6, 5.0, 69.8);
-    const cliffTier1Mesh = new THREE.Mesh(cliffTier1Geo, cliffStrataMat);
-    cliffTier1Mesh.position.set(0, -4.3, 0);
-    islandGroup.add(cliffTier1Mesh);
-
-    // Tier 3: Colossal bedrock foundation mass descending deep into the sky
-    const foundationGeo = new THREE.BoxGeometry(118.0, 16.0, 64.2);
-    const foundationMesh = new THREE.Mesh(foundationGeo, bedrockMat);
-    foundationMesh.position.set(0, -14.8, 0);
-    islandGroup.add(foundationMesh);
-
-    // Deep mountain keel (Inverted colossal mountain crag tapering into the celestial clouds)
-    const islandKeelGeo = new THREE.CylinderGeometry(42, 3, 28, 14, 2);
-    const islandKeel = new THREE.Mesh(islandKeelGeo, cliffStrataMat);
-    islandKeel.position.set(0, -28.0, 0);
-    islandGroup.add(islandKeel);
-
-    // Subordinate hanging stalactite crags and roots dangling from the underbelly
-    const stalactiteMat = new THREE.MeshStandardMaterial({ color: 0x0c121e, roughness: 0.94, metalness: 0.1 });
-    const stalactiteGeos = [
-      new THREE.ConeGeometry(3.5, 16, 7),
-      new THREE.ConeGeometry(2.6, 12, 6),
-      new THREE.ConeGeometry(3.0, 14, 6)
-    ];
-    const stalactitePositions = [
-      { pos: [-36, -24, 18], geo: 0, rotZ: 0.12 },
-      { pos: [36, -24, -18], geo: 0, rotZ: -0.15 },
-      { pos: [-44, -22, -18], geo: 1, rotZ: -0.08 },
-      { pos: [44, -22, 18], geo: 1, rotZ: 0.1 },
-      { pos: [0, -26, 24], geo: 2, rotZ: 0.05 },
-      { pos: [0, -26, -24], geo: 2, rotZ: -0.05 }
-    ];
-    stalactitePositions.forEach((sp) => {
-      const cone = new THREE.Mesh(stalactiteGeos[sp.geo], stalactiteMat);
-      cone.rotation.x = Math.PI; // Point down!
-      cone.rotation.z = sp.rotZ;
-      cone.position.set(sp.pos[0], sp.pos[1], sp.pos[2]);
-      islandGroup.add(cone);
-    });
-
-    // 8. ARCHITECTURAL PERIMETER GILDED SANCTUM RIMS & RUNIC PLINTHS
-    const borderGoldMat = new THREE.MeshStandardMaterial({
-      color: 0xd97706,
-      roughness: 0.32,
-      metalness: 0.88
-    });
-    const borderLongGeo = new THREE.BoxGeometry(120.6, 0.25, 0.45);
-    const borderShortGeo = new THREE.BoxGeometry(0.45, 0.25, 66.6);
-
-    const borderNorth = new THREE.Mesh(borderLongGeo, borderGoldMat);
-    borderNorth.position.set(0, 0.06, -33.3);
-    islandGroup.add(borderNorth);
-
-    const borderSouth = new THREE.Mesh(borderLongGeo, borderGoldMat);
-    borderSouth.position.set(0, 0.06, 33.3);
-    islandGroup.add(borderSouth);
-
-    const borderWest = new THREE.Mesh(borderShortGeo, borderGoldMat);
-    borderWest.position.set(-60.3, 0.06, 0);
-    islandGroup.add(borderWest);
-
-    const borderEast = new THREE.Mesh(borderShortGeo, borderGoldMat);
-    borderEast.position.set(60.3, 0.06, 0);
-    islandGroup.add(borderEast);
-
-    // 4 Corner Sanctum Runic Obelisks (Grounds the floating island architecture)
-    const obeliskGeo = new THREE.BoxGeometry(0.9, 1.8, 0.9);
-    const cornerOffsets = [
-      [-60.2, -33.2], [60.2, -33.2],
-      [-60.2, 33.2], [60.2, 33.2]
-    ];
-    cornerOffsets.forEach(([cx, cz]) => {
-      const obelisk = new THREE.Mesh(obeliskGeo, borderGoldMat);
-      obelisk.position.set(cx, 0.5, cz);
-      islandGroup.add(obelisk);
-    });
-
-    // 9. CASCADING LUMINOUS MANA WATERFALLS WITH FLOWING UV TEXTURE
-    // Procedural streaming waterfall texture
-    const wfCanvas = document.createElement('canvas');
-    wfCanvas.width = 64;
-    wfCanvas.height = 256;
-    const wfCtx = wfCanvas.getContext('2d');
-    const wfGrad = wfCtx.createLinearGradient(0, 0, 0, 256);
-    wfGrad.addColorStop(0.0, '#7dd3fc');
-    wfGrad.addColorStop(0.3, '#38bdf8');
-    wfGrad.addColorStop(0.7, '#0284c7');
-    wfGrad.addColorStop(1.0, '#0369a1');
-    wfCtx.fillStyle = wfGrad;
-    wfCtx.fillRect(0, 0, 64, 256);
-    for (let i = 0; i < 48; i++) {
-      wfCtx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.45 + 0.25})`;
-      const rx = Math.random() * 64;
-      const ry = Math.random() * 256;
-      wfCtx.fillRect(rx, ry, Math.random() * 2 + 1, Math.random() * 45 + 20);
+  // Select Hero actions
+  const handleInspectActiveHero = () => {
+    audioManager.playSkillFlare();
+    const found = HEROES.find((h) => h.id === activeRole.heroId);
+    if (found && onSelectHeroForDetail) {
+      onSelectHeroForDetail(found);
     }
-    const wfTex = new THREE.CanvasTexture(wfCanvas);
-    wfTex.wrapS = THREE.RepeatWrapping;
-    wfTex.wrapT = THREE.RepeatWrapping;
-
-    const waterfallMat = new THREE.MeshStandardMaterial({
-      color: 0x38bdf8,
-      emissive: 0x0284c7,
-      emissiveIntensity: 0.85,
-      map: wfTex,
-      roughness: 0.12,
-      metalness: 0.1,
-      transparent: true,
-      opacity: 0.82
-    });
-
-    // North-West River Outflow Cascade (Curves gracefully from cliff edge into the clouds)
-    const wfCurvedGeo = new THREE.PlaneGeometry(9.0, 28.0, 2, 8);
-    const wfPositions = wfCurvedGeo.attributes.position;
-    for (let i = 0; i < wfPositions.count; i++) {
-      const py = wfPositions.getY(i);
-      const outward = Math.sin(((14 - py) / 28) * Math.PI) * 2.2;
-      wfPositions.setZ(i, outward);
-    }
-    wfCurvedGeo.computeVertexNormals();
-
-    const wfLeft = new THREE.Mesh(wfCurvedGeo, waterfallMat);
-    wfLeft.position.set(-54.0, -13.0, -28.0);
-    wfLeft.rotation.y = Math.PI / 4;
-    scene.add(wfLeft);
-
-    const wfRight = new THREE.Mesh(wfCurvedGeo, waterfallMat);
-    wfRight.position.set(54.0, -13.0, 28.0);
-    wfRight.rotation.y = -Math.PI / 4;
-    scene.add(wfRight);
-
-    // Flank Spring Falls
-    const wfFlankGeo = new THREE.PlaneGeometry(4.5, 20.0);
-    const wfFlank1 = new THREE.Mesh(wfFlankGeo, waterfallMat);
-    wfFlank1.position.set(-61.0, -11.0, 10.0);
-    wfFlank1.rotation.y = Math.PI / 2;
-    scene.add(wfFlank1);
-
-    const wfFlank2 = new THREE.Mesh(wfFlankGeo, waterfallMat);
-    wfFlank2.position.set(61.0, -11.0, -10.0);
-    wfFlank2.rotation.y = -Math.PI / 2;
-    scene.add(wfFlank2);
-
-    // Foaming Mist Pools at waterfall bases
-    const mistSprayGeo = new THREE.RingGeometry(2.0, 8.0, 24);
-    const mistSprayMat = new THREE.MeshBasicMaterial({
-      color: 0xbae6fd,
-      transparent: true,
-      opacity: 0.55,
-      side: THREE.DoubleSide
-    });
-    const mistLeft = new THREE.Mesh(mistSprayGeo, mistSprayMat);
-    mistLeft.rotation.x = -Math.PI / 2;
-    mistLeft.position.set(-55.0, -26.0, -29.0);
-    scene.add(mistLeft);
-
-    const mistRight = new THREE.Mesh(mistSprayGeo, mistSprayMat);
-    mistRight.rotation.x = -Math.PI / 2;
-    mistRight.position.set(55.0, -26.0, 29.0);
-    scene.add(mistRight);
-
-    // 10. FACTION-THEMED FLOATING SATELLITE ISLETS
-    // Moniyan Celestial Islets (SW Blue Side) & Abyssal Volcanic Islets (NE Red Side)
-    const satelliteCrags = [];
-    const moniyanCragMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.85, metalness: 0.25 });
-    const abyssalCragMat = new THREE.MeshStandardMaterial({ color: 0x18181b, roughness: 0.88, metalness: 0.35 });
-
-    const sapphireMat = new THREE.MeshStandardMaterial({
-      color: 0x38bdf8,
-      emissive: 0x0284c7,
-      emissiveIntensity: 2.0,
-      roughness: 0.1,
-      metalness: 0.9
-    });
-    const magmaMat = new THREE.MeshStandardMaterial({
-      color: 0xef4444,
-      emissive: 0xdc2626,
-      emissiveIntensity: 2.2,
-      roughness: 0.15,
-      metalness: 0.8
-    });
-
-    // A. Main Moniyan Floating Citadel Islet (SW)
-    const moniyanIsland = new THREE.Group();
-    const moniyanCrag = new THREE.Mesh(new THREE.DodecahedronGeometry(5.4, 0), moniyanCragMat);
-    moniyanIsland.add(moniyanCrag);
-
-    const celestialArchGeo = new THREE.TorusGeometry(3.0, 0.26, 8, 24, Math.PI);
-    const celestialArch = new THREE.Mesh(celestialArchGeo, borderGoldMat);
-    celestialArch.position.y = 3.6;
-    moniyanIsland.add(celestialArch);
-
-    const sapphireCrystal = new THREE.Mesh(new THREE.OctahedronGeometry(1.6, 0), sapphireMat);
-    sapphireCrystal.position.y = 4.2;
-    moniyanIsland.add(sapphireCrystal);
-
-    moniyanIsland.position.set(-78, -8, 28);
-    islandGroup.add(moniyanIsland);
-    satelliteCrags.push({ mesh: moniyanIsland, baseY: -8, speed: 0.2, offset: 0, subCrystal: sapphireCrystal });
-
-    // B. Main Abyssal Volcanic Spire Islet (NE)
-    const abyssalIsland = new THREE.Group();
-    const abyssalCrag = new THREE.Mesh(new THREE.DodecahedronGeometry(5.4, 0), abyssalCragMat);
-    abyssalIsland.add(abyssalCrag);
-
-    const spireGeo = new THREE.ConeGeometry(1.4, 6.0, 6);
-    const spire1 = new THREE.Mesh(spireGeo, abyssalCragMat);
-    spire1.position.set(-1.2, 3.8, 0);
-    abyssalIsland.add(spire1);
-
-    const spire2 = new THREE.Mesh(spireGeo, abyssalCragMat);
-    spire2.position.set(1.4, 3.0, -0.8);
-    spire2.scale.setScalar(0.75);
-    abyssalIsland.add(spire2);
-
-    const magmaCore = new THREE.Mesh(new THREE.OctahedronGeometry(1.5, 0), magmaMat);
-    magmaCore.position.set(0, 3.8, 0.8);
-    abyssalIsland.add(magmaCore);
-
-    abyssalIsland.position.set(78, -8, -28);
-    islandGroup.add(abyssalIsland);
-    satelliteCrags.push({ mesh: abyssalIsland, baseY: -8, speed: -0.22, offset: 1.5, subCrystal: magmaCore });
-
-    // Secondary Floating Satellite Crags
-    const cragGeo1 = new THREE.DodecahedronGeometry(3.4, 0);
-    const cragGeo2 = new THREE.DodecahedronGeometry(2.5, 0);
-
-    const satellitePositions = [
-      { pos: [-68, -12, -22], scale: 1.15, rotSpeed: 0.28, isMoniyan: true },
-      { pos: [68, -12, 22], scale: 1.25, rotSpeed: -0.24, isMoniyan: false },
-      { pos: [-48, -15, 42], scale: 0.95, rotSpeed: 0.32, isMoniyan: true },
-      { pos: [48, -15, -42], scale: 0.95, rotSpeed: -0.30, isMoniyan: false },
-      { pos: [-74, -16, 4], scale: 0.85, rotSpeed: 0.25, isMoniyan: true },
-      { pos: [74, -16, -4], scale: 0.85, rotSpeed: -0.25, isMoniyan: false }
-    ];
-
-    satellitePositions.forEach((cp, idx) => {
-      const cMesh = new THREE.Mesh(idx % 2 === 0 ? cragGeo1 : cragGeo2, cp.isMoniyan ? moniyanCragMat : abyssalCragMat);
-      cMesh.position.set(cp.pos[0], cp.pos[1], cp.pos[2]);
-      cMesh.scale.setScalar(cp.scale);
-      islandGroup.add(cMesh);
-      satelliteCrags.push({ mesh: cMesh, baseY: cp.pos[1], speed: cp.rotSpeed, offset: idx + 2 });
-    });
-
-    // 11. ICONIC CORNER ATMOSPHERIC AURAS (Exact match to official MLBB Reference!)
-    // A. Abyssal Crimson Plasma Cloud (Top-Right / North-East Corner)
-    const abyssalAuraCanvas = document.createElement('canvas');
-    abyssalAuraCanvas.width = 512;
-    abyssalAuraCanvas.height = 512;
-    const aCtx = abyssalAuraCanvas.getContext('2d');
-    const aGrad = aCtx.createRadialGradient(256, 256, 30, 256, 256, 256);
-    aGrad.addColorStop(0.0, 'rgba(239, 68, 68, 0.85)');
-    aGrad.addColorStop(0.35, 'rgba(220, 38, 38, 0.65)');
-    aGrad.addColorStop(0.70, 'rgba(153, 27, 27, 0.35)');
-    aGrad.addColorStop(1.0, 'rgba(0, 0, 0, 0)');
-    aCtx.fillStyle = aGrad;
-    aCtx.fillRect(0, 0, 512, 512);
-
-    const abyssalAuraTex = new THREE.CanvasTexture(abyssalAuraCanvas);
-    const abyssalAuraGeo = new THREE.PlaneGeometry(90, 75);
-    const abyssalAuraMat = new THREE.MeshBasicMaterial({
-      map: abyssalAuraTex,
-      transparent: true,
-      opacity: 0.85,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending
-    });
-    const abyssalAura = new THREE.Mesh(abyssalAuraGeo, abyssalAuraMat);
-    abyssalAura.position.set(55, 12, -32);
-    abyssalAura.rotation.y = -Math.PI / 4;
-    scene.add(abyssalAura);
-
-    // B. Moniyan Celestial Cyan Light Beam (Bottom-Left / South-West Corner)
-    const moniyanAuraCanvas = document.createElement('canvas');
-    moniyanAuraCanvas.width = 512;
-    moniyanAuraCanvas.height = 512;
-    const mCtx = moniyanAuraCanvas.getContext('2d');
-    const mGrad = mCtx.createRadialGradient(256, 256, 30, 256, 256, 256);
-    mGrad.addColorStop(0.0, 'rgba(56, 189, 248, 0.85)');
-    mGrad.addColorStop(0.35, 'rgba(2, 132, 199, 0.65)');
-    mGrad.addColorStop(0.70, 'rgba(12, 74, 110, 0.35)');
-    mGrad.addColorStop(1.0, 'rgba(0, 0, 0, 0)');
-    mCtx.fillStyle = mGrad;
-    mCtx.fillRect(0, 0, 512, 512);
-
-    const moniyanAuraTex = new THREE.CanvasTexture(moniyanAuraCanvas);
-    const moniyanAuraGeo = new THREE.PlaneGeometry(90, 75);
-    const moniyanAuraMat = new THREE.MeshBasicMaterial({
-      map: moniyanAuraTex,
-      transparent: true,
-      opacity: 0.85,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending
-    });
-    const moniyanAura = new THREE.Mesh(moniyanAuraGeo, moniyanAuraMat);
-    moniyanAura.position.set(-55, 12, 32);
-    moniyanAura.rotation.y = -Math.PI / 4;
-    scene.add(moniyanAura);
-
-    // 12. 360-DEGREE ATMOSPHERIC SKYDOME & MULTI-TIER CLOUD OCEAN
-    const skydomeGeo = new THREE.SphereGeometry(950, 32, 16);
-    skydomeGeo.scale(-1, 1, 1);
-    
-    const skyCanvas = document.createElement('canvas');
-    skyCanvas.width = 1024;
-    skyCanvas.height = 512;
-    const skyCtx = skyCanvas.getContext('2d');
-    const skyGrad = skyCtx.createLinearGradient(0, 0, 0, 512);
-    skyGrad.addColorStop(0.0, '#060a14'); // Deep Space Zenith
-    skyGrad.addColorStop(0.40, '#0f172a'); // Celestial Slate
-    skyGrad.addColorStop(0.70, '#1e293b'); // Horizon Dust
-    skyGrad.addColorStop(1.0, '#090d16'); // Abyss Base
-    skyCtx.fillStyle = skyGrad;
-    skyCtx.fillRect(0, 0, 1024, 512);
-
-    const skyTex = new THREE.CanvasTexture(skyCanvas);
-    const skydomeMat = new THREE.MeshBasicMaterial({ map: skyTex });
-    const skydome = new THREE.Mesh(skydomeGeo, skydomeMat);
-    scene.add(skydome);
-
-    // Tier 1: Perimeter Cliff Mist Wisps (Arranged along the island edges for natural 3D parallax)
-    const mistWisps = [];
-    const mistWispGeo = new THREE.CircleGeometry(16, 16);
-    const mistWispCanvas = document.createElement('canvas');
-    mistWispCanvas.width = 256;
-    mistWispCanvas.height = 256;
-    const mwCtx = mistWispCanvas.getContext('2d');
-    const mwGrad = mwCtx.createRadialGradient(128, 128, 10, 128, 128, 128);
-    mwGrad.addColorStop(0.0, 'rgba(186, 230, 253, 0.40)');
-    mwGrad.addColorStop(0.5, 'rgba(56, 189, 248, 0.18)');
-    mwGrad.addColorStop(1.0, 'rgba(15, 23, 42, 0)');
-    mwCtx.fillStyle = mwGrad;
-    mwCtx.fillRect(0, 0, 256, 256);
-    const mistWispTex = new THREE.CanvasTexture(mistWispCanvas);
-    const mistWispMat = new THREE.MeshBasicMaterial({
-      map: mistWispTex,
-      transparent: true,
-      opacity: 0.45,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending
-    });
-
-    const wispCoords = [
-      [-58, -13, -15], [-58, -13, 15],
-      [58, -13, -15], [58, -13, 15],
-      [-25, -14, -36], [25, -14, -36],
-      [-25, -14, 36], [25, -14, 36]
-    ];
-    wispCoords.forEach(([wx, wy, wz], idx) => {
-      const wisp = new THREE.Mesh(mistWispGeo, mistWispMat);
-      wisp.rotation.x = -Math.PI / 2;
-      wisp.position.set(wx, wy, wz);
-      scene.add(wisp);
-      mistWisps.push({ mesh: wisp, baseY: wy, offset: idx });
-    });
-
-    // Tier 2: Colossal Rolling Cloud Ocean Deck Beneath the Floating Sanctuary
-    const cloudDeckGeo = new THREE.PlaneGeometry(1600, 1100);
-    const cloudDeckCanvas = document.createElement('canvas');
-    cloudDeckCanvas.width = 512;
-    cloudDeckCanvas.height = 512;
-    const cdCtx = cloudDeckCanvas.getContext('2d');
-    const cdGrad = cdCtx.createRadialGradient(256, 256, 50, 256, 256, 256);
-    cdGrad.addColorStop(0.0, 'rgba(30, 41, 59, 0.95)');
-    cdGrad.addColorStop(0.4, 'rgba(15, 23, 42, 0.88)');
-    cdGrad.addColorStop(0.8, 'rgba(10, 16, 31, 0.75)');
-    cdGrad.addColorStop(1.0, 'rgba(6, 10, 20, 0.35)');
-    cdCtx.fillStyle = cdGrad;
-    cdCtx.fillRect(0, 0, 512, 512);
-
-    const cloudDeckTex = new THREE.CanvasTexture(cloudDeckCanvas);
-    const cloudDeckMat = new THREE.MeshBasicMaterial({
-      map: cloudDeckTex,
-      transparent: true,
-      opacity: 0.82
-    });
-    const cloudSea = new THREE.Mesh(cloudDeckGeo, cloudDeckMat);
-    cloudSea.rotation.x = -Math.PI / 2;
-    cloudSea.position.y = -32.0;
-    scene.add(cloudSea);
-
-    // Tier 3: Infinite Celestial Void Floor
-    const voidFloorGeo = new THREE.PlaneGeometry(2400, 1600);
-    const voidFloorMat = new THREE.MeshBasicMaterial({
-      color: 0x050811,
-      transparent: true,
-      opacity: 0.92
-    });
-    const voidFloor = new THREE.Mesh(voidFloorGeo, voidFloorMat);
-    voidFloor.rotation.x = -Math.PI / 2;
-    voidFloor.position.y = -65.0;
-    scene.add(voidFloor);
-
-    // 12. STRATEGIC LEY-LINE GLYPHS & SOVEREIGN MATERIALS
-    // Reusable materials used by the sovereign Core Nexuses
-    const blueGoldMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.25, metalness: 0.85 });
-    const redMetalMat = new THREE.MeshStandardMaterial({ color: 0x7f1d1d, roughness: 0.3, metalness: 0.8 });
-
-    // Arcane River Convergence Disc (Center Mid-Lane River Crossing)
-    // Subtle, elegant energy glyph flush with the battlefield ground (zero obstruction to 4K map artwork)
-    const centerRuneGeo = new THREE.RingGeometry(2.4, 3.8, 32);
-    const centerRuneMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
-      transparent: true,
-      opacity: 0.35,
-      side: THREE.DoubleSide
-    });
-    const centerRune = new THREE.Mesh(centerRuneGeo, centerRuneMat);
-    centerRune.rotation.x = -Math.PI / 2;
-    centerRune.position.set(0, 0.04, 0);
-    scene.add(centerRune);
-
-    const centerCoreGeo = new THREE.RingGeometry(0.2, 1.8, 32);
-    const centerCoreMat = new THREE.MeshBasicMaterial({
-      color: 0xa855f7,
-      transparent: true,
-      opacity: 0.25,
-      side: THREE.DoubleSide
-    });
-    const centerCore = new THREE.Mesh(centerCoreGeo, centerCoreMat);
-    centerCore.rotation.x = -Math.PI / 2;
-    centerCore.position.set(0, 0.045, 0);
-    scene.add(centerCore);
-
-    // 13. PROPORTIONAL 3D NEXUS BASES
-    // Moniyan Blue Nexus at (-38.2, 0.05, 17.8)
-    const blueNexusGroup = new THREE.Group();
-    const fountainGeo = new THREE.CylinderGeometry(1.8, 2.3, 0.6, 16);
-    const fountainMat = new THREE.MeshStandardMaterial({ color: 0x64748b, roughness: 0.6 });
-    const fountain = new THREE.Mesh(fountainGeo, fountainMat);
-    fountain.position.y = 0.3;
-
-    const fountainTrimGeo = new THREE.CylinderGeometry(1.9, 1.9, 0.08, 16);
-    const fountainTrim = new THREE.Mesh(fountainTrimGeo, blueGoldMat);
-    fountainTrim.position.y = 0.6;
-
-    for (let w = 0; w < 4; w++) {
-      const ang = (w * Math.PI) / 2 + Math.PI / 4;
-      const wing = new THREE.Mesh(new THREE.BoxGeometry(0.22, 1.5, 0.5), blueGoldMat);
-      wing.position.set(Math.cos(ang) * 1.6, 0.9, Math.sin(ang) * 1.6);
-      wing.rotation.y = -ang;
-      wing.rotation.z = 0.15;
-      blueNexusGroup.add(wing);
-    }
-
-    const blueCrystalGeo = new THREE.OctahedronGeometry(1.0, 0);
-    const blueCrystalMat = new THREE.MeshStandardMaterial({
-      color: 0x38bdf8,
-      emissive: 0x38bdf8,
-      emissiveIntensity: 2.2,
-      roughness: 0.08,
-      metalness: 0.95
-    });
-    const blueCrystal = new THREE.Mesh(blueCrystalGeo, blueCrystalMat);
-    blueCrystal.position.y = 1.8;
-
-    const blueRingGeo = new THREE.TorusGeometry(1.4, 0.06, 8, 32);
-    const blueRingMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.85 });
-    const blueRing = new THREE.Mesh(blueRingGeo, blueRingMat);
-    blueRing.position.y = 1.8;
-
-    const blueRingOuterGeo = new THREE.TorusGeometry(1.8, 0.05, 8, 32);
-    const blueRingOuter = new THREE.Mesh(blueRingOuterGeo, blueRingMat);
-    blueRingOuter.position.y = 1.8;
-    blueRingOuter.rotation.x = Math.PI / 3;
-
-    const shieldGeo = new THREE.SphereGeometry(1.9, 16, 16);
-    const shieldMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
-      transparent: true,
-      opacity: 0.2,
-      wireframe: true
-    });
-    const shieldDome = new THREE.Mesh(shieldGeo, shieldMat);
-    shieldDome.position.y = 1.4;
-
-    const blueBeamGeo = new THREE.CylinderGeometry(0.25, 0.6, 35, 16, 1, true);
-    const blueBeamMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
-      transparent: true,
-      opacity: 0.28,
-      side: THREE.DoubleSide
-    });
-    const blueBeam = new THREE.Mesh(blueBeamGeo, blueBeamMat);
-    blueBeam.position.y = 17.5;
-
-    const blueLight = new THREE.PointLight(0x38bdf8, 2.5, 16, 2.0);
-    blueLight.position.y = 2.0;
-
-    blueNexusGroup.add(fountain);
-    blueNexusGroup.add(fountainTrim);
-    blueNexusGroup.add(blueCrystal);
-    blueNexusGroup.add(blueRing);
-    blueNexusGroup.add(blueRingOuter);
-    blueNexusGroup.add(shieldDome);
-    blueNexusGroup.add(blueBeam);
-    blueNexusGroup.add(blueLight);
-    blueNexusGroup.position.set(-38.2, 0.05, 17.8);
-    scene.add(blueNexusGroup);
-
-    // Abyssal Red Nexus at (38.2, 0.05, -17.8)
-    const redNexusGroup = new THREE.Group();
-    const altarGeo = new THREE.CylinderGeometry(1.8, 2.3, 0.6, 16);
-    const altarMat = new THREE.MeshStandardMaterial({ color: 0x18181b, roughness: 0.8 });
-    const altar = new THREE.Mesh(altarGeo, altarMat);
-    altar.position.y = 0.3;
-
-    const altarTrimGeo = new THREE.CylinderGeometry(1.9, 1.9, 0.08, 16);
-    const altarTrim = new THREE.Mesh(altarTrimGeo, redMetalMat);
-    altarTrim.position.y = 0.6;
-
-    for (let w = 0; w < 4; w++) {
-      const ang = (w * Math.PI) / 2 + Math.PI / 4;
-      const horn = new THREE.Mesh(new THREE.BoxGeometry(0.24, 1.6, 0.5), redMetalMat);
-      horn.position.set(Math.cos(ang) * 1.6, 1.0, Math.sin(ang) * 1.6);
-      horn.rotation.y = -ang;
-      horn.rotation.z = -0.18;
-      redNexusGroup.add(horn);
-    }
-
-    const redCrystalGeo = new THREE.OctahedronGeometry(1.0, 0);
-    const redCrystalMat = new THREE.MeshStandardMaterial({
-      color: 0xef4444,
-      emissive: 0xef4444,
-      emissiveIntensity: 2.2,
-      roughness: 0.08,
-      metalness: 0.95
-    });
-    const redCrystal = new THREE.Mesh(redCrystalGeo, redCrystalMat);
-    redCrystal.position.y = 1.8;
-
-    const redRingGeo = new THREE.TorusGeometry(1.4, 0.06, 8, 32);
-    const redRingMat = new THREE.MeshBasicMaterial({ color: 0xef4444, transparent: true, opacity: 0.85 });
-    const redRing = new THREE.Mesh(redRingGeo, redRingMat);
-    redRing.position.y = 1.8;
-
-    const redRingOuterGeo = new THREE.TorusGeometry(1.8, 0.05, 8, 32);
-    const redRingOuter = new THREE.Mesh(redRingOuterGeo, redRingMat);
-    redRingOuter.position.y = 1.8;
-    redRingOuter.rotation.x = -Math.PI / 3;
-
-    const redBeamGeo = new THREE.CylinderGeometry(0.25, 0.6, 35, 16, 1, true);
-    const redBeamMat = new THREE.MeshBasicMaterial({
-      color: 0xef4444,
-      transparent: true,
-      opacity: 0.28,
-      side: THREE.DoubleSide
-    });
-    const redBeam = new THREE.Mesh(redBeamGeo, redBeamMat);
-    redBeam.position.y = 17.5;
-
-    const redLight = new THREE.PointLight(0xef4444, 2.5, 16, 2.0);
-    redLight.position.y = 2.0;
-
-    redNexusGroup.add(altar);
-    redNexusGroup.add(altarTrim);
-    redNexusGroup.add(redCrystal);
-    redNexusGroup.add(redRing);
-    redNexusGroup.add(redRingOuter);
-    redNexusGroup.add(redBeam);
-    redNexusGroup.add(redLight);
-    redNexusGroup.position.set(38.2, 0.05, -17.8);
-    scene.add(redNexusGroup);
-
-    // 14. 3D LORD SUMMONING RUNE RING & TURTLE BASIN
-    // Lord Pit at (-18, 1.8, -11)
-    const lordRuneGeo = new THREE.TorusGeometry(3.6, 0.18, 8, 32);
-    const lordRuneMat = new THREE.MeshBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.9 });
-    const lordRune = new THREE.Mesh(lordRuneGeo, lordRuneMat);
-    lordRune.rotation.x = Math.PI / 2;
-    lordRune.position.set(-18, 1.8, -11);
-    scene.add(lordRune);
-
-    const lordBeamGeo = new THREE.CylinderGeometry(0.5, 1.2, 40, 16, 1, true);
-    const lordBeamMat = new THREE.MeshBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.25, side: THREE.DoubleSide });
-    const lordBeam = new THREE.Mesh(lordBeamGeo, lordBeamMat);
-    lordBeam.position.set(-18, 20, -11);
-    scene.add(lordBeam);
-
-    // Turtle Pool at (18, 0.6, 11)
-    const turtleRuneGeo = new THREE.TorusGeometry(3.0, 0.15, 8, 32);
-    const turtleRuneMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4, transparent: true, opacity: 0.9 });
-    const turtleRune = new THREE.Mesh(turtleRuneGeo, turtleRuneMat);
-    turtleRune.rotation.x = Math.PI / 2;
-    turtleRune.position.set(18, 0.6, 11);
-    scene.add(turtleRune);
-
-    // 15. Tactical 3D Pinpoint Beacons & Ground Target Rings (Replaces rotating cubes/circles)
-    const beaconGroup = new THREE.Group();
-    beaconGroupRef.current = beaconGroup;
-    scene.add(beaconGroup);
-
-    const pinStemGeo = new THREE.CylinderGeometry(0.035, 0.012, 1.7, 8);
-    const pinHeadGeo = new THREE.SphereGeometry(0.32, 16, 16);
-    const pinTargetGeo = new THREE.RingGeometry(0.28, 0.52, 32);
-    const waveGeo = new THREE.RingGeometry(0.5, 0.9, 32);
-
-    TACTICAL_MARKERS.forEach((m) => {
-      const bColor = new THREE.Color(m.color);
-      const markerGroup = new THREE.Group();
-      markerGroup.position.set(m.worldPos[0], m.worldPos[1], m.worldPos[2]);
-
-      const pinMat = new THREE.MeshStandardMaterial({
-        color: bColor,
-        emissive: bColor,
-        emissiveIntensity: 1.5,
-        roughness: 0.15,
-        metalness: 0.85
-      });
-
-      // Slender vertical pin needle stem
-      const pinStem = new THREE.Mesh(pinStemGeo, pinMat);
-      pinStem.position.y = 0.9;
-      markerGroup.add(pinStem);
-
-      // Luminous pin head sphere
-      const pinHead = new THREE.Mesh(pinHeadGeo, pinMat);
-      pinHead.position.y = 1.8;
-      pinHead.userData = { isPinHead: true, baseY: 1.8 };
-      markerGroup.add(pinHead);
-
-      // Ground concentric focal ring
-      const targetMat = new THREE.MeshBasicMaterial({
-        color: bColor,
-        transparent: true,
-        opacity: 0.75,
-        side: THREE.DoubleSide
-      });
-      const targetRing = new THREE.Mesh(pinTargetGeo, targetMat);
-      targetRing.rotation.x = Math.PI / 2;
-      targetRing.position.y = 0.06;
-      markerGroup.add(targetRing);
-
-      // Expanding ground sonar ripple wave
-      const waveMat = new THREE.MeshBasicMaterial({
-        color: bColor,
-        transparent: true,
-        opacity: 0.65,
-        side: THREE.DoubleSide
-      });
-      const wave = new THREE.Mesh(waveGeo, waveMat);
-      wave.rotation.x = Math.PI / 2;
-      wave.position.set(m.worldPos[0], m.worldPos[1] + 0.065, m.worldPos[2]);
-      wave.userData = { scale: 1.0, maxScale: 3.8, speed: 0.025 };
-      beaconGroup.add(wave);
-      pulsesRef.current.push(wave);
-
-      beaconGroup.add(markerGroup);
-    });
-
-    // 16. Volumetric Cosmic Starfield & Embers
-    const starCount = 1400;
-    const starGeo = new THREE.BufferGeometry();
-    const starPos = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount * 3; i += 3) {
-      starPos[i] = (Math.random() - 0.5) * 450;
-      starPos[i + 1] = Math.random() * 120 + 20;
-      starPos[i + 2] = (Math.random() - 0.5) * 450;
-    }
-    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-    const starMat = new THREE.PointsMaterial({ color: 0xdbeafe, size: 0.85, transparent: true, opacity: 0.75 });
-    const starField = new THREE.Points(starGeo, starMat);
-    scene.add(starField);
-
-    // Drifting golden mana embers
-    const emberCount = 320;
-    const emberGeo = new THREE.BufferGeometry();
-    const emberPos = new Float32Array(emberCount * 3);
-    for (let i = 0; i < emberCount * 3; i += 3) {
-      emberPos[i] = (Math.random() - 0.5) * 120;
-      emberPos[i + 1] = Math.random() * 22 + 1;
-      emberPos[i + 2] = (Math.random() - 0.5) * 80;
-    }
-    emberGeo.setAttribute('position', new THREE.BufferAttribute(emberPos, 3));
-    const emberMat = new THREE.PointsMaterial({ color: 0xfef08a, size: 0.75, transparent: true, opacity: 0.65 });
-    const emberField = new THREE.Points(emberGeo, emberMat);
-    scene.add(emberField);
-
-    // 17. Resize Handler
-    const handleResize = () => {
-      if (!canvas) return;
-      const w = canvas.clientWidth || window.innerWidth;
-      const h = canvas.clientHeight || window.innerHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-    };
-    window.addEventListener('resize', handleResize);
-
-    // 18. Animation Loop with Viewport Observer (Pauses draw calls when scrolled away for 60-120fps efficiency)
-    let animationFrameId;
-    let clock = new THREE.Clock();
-    const tempVec = new THREE.Vector3();
-    const targetVec = new THREE.Vector3();
-    const camTargetPos = new THREE.Vector3();
-
-    let isLandingVisible = true;
-    let observer = null;
-    if (typeof IntersectionObserver !== 'undefined' && trackRef.current) {
-      observer = new IntersectionObserver(([entry]) => {
-        isLandingVisible = entry.isIntersecting;
-      }, { threshold: 0, rootMargin: '100px' });
-      observer.observe(trackRef.current);
-    }
-
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-      if (!isLandingVisible) return;
-
-      const delta = clock.getDelta();
-      const time = clock.getElapsedTime();
-
-      // Camera Interpolation along Mid-Lane Spline with buttery exponential damping
-      currentProgress.current += (targetProgress.current - currentProgress.current) * 0.08;
-      const clampedProg = Math.max(0, Math.min(1.0, currentProgress.current));
-
-      let stageIdx = 0;
-      if (clampedProg < 0.16) stageIdx = 0;
-      else if (clampedProg < 0.50) stageIdx = 1;
-      else if (clampedProg < 0.84) stageIdx = 2;
-      else stageIdx = 3;
-
-      if (stageIdx !== activeStageRef.current) {
-        activeStageRef.current = stageIdx;
-        setActiveStageIndex(stageIdx);
-      }
-
-      targetSpline.getPoint(clampedProg, targetVec);
-      const camDist = getCameraDistance(clampedProg);
-
-      rotCurrent.current.x += (rotTarget.current.x - rotCurrent.current.x) * 0.06;
-      rotCurrent.current.y += (rotTarget.current.y - rotCurrent.current.y) * 0.06;
-
-      camTargetPos.copy(targetVec).addScaledVector(VIEW_DIR, camDist);
-      camera.position.set(
-        camTargetPos.x + rotCurrent.current.x * 2.5,
-        camTargetPos.y,
-        camTargetPos.z + rotCurrent.current.y * 2.0
-      );
-
-      camera.up.set(0, 1, 0);
-      camera.lookAt(targetVec.x, targetVec.y, targetVec.z);
-
-      // Animate flowing mana waterfalls and foam ripples
-      wfTex.offset.y -= delta * 0.65;
-      mistLeft.scale.setScalar(1.0 + Math.sin(time * 3.0) * 0.12);
-      mistRight.scale.setScalar(1.0 + Math.cos(time * 3.0) * 0.12);
-
-      // Animate strategic river glyphs and floating satellite crags
-      centerRune.rotation.z += delta * 0.25;
-      centerCore.rotation.z -= delta * 0.35;
-      satelliteCrags.forEach((sc) => {
-        sc.mesh.rotation.y += delta * sc.speed;
-        sc.mesh.position.y = sc.baseY + Math.sin(time * 1.4 + sc.offset) * 0.35;
-        if (sc.subCrystal) {
-          sc.subCrystal.rotation.y += delta * 1.5;
-        }
-      });
-
-      // Animate drift mist wisps
-      mistWisps.forEach((mw) => {
-        mw.mesh.position.y = mw.baseY + Math.sin(time * 1.2 + mw.offset) * 0.25;
-        mw.mesh.rotation.z += delta * 0.05;
-      });
-      cloudSea.rotation.z += delta * 0.003;
-
-      // Animate crystal nexuses and auras
-      blueCrystal.rotation.y += delta * 1.2;
-      blueRing.rotation.z += delta * 0.9;
-      blueRingOuter.rotation.y -= delta * 0.7;
-      redCrystal.rotation.y += delta * 1.2;
-      redRing.rotation.z += delta * 0.9;
-      redRingOuter.rotation.y -= delta * 0.7;
-      lordRune.rotation.z += delta * 0.8;
-      turtleRune.rotation.z += delta * 0.6;
-
-      // Gentle breathing float on tactical pinpoint beads
-      beaconGroup.children.forEach((group) => {
-        if (group.isGroup) {
-          group.children.forEach((child) => {
-            if (child.userData?.isPinHead) {
-              child.position.y = child.userData.baseY + Math.sin(time * 2.2) * 0.08;
-            }
-          });
-        }
-      });
-
-      pulsesRef.current.forEach((wave) => {
-        wave.userData.scale += wave.userData.speed;
-        if (wave.userData.scale > wave.userData.maxScale) {
-          wave.userData.scale = 1.0;
-        }
-        wave.scale.set(wave.userData.scale, wave.userData.scale, 1.0);
-        wave.material.opacity = Math.max(0, 1.0 - wave.userData.scale / wave.userData.maxScale) * 0.85;
-      });
-
-      starField.rotation.y = time * 0.004;
-      emberField.rotation.y = -time * 0.007;
-
-      // Direct DOM Update for 2D HTML Screen Coordinates (Zero React State Churn)
-      TACTICAL_MARKERS.forEach((m) => {
-        const el = markerRefs.current[m.id];
-        if (!el) return;
-
-        tempVec.set(m.worldPos[0], m.worldPos[1] + 2.0, m.worldPos[2]);
-        tempVec.project(camera);
-
-        const x = (tempVec.x * 0.5 + 0.5) * renderer.domElement.clientWidth;
-        const y = (-tempVec.y * 0.5 + 0.5) * renderer.domElement.clientHeight;
-        const isVisible = tempVec.z < 1.0 && x > 20 && x < renderer.domElement.clientWidth - 20;
-
-        if (isVisible) {
-          el.style.display = 'block';
-          el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -100%)`;
-        } else {
-          el.style.display = 'none';
-        }
-      });
-
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      if (observer) observer.disconnect();
-      window.removeEventListener('resize', handleResize);
-      renderer.dispose();
-      terrainGeo.dispose();
-      terrainMat.dispose();
-      mapTexture.dispose();
-      normalTexture.dispose();
-      corniceGeo.dispose();
-      cliffTier1Geo.dispose();
-      foundationGeo.dispose();
-      islandKeelGeo.dispose();
-      bedrockMat.dispose();
-      cliffStrataMat.dispose();
-      borderLongGeo.dispose();
-      borderShortGeo.dispose();
-      borderGoldMat.dispose();
-      obeliskGeo.dispose();
-      wfCurvedGeo.dispose();
-      wfFlankGeo.dispose();
-      wfTex.dispose();
-      waterfallMat.dispose();
-      mistSprayGeo.dispose();
-      mistSprayMat.dispose();
-      moniyanCragMat.dispose();
-      abyssalCragMat.dispose();
-      sapphireMat.dispose();
-      magmaMat.dispose();
-      cragGeo1.dispose();
-      cragGeo2.dispose();
-      mistWispGeo.dispose();
-      mistWispTex.dispose();
-      mistWispMat.dispose();
-      cloudDeckGeo.dispose();
-      cloudDeckTex.dispose();
-      cloudDeckMat.dispose();
-      voidFloorGeo.dispose();
-      voidFloorMat.dispose();
-      centerRuneGeo.dispose();
-      centerRuneMat.dispose();
-      centerCoreGeo.dispose();
-      centerCoreMat.dispose();
-      pinStemGeo.dispose();
-      pinHeadGeo.dispose();
-      pinTargetGeo.dispose();
-      waveGeo.dispose();
-      abyssalAuraGeo.dispose();
-      abyssalAuraMat.dispose();
-      moniyanAuraGeo.dispose();
-      moniyanAuraMat.dispose();
-      skydomeGeo.dispose();
-      skydomeMat.dispose();
-      blueGoldMat.dispose();
-      redMetalMat.dispose();
-      fountainGeo.dispose();
-      fountainMat.dispose();
-      fountainTrimGeo.dispose();
-      blueCrystalGeo.dispose();
-      blueCrystalMat.dispose();
-      blueRingGeo.dispose();
-      blueRingOuterGeo.dispose();
-      shieldGeo.dispose();
-      shieldMat.dispose();
-      blueBeamGeo.dispose();
-      blueBeamMat.dispose();
-      altarGeo.dispose();
-      altarMat.dispose();
-      altarTrimGeo.dispose();
-      redCrystalGeo.dispose();
-      redCrystalMat.dispose();
-      redRingGeo.dispose();
-      redRingOuterGeo.dispose();
-      redBeamGeo.dispose();
-      redBeamMat.dispose();
-    };
-  }, [VIEW_DIR, targetSpline]);
-
-  // Pointer Drag Interaction for Parallax Pan
-  const handlePointerDown = (e) => {
-    setIsDragging(true);
-    dragStart.current = { x: e.clientX, y: e.clientY };
   };
 
-  const handlePointerMove = (e) => {
-    if (!isDragging) return;
-    const deltaX = (e.clientX - dragStart.current.x) * 0.003;
-    const deltaY = (e.clientY - dragStart.current.y) * 0.003;
-
-    rotTarget.current.x = Math.max(-0.6, Math.min(0.6, rotTarget.current.x + deltaX));
-    rotTarget.current.y = Math.max(-0.4, Math.min(0.4, rotTarget.current.y + deltaY));
-
-    dragStart.current = { x: e.clientX, y: e.clientY };
-  };
-
-  const handlePointerUp = () => {
-    setIsDragging(false);
+  const handleChamberActiveHero = () => {
+    audioManager.playClick();
+    const found = HEROES.find((h) => h.id === activeRole.heroId);
+    if (found && onSelectHeroForChamber) {
+      onSelectHeroForChamber(found);
+    }
   };
 
   return (
     <section
       ref={trackRef}
       id="overview"
-      data-track="battlefield-track"
-      className="relative w-full h-[380vh] bg-[#080d1a]"
+      className="relative w-full h-[280vh] bg-[#080d1a]"
     >
-      {/* Sticky Pinned Viewport Container */}
+      {/* Sticky Pinned 100dvh Viewport Container */}
       <div
         ref={containerRef}
         onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
-        className={`sticky top-0 left-0 w-full h-[100dvh] min-h-[640px] flex flex-col justify-between overflow-hidden bg-[#080d1a] text-[#e9ecee] select-none is-scene-pannable ${
-          isDragging ? 'is-scene-grabbing' : ''
+        className={`sticky top-0 left-0 w-full h-[100dvh] min-h-[640px] flex flex-col justify-between overflow-hidden bg-[#080d1a] text-white select-none ${
+          isDragging ? 'cursor-grabbing' : 'cursor-grab'
         }`}
       >
-      {/* 1. Full-Bleed 16:9 3D WebGL MLBB Reference Match Map Canvas */}
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-0 pointer-events-auto" />
+        {/* 1. Full-Bleed 3D WebGL Canvas (Greatsword Shrine) */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full z-0 pointer-events-auto"
+        />
 
-      {/* 2. Soft Edge Atmospheric Vignette */}
-      <div className="absolute inset-0 bg-radial from-transparent via-transparent to-[#080d1a]/30 pointer-events-none z-10" />
+        {/* 2. Cinematic Vignette & Lighting Atmosphere Overlays */}
+        <div className="absolute inset-0 bg-radial from-transparent via-transparent to-[#080d1a]/85 pointer-events-none z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080d1a] via-transparent to-[#080d1a]/60 pointer-events-none z-10" />
 
-      {/* 3. AUTHENTIC MLBB IN-GAME MATCH HEADER HUD (Top Bar) */}
-      {/* 3. AWWWARDS LUXURY TELEMETRY BAR (Top Header) */}
-      <header className="absolute top-0 left-0 w-full z-30 pointer-events-none px-4 sm:px-8 py-3.5 flex items-center justify-between bg-gradient-to-b from-[#080d1a]/95 via-[#080d1a]/50 to-transparent">
-        {/* Left: Architectural Registry */}
-        <div className="flex items-center gap-3 pointer-events-auto">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 border border-white/[0.08] backdrop-blur-xl">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-pulse" />
-            <span className="font-mono text-[10px] tracking-[0.25em] text-[#f3d288] uppercase font-semibold">
-              MLBB // CARTOGRAPHY
-            </span>
-            <span className="text-white/20 text-xs">|</span>
-            <span className="font-mono text-[9px] tracking-wider text-[#aab9c7]/80 hidden sm:inline uppercase">
-              SECTOR 01 : SANCTUARY
-            </span>
-          </div>
-        </div>
-
-        {/* Center: Live Spatial Coordinate Telemetry */}
-        <div className="hidden md:flex items-center gap-4 px-4 py-1.5 rounded-full bg-black/40 border border-white/[0.08] backdrop-blur-xl pointer-events-auto">
-          <div className="flex items-center gap-2.5 text-[10px] font-mono text-[#aab9c7]">
-            <span className="text-[#f3d288] font-bold">{activeStage.telemetry.elev}</span>
-            <span className="text-white/20">•</span>
-            <span>{activeStage.telemetry.coord}</span>
-            <span className="text-white/20">•</span>
-            <span className="text-white font-medium">{activeStage.telemetry.sector}</span>
-          </div>
-        </div>
-
-        {/* Right: Sound Equalizer & Battle Audio Trigger */}
-        <div className="flex items-center gap-3 pointer-events-auto">
-          <button
-            onClick={handleToggleSound}
-            className={`flex items-center gap-2.5 px-3 py-1.5 rounded-full border backdrop-blur-xl transition-all duration-300 cursor-pointer ${
-              isAudioActive
-                ? 'bg-[#f3d288]/15 border-[#f3d288]/60 text-[#f3d288] shadow-[0_0_20px_rgba(243,210,136,0.2)]'
-                : 'bg-black/40 border-white/[0.08] text-[#aab9c7] hover:border-white/20 hover:text-white'
-            }`}
-            title={isAudioActive ? 'Mute Spatial Battle Soundtrack' : 'Enable Spatial Battle Soundtrack'}
-          >
-            <div className="flex items-end gap-[2px] h-3">
-              <span className={`w-[2px] bg-current rounded-full transition-all duration-200 ${isAudioActive ? 'animate-eq-1' : 'h-1.5'}`} />
-              <span className={`w-[2px] bg-current rounded-full transition-all duration-200 ${isAudioActive ? 'animate-eq-2' : 'h-2.5'}`} />
-              <span className={`w-[2px] bg-current rounded-full transition-all duration-200 ${isAudioActive ? 'animate-eq-3' : 'h-1'}`} />
-              <span className={`w-[2px] bg-current rounded-full transition-all duration-200 ${isAudioActive ? 'animate-eq-4' : 'h-2'}`} />
+        {/* 3. Luxury Awwwards Navigation Header (Top Bar) */}
+        <header className="relative z-30 px-4 sm:px-8 py-3.5 flex items-center justify-between pointer-events-none">
+          {/* Left: MLBB Official Sanctum Arsenal Badge */}
+          <div className="flex items-center gap-3 pointer-events-auto">
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/80 backdrop-blur-xl shadow-lg">
+              <span className="w-2 h-2 rounded-full bg-[#f3d288] animate-pulse" />
+              <span className="font-mono text-[10px] sm:text-[11px] tracking-[0.25em] text-[#f3d288] uppercase font-bold">
+                SANCTUM ISLAND // MYTHIC FORGE
+              </span>
+              <span className="text-white/20 text-xs hidden sm:inline">|</span>
+              <span className="font-mono text-[9px] tracking-wider text-zinc-400 hidden sm:inline uppercase">
+                S36 ARSENAL
+              </span>
             </div>
-            <span className="text-[9px] font-mono tracking-widest uppercase">
-              {isAudioActive ? 'AUDIO ON' : 'AUDIO OFF'}
-            </span>
-          </button>
-        </div>
-      </header>
+          </div>
 
-      {/* 4. CELESTIAL HOLOGRAPHIC COMPASS & FLIGHT RADAR (Top-Left HUD) */}
-      <div className="absolute top-16 left-4 sm:left-8 z-25 pointer-events-none">
-        <div className="pointer-events-auto relative p-3 rounded-2xl card-awwwards w-40 sm:w-44 shadow-2xl overflow-hidden group">
-          {/* Subtle Corner Registration Crosshairs */}
-          <div className="crosshair-tl" />
-          <div className="crosshair-tr" />
-          <div className="crosshair-bl" />
-          <div className="crosshair-br" />
-
-          {/* Radar Header */}
-          <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-white/[0.06] text-[8.5px] font-mono tracking-widest text-[#aab9c7]">
-            <div className="flex items-center gap-1.5">
-              <Compass className="w-3 h-3 text-[#f3d288] animate-spin" style={{ animationDuration: '24s' }} />
-              <span className="text-white font-semibold">HORIZON RADAR</span>
+          {/* Center: Live 3D Weapon Telemetry Badge */}
+          <div className="hidden lg:flex items-center gap-3 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/80 backdrop-blur-xl pointer-events-auto">
+            <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-300">
+              <Sparkle className="w-3.5 h-3.5 text-[#f3d288] animate-spin" style={{ animationDuration: '12s' }} />
+              <span className="text-white font-semibold">ACTIVE RELIC:</span>
+              <span className="text-[#f3d288] font-bold uppercase">{activeStance.name}</span>
+              <span className="text-white/20">•</span>
+              <span className="text-cyan-300 font-mono">{activeStance.stats.attack}</span>
             </div>
-            <span className="text-[#f3d288]">{activeStage.roman} // IV</span>
           </div>
 
-          {/* Circular Hologram Reticle Display */}
-          <div className="relative w-full aspect-square bg-[#040711]/90 rounded-full border border-white/[0.08] overflow-hidden flex items-center justify-center">
-            {/* Concentric Sonar Rings */}
-            <div className="absolute inset-2 rounded-full border border-white/[0.05]" />
-            <div className="absolute inset-5 rounded-full border border-white/[0.04]" />
-            <div className="absolute inset-8 rounded-full border border-white/[0.03]" />
-
-            {/* Cardinal Axes */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-full h-[1px] bg-white/[0.06]" />
-            </div>
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="h-full w-[1px] bg-white/[0.06]" />
-            </div>
-
-            {/* Rotating Dashed Compass Bezel */}
-            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full pointer-events-none">
-              <circle
-                cx="50"
-                cy="50"
-                r="46"
-                fill="none"
-                stroke="rgba(243, 210, 136, 0.25)"
-                strokeWidth="0.8"
-                strokeDasharray="2 6"
-              />
-              {/* Mid-lane tactical trajectory guide */}
-              <line
-                x1="20"
-                y1="80"
-                x2="80"
-                y2="20"
-                stroke="rgba(243, 210, 136, 0.4)"
-                strokeWidth="1.2"
-                strokeDasharray="3 3"
-              />
-              {/* River channel perpendicular line */}
-              <line
-                x1="24"
-                y1="24"
-                x2="76"
-                y2="76"
-                stroke="rgba(56, 189, 248, 0.25)"
-                strokeWidth="1.8"
-              />
-            </svg>
-
-            {/* Live Camera Focal Position (interpolated across diagonal 20,80 to 80,20 based on scrollProgress) */}
-            <div
-              className="absolute w-3 h-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#f3d288] bg-[#f3d288]/40 shadow-[0_0_10px_#f3d288] transition-all duration-300 pointer-events-none"
-              style={{
-                left: `${20 + scrollProgress * 60}%`,
-                top: `${80 - scrollProgress * 60}%`
-              }}
-            >
-              <div className="absolute inset-0 rounded-full animate-ping bg-[#f3d288]/60" />
-            </div>
-
-            {/* Stage Waypoint Pips */}
-            {TACTICAL_STAGES.map((stg, i) => (
-              <button
-                key={stg.id}
-                onClick={() => handleGlideToStage(i)}
-                style={{
-                  left: `${20 + stg.progress * 60}%`,
-                  top: `${80 - stg.progress * 60}%`
-                }}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full flex items-center justify-center text-[7.5px] font-mono transition-transform hover:scale-125 cursor-pointer ${
-                  activeStageIndex === i
-                    ? 'bg-[#f3d288] text-black font-bold shadow-lg ring-2 ring-[#f3d288]/50'
-                    : 'bg-black/80 text-white/70 border border-white/20 hover:border-[#f3d288]'
-                }`}
-                title={`Glide to ${stg.titlePrefix} ${stg.titleMain}`}
-              >
-                {stg.roman}
-              </button>
-            ))}
-          </div>
-
-          {/* Sector Readout */}
-          <div className="mt-2 text-center">
-            <span className="text-[8px] font-mono tracking-widest text-[#aab9c7]/80 block">
-              AZIMUTH 312° // ELEV {activeStage.telemetry.elev}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* 5. MONUMENTAL EDITORIAL STAGING (Right Side) */}
-      <div className="absolute top-[max(18vh,5rem)] right-4 sm:right-12 max-w-sm sm:max-w-lg pointer-events-none z-20 text-right">
-        <div key={activeStage.id} className="transition-all duration-700 ease-out">
-          {/* Section Micro Tag */}
-          <div className="ts-b text-[#f3d288] mb-2 flex items-center justify-end gap-2.5">
-            <span className="tracking-[0.3em] font-medium">[ {activeStage.code} // IV ] • {activeStage.tag}</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-ping" />
-          </div>
-
-          {/* Refined Font Pairing: Newsreader Italic + Monumental Roman Serif */}
-          <h1 className="h1-overworld drop-shadow-2xl">
-            <span className="editorial-italic text-[#f3d288] font-normal block leading-tight">
-              {activeStage.titlePrefix}
-            </span>
-            <span className="font-serif tracking-tight font-bold text-white block mt-0.5 uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
-              {activeStage.titleMain}
-            </span>
-          </h1>
-
-          {/* Elegant Editorial Prose */}
-          <p className="mt-3 text-xs sm:text-[13px] text-[#c8d2dc] font-sans leading-relaxed hidden sm:block max-w-md ml-auto drop-shadow-md">
-            {activeStage.subtitle}
-          </p>
-        </div>
-      </div>
-
-      {/* 6. MINIMALIST ARCHITECTURAL RETICLES (Projected on 3D Landmarks) */}
-      <div className="absolute inset-0 pointer-events-none z-25 overflow-hidden">
-        {TACTICAL_MARKERS.map((marker) => {
-          return (
-            <div
-              key={marker.id}
-              ref={(el) => (markerRefs.current[marker.id] = el)}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                display: 'none',
-                willChange: 'transform'
-              }}
-              className="pointer-events-auto cursor-pointer group"
-              onClick={() => handleMarkerClick(marker)}
-            >
-              <div className="flex flex-col items-center">
-                {/* Tactical Pinpoint Marker Label Badge */}
-                <div className="px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 group-hover:border-[#f3d288] backdrop-blur-xl text-[#e9ecee] shadow-2xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(243,210,136,0.35)] flex items-center gap-2">
-                  <MapPin
-                    className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5"
-                    style={{ color: marker.color }}
-                  />
-                  <span className="text-[9px] font-mono tracking-wider font-semibold text-white whitespace-nowrap">
-                    {marker.name}
-                  </span>
-                  <span className="text-[7.5px] font-mono tracking-widest text-[#f3d288] px-1.5 py-0.5 rounded bg-white/[0.06] border border-white/[0.08] uppercase">
-                    {marker.tier}
-                  </span>
-                </div>
-
-                {/* Vertical Precision Needle Stem */}
-                <div
-                  className="w-[1.5px] h-3.5 mx-auto"
-                  style={{
-                    background: `linear-gradient(to bottom, ${marker.color}, ${marker.color}aa, ${marker.color})`
-                  }}
-                />
-                
-                {/* Pinpoint Ground Contact Target Point */}
-                <div className="relative flex items-center justify-center">
-                  <div
-                    className="w-2 h-2 rounded-full shadow-[0_0_8px_currentColor] transition-transform duration-300 group-hover:scale-125"
-                    style={{ backgroundColor: marker.color, color: marker.color }}
-                  />
-                  <div
-                    className="absolute w-4 h-4 rounded-full border opacity-60 animate-ping pointer-events-none"
-                    style={{ borderColor: marker.color }}
-                  />
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* 7. AWWWARDS CHRONICLES SCRUBBER & RUNWAY NAVIGATION */}
-      <div className="absolute bottom-0 left-0 w-full z-30 pointer-events-none pb-4 sm:pb-6">
-        
-        {/* Subtle Ambient Scroll Cue (Fades once user scrolls) */}
-        <div
-          className={`absolute bottom-20 left-1/2 -translate-x-1/2 pointer-events-none flex flex-col items-center gap-1.5 transition-all duration-700 ${
-            scrollProgress > 0.04 ? 'opacity-0 translate-y-3 pointer-events-none' : 'opacity-90 animate-pulse'
-          }`}
-        >
-          <div className="flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/50 border border-white/[0.1] text-[8.5px] font-mono tracking-[0.25em] text-[#f3d288] uppercase shadow-2xl backdrop-blur-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-ping" />
-            <span>SCROLL TO GLIDE MID-LANE</span>
-          </div>
-        </div>
-
-        {/* Real-time Cinematic Flight Progress Rail */}
-        <div className="w-[94%] max-w-lg mx-auto mb-3 pointer-events-auto">
-          <div className="flex items-center justify-between text-[8.5px] font-mono text-[#aab9c7] mb-1.5 px-1">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288]" />
-              <span className="text-white font-medium tracking-widest uppercase">{activeStage.telemetry.sector}</span>
-            </span>
-            <span className="text-[#f3d288] font-bold">{Math.round(scrollProgress * 100)}% FLIGHT PROGRESS</span>
-            <span className="text-[#38bdf8] font-mono">{activeStage.telemetry.elev}</span>
-          </div>
-          {/* Laser Track */}
-          <div className="relative w-full h-[2px] bg-white/[0.08] rounded-full overflow-visible">
-            <div
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#f3d288] via-[#38bdf8] to-[#f43f5e] rounded-full transition-all duration-150"
-              style={{ width: `${Math.max(2, scrollProgress * 100)}%` }}
-            />
-            {/* Glowing Diamond Playhead */}
-            <div
-              className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#f3d288] rotate-45 shadow-[0_0_10px_#f3d288] -ml-1 transition-all duration-150"
-              style={{ left: `${Math.max(0, Math.min(100, scrollProgress * 100))}%` }}
-            />
-          </div>
-        </div>
-
-        {/* Master Control Deck */}
-        <div className="w-[94%] max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 relative z-20">
-          
-          {/* Left: Explore Archive Button */}
-          <div className="pointer-events-auto">
+          {/* Right: Audio Equalizer & Sound Control */}
+          <div className="flex items-center gap-3 pointer-events-auto">
             <button
-              onClick={() => scrollToSection('#heroes')}
-              className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full border border-slate-700/80 hover:border-[#f3d288]/80 bg-slate-900/85 hover:bg-slate-900 text-white transition-all duration-300 shadow-2xl cursor-pointer backdrop-blur-xl"
-              title="Explore all 133 champions in the archive"
+              onClick={handleToggleSound}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border backdrop-blur-xl transition-all duration-300 cursor-pointer ${
+                isAudioActive
+                  ? 'bg-amber-500/20 border-amber-400/80 text-amber-300 shadow-[0_0_18px_rgba(245,158,11,0.35)]'
+                  : 'bg-slate-900/80 border-slate-700/80 text-zinc-400 hover:border-slate-500 hover:text-white'
+              }`}
+              title={isAudioActive ? 'Mute Spatial Soundtrack' : 'Enable Spatial Soundtrack'}
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#f3d288] group-hover:rotate-45 transition-transform duration-300" />
-              <span className="font-mono text-[9px] tracking-[0.25em] uppercase font-semibold">
-                ROSTER ARCHIVE [ 133 ]
+              <div className="flex items-end gap-[2px] h-3">
+                <span className={`w-[2px] bg-current rounded-full transition-all duration-200 ${isAudioActive ? 'animate-eq-1' : 'h-1.5'}`} />
+                <span className={`w-[2px] bg-current rounded-full transition-all duration-200 ${isAudioActive ? 'animate-eq-2' : 'h-2.5'}`} />
+                <span className={`w-[2px] bg-current rounded-full transition-all duration-200 ${isAudioActive ? 'animate-eq-3' : 'h-1'}`} />
+                <span className={`w-[2px] bg-current rounded-full transition-all duration-200 ${isAudioActive ? 'animate-eq-4' : 'h-2'}`} />
+              </div>
+              <span className="text-[9.5px] font-mono tracking-widest uppercase">
+                {isAudioActive ? 'AUDIO ON' : 'AUDIO OFF'}
               </span>
             </button>
           </div>
+        </header>
 
-          {/* Center: Stage Roman Selector */}
-          <div className="pointer-events-auto flex items-center gap-1 p-1 rounded-full bg-slate-900/85 border border-slate-700/80 backdrop-blur-xl shadow-2xl">
-            {TACTICAL_STAGES.map((stg, idx) => (
+        {/* ====================================================================
+            CENTER STAGE: AWWWARDS 3-ACT PRESENTATION
+            ==================================================================== */}
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-8 my-auto flex flex-col items-center justify-center text-center pointer-events-none">
+          
+          {/* ACT 1: THE CELESTIAL FORGE (0.00 – 0.33 Scroll Progress) */}
+          <div
+            className={`transition-all duration-700 w-full max-w-4xl flex flex-col items-center ${
+              activeAct === 0
+                ? 'opacity-100 translate-y-0 pointer-events-auto'
+                : 'opacity-0 -translate-y-8 pointer-events-none absolute'
+            }`}
+          >
+            {/* Moniyan Crest Micro-Tag */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/80 border border-slate-700/80 text-[10px] font-mono tracking-[0.25em] text-[#f3d288] uppercase mb-3 shadow-xl backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-ping" />
+              <span>OFFICIAL 3D ARSENAL // LAND OF DAWN</span>
+            </div>
+
+            {/* Monumental Liquid Gold Headline */}
+            <h1 className="text-land-of-dawn text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[0.16em] uppercase leading-none mb-2">
+              LAND OF DAWN
+            </h1>
+
+            {/* Editorial Roman Subtitle */}
+            <div className="flex items-center gap-3 mb-3">
+              <span className="w-8 sm:w-16 h-[1px] bg-gradient-to-r from-transparent to-[#f3d288]/80" />
+              <span className="font-serif text-sm sm:text-lg md:text-xl tracking-[0.3em] uppercase text-zinc-200 font-medium drop-shadow-md">
+                CHRONICLES OF SANCTUM ISLAND
+              </span>
+              <span className="w-8 sm:w-16 h-[1px] bg-gradient-to-l from-transparent to-[#f3d288]/80" />
+            </div>
+
+            {/* Interactive Weapon Stance Selector (Awwwards 3D Weapon Switcher) */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-4 pointer-events-auto">
+              {WEAPON_STANCES.map((stance, idx) => {
+                const isSelected = activeStanceIndex === idx;
+                return (
+                  <button
+                    key={stance.id}
+                    onClick={() => {
+                      audioManager.playSkillFlare();
+                      setActiveStanceIndex(idx);
+                    }}
+                    onMouseEnter={() => audioManager.playHover()}
+                    className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer backdrop-blur-md ${
+                      isSelected
+                        ? 'bg-slate-800 border-2 text-white shadow-xl scale-105'
+                        : 'bg-slate-900/60 border border-slate-700/60 text-zinc-400 hover:text-white hover:border-slate-500'
+                    }`}
+                    style={{
+                      borderColor: isSelected ? stance.primaryColor : undefined,
+                      boxShadow: isSelected ? `0 0 20px ${stance.glowColor}` : undefined
+                    }}
+                  >
+                    <span
+                      className="w-2 h-2 rounded-full"
+                      style={{ backgroundColor: stance.primaryColor }}
+                    />
+                    <span className="font-semibold uppercase">{stance.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Interactive 3D Weapon Action Deck: "AWAKEN BLADE" / "OVERDRIVE" */}
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-6 pointer-events-auto">
+              {/* Overdrive Awaken Button */}
               <button
-                key={stg.id}
-                onClick={() => handleGlideToStage(idx)}
-                className={`px-3 py-1.5 rounded-full text-[9px] font-mono tracking-wider transition-all duration-300 cursor-pointer ${
-                  activeStageIndex === idx
-                    ? 'bg-[#f3d288] text-black font-bold shadow-[0_0_15px_rgba(243,210,136,0.35)]'
-                    : 'text-[#aab9c7] hover:text-white hover:bg-white/[0.06]'
-                }`}
+                onClick={handleAwakenWeapon}
+                onMouseEnter={() => audioManager.playHover()}
+                className="btn-overdrive-charge group cursor-pointer"
+                title="Trigger 3D Mana Resonance & Particle Nova"
               >
-                {stg.roman} • {stg.code}
+                <Sparkles className="w-4 h-4 text-amber-300 animate-pulse group-hover:rotate-45 transition-transform" />
+                <span className="font-game-btn text-xs tracking-[0.2em] uppercase text-[#fef08a]">
+                  {overdriveActive ? 'MANA OVERDRIVE ACTIVE!' : 'AWAKEN BLADE OVERDRIVE'}
+                </span>
+                <span className="text-[9px] font-mono text-zinc-400 bg-white/10 px-1.5 py-0.5 rounded">
+                  CLICK TO BURST
+                </span>
               </button>
-            ))}
+
+              {/* Roster Archive Button */}
+              <button
+                onClick={() => scrollToSection('#heroes')}
+                onMouseEnter={() => audioManager.playHover()}
+                className="btn-mlbb-battle btn-mlbb-battle-animated-border game-btn-chamfer relative overflow-hidden group cursor-pointer"
+              >
+                <div className="btn-mlbb-battle-core game-btn-chamfer-inner">
+                  <div className="btn-mlbb-sheen" />
+                  <Swords className="w-3.5 h-3.5 text-amber-300 filter drop-shadow-[0_0_6px_rgba(245,158,11,0.8)] shrink-0 group-hover:rotate-12 transition-transform duration-300" />
+                  <span className="font-game-btn text-xs tracking-[0.2em] uppercase text-game-gold select-none whitespace-nowrap">
+                    EXPLORE 133 HEROES
+                  </span>
+                  <ChevronRight className="w-3.5 h-3.5 text-amber-300/80 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                </div>
+              </button>
+            </div>
+
+            {/* Interactive 3D Weapon Hotspot Chips */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-4 pointer-events-auto">
+              <span className="text-[9px] font-mono text-zinc-400 tracking-widest uppercase mr-1 hidden sm:inline">
+                INSPECT 3D SOCKETS:
+              </span>
+              {WEAPON_HOTSPOTS.map((spot) => (
+                <button
+                  key={spot.id}
+                  onClick={() => {
+                    audioManager.playClick();
+                    setActiveHotspot(activeHotspot === spot.id ? null : spot.id);
+                  }}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[9px] font-mono tracking-wider border transition-all cursor-pointer ${
+                    activeHotspot === spot.id
+                      ? 'bg-amber-500/25 border-amber-400 text-amber-200 shadow-[0_0_12px_rgba(245,158,11,0.4)]'
+                      : 'bg-slate-900/60 border-slate-700/60 text-zinc-400 hover:text-white hover:border-slate-500'
+                  }`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-reticle-pulse" />
+                  <span>{spot.tag}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Active Hotspot Telemetry Pop-up Card */}
+            {activeHotspot && (
+              <div className="mb-4 p-3 rounded-xl bg-slate-900/90 border border-amber-400/60 shadow-2xl backdrop-blur-xl max-w-md animate-fade-in pointer-events-auto text-left flex items-start gap-3">
+                <div className="w-2 h-2 rounded-full bg-amber-400 mt-1 shrink-0 animate-ping" />
+                <div className="flex-1">
+                  <div className="flex justify-between items-center mb-0.5">
+                    <span className="text-[10px] font-mono font-bold text-[#f3d288] uppercase">
+                      {WEAPON_HOTSPOTS.find((s) => s.id === activeHotspot)?.label}
+                    </span>
+                    <span className="text-[9px] font-mono text-cyan-300">
+                      {WEAPON_HOTSPOTS.find((s) => s.id === activeHotspot)?.stat}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-zinc-300 font-sans leading-normal">
+                    {WEAPON_HOTSPOTS.find((s) => s.id === activeHotspot)?.desc}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Quick Stats Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 w-full max-w-xl">
+              {[
+                { val: '133', lbl: 'LEGENDS' },
+                { val: '06', lbl: 'SOVEREIGN ROLES' },
+                { val: '03', lbl: 'TACTICAL LANES' },
+                { val: '8K', lbl: 'SANCTUM ARENA' }
+              ].map((stat, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col items-center py-2 px-3 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm"
+                >
+                  <span className="font-mono text-base sm:text-lg font-bold text-[#f3d288]">
+                    {stat.val}
+                  </span>
+                  <span className="font-mono text-[8px] sm:text-[9px] tracking-widest text-zinc-400 uppercase">
+                    {stat.lbl}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Right: Stage Stepper */}
-          <div className="flex items-center gap-2 pointer-events-auto">
-            <span className="text-[9px] font-mono text-[#aab9c7] mr-1 hidden sm:inline">
-              [ 0{activeStageIndex + 1} / 04 ]
-            </span>
+          {/* ACT 2: SOVEREIGN DISCIPLINES SHOWCASE (0.33 – 0.72 Scroll Progress) */}
+          <div
+            className={`transition-all duration-700 w-full max-w-5xl flex flex-col items-center ${
+              activeAct === 1
+                ? 'opacity-100 translate-y-0 pointer-events-auto'
+                : 'opacity-0 translate-y-8 pointer-events-none absolute'
+            }`}
+          >
+            {/* Act Subtitle */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/80 border border-slate-700/80 text-[10px] font-mono tracking-[0.25em] text-[#f3d288] uppercase mb-2 shadow-xl backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-ping" />
+              <span>THE SIX DISCIPLINES // STRATEGIC MASTERY</span>
+            </div>
+
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.18em] text-white mb-4 drop-shadow-lg">
+              FORGED FOR VICTORY
+            </h2>
+
+            {/* 6 Role Selector Tabs */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-5">
+              {ROLES_SHOWCASE.map((role, idx) => {
+                const IconComponent = role.icon;
+                const isSelected = activeRoleIndex === idx;
+                return (
+                  <button
+                    key={role.id}
+                    onClick={() => {
+                      audioManager.playClick();
+                      setActiveRoleIndex(idx);
+                    }}
+                    onMouseEnter={() => audioManager.playHover()}
+                    className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer backdrop-blur-md ${
+                      isSelected
+                        ? 'bg-slate-800 border-2 text-white shadow-xl scale-105'
+                        : 'bg-slate-900/60 border border-slate-700/60 text-zinc-400 hover:text-white hover:border-slate-500'
+                    }`}
+                    style={{
+                      borderColor: isSelected ? role.color : undefined,
+                      boxShadow: isSelected ? `0 0 20px ${role.glowColor}` : undefined
+                    }}
+                  >
+                    <IconComponent
+                      className="w-3.5 h-3.5"
+                      style={{ color: isSelected ? role.color : undefined }}
+                    />
+                    <span className="uppercase font-semibold">{role.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active Role Feature Card */}
+            <div className="w-full max-w-3xl rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-slate-900/90 via-[#0e172e]/90 to-slate-900/95 border border-slate-700/80 shadow-2xl backdrop-blur-xl relative overflow-hidden text-left">
+              {/* Role Glow Flare in Background */}
+              <div
+                className="absolute -top-20 -right-20 w-64 h-64 rounded-full blur-[90px] pointer-events-none opacity-40 transition-colors duration-700"
+                style={{ backgroundColor: activeRole.color }}
+              />
+
+              <div className="flex flex-col md:flex-row items-center gap-5 sm:gap-8 relative z-10">
+                {/* Hero Avatar Portrait */}
+                <div className="relative shrink-0 flex items-center justify-center">
+                  <div
+                    className="w-24 sm:w-32 h-24 sm:h-32 rounded-2xl overflow-hidden border-2 shadow-2xl relative bg-slate-950 flex items-center justify-center"
+                    style={{ borderColor: activeRole.color }}
+                  >
+                    <img
+                      src={activeRole.image}
+                      alt={activeRole.heroName}
+                      className="w-full h-full object-cover object-top filter brightness-105 contrast-110"
+                    />
+                  </div>
+                  {/* Floating Role Badge */}
+                  <div
+                    className="absolute -bottom-2 px-2.5 py-0.5 rounded-full text-[8.5px] font-mono font-bold tracking-widest uppercase border bg-slate-900 shadow-md text-white"
+                    style={{ borderColor: activeRole.color }}
+                  >
+                    {activeRole.name}
+                  </div>
+                </div>
+
+                {/* Role & Hero Overview */}
+                <div className="flex-1 flex flex-col justify-between">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                    <div>
+                      <span className="text-[10px] font-mono tracking-widest text-[#f3d288] uppercase block">
+                        REPRESENTATIVE CHAMPION
+                      </span>
+                      <h3 className="text-xl sm:text-2xl font-serif font-bold uppercase text-white tracking-wider flex items-center gap-2">
+                        {activeRole.heroName}
+                        <span className="text-xs font-sans text-zinc-400 font-normal">
+                          — {activeRole.heroTitle}
+                        </span>
+                      </h3>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[9px] font-mono text-zinc-300">
+                        WIN RATE: <strong className="text-[#f3d288]">{activeRole.winRate}</strong>
+                      </span>
+                      <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[9px] font-mono text-cyan-300">
+                        {activeRole.lane}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs sm:text-[13px] text-zinc-300 leading-relaxed font-sans mb-4">
+                    {activeRole.desc}
+                  </p>
+
+                  {/* Attribute Bars */}
+                  <div className="grid grid-cols-3 gap-3 mb-4">
+                    {[
+                      { lbl: 'DURABILITY', val: activeRole.stats.durability, color: '#38bdf8' },
+                      { lbl: 'OFFENSE', val: activeRole.stats.offense, color: '#ef4444' },
+                      { lbl: 'CONTROL', val: activeRole.stats.control, color: '#f59e0b' }
+                    ].map((stat, i) => (
+                      <div key={i} className="flex flex-col gap-1">
+                        <div className="flex justify-between text-[8px] font-mono text-zinc-400">
+                          <span>{stat.lbl}</span>
+                          <span className="text-white font-bold">{stat.val}%</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                          <div
+                            className="h-full rounded-full transition-all duration-500"
+                            style={{
+                              width: `${stat.val}%`,
+                              backgroundColor: stat.color
+                            }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Actions for this hero */}
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={handleInspectActiveHero}
+                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/60 text-amber-200 text-xs font-mono font-semibold tracking-wider uppercase transition-colors cursor-pointer"
+                    >
+                      <Eye className="w-3.5 h-3.5 text-amber-300" />
+                      <span>INSPECT PROFILE</span>
+                    </button>
+                    <button
+                      onClick={handleChamberActiveHero}
+                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 hover:border-cyan-400 text-zinc-200 hover:text-white text-xs font-mono tracking-wider uppercase transition-colors cursor-pointer"
+                    >
+                      <Box className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>3D CHAMBER</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ACT 3: BATTLEFIELD CONVERGENCE & COMMAND (0.72 – 1.00 Scroll Progress) */}
+          <div
+            className={`transition-all duration-700 w-full max-w-5xl flex flex-col items-center ${
+              activeAct === 2
+                ? 'opacity-100 translate-y-0 pointer-events-auto'
+                : 'opacity-0 translate-y-8 pointer-events-none absolute'
+            }`}
+          >
+            {/* Act Subtitle */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/80 border border-slate-700/80 text-[10px] font-mono tracking-[0.25em] text-[#f3d288] uppercase mb-2 shadow-xl backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-ping" />
+              <span>SANCTUM ARENA DEPLOYMENT // ALL LANES READY</span>
+            </div>
+
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold uppercase tracking-[0.16em] text-white mb-2 drop-shadow-xl">
+              COMMAND YOUR DESTINY
+            </h2>
+
+            <p className="text-xs sm:text-sm text-zinc-300 max-w-xl leading-relaxed mb-6 font-sans">
+              133 Legends. 3 Contested Corridors. Select your destination below or deploy directly into the roster codex.
+            </p>
+
+            {/* 4 Interactive Portal Gateways */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full mb-6">
+              {[
+                {
+                  id: '#heroes',
+                  title: 'HERO ARCHIVE',
+                  tag: '133 CHAMPIONS',
+                  desc: 'Comprehensive database with abilities, equipment builds, and lore.',
+                  icon: Swords,
+                  color: '#f59e0b'
+                },
+                {
+                  id: '#skills-lab',
+                  title: 'SKILLS LAB',
+                  tag: 'COMBAT SIMULATOR',
+                  desc: 'Interactive cooldowns, mana costs, and tactical spell chaining.',
+                  icon: Sparkles,
+                  color: '#38bdf8'
+                },
+                {
+                  id: '#chamber',
+                  title: '3D HERO CHAMBER',
+                  tag: '360° INSPECTOR',
+                  desc: 'Inspect heroes in high-poly 3D with celestial lighting and skin vaults.',
+                  icon: Box,
+                  color: '#a855f7'
+                },
+                {
+                  id: '#esports',
+                  title: 'ESPORTS ARENA',
+                  tag: 'M-SERIES & MPL',
+                  desc: 'World championship fixtures, tournament standings, and pro meta.',
+                  icon: Activity,
+                  color: '#10b981'
+                }
+              ].map((gate) => {
+                const GateIcon = gate.icon;
+                return (
+                  <button
+                    key={gate.id}
+                    onClick={() => scrollToSection(gate.id)}
+                    onMouseEnter={() => audioManager.playHover()}
+                    className="p-4 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-700/80 hover:border-[#f3d288] text-left transition-all duration-300 shadow-xl backdrop-blur-xl group cursor-pointer"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div
+                        className="w-8 h-8 rounded-lg flex items-center justify-center border bg-slate-950/80 group-hover:scale-110 transition-transform"
+                        style={{ borderColor: `${gate.color}55` }}
+                      >
+                        <GateIcon className="w-4 h-4" style={{ color: gate.color }} />
+                      </div>
+                      <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-[#f3d288] transition-colors" />
+                    </div>
+
+                    <span className="text-[9px] font-mono tracking-widest text-[#f3d288] uppercase block">
+                      {gate.tag}
+                    </span>
+                    <h4 className="text-sm font-serif font-bold text-white uppercase tracking-wider mb-1">
+                      {gate.title}
+                    </h4>
+                    <p className="text-[11px] text-zinc-400 leading-normal font-sans">
+                      {gate.desc}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Launch CTA Button */}
             <button
-              onClick={() => handleGlideToStage(activeStageIndex - 1)}
-              disabled={activeStageIndex === 0}
-              className={`p-2 rounded-full border backdrop-blur-xl transition-all cursor-pointer ${
-                activeStageIndex === 0
-                  ? 'border-white/[0.05] text-white/20 cursor-not-allowed'
-                  : 'border-slate-700/80 bg-slate-900/85 hover:border-[#f3d288] text-[#aab9c7] hover:text-white'
-              }`}
-              title="Previous Sector"
+              onClick={() => scrollToSection('#heroes')}
+              onMouseEnter={() => audioManager.playHover()}
+              className="btn-mlbb-battle btn-mlbb-battle-animated-border game-btn-chamfer relative overflow-hidden group cursor-pointer"
             >
-              <ChevronLeft className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={() => handleGlideToStage(activeStageIndex + 1)}
-              disabled={activeStageIndex === TACTICAL_STAGES.length - 1}
-              className={`p-2 rounded-full border backdrop-blur-xl transition-all cursor-pointer ${
-                activeStageIndex === TACTICAL_STAGES.length - 1
-                  ? 'border-white/[0.05] text-white/20 cursor-not-allowed'
-                  : 'border-white/[0.12] bg-[#060a14]/80 hover:border-[#f3d288] text-[#aab9c7] hover:text-white'
-              }`}
-              title="Next Sector"
-            >
-              <ChevronRight className="w-3.5 h-3.5" />
+              <div className="btn-mlbb-battle-core game-btn-chamfer-inner">
+                <div className="btn-mlbb-sheen" />
+                <Swords className="w-4 h-4 text-amber-300 filter drop-shadow-[0_0_8px_rgba(245,158,11,0.9)] group-hover:rotate-12 transition-transform shrink-0" />
+                <span className="font-game-btn text-xs sm:text-sm tracking-[0.22em] uppercase text-game-gold select-none whitespace-nowrap">
+                  ENTER THE ARENA
+                </span>
+                <ChevronRight className="w-4 h-4 text-amber-300/80 group-hover:translate-x-1 transition-transform shrink-0" />
+              </div>
             </button>
           </div>
 
         </div>
+
+        {/* ====================================================================
+            BOTTOM NAVIGATION & SCRUBBER DOCK
+            ==================================================================== */}
+        <footer className="relative z-30 pb-4 sm:pb-6 px-4 sm:px-8 pointer-events-none">
+          
+          {/* Subtle Ambient Scroll Cue (Active during Act 0) */}
+          <div
+            className={`flex flex-col items-center gap-1.5 mb-3 transition-all duration-500 ${
+              scrollProgress < 0.08 ? 'opacity-90' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <div className="flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/80 border border-slate-700/80 text-[8.5px] font-mono tracking-[0.25em] text-[#f3d288] uppercase shadow-2xl backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288] animate-ping" />
+              <span>SCROLL TO GLIDE THROUGH THE CHRONICLES</span>
+            </div>
+          </div>
+
+          {/* Interactive Laser Progress Scrubber */}
+          <div className="w-[94%] max-w-lg mx-auto mb-3 pointer-events-auto">
+            <div className="flex items-center justify-between text-[8.5px] font-mono text-zinc-400 mb-1 px-1">
+              <span className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#f3d288]" />
+                <span className="text-white font-medium tracking-widest uppercase">
+                  ACT {SCROLL_ACTS[activeAct]?.roman} // {SCROLL_ACTS[activeAct]?.label}
+                </span>
+              </span>
+              <span className="text-[#f3d288] font-bold">
+                {Math.round(scrollProgress * 100)}% JOURNEY
+              </span>
+            </div>
+            {/* Laser Track */}
+            <div className="relative w-full h-[2px] bg-white/10 rounded-full overflow-visible">
+              <div
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#f3d288] via-[#38bdf8] to-[#a855f7] rounded-full transition-all duration-150"
+                style={{ width: `${Math.max(2, scrollProgress * 100)}%` }}
+              />
+              {/* Glowing Diamond Playhead */}
+              <div
+                className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#f3d288] rotate-45 shadow-[0_0_12px_#f3d288] -ml-1 transition-all duration-150"
+                style={{ left: `${Math.max(0, Math.min(100, scrollProgress * 100))}%` }}
+              />
+            </div>
+          </div>
+
+          {/* Master Control Deck: Roman Act Selector & Quick Jump */}
+          <div className="w-[94%] max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 relative z-20 pointer-events-auto">
+            
+            {/* Left: Quick Archive Jump */}
+            <div>
+              <button
+                onClick={() => scrollToSection('#heroes')}
+                className="group flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-700/80 hover:border-[#f3d288]/80 bg-slate-900/85 hover:bg-slate-900 text-white transition-all duration-300 shadow-xl cursor-pointer backdrop-blur-xl"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#f3d288] group-hover:rotate-45 transition-transform duration-300" />
+                <span className="font-mono text-[9px] tracking-[0.25em] uppercase font-semibold">
+                  ROSTER [ 133 ]
+                </span>
+              </button>
+            </div>
+
+            {/* Center: Roman Act Selector */}
+            <div className="flex items-center gap-1.5 p-1 rounded-full bg-slate-900/85 border border-slate-700/80 backdrop-blur-xl shadow-2xl">
+              {SCROLL_ACTS.map((act, idx) => (
+                <button
+                  key={act.id}
+                  onClick={() => handleGlideToAct(idx)}
+                  className={`px-3 py-1 rounded-full text-[9px] font-mono tracking-wider transition-all duration-300 cursor-pointer ${
+                    activeAct === idx
+                      ? 'bg-[#f3d288] text-slate-950 font-bold shadow-[0_0_14px_rgba(243,210,136,0.4)]'
+                      : 'text-zinc-400 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  {act.roman} • {act.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Right: Drag to Rotate 3D Hint */}
+            <div className="hidden sm:flex items-center gap-2 text-[9px] font-mono text-zinc-400">
+              <Orbit className="w-3 h-3 text-[#38bdf8]" />
+              <span>DRAG CANVAS TO ORBIT 3D WEAPON</span>
+            </div>
+
+          </div>
+        </footer>
+
       </div>
-    </div>
-  </section>
+    </section>
   );
 }

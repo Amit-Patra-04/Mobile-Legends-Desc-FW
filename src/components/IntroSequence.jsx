@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Shield, ArrowRight, Eye, EyeOff, Volume2, VolumeX, Swords, ChevronRight, Crosshair } from 'lucide-react';
+import { Eye, EyeOff, Volume2, VolumeX, Swords, ChevronRight } from 'lucide-react';
 import { audioManager } from '../utils/audio';
 
 const LOADING_STEPS = [
@@ -454,107 +454,46 @@ export default function IntroSequence({ onComplete }) {
           </div>
         </div>
 
-        {/* 5. Master Authentic MLBB Gaming Battle Crest Button */}
-        <div className="min-h-[76px] flex flex-col items-center justify-center">
+        {/* 5. Minimalist Sleek Gaming Battle Entry Button */}
+        <div className="min-h-[50px] flex flex-col items-center justify-center">
           {isReady ? (
-            <div className="relative group flex flex-col items-center">
-              {/* Outer Breathing Radiant Energy Corona */}
-              <div className="game-btn-aura" />
+            <div className="flex flex-col items-center">
+              <button
+                onClick={handleEnter}
+                onMouseEnter={() => audioManager.playHover()}
+                className="btn-mlbb-battle btn-mlbb-battle-animated-border game-btn-chamfer relative overflow-hidden group cursor-pointer"
+                title="Click or press [Enter] to enter the battlefield"
+              >
+                {/* Inner Core Plate */}
+                <div className="btn-mlbb-battle-core game-btn-chamfer-inner">
+                  {/* Liquid Light Sheen */}
+                  <div className="btn-mlbb-sheen" />
 
-              {/* Flanking Ornate Mechanical Brackets & Crest Button */}
-              <div className="relative flex items-center gap-2 sm:gap-3">
-                {/* Left Moniyan Wingtip Ornament */}
-                <div className="hidden sm:flex flex-col items-center gap-1.5 opacity-80 group-hover:opacity-100 group-hover:-translate-x-1.5 transition-all duration-300">
-                  <div className="w-3.5 h-[1.5px] bg-gradient-to-r from-transparent to-amber-400" />
-                  <div className="w-2 h-2 rotate-45 border border-amber-400 bg-amber-400/40 shadow-[0_0_8px_#f59e0b]" />
-                  <div className="w-3.5 h-[1.5px] bg-gradient-to-r from-transparent to-amber-400" />
+                  {/* Crossed Swords Mini Icon */}
+                  <Swords className="w-3.5 h-3.5 text-amber-300 filter drop-shadow-[0_0_6px_rgba(245,158,11,0.8)] shrink-0 group-hover:rotate-12 transition-transform duration-300" />
+
+                  {/* Razor-sharp Minimalist Gaming Title */}
+                  <span className="font-game-btn text-xs sm:text-[13px] tracking-[0.2em] uppercase text-game-gold select-none whitespace-nowrap">
+                    ENTER BATTLEFIELD
+                  </span>
+
+                  {/* Elegant Trailing Chevron */}
+                  <ChevronRight className="w-3.5 h-3.5 text-amber-300/80 group-hover:translate-x-0.5 group-hover:text-amber-200 transition-all duration-300 shrink-0" />
                 </div>
+              </button>
 
-                {/* Master MOBA Match Entry Button */}
-                <button
-                  onClick={handleEnter}
-                  onMouseEnter={() => audioManager.playHover()}
-                  className="btn-mlbb-battle btn-mlbb-battle-animated-border game-btn-chamfer relative overflow-hidden"
-                  title="Click or press [Enter] / [Space] to enter the battlefield"
-                >
-                  {/* Inner Obsidian Core Plate */}
-                  <div className="btn-mlbb-battle-core game-btn-chamfer-inner">
-                    {/* Animated Liquid Light Sheen */}
-                    <div className="btn-mlbb-sheen" />
-
-                    {/* Crossed Mythic Battle Swords Icon */}
-                    <div className="relative flex items-center justify-center w-8 sm:w-9 h-8 sm:h-9 rounded-lg bg-gradient-to-br from-amber-400/25 via-slate-900/60 to-cyan-500/25 border border-amber-400/50 shadow-[0_0_14px_rgba(245,158,11,0.4)] shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                      <Swords className="w-4 h-4 text-amber-300 filter drop-shadow-[0_0_8px_rgba(245,158,11,0.9)]" />
-                      {/* Luminous Corner Gems */}
-                      <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_6px_#38bdf8]" />
-                      <span className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-amber-400 rounded-full shadow-[0_0_6px_#f59e0b]" />
-                    </div>
-
-                    {/* Button Gaming Typography Suite */}
-                    <div className="flex flex-col items-center text-center px-1.5 py-0.5">
-                      <div className="flex items-center gap-1.5 leading-none mb-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8] animate-pulse" />
-                        <span className="text-[8px] sm:text-[8.5px] font-mono font-bold tracking-[0.22em] uppercase text-cyan-300">
-                          MATCH READY // 5V5
-                        </span>
-                        <span className="text-white/25 text-[8.5px]">•</span>
-                        <span className="text-[8px] sm:text-[8.5px] font-mono font-bold tracking-[0.2em] uppercase text-amber-400">
-                          133 LEGENDS
-                        </span>
-                      </div>
-                      <span className="font-game-btn text-xs sm:text-sm md:text-[15px] tracking-[0.16em] uppercase text-game-gold leading-tight select-none">
-                        ENTER THE BATTLEFIELD
-                      </span>
-                    </div>
-
-                    {/* Right Action Chevron */}
-                    <div className="relative flex items-center justify-center w-8 sm:w-9 h-8 sm:h-9 rounded-lg bg-gradient-to-br from-amber-400/25 via-slate-900/60 to-cyan-500/25 border border-amber-400/50 shadow-[0_0_14px_rgba(245,158,11,0.4)] shrink-0 group-hover:scale-110 group-hover:translate-x-1 transition-transform duration-300">
-                      <ChevronRight className="w-4 sm:w-5 h-4 sm:h-5 text-amber-300 filter drop-shadow-[0_0_8px_rgba(245,158,11,0.9)]" />
-                    </div>
-                  </div>
-                </button>
-
-                {/* Right Moniyan Wingtip Ornament */}
-                <div className="hidden sm:flex flex-col items-center gap-1.5 opacity-80 group-hover:opacity-100 group-hover:translate-x-1.5 transition-all duration-300">
-                  <div className="w-3.5 h-[1.5px] bg-gradient-to-l from-transparent to-amber-400" />
-                  <div className="w-2 h-2 rotate-45 border border-amber-400 bg-amber-400/40 shadow-[0_0_8px_#f59e0b]" />
-                  <div className="w-3.5 h-[1.5px] bg-gradient-to-l from-transparent to-amber-400" />
-                </div>
-              </div>
-
-              {/* Under-Button Quick Shortcut Cue */}
-              <div className="mt-2.5 text-center">
-                <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-slate-900/80 border border-slate-700/80 text-[8.5px] font-mono text-zinc-400 tracking-widest uppercase shadow-md">
-                  <span>PRESS</span>
-                  <kbd className="px-1.5 py-0.2 rounded bg-white/10 text-amber-300 border border-white/20 font-bold font-mono">
-                    ENTER
-                  </kbd>
-                  <span>OR</span>
-                  <kbd className="px-1.5 py-0.2 rounded bg-white/10 text-amber-300 border border-white/20 font-bold font-mono">
-                    SPACE
-                  </kbd>
-                  <span>TO DEPLOY</span>
-                </span>
-              </div>
+              {/* Minimalist Keyboard Hint Whisper */}
+              <span className="text-[9px] font-mono text-zinc-500 tracking-[0.22em] uppercase mt-2 select-none">
+                PRESS ENTER ↵
+              </span>
             </div>
           ) : (
-            /* Pre-Ready Locked Match Queue State */
-            <div className="relative inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl bg-gradient-to-r from-slate-900/90 via-[#0e1832]/95 to-slate-900/90 border border-slate-700/80 shadow-2xl">
-              <div className="relative w-6 h-6 flex items-center justify-center">
-                <div className="absolute inset-0 rounded-full border-2 border-amber-400/20 border-t-amber-400 animate-spin" />
-                <Crosshair className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-              </div>
-              <div className="flex flex-col text-left">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                  <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-amber-400 font-bold">
-                    PREPARING BATTLE CODEX...
-                  </span>
-                </div>
-                <span className="text-[10px] font-mono text-zinc-400 tracking-wider">
-                  SYNCHRONIZING 133 CHAMPIONS
-                </span>
-              </div>
+            /* Minimalist Loading Indicator */
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/60 border border-slate-700/60 backdrop-blur-sm">
+              <div className="w-2.5 h-2.5 border-2 border-amber-400/30 border-t-amber-400 rounded-full animate-spin shrink-0" />
+              <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-zinc-400">
+                INITIALIZING CODEX...
+              </span>
             </div>
           )}
         </div>
