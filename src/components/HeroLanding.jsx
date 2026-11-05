@@ -2,6 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 import {
   Swords,
   Box,
@@ -294,7 +299,6 @@ function createYinYangCanopyTexture() {
   const cx = 512;
   const cy = 512;
 
-  // Rich mystical indigo silk background
   const bgGrad = ctx.createRadialGradient(cx, cy, 40, cx, cy, 512);
   bgGrad.addColorStop(0, '#3b0764');
   bgGrad.addColorStop(0.5, '#1e1b4b');
@@ -402,22 +406,21 @@ function createOfudaTexture() {
 }
 
 // ============================================================================
-// GEOMETRY GENERATOR 1: TRUE DIAMOND-CROSS-SECTION DOUBLE-EDGED BLADE
+// GEOMETRY GENERATOR 1: RAZOR-SHARP FACETED DIAMOND BLADE
+// Distinct quad strips ensure independent face normals across the central spine
 // ============================================================================
-function createDiamondBladeGeometry({
-  length = 8.5,
-  baseWidth = 0.55,
-  spineThickness = 0.12,
-  segments = 24
+function createSharpFacetedBladeGeometry({
+  length = 8.6,
+  baseWidth = 0.58,
+  spineThickness = 0.14,
+  segments = 28
 } = {}) {
   const positions = [];
   const uvs = [];
   const indices = [];
+  const verticesPerStrip = (segments + 1) * 2;
 
-  for (let i = 0; i <= segments; i++) {
-    const t = i / segments;
-    const y = t * length;
-
+  function getProfile(t) {
     let w = baseWidth;
     if (t < 0.08) {
       w = baseWidth * (0.7 + (t / 0.08) * 0.3);
@@ -433,41 +436,58 @@ function createDiamondBladeGeometry({
       const tt = (t - 0.82) / 0.18;
       w = baseWidth * 0.95 * Math.cos(tt * Math.PI * 0.5);
     }
-
     const th = spineThickness * Math.max(0.005, 1.0 - t * 0.75);
-
-    positions.push(-w, y, 0);
-    uvs.push(0.0, t);
-
-    positions.push(0, y, th);
-    uvs.push(0.5, t);
-
-    positions.push(w, y, 0);
-    uvs.push(1.0, t);
-
-    positions.push(0, y, -th);
-    uvs.push(0.5, t);
-
-    if (i < segments) {
-      const b = i * 4;
-      const nb = (i + 1) * 4;
-
-      indices.push(b, nb, nb + 1);
-      indices.push(b, nb + 1, b + 1);
-
-      indices.push(b + 1, nb + 1, nb + 2);
-      indices.push(b + 1, nb + 2, b + 2);
-
-      indices.push(b + 2, nb + 2, nb + 3);
-      indices.push(b + 2, nb + 3, b + 3);
-
-      indices.push(b + 3, nb + 3, nb);
-      indices.push(b + 3, nb, b);
-    }
+    return { w, th };
   }
 
-  indices.push(0, 1, 2);
-  indices.push(0, 2, 3);
+  // Strip 0: Front-Left (left edge -> front spine)
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const y = t * length;
+    const { w, th } = getProfile(t);
+    positions.push(-w, y, 0);       uvs.push(0.0, t);
+    positions.push(0, y, th);       uvs.push(0.5, t);
+  }
+
+  // Strip 1: Front-Right (front spine -> right edge)
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const y = t * length;
+    const { w, th } = getProfile(t);
+    positions.push(0, y, th);       uvs.push(0.5, t);
+    positions.push(w, y, 0);        uvs.push(1.0, t);
+  }
+
+  // Strip 2: Back-Right (right edge -> back spine)
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const y = t * length;
+    const { w, th } = getProfile(t);
+    positions.push(w, y, 0);        uvs.push(1.0, t);
+    positions.push(0, y, -th);      uvs.push(0.5, t);
+  }
+
+  // Strip 3: Back-Left (back spine -> left edge)
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const y = t * length;
+    const { w, th } = getProfile(t);
+    positions.push(0, y, -th);      uvs.push(0.5, t);
+    positions.push(-w, y, 0);       uvs.push(0.0, t);
+  }
+
+  // Indices for each strip
+  for (let s = 0; s < 4; s++) {
+    const offset = s * verticesPerStrip;
+    for (let i = 0; i < segments; i++) {
+      const a = offset + i * 2;
+      const b = offset + i * 2 + 1;
+      const c = offset + (i + 1) * 2;
+      const d = offset + (i + 1) * 2 + 1;
+      indices.push(a, c, d);
+      indices.push(a, d, b);
+    }
+  }
 
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
@@ -478,9 +498,9 @@ function createDiamondBladeGeometry({
 }
 
 // ============================================================================
-// GEOMETRY GENERATOR 2: DIAMOND STILETTO BLADE
+// GEOMETRY GENERATOR 2: RAZOR-SHARP FACETED STILETTO BLADE
 // ============================================================================
-function createStilettoBladeGeometry({
+function createSharpFacetedStilettoGeometry({
   length = 2.4,
   baseWidth = 0.22,
   thickness = 0.08,
@@ -489,11 +509,9 @@ function createStilettoBladeGeometry({
   const positions = [];
   const uvs = [];
   const indices = [];
+  const verticesPerStrip = (segments + 1) * 2;
 
-  for (let i = 0; i <= segments; i++) {
-    const t = i / segments;
-    const y = t * length;
-
+  function getProfile(t) {
     let w = baseWidth;
     if (t < 0.15) {
       w = baseWidth * (0.8 + (t / 0.15) * 0.4);
@@ -502,28 +520,56 @@ function createStilettoBladeGeometry({
     } else {
       w = baseWidth * Math.pow(Math.max(0, 1.0 - (t - 0.3) / 0.7), 0.85);
     }
-
     const th = thickness * Math.max(0.005, 1.0 - t * 0.8);
+    return { w, th };
+  }
 
-    positions.push(-w, y, 0);
-    uvs.push(0, t);
+  // Strip 0: Front-Left (left edge -> front spine)
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const y = t * length;
+    const { w, th } = getProfile(t);
+    positions.push(-w, y, 0);       uvs.push(0.0, t);
+    positions.push(0, y, th);       uvs.push(0.5, t);
+  }
 
-    positions.push(0, y, th);
-    uvs.push(0.5, t);
+  // Strip 1: Front-Right (front spine -> right edge)
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const y = t * length;
+    const { w, th } = getProfile(t);
+    positions.push(0, y, th);       uvs.push(0.5, t);
+    positions.push(w, y, 0);        uvs.push(1.0, t);
+  }
 
-    positions.push(w, y, 0);
-    uvs.push(1, t);
+  // Strip 2: Back-Right (right edge -> back spine)
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const y = t * length;
+    const { w, th } = getProfile(t);
+    positions.push(w, y, 0);        uvs.push(1.0, t);
+    positions.push(0, y, -th);      uvs.push(0.5, t);
+  }
 
-    positions.push(0, y, -th);
-    uvs.push(0.5, t);
+  // Strip 3: Back-Left (back spine -> left edge)
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const y = t * length;
+    const { w, th } = getProfile(t);
+    positions.push(0, y, -th);      uvs.push(0.5, t);
+    positions.push(-w, y, 0);       uvs.push(0.0, t);
+  }
 
-    if (i < segments) {
-      const b = i * 4;
-      const nb = (i + 1) * 4;
-      indices.push(b, nb, nb + 1, b, nb + 1, b + 1);
-      indices.push(b + 1, nb + 1, nb + 2, b + 1, nb + 2, b + 2);
-      indices.push(b + 2, nb + 2, nb + 3, b + 2, nb + 3, b + 3);
-      indices.push(b + 3, nb + 3, nb, b + 3, nb, b);
+  // Indices for each strip
+  for (let s = 0; s < 4; s++) {
+    const offset = s * verticesPerStrip;
+    for (let i = 0; i < segments; i++) {
+      const a = offset + i * 2;
+      const b = offset + i * 2 + 1;
+      const c = offset + (i + 1) * 2;
+      const d = offset + (i + 1) * 2 + 1;
+      indices.push(a, c, d);
+      indices.push(a, d, b);
     }
   }
 
@@ -589,14 +635,14 @@ function createWagasaCanopyGeometry({
 }
 
 // ============================================================================
-// BUILDER 1: ALUCARD'S SOVEREIGN DEMON GREATSWORD (SCULPTED DIAMOND BEVEL)
+// BUILDER 1: ALUCARD'S SOVEREIGN DEMON GREATSWORD
 // ============================================================================
 function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, disposables) {
   const alucardGroup = new THREE.Group();
   alucardGroup.name = 'Alucard_Sovereign_Blade';
 
-  // 1. True Diamond-Cross-Section Blade (Razor cutting edges & raised spine)
-  const bladeGeo = createDiamondBladeGeometry({
+  // 1. Sharp Faceted Diamond Blade
+  const bladeGeo = createSharpFacetedBladeGeometry({
     length: 8.6,
     baseWidth: 0.58,
     spineThickness: 0.14,
@@ -633,6 +679,7 @@ function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, di
   const hubGeo = new THREE.CylinderGeometry(0.55, 0.42, 0.75, 6);
   disposables.push(hubGeo);
   const guardHub = new THREE.Mesh(hubGeo, goldArmorMat);
+  guardHub.castShadow = true;
   guardGroup.add(guardHub);
 
   // Swept Organic Dragon Wing Curve (Left)
@@ -646,9 +693,9 @@ function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, di
   const wingGeoLeft = new THREE.TubeGeometry(wingCurveLeft, 24, 0.14, 8, false);
   disposables.push(wingGeoLeft);
   const leftWingMesh = new THREE.Mesh(wingGeoLeft, goldArmorMat);
+  leftWingMesh.castShadow = true;
   guardGroup.add(leftWingMesh);
 
-  // 3 Layered dragon barb feathers on Left Wing
   for (let f = 0; f < 3; f++) {
     const featherGeo = new THREE.ConeGeometry(0.18 - f * 0.03, 1.2 - f * 0.25, 4);
     featherGeo.rotateY(Math.PI / 4);
@@ -656,6 +703,7 @@ function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, di
     const featherMesh = new THREE.Mesh(featherGeo, goldArmorMat);
     featherMesh.position.set(-0.8 - f * 0.55, 0.45 + f * 0.35, 0);
     featherMesh.rotation.z = Math.PI / 3 + f * 0.15;
+    featherMesh.castShadow = true;
     guardGroup.add(featherMesh);
   }
 
@@ -670,9 +718,9 @@ function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, di
   const wingGeoRight = new THREE.TubeGeometry(wingCurveRight, 24, 0.14, 8, false);
   disposables.push(wingGeoRight);
   const rightWingMesh = new THREE.Mesh(wingGeoRight, goldArmorMat);
+  rightWingMesh.castShadow = true;
   guardGroup.add(rightWingMesh);
 
-  // 3 Layered dragon barb feathers on Right Wing
   for (let f = 0; f < 3; f++) {
     const featherGeo = new THREE.ConeGeometry(0.18 - f * 0.03, 1.2 - f * 0.25, 4);
     featherGeo.rotateY(Math.PI / 4);
@@ -680,6 +728,7 @@ function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, di
     const featherMesh = new THREE.Mesh(featherGeo, goldArmorMat);
     featherMesh.position.set(0.8 + f * 0.55, 0.45 + f * 0.35, 0);
     featherMesh.rotation.z = -Math.PI / 3 - f * 0.15;
+    featherMesh.castShadow = true;
     guardGroup.add(featherMesh);
   }
 
@@ -787,7 +836,7 @@ function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, di
 }
 
 // ============================================================================
-// BUILDER 2: GUSION'S ASTRAL HOLY DAGGERS & STAR CORE (DIAMOND STILETTO)
+// BUILDER 2: GUSION'S ASTRAL HOLY DAGGERS & STAR CORE
 // ============================================================================
 function buildGusionRelic(goldArmorMat, gusionBladeMat, gusionPlasmaMat, gusionCoreMat, disposables) {
   const gusionGroup = new THREE.Group();
@@ -821,11 +870,11 @@ function buildGusionRelic(goldArmorMat, gusionBladeMat, gusionPlasmaMat, gusionC
   ringZ.rotation.z = Math.PI / 6;
   coreGroup.add(ringX, ringY, ringZ);
 
-  // 2. Ten Floating Telekinetic Holy Daggers with Diamond Stiletto Profile
+  // 2. Ten Floating Telekinetic Holy Daggers with Sharp Faceted Diamond Profile
   const daggers = [];
   const daggerRadius = 3.5;
 
-  const dBladeGeo = createStilettoBladeGeometry({
+  const dBladeGeo = createSharpFacetedStilettoGeometry({
     length: 2.3,
     baseWidth: 0.22,
     thickness: 0.08,
@@ -853,6 +902,7 @@ function buildGusionRelic(goldArmorMat, gusionBladeMat, gusionPlasmaMat, gusionC
     gusionGroup.add(dSub);
 
     const blade = new THREE.Mesh(dBladeGeo, gusionBladeMat);
+    blade.castShadow = true;
     dSub.add(blade);
 
     const pGroove = new THREE.Mesh(pGrooveGeo, gusionPlasmaMat);
@@ -913,6 +963,7 @@ function buildKaguraRelic(goldArmorMat, kaguraSilkMat, kaguraOfudaMat, kaguraGem
   disposables.push(canopyGeo);
 
   const canopyMesh = new THREE.Mesh(canopyGeo, kaguraSilkMat);
+  canopyMesh.castShadow = true;
   umbrellaHead.add(canopyMesh);
 
   // 16 Golden Bamboo Primary Ribs radiating along canopy curve
@@ -1045,6 +1096,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
   const rendererRef = useRef(null);
+  const composerRef = useRef(null);
   const shrineGroupRef = useRef(null);
   const relicsParentGroupRef = useRef(null);
   const alucardRelicRef = useRef(null);
@@ -1098,7 +1150,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     camera.lookAt(0, 0.6, 0);
     cameraRef.current = camera;
 
-    // 3. High-Performance WebGL Renderer with ACES Tone Mapping
+    // 3. High-Performance WebGL Renderer with ACES Tone Mapping & Shadow Support
     const renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
@@ -1109,25 +1161,49 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.35;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     rendererRef.current = renderer;
 
-    // 4. Procedural Studio HDR Environment Map for Metallic Reflections
+    // 4. Post-Processing EffectComposer (UnrealBloomPass HDR Glow & FXAA)
+    const composer = new EffectComposer(renderer);
+    const renderPass = new RenderPass(scene, camera);
+    composer.addPass(renderPass);
+
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(width, height),
+      0.75, // Radiance bloom strength
+      0.4,  // Bloom radius
+      0.68  // Bloom threshold (radiates glowing fullers, runes, and cores)
+    );
+    composer.addPass(bloomPass);
+
+    const fxaaPass = new ShaderPass(FXAAShader);
+    const pixelRatio = renderer.getPixelRatio();
+    fxaaPass.material.uniforms['resolution'].value.x = 1 / (width * pixelRatio);
+    fxaaPass.material.uniforms['resolution'].value.y = 1 / (height * pixelRatio);
+    composer.addPass(fxaaPass);
+    composerRef.current = composer;
+
+    // 5. Procedural Studio HDR Environment Map for Metallic Reflections
     const studioEnvMap = createProceduralStudioEnv(renderer);
     scene.environment = studioEnvMap;
 
-    // 5. Procedural Dynamic Textures
+    // 6. Procedural Dynamic Textures
     const damascusTexture = createDamascusTexture();
     const arenaFloorTexture = createSacredArenaTexture();
     const yinYangTexture = createYinYangCanopyTexture();
     const ofudaTexture = createOfudaTexture();
 
-    // 6. Master Shrine Assembly Group
+    // 7. Master Shrine Assembly Group
     const shrineGroup = new THREE.Group();
     scene.add(shrineGroup);
     shrineGroupRef.current = shrineGroup;
 
-    // 7. Relics Parent Container (Holds all 3 iconic hero weapons)
+    // 8. Relics Parent Container (Heroic dynamic presentation cant)
     const relicsParentGroup = new THREE.Group();
+    relicsParentGroup.rotation.x = 0.08;
+    relicsParentGroup.rotation.z = -0.05;
     shrineGroup.add(relicsParentGroup);
     relicsParentGroupRef.current = relicsParentGroup;
 
@@ -1162,7 +1238,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       emissiveIntensity: 2.8,
       roughness: 0.03,
       metalness: 0.05,
-      transmission: 0.82,
+      transmission: 0.85,
       ior: 2.417
     });
 
@@ -1267,6 +1343,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     });
     const arenaFloorMesh = new THREE.Mesh(arenaFloorGeo, arenaFloorMat);
     arenaFloorMesh.rotation.x = -Math.PI / 2;
+    arenaFloorMesh.receiveShadow = true;
     arenaGroup.add(arenaFloorMesh);
     arenaFloorMeshRef.current = arenaFloorMesh;
 
@@ -1318,6 +1395,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       const shaftGeo = new THREE.BoxGeometry(0.58, 4.4, 0.58);
       disposables.push(shaftGeo);
       const shaft = new THREE.Mesh(shaftGeo, stoneMat);
+      shaft.castShadow = true;
       mGroup.add(shaft);
 
       const capGeo = new THREE.ConeGeometry(0.5, 0.85, 4);
@@ -1325,6 +1403,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       disposables.push(capGeo);
       const cap = new THREE.Mesh(capGeo, stoneMat);
       cap.position.y = 2.5;
+      cap.castShadow = true;
       mGroup.add(cap);
 
       const runeGeo = new THREE.BoxGeometry(0.08, 3.4, 0.62);
@@ -1414,24 +1493,30 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     // ========================================================================
     // G. CINEMATIC DIRECTIONAL & DYNAMIC POINT LIGHT RIG
     // ========================================================================
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     scene.add(ambientLight);
 
-    const coreLight = new THREE.PointLight(0xf59e0b, 4.5, 28);
+    const coreLight = new THREE.PointLight(0xf59e0b, 5.0, 30);
     coreLight.position.set(0, 0, 1.2);
     relicsParentGroup.add(coreLight);
     coreLightRef.current = coreLight;
 
-    const tipLight = new THREE.PointLight(0x38bdf8, 3.0, 22);
+    const tipLight = new THREE.PointLight(0x38bdf8, 3.2, 22);
     tipLight.position.set(0, 7.8, 0.6);
     relicsParentGroup.add(tipLight);
     tipLightRef.current = tipLight;
 
-    const sunLight = new THREE.DirectionalLight(0xfff5ea, 2.2);
+    const sunLight = new THREE.DirectionalLight(0xfff5ea, 2.4);
     sunLight.position.set(16, 26, 20);
+    sunLight.castShadow = true;
+    sunLight.shadow.mapSize.width = 2048;
+    sunLight.shadow.mapSize.height = 2048;
+    sunLight.shadow.camera.near = 0.5;
+    sunLight.shadow.camera.far = 60;
+    sunLight.shadow.bias = -0.0002;
     scene.add(sunLight);
 
-    const cyanRim = new THREE.DirectionalLight(0x38bdf8, 1.8);
+    const cyanRim = new THREE.DirectionalLight(0x38bdf8, 1.9);
     cyanRim.position.set(-18, 18, -12);
     scene.add(cyanRim);
 
@@ -1442,7 +1527,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     const tempProjVec = new THREE.Vector3();
 
     // ========================================================================
-    // I. 60/120FPS HIGH-PERFORMANCE RENDER LOOP
+    // I. 60/120FPS HIGH-PERFORMANCE RENDER LOOP WITH EFFECTCOMPOSER BLOOM
     // ========================================================================
     let animId;
     const clock = new THREE.Clock();
@@ -1621,7 +1706,8 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       }
       camera.position.z += (targetCamZ - camera.position.z) * 0.08;
 
-      renderer.render(scene, camera);
+      // 13. Render via Post-Processing Composer (HDR Bloom + FXAA)
+      composer.render();
       animId = requestAnimationFrame(render);
     };
 
@@ -1635,12 +1721,18 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
+      composer.setSize(w, h);
+      const pr = renderer.getPixelRatio();
+      fxaaPass.material.uniforms['resolution'].value.x = 1 / (w * pr);
+      fxaaPass.material.uniforms['resolution'].value.y = 1 / (h * pr);
+      bloomPass.resolution.set(w, h);
     };
     window.addEventListener('resize', handleResize);
 
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', handleResize);
+      composer.dispose();
       renderer.dispose();
       studioEnvMap.dispose();
       damascusTexture.dispose();
