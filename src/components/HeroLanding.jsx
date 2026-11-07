@@ -406,6 +406,512 @@ function createOfudaTexture() {
 }
 
 // ============================================================================
+// PROCEDURAL RADIAL GLOWING EMBER TEXTURE GENERATOR
+// ============================================================================
+function createEmberTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 64;
+  canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+
+  const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grad.addColorStop(0.0, 'rgba(255, 235, 160, 0.95)');
+  grad.addColorStop(0.25, 'rgba(245, 158, 11, 0.85)');
+  grad.addColorStop(0.55, 'rgba(220, 60, 20, 0.5)');
+  grad.addColorStop(0.85, 'rgba(120, 20, 10, 0.15)');
+  grad.addColorStop(1.0, 'rgba(0, 0, 0, 0.0)');
+
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 64, 64);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  return texture;
+}
+
+// ============================================================================
+// PROCEDURAL VOLUMETRIC FLAME SHADERS (C2 CONTINUOUS QUINTIC NOISE & CONVECTION)
+// ============================================================================
+const volumetricFlameVertexShader = `
+uniform float uTime;
+uniform float uTurbulence;
+varying vec2 vUv;
+varying vec3 vNormal;
+
+void main() {
+  vUv = uv;
+  vNormal = normalize(normalMatrix * normal);
+  vec3 displaced = position;
+
+  // Fluid buoyant sway and aerodynamic licking flickers (smooth physical convection)
+  float heightFactor = smoothstep(0.05, 0.95, uv.y);
+  float swayX = sin(uTime * 1.6 + position.y * 1.2) * 0.06 * heightFactor;
+  float swayZ = cos(uTime * 1.3 + position.y * 1.0) * 0.05 * heightFactor;
+  float tongueFlicker = sin(uTime * 3.4 + position.y * 2.5) * 0.02 * pow(heightFactor, 1.4);
+  displaced.x += (swayX + tongueFlicker) * uTurbulence;
+  displaced.z += (swayZ + tongueFlicker * 0.7) * uTurbulence;
+
+  float breath = sin(uTime * 2.2 + position.y * 1.8) * 0.015 * heightFactor;
+  displaced += normal * breath;
+
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
+}
+`;
+
+const volumetricFlameFragmentShader = `
+uniform float uTime;
+uniform vec3 uColorCore;
+uniform vec3 uColorMid;
+uniform vec3 uColorOuter;
+uniform float uSpeed;
+uniform float uIntensity;
+
+varying vec2 vUv;
+varying vec3 vNormal;
+
+vec2 flameHash(vec2 p) {
+  p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
+  return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
+}
+
+float flameNoise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  // Quintic smoothstep polynomial (C2 continuous: zero grid lines or derivative cuts)
+  vec2 u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
+  return mix(
+    mix(dot(flameHash(i + vec2(0.0, 0.0)), f - vec2(0.0, 0.0)),
+        dot(flameHash(i + vec2(1.0, 0.0)), f - vec2(1.0, 0.0)), u.x),
+    mix(dot(flameHash(i + vec2(0.0, 1.0)), f - vec2(0.0, 1.0)),
+        dot(flameHash(i + vec2(1.0, 1.0)), f - vec2(1.0, 1.0)), u.x),
+    u.y
+  );
+}
+
+float flameFbm(vec2 p) {
+  float total = 0.0;
+  float amp = 0.52;
+  mat2 rot = mat2(1.6, 1.2, -1.2, 1.6);
+  for (int i = 0; i < 3; i++) {
+    total += amp * (flameNoise(p) * 0.5 + 0.5);
+    p = rot * p * 1.85;
+    amp *= 0.48;
+  }
+  return total;
+}
+
+void main() {
+  vec2 uv = vUv;
+
+  // 1. Physical Buoyancy Acceleration:
+  // Rising gas accelerates upward (v ~ sqrt(y)), so flow speed increases with height
+  float buoyancyAccel = 0.75 + pow(clamp(uv.y, 0.0, 1.0), 0.6) * 1.45;
+  float timeFlow = uTime * uSpeed;
+  vec2 flowPrimary = vec2(0.0, -timeFlow * buoyancyAccel);
+  vec2 flowSecondary = vec2(0.0, -timeFlow * (buoyancyAccel * 0.65) + 1.3);
+
+  // 2. Kelvin-Helmholtz Shear Vorticity (domain warping on flame edges)
+  float flankFactor = smoothstep(0.05, 0.45, abs(uv.x - 0.5));
+  vec2 warpCoord = uv * vec2(2.6, 1.6) + flowPrimary;
+  float eddy = flameNoise(warpCoord) * 0.16 * flankFactor;
+  vec2 warpedUv = vec2(uv.x + eddy, uv.y);
+
+  // 3. Multi-octave buoyant turbulent convection
+  float n1 = flameFbm(warpedUv * vec2(2.2, 1.4) + flowPrimary);
+  float n2 = flameFbm(warpedUv * vec2(4.5, 2.6) + flowSecondary);
+  float fluid = n1 * 0.62 + n2 * 0.38;
+
+  // 4. Parabolic Flame Body with Aerodynamic Necking & Licking Tongues
+  float centerDist = abs(warpedUv.x - 0.5) * 2.0;
+  float waist = 1.0 - 0.22 * sin(clamp(uv.y * 3.14159, 0.0, 3.14159));
+  float envelope = 1.0 - pow(centerDist / waist, 1.8);
+
+  // Licking flame tongues that pinch off near top
+  float tongues = envelope * (0.42 + fluid * 0.88);
+
+  // Grounding at base (ignition layer) and extinction at tips (soot burnout)
+  float baseIgnition = smoothstep(0.0, 0.06, uv.y);
+  float tipExtinction = smoothstep(1.0, 0.72, uv.y + (fluid - 0.5) * 0.22);
+  float energy = clamp(tongues * baseIgnition * tipExtinction, 0.0, 1.0);
+
+  // 5. Physical Blackbody Thermal Radiance Spectrum
+  // Base chemiluminescent radical emission (subtle blue reaction root)
+  float blueRoot = smoothstep(0.07, 0.0, uv.y) * smoothstep(0.12, 0.45, energy) * 0.45;
+  vec3 colBlueRoot = vec3(0.05, 0.25, 0.85);
+
+  // Thermal heat stages:
+  // Heat <= 0.25: Dark cooling soot / smoky mahogany (prevents flat additive blow-out)
+  // Heat 0.25 - 0.65: Deep fiery red into rich flame orange
+  // Heat 0.65 - 0.90: Incandescent warm golden amber
+  // Heat > 0.90: Incandescent core filament (softly luminous, not nuclear white)
+  float heat = pow(energy, 1.15);
+  vec3 colSoot = vec3(0.18, 0.04, 0.01);
+  vec3 colFlame = mix(colSoot, uColorOuter, smoothstep(0.08, 0.32, heat));
+  colFlame = mix(colFlame, uColorMid, smoothstep(0.32, 0.72, heat));
+  colFlame = mix(colFlame, uColorCore, smoothstep(0.72, 0.96, heat));
+
+  // Blend in subtle chemiluminescent blue radical root
+  colFlame = mix(colFlame, colBlueRoot, blueRoot);
+
+  // Radiance multiplier: calibrated in natural HDR range [0.0, 1.25]
+  colFlame *= (0.85 + smoothstep(0.75, 1.0, heat) * 0.35) * uIntensity;
+
+  // 6. Natural Soot Dissipation Alpha
+  float alpha = smoothstep(0.08, 0.48, energy);
+  float smokeDissipation = 1.0 - smoothstep(0.68, 0.98, uv.y) * 0.4;
+  alpha *= smokeDissipation;
+
+  gl_FragColor = vec4(colFlame * alpha, alpha);
+}
+`;
+
+// ============================================================================
+// DEDICATED BLADE FLAME AURA SHADER (PLASMA FLOW ALONG SHARP FACETS)
+// ============================================================================
+const bladeFlameVertexShader = `
+uniform float uTime;
+uniform float uTurbulence;
+varying vec2 vUv;
+varying vec3 vNormal;
+
+void main() {
+  vUv = uv;
+  vNormal = normalize(normalMatrix * normal);
+  vec3 displaced = position;
+
+  // Aerodynamic edge flutter (anchored at uv.x = 0, fluttering outward at uv.x > 0.15)
+  float outerFactor = smoothstep(0.15, 1.0, uv.x);
+  float flutter = sin(uTime * 2.4 + position.y * 1.6) * 0.035 * outerFactor;
+  displaced.z += flutter * uTurbulence;
+  displaced.x += cos(uTime * 2.0 + position.y * 1.4) * 0.025 * outerFactor;
+
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
+}
+`;
+
+const bladeFlameFragmentShader = `
+uniform float uTime;
+uniform vec3 uColorCore;
+uniform vec3 uColorMid;
+uniform vec3 uColorOuter;
+uniform float uSpeed;
+uniform float uIntensity;
+
+varying vec2 vUv;
+varying vec3 vNormal;
+
+vec2 flameHash(vec2 p) {
+  p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
+  return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
+}
+
+float flameNoise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  vec2 u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
+  return mix(
+    mix(dot(flameHash(i + vec2(0.0, 0.0)), f - vec2(0.0, 0.0)),
+        dot(flameHash(i + vec2(1.0, 0.0)), f - vec2(1.0, 0.0)), u.x),
+    mix(dot(flameHash(i + vec2(0.0, 1.0)), f - vec2(0.0, 1.0)),
+        dot(flameHash(i + vec2(1.0, 1.0)), f - vec2(1.0, 1.0)), u.x),
+    u.y
+  );
+}
+
+float flameFbm(vec2 p) {
+  float total = 0.0;
+  float amp = 0.52;
+  mat2 rot = mat2(1.6, 1.2, -1.2, 1.6);
+  for (int i = 0; i < 3; i++) {
+    total += amp * (flameNoise(p) * 0.5 + 0.5);
+    p = rot * p * 1.85;
+    amp *= 0.48;
+  }
+  return total;
+}
+
+void main() {
+  vec2 uv = vUv;
+
+  // Blade aerodynamics: flame sweeps upward along blade length with buoyant acceleration
+  float accel = 0.8 + pow(clamp(uv.y, 0.0, 1.0), 0.7) * 1.3;
+  float flowTime = uTime * uSpeed * 0.9;
+  vec2 flow = vec2(0.0, -flowTime * accel);
+
+  // Aerodynamic fluid curl along blade bevel
+  float warp = flameNoise(uv * vec2(3.2, 1.8) + flow) * 0.14 * (0.2 + uv.x * 0.8);
+  vec2 warpedUv = vec2(uv.x, uv.y + warp);
+
+  float n1 = flameFbm(warpedUv * vec2(2.8, 1.6) + flow);
+  float n2 = flameFbm(warpedUv * vec2(5.5, 3.2) + flow * 1.35);
+  float fluid = n1 * 0.65 + n2 * 0.35;
+
+  // Blade edge profile: Firmly anchored to cutting edge at uv.x = 0, licking outward to uv.x = 1
+  float edgeProfile = 1.0 - smoothstep(0.0, 0.95, uv.x);
+  float bladeLicks = edgeProfile * (0.48 + fluid * 0.82);
+
+  // Length bounding (grounding near guard, licking flickers near tip)
+  float baseBound = smoothstep(0.0, 0.04, uv.y);
+  float tipBound = smoothstep(1.0, 0.80, uv.y + (fluid - 0.5) * 0.18);
+  float bladeEnergy = clamp(bladeLicks * baseBound * tipBound, 0.0, 1.0);
+
+  // Thermal blackbody progression along blade aura:
+  // Root at steel (uv.x = 0): hottest incandescent core
+  // Outer tips (uv.x -> 1): cooling crimson and smoky edge
+  float heat = pow(bladeEnergy, 1.15);
+  vec3 colSoot = vec3(0.16, 0.03, 0.01);
+  vec3 col = mix(colSoot, uColorOuter, smoothstep(0.06, 0.30, heat));
+  col = mix(col, uColorMid, smoothstep(0.30, 0.70, heat));
+  col = mix(col, uColorCore, smoothstep(0.70, 0.95, heat));
+
+  // Radiance calibrated in natural HDR range [0.0, 1.22]
+  col *= (0.85 + smoothstep(0.70, 1.0, heat) * 0.32) * uIntensity;
+
+  // Soft soot dissipation alpha
+  float alpha = smoothstep(0.06, 0.42, bladeEnergy);
+  float tipDissipation = 1.0 - smoothstep(0.78, 0.98, uv.y) * 0.35;
+  alpha *= tipDissipation;
+
+  gl_FragColor = vec4(col * alpha, alpha);
+}
+`;
+
+function createFlameMaterial({
+  uSpeed = 1.05,
+  uIntensity = 1.15,
+  uTurbulence = 0.9,
+  uColorCore = new THREE.Color(0xffecc2),
+  uColorMid = new THREE.Color(0xf59e0b),
+  uColorOuter = new THREE.Color(0xd9480f)
+} = {}) {
+  return new THREE.ShaderMaterial({
+    uniforms: {
+      uTime: { value: 0 },
+      uSpeed: { value: uSpeed },
+      uIntensity: { value: uIntensity },
+      uTurbulence: { value: uTurbulence },
+      uColorCore: { value: uColorCore },
+      uColorMid: { value: uColorMid },
+      uColorOuter: { value: uColorOuter }
+    },
+    vertexShader: volumetricFlameVertexShader,
+    fragmentShader: volumetricFlameFragmentShader,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    side: THREE.DoubleSide
+  });
+}
+
+function createBladeFlameMaterial({
+  uSpeed = 1.15,
+  uIntensity = 1.1,
+  uTurbulence = 0.85,
+  uColorCore = new THREE.Color(0xffecc2),
+  uColorMid = new THREE.Color(0xf59e0b),
+  uColorOuter = new THREE.Color(0xd9480f)
+} = {}) {
+  return new THREE.ShaderMaterial({
+    uniforms: {
+      uTime: { value: 0 },
+      uSpeed: { value: uSpeed },
+      uIntensity: { value: uIntensity },
+      uTurbulence: { value: uTurbulence },
+      uColorCore: { value: uColorCore },
+      uColorMid: { value: uColorMid },
+      uColorOuter: { value: uColorOuter }
+    },
+    vertexShader: bladeFlameVertexShader,
+    fragmentShader: bladeFlameFragmentShader,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    side: THREE.DoubleSide
+  });
+}
+
+// ============================================================================
+// GEOMETRY GENERATOR: VOLUMETRIC 3D FLAME (CURVED SHEETS + CORE CYLINDER)
+// ============================================================================
+function createVolumetricFlameGeometry({ width = 0.95, height = 2.2, segmentsX = 6, segmentsY = 28 } = {}) {
+  const positions = [];
+  const uvs = [];
+  const indices = [];
+  let vertexOffset = 0;
+
+  // 3 intersecting flame sheets rotated at 0, 60, and 120 degrees
+  const angles = [0, Math.PI / 3, (Math.PI * 2) / 3];
+  for (let a = 0; a < angles.length; a++) {
+    const angle = angles[a];
+    const cosA = Math.cos(angle);
+    const sinA = Math.sin(angle);
+    const startIdx = vertexOffset;
+
+    for (let j = 0; j <= segmentsY; j++) {
+      const v = j / segmentsY;
+      const y = v * height;
+      const w = width * (1.0 - v * 0.35);
+
+      for (let i = 0; i <= segmentsX; i++) {
+        const u = i / segmentsX;
+        const xLocal = (u - 0.5) * w;
+        // Subtle forward-backward curvature for smooth 3D body
+        const zLocal = Math.sin(u * Math.PI) * (width * 0.12) * (1.0 - v * 0.5);
+        const x = xLocal * cosA - zLocal * sinA;
+        const z = xLocal * sinA + zLocal * cosA;
+
+        positions.push(x, y, z);
+        uvs.push(u, v);
+        vertexOffset++;
+      }
+    }
+
+    const rowStride = segmentsX + 1;
+    for (let j = 0; j < segmentsY; j++) {
+      for (let i = 0; i < segmentsX; i++) {
+        const p1 = startIdx + j * rowStride + i;
+        const p2 = startIdx + (j + 1) * rowStride + i;
+        const p3 = startIdx + (j + 1) * rowStride + (i + 1);
+        const p4 = startIdx + j * rowStride + (i + 1);
+
+        indices.push(p1, p2, p3);
+        indices.push(p1, p3, p4);
+      }
+    }
+  }
+
+  // Inner tapered cylinder core for full 360-degree density
+  const radialSegments = 16;
+  const cylStartIdx = vertexOffset;
+  const cylHeight = height * 0.9;
+  for (let j = 0; j <= segmentsY; j++) {
+    const v = j / segmentsY;
+    const y = v * cylHeight;
+    const r = (width * 0.38) * (1.0 - v * 0.65) + 0.05;
+
+    for (let i = 0; i <= radialSegments; i++) {
+      const u = i / radialSegments;
+      const theta = u * Math.PI * 2;
+      const x = Math.cos(theta) * r;
+      const z = Math.sin(theta) * r;
+
+      positions.push(x, y, z);
+      uvs.push(u, v);
+      vertexOffset++;
+    }
+  }
+
+  const cylStride = radialSegments + 1;
+  for (let j = 0; j < segmentsY; j++) {
+    for (let i = 0; i < radialSegments; i++) {
+      const a = cylStartIdx + j * cylStride + i;
+      const b = cylStartIdx + (j + 1) * cylStride + i;
+      const c = cylStartIdx + (j + 1) * cylStride + (i + 1);
+      const d = cylStartIdx + j * cylStride + (i + 1);
+
+      indices.push(a, b, d);
+      indices.push(b, c, d);
+    }
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+// ============================================================================
+// GEOMETRY GENERATOR: BLADE FLAME AURA (LICKING FIRE ALONG CUTTING EDGES)
+// ============================================================================
+function createBladeFlameAuraGeometry({
+  length = 8.4,
+  baseWidth = 0.58,
+  flameWidth = 0.42,
+  segmentsX = 3,
+  segmentsY = 32
+} = {}) {
+  const positions = [];
+  const uvs = [];
+  const indices = [];
+
+  let vertexOffset = 0;
+  // Left flame ribbon (runs along left cutting edge)
+  const leftStartIdx = vertexOffset;
+  for (let j = 0; j <= segmentsY; j++) {
+    const t = j / segmentsY;
+    const y = t * length;
+    let w = baseWidth;
+    if (t < 0.1) w = baseWidth * 0.8;
+    else if (t > 0.8) w = baseWidth * Math.cos(((t - 0.8) / 0.2) * Math.PI * 0.5);
+
+    const fWidth = flameWidth * (0.8 + Math.sin(t * Math.PI) * 0.4);
+
+    for (let i = 0; i <= segmentsX; i++) {
+      const u = i / segmentsX;
+      const x = -w - u * fWidth;
+      const z = Math.sin(u * Math.PI) * 0.05 * (1.0 - t * 0.3);
+      positions.push(x, y + u * 0.1, z);
+      uvs.push(u, t);
+      vertexOffset++;
+    }
+  }
+
+  const rowStride = segmentsX + 1;
+  for (let j = 0; j < segmentsY; j++) {
+    for (let i = 0; i < segmentsX; i++) {
+      const p1 = leftStartIdx + j * rowStride + i;
+      const p2 = leftStartIdx + (j + 1) * rowStride + i;
+      const p3 = leftStartIdx + (j + 1) * rowStride + (i + 1);
+      const p4 = leftStartIdx + j * rowStride + (i + 1);
+
+      indices.push(p1, p2, p3);
+      indices.push(p1, p3, p4);
+    }
+  }
+
+  // Right flame ribbon (runs along right cutting edge)
+  const rightStartIdx = vertexOffset;
+  for (let j = 0; j <= segmentsY; j++) {
+    const t = j / segmentsY;
+    const y = t * length;
+    let w = baseWidth;
+    if (t < 0.1) w = baseWidth * 0.8;
+    else if (t > 0.8) w = baseWidth * Math.cos(((t - 0.8) / 0.2) * Math.PI * 0.5);
+
+    const fWidth = flameWidth * (0.8 + Math.sin(t * Math.PI) * 0.4);
+
+    for (let i = 0; i <= segmentsX; i++) {
+      const u = i / segmentsX;
+      const x = w + u * fWidth;
+      const z = Math.sin(u * Math.PI) * 0.05 * (1.0 - t * 0.3);
+      positions.push(x, y + u * 0.1, z);
+      uvs.push(u, t);
+      vertexOffset++;
+    }
+  }
+
+  for (let j = 0; j < segmentsY; j++) {
+    for (let i = 0; i < segmentsX; i++) {
+      const p1 = rightStartIdx + j * rowStride + i;
+      const p2 = rightStartIdx + (j + 1) * rowStride + i;
+      const p3 = rightStartIdx + (j + 1) * rowStride + (i + 1);
+      const p4 = rightStartIdx + j * rowStride + (i + 1);
+
+      indices.push(p1, p2, p3);
+      indices.push(p1, p3, p4);
+    }
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+// ============================================================================
 // GEOMETRY GENERATOR 1: RAZOR-SHARP FACETED DIAMOND BLADE
 // Distinct quad strips ensure independent face normals across the central spine
 // ============================================================================
@@ -637,7 +1143,7 @@ function createWagasaCanopyGeometry({
 // ============================================================================
 // BUILDER 1: ALUCARD'S SOVEREIGN DEMON GREATSWORD
 // ============================================================================
-function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, disposables) {
+function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, bladeFlameMat, disposables) {
   const alucardGroup = new THREE.Group();
   alucardGroup.name = 'Alucard_Sovereign_Blade';
 
@@ -655,6 +1161,19 @@ function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, di
   bladeMesh.castShadow = true;
   bladeMesh.receiveShadow = true;
   alucardGroup.add(bladeMesh);
+
+  // 1b. Living Blade Flame Aura (dynamic roaring fire hugging the cutting edges)
+  const bladeFlameGeo = createBladeFlameAuraGeometry({
+    length: 8.4,
+    baseWidth: 0.58,
+    flameWidth: 0.42,
+    segmentsX: 3,
+    segmentsY: 32
+  });
+  disposables.push(bladeFlameGeo);
+  const bladeFlameMesh = new THREE.Mesh(bladeFlameGeo, bladeFlameMat);
+  bladeFlameMesh.position.set(0, -0.2, 0);
+  alucardGroup.add(bladeFlameMesh);
 
   // 2. Central Raised Fuller Spine with 7 Runic Diamond Nodes
   const fullerGeo = new THREE.BoxGeometry(0.08, 6.4, 0.26);
@@ -832,13 +1351,13 @@ function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, di
     shards.push({ group: sGroup, angle, speed: 0.55 + (i % 2) * 0.2, heightBase: 2.5 + (i % 2 === 0 ? 0.9 : -0.9) });
   }
 
-  return { group: alucardGroup, gemMesh, innerRing, shards };
+  return { group: alucardGroup, gemMesh, innerRing, shards, bladeFlameMesh };
 }
 
 // ============================================================================
 // BUILDER 2: GUSION'S ASTRAL HOLY DAGGERS & STAR CORE
 // ============================================================================
-function buildGusionRelic(goldArmorMat, gusionBladeMat, gusionPlasmaMat, gusionCoreMat, disposables) {
+function buildGusionRelic(goldArmorMat, gusionBladeMat, gusionPlasmaMat, gusionCoreMat, flameMat, disposables) {
   const gusionGroup = new THREE.Group();
   gusionGroup.name = 'Gusion_Astral_Nexus';
 
@@ -850,6 +1369,13 @@ function buildGusionRelic(goldArmorMat, gusionBladeMat, gusionPlasmaMat, gusionC
   disposables.push(outerCoreGeo);
   const outerCoreMesh = new THREE.Mesh(outerCoreGeo, gusionCoreMat);
   coreGroup.add(outerCoreMesh);
+
+  // Volumetric Astral Plasma Flame inside core
+  const gusionFlameGeo = createVolumetricFlameGeometry({ width: 1.3, height: 1.6, segmentsY: 12 });
+  disposables.push(gusionFlameGeo);
+  const gusionFlameMesh = new THREE.Mesh(gusionFlameGeo, flameMat);
+  gusionFlameMesh.position.set(0, -0.8, 0);
+  coreGroup.add(gusionFlameMesh);
 
   const innerCoreGeo = new THREE.OctahedronGeometry(0.48, 0);
   disposables.push(innerCoreGeo);
@@ -938,13 +1464,13 @@ function buildGusionRelic(goldArmorMat, gusionBladeMat, gusionPlasmaMat, gusionC
     });
   }
 
-  return { group: gusionGroup, coreGroup, outerCoreMesh, innerCoreStar, ringX, ringY, ringZ, daggers };
+  return { group: gusionGroup, coreGroup, outerCoreMesh, innerCoreStar, ringX, ringY, ringZ, daggers, gusionFlameMesh };
 }
 
 // ============================================================================
 // BUILDER 3: KAGURA'S SEIMEI YIN-YANG CELESTIAL PARASOL & ASTROLABE
 // ============================================================================
-function buildKaguraRelic(goldArmorMat, kaguraSilkMat, kaguraOfudaMat, kaguraGemMat, disposables) {
+function buildKaguraRelic(goldArmorMat, kaguraSilkMat, kaguraOfudaMat, kaguraGemMat, flameMat, disposables) {
   const kaguraGroup = new THREE.Group();
   kaguraGroup.name = 'Kagura_Seimei_Umbrella';
 
@@ -1022,6 +1548,13 @@ function buildKaguraRelic(goldArmorMat, kaguraSilkMat, kaguraOfudaMat, kaguraGem
   crownGem.position.y = 0.95;
   umbrellaHead.add(crownGem);
 
+  // Spiritual Yin-Yang Foxfire Flame Plume at the umbrella crown
+  const crownFlameGeo = createVolumetricFlameGeometry({ width: 0.85, height: 1.35, segmentsY: 12 });
+  disposables.push(crownFlameGeo);
+  const crownFlameMesh = new THREE.Mesh(crownFlameGeo, flameMat);
+  crownFlameMesh.position.set(0, 0.95, 0);
+  umbrellaHead.add(crownFlameMesh);
+
   // 2. Polished Ebony Bamboo Shaft
   const shaftGeo = new THREE.CylinderGeometry(0.08, 0.08, 6.2, 12);
   disposables.push(shaftGeo);
@@ -1067,7 +1600,7 @@ function buildKaguraRelic(goldArmorMat, kaguraSilkMat, kaguraOfudaMat, kaguraGem
     });
   }
 
-  return { group: kaguraGroup, umbrellaHead, canopyMesh, crownGem, astroRing1, astroRing2, talismans };
+  return { group: kaguraGroup, umbrellaHead, canopyMesh, crownGem, astroRing1, astroRing2, talismans, crownFlameMesh };
 }
 
 // ============================================================================
@@ -1146,9 +1679,25 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
 
     // 2. Cinematic Perspective Camera
     const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 1000);
-    camera.position.set(0, 1.2, 17.5);
-    camera.lookAt(0, 0.6, 0);
+    camera.position.set(0, 1.5, 24.0);
+    camera.lookAt(0, 0.8, 0);
     cameraRef.current = camera;
+
+    const updateCameraProjection = (w, h) => {
+      const aspect = w / h;
+      camera.aspect = aspect;
+      // Dynamic responsive FOV: expand FOV for mobile/tablet so the entire scene fits
+      if (aspect < 0.8) {
+        camera.fov = 36 / Math.max(0.55, aspect * 1.05);
+      } else if (aspect < 1.3) {
+        camera.fov = 36 / (aspect * 0.9);
+      } else {
+        camera.fov = 36;
+      }
+      camera.updateProjectionMatrix();
+    };
+
+    updateCameraProjection(width, height);
 
     // 3. High-Performance WebGL Renderer with ACES Tone Mapping & Shadow Support
     const renderer = new THREE.WebGLRenderer({
@@ -1160,7 +1709,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.35;
+    renderer.toneMappingExposure = 1.08;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     rendererRef.current = renderer;
@@ -1172,9 +1721,9 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
 
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(width, height),
-      0.75, // Radiance bloom strength
-      0.4,  // Bloom radius
-      0.68  // Bloom threshold (radiates glowing fullers, runes, and cores)
+      0.32, // Refined radiance bloom strength (subtle, filmic glow)
+      0.65, // Refined bloom radius (broad, smooth dispersion)
+      0.88  // Refined bloom threshold (only incandescent core filaments bloom)
     );
     composer.addPass(bloomPass);
 
@@ -1194,6 +1743,28 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     const arenaFloorTexture = createSacredArenaTexture();
     const yinYangTexture = createYinYangCanopyTexture();
     const ofudaTexture = createOfudaTexture();
+    const emberTexture = createEmberTexture();
+
+    // 6b. Procedural Master Flame Shader Materials (C2 quintic noise convection)
+    const flameMat = createFlameMaterial({
+      uSpeed: 1.05,
+      uIntensity: 1.15,
+      uTurbulence: 0.9,
+      uColorCore: new THREE.Color(0xffecc2),
+      uColorMid: new THREE.Color(0xf59e0b),
+      uColorOuter: new THREE.Color(0xd9480f)
+    });
+    disposables.push(flameMat);
+
+    const bladeFlameMat = createBladeFlameMaterial({
+      uSpeed: 1.15,
+      uIntensity: 1.1,
+      uTurbulence: 0.85,
+      uColorCore: new THREE.Color(0xffecc2),
+      uColorMid: new THREE.Color(0xf59e0b),
+      uColorOuter: new THREE.Color(0xd9480f)
+    });
+    disposables.push(bladeFlameMat);
 
     // 7. Master Shrine Assembly Group
     const shrineGroup = new THREE.Group();
@@ -1235,7 +1806,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     const alucardGemMat = new THREE.MeshPhysicalMaterial({
       color: 0xfef08a,
       emissive: 0xf59e0b,
-      emissiveIntensity: 2.8,
+      emissiveIntensity: 1.5,
       roughness: 0.03,
       metalness: 0.05,
       transmission: 0.85,
@@ -1245,7 +1816,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     const fullerMat = new THREE.MeshStandardMaterial({
       color: 0xffffff,
       emissive: 0xf59e0b,
-      emissiveIntensity: 4.2,
+      emissiveIntensity: 1.8,
       roughness: 0.15
     });
 
@@ -1263,14 +1834,14 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     const gusionPlasmaMat = new THREE.MeshStandardMaterial({
       color: 0xffffff,
       emissive: 0x06b6d4,
-      emissiveIntensity: 4.8,
+      emissiveIntensity: 2.0,
       roughness: 0.1
     });
 
     const gusionCoreMat = new THREE.MeshPhysicalMaterial({
       color: 0x38bdf8,
       emissive: 0x06b6d4,
-      emissiveIntensity: 3.2,
+      emissiveIntensity: 1.8,
       transmission: 0.85,
       roughness: 0.04,
       ior: 2.1
@@ -1299,7 +1870,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     const kaguraGemMat = new THREE.MeshPhysicalMaterial({
       color: 0xf5d0fe,
       emissive: 0xa855f7,
-      emissiveIntensity: 3.0,
+      emissiveIntensity: 1.6,
       roughness: 0.04,
       transmission: 0.78,
       ior: 2.2
@@ -1308,15 +1879,19 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     // ========================================================================
     // B. INSTANTIATE THE 3 SCULPTED SOVEREIGN WEAPONS
     // ========================================================================
-    const alucardRelic = buildAlucardRelic(goldArmorMat, damascusBladeMat, alucardGemMat, fullerMat, disposables);
-    const gusionRelic = buildGusionRelic(goldArmorMat, gusionBladeMat, gusionPlasmaMat, gusionCoreMat, disposables);
-    const kaguraRelic = buildKaguraRelic(goldArmorMat, kaguraSilkMat, kaguraOfudaMat, kaguraGemMat, disposables);
+    const alucardRelic = buildAlucardRelic(goldArmorMat, damascusBladeMat, alucardGemMat, fullerMat, bladeFlameMat, disposables);
+    const gusionRelic = buildGusionRelic(goldArmorMat, gusionBladeMat, gusionPlasmaMat, gusionCoreMat, flameMat, disposables);
+    const kaguraRelic = buildKaguraRelic(goldArmorMat, kaguraSilkMat, kaguraOfudaMat, kaguraGemMat, flameMat, disposables);
 
     relicsParentGroup.add(alucardRelic.group);
     relicsParentGroup.add(gusionRelic.group);
     relicsParentGroup.add(kaguraRelic.group);
 
-    alucardRelic.group.scale.set(1, 1, 1);
+    alucardRelic.group.position.set(0, -0.2, 0);
+    gusionRelic.group.position.set(0, 0.5, 0);
+    kaguraRelic.group.position.set(0, 0.1, 0);
+
+    alucardRelic.group.scale.set(0.62, 0.62, 0.62);
     gusionRelic.group.scale.set(0.001, 0.001, 0.001);
     kaguraRelic.group.scale.set(0.001, 0.001, 0.001);
 
@@ -1379,8 +1954,24 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     shockwaveMeshRef.current = shockwaveMesh;
 
     // ========================================================================
-    // D. 4 LEVITATING STONE MONOLITHS (SACRED SHRINE PILLARS)
+    // D. 4 LEVITATING STONE MONOLITHS WITH ROARING SACRED FIRE BRAZIERS
     // ========================================================================
+    const volumetricFlameGeo = createVolumetricFlameGeometry({
+      width: 0.95,
+      height: 2.1,
+      segmentsY: 16
+    });
+    disposables.push(volumetricFlameGeo);
+
+    const coalsMat = new THREE.MeshStandardMaterial({
+      color: 0x140502,
+      emissive: 0xd9480f,
+      emissiveIntensity: 1.3,
+      roughness: 0.85
+    });
+    disposables.push(coalsMat);
+
+    const braziers = [];
     const monoliths = [];
     const monolithRadius = 6.4;
     for (let i = 0; i < 4; i++) {
@@ -1398,13 +1989,51 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       shaft.castShadow = true;
       mGroup.add(shaft);
 
-      const capGeo = new THREE.ConeGeometry(0.5, 0.85, 4);
-      capGeo.rotateY(Math.PI / 4);
-      disposables.push(capGeo);
-      const cap = new THREE.Mesh(capGeo, stoneMat);
-      cap.position.y = 2.5;
-      cap.castShadow = true;
-      mGroup.add(cap);
+      // 1. Pedestal top collar on monolith
+      const collarGeo = new THREE.CylinderGeometry(0.54, 0.44, 0.32, 8);
+      disposables.push(collarGeo);
+      const collar = new THREE.Mesh(collarGeo, stoneMat);
+      collar.position.y = 2.26;
+      collar.castShadow = true;
+      mGroup.add(collar);
+
+      // 2. Ceremonial Bronze/Gold Brazier Bowl
+      const brazierGroup = new THREE.Group();
+      brazierGroup.position.y = 2.52;
+      mGroup.add(brazierGroup);
+
+      const bowlGeo = new THREE.CylinderGeometry(0.72, 0.36, 0.46, 16, 1, false);
+      disposables.push(bowlGeo);
+      const bowl = new THREE.Mesh(bowlGeo, goldArmorMat);
+      bowl.castShadow = true;
+      brazierGroup.add(bowl);
+
+      const rimGeo = new THREE.TorusGeometry(0.72, 0.065, 8, 24);
+      disposables.push(rimGeo);
+      const rim = new THREE.Mesh(rimGeo, goldArmorMat);
+      rim.rotation.x = Math.PI / 2;
+      rim.position.y = 0.23;
+      brazierGroup.add(rim);
+
+      // 3. Glowing Hot Charcoal Bed
+      const coalsGeo = new THREE.CylinderGeometry(0.66, 0.66, 0.08, 16);
+      disposables.push(coalsGeo);
+      const coals = new THREE.Mesh(coalsGeo, coalsMat);
+      coals.position.y = 0.18;
+      brazierGroup.add(coals);
+
+      // 4. Volumetric Licking 3D Flame Mesh
+      const bFlameMesh = new THREE.Mesh(volumetricFlameGeo, flameMat);
+      bFlameMesh.scale.set(1.15, 1.45, 1.15);
+      bFlameMesh.position.y = 0.22;
+      brazierGroup.add(bFlameMesh);
+
+      // 5. Dynamic Flickering Sacred Fire Point Light
+      const bLight = new THREE.PointLight(0xf59e0b, 1.4, 12);
+      bLight.position.set(0, 0.7, 0);
+      brazierGroup.add(bLight);
+
+      braziers.push({ group: brazierGroup, flameMesh: bFlameMesh, light: bLight });
 
       const runeGeo = new THREE.BoxGeometry(0.08, 3.4, 0.62);
       disposables.push(runeGeo);
@@ -1443,7 +2072,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     godRaysGroupRef.current = godRaysGroup;
 
     // ========================================================================
-    // F. 3,000 LIVING SPIRAL STARDUST PARTICLES (LOGARITHMIC SWIRL)
+    // F. 3,000 LIVING SPIRAL STARDUST PARTICLES (WITH RADIAL EMBER MAP)
     // ========================================================================
     const particleCount = 3000;
     const pPositions = new Float32Array(particleCount * 3);
@@ -1480,33 +2109,106 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     disposables.push(pGeo);
 
     const pMat = new THREE.PointsMaterial({
-      size: 0.075,
+      size: 0.12,
+      map: emberTexture,
       vertexColors: true,
       transparent: true,
-      opacity: 0.82,
-      blending: THREE.AdditiveBlending
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
     });
     disposables.push(pMat);
     const particlePoints = new THREE.Points(pGeo, pMat);
     shrineGroup.add(particlePoints);
 
     // ========================================================================
+    // F2. 1,000 INCANDESCENT SACRED FIRE EMBERS & SPARKS (CONVECTIVE CHIMNEY)
+    // ========================================================================
+    const emberCount = 1000;
+    const emberPositions = new Float32Array(emberCount * 3);
+    const emberColors = new Float32Array(emberCount * 3);
+    const emberLifes = new Float32Array(emberCount);
+    const emberMaxLifes = new Float32Array(emberCount);
+    const emberVelocities = new Float32Array(emberCount * 3);
+    const emberBrazierIndices = new Int8Array(emberCount);
+
+    const colorEmberCore = new THREE.Color(0xffd580);
+    const colorEmberMid = new THREE.Color(0xf97316);
+    const colorEmberCool = new THREE.Color(0xd9480f);
+
+    const resetEmber = (i) => {
+      const bIdx = Math.floor(Math.random() * 5);
+      emberBrazierIndices[i] = bIdx;
+      let spawnX = 0;
+      let spawnY = 0;
+      let spawnZ = 0;
+      if (bIdx < 4) {
+        const angle = (bIdx * Math.PI * 2) / 4 + Math.PI / 4;
+        const rad = 6.4 + (Math.random() - 0.5) * 0.45;
+        spawnX = Math.cos(angle) * rad;
+        spawnY = 2.8 + Math.random() * 0.35;
+        spawnZ = Math.sin(angle) * rad;
+      } else {
+        const rad = Math.random() * 1.2;
+        const theta = Math.random() * Math.PI * 2;
+        spawnX = Math.cos(theta) * rad;
+        spawnY = -0.5 + Math.random() * 3.5;
+        spawnZ = Math.sin(theta) * rad;
+      }
+
+      emberPositions[i * 3] = spawnX;
+      emberPositions[i * 3 + 1] = spawnY;
+      emberPositions[i * 3 + 2] = spawnZ;
+
+      emberVelocities[i * 3] = (Math.random() - 0.5) * 0.012;
+      emberVelocities[i * 3 + 1] = 0.02 + Math.random() * 0.032;
+      emberVelocities[i * 3 + 2] = (Math.random() - 0.5) * 0.012;
+
+      emberLifes[i] = 0.0;
+      emberMaxLifes[i] = 1.8 + Math.random() * 2.2;
+    };
+
+    for (let i = 0; i < emberCount; i++) {
+      resetEmber(i);
+      emberLifes[i] = Math.random() * emberMaxLifes[i];
+    }
+
+    const emberGeo = new THREE.BufferGeometry();
+    emberGeo.setAttribute('position', new THREE.BufferAttribute(emberPositions, 3));
+    emberGeo.setAttribute('color', new THREE.BufferAttribute(emberColors, 3));
+    disposables.push(emberGeo);
+
+    const emberMat = new THREE.PointsMaterial({
+      size: 0.11,
+      map: emberTexture,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.75,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    disposables.push(emberMat);
+
+    const emberPoints = new THREE.Points(emberGeo, emberMat);
+    shrineGroup.add(emberPoints);
+
+    // ========================================================================
     // G. CINEMATIC DIRECTIONAL & DYNAMIC POINT LIGHT RIG
     // ========================================================================
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.72);
     scene.add(ambientLight);
 
-    const coreLight = new THREE.PointLight(0xf59e0b, 5.0, 30);
-    coreLight.position.set(0, 0, 1.2);
+    const coreLight = new THREE.PointLight(0xf59e0b, 1.8, 25);
+    coreLight.position.set(0, -0.2, 1.2);
     relicsParentGroup.add(coreLight);
     coreLightRef.current = coreLight;
 
-    const tipLight = new THREE.PointLight(0x38bdf8, 3.2, 22);
-    tipLight.position.set(0, 7.8, 0.6);
+    const tipLight = new THREE.PointLight(0x38bdf8, 1.2, 20);
+    tipLight.position.set(0, 5.0, 0.6);
     relicsParentGroup.add(tipLight);
     tipLightRef.current = tipLight;
 
-    const sunLight = new THREE.DirectionalLight(0xfff5ea, 2.4);
+    const sunLight = new THREE.DirectionalLight(0xfff5ea, 1.8);
     sunLight.position.set(16, 26, 20);
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 2048;
@@ -1516,7 +2218,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     sunLight.shadow.bias = -0.0002;
     scene.add(sunLight);
 
-    const cyanRim = new THREE.DirectionalLight(0x38bdf8, 1.9);
+    const cyanRim = new THREE.DirectionalLight(0x38bdf8, 1.3);
     cyanRim.position.set(-18, 18, -12);
     scene.add(cyanRim);
 
@@ -1538,9 +2240,9 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       const currentHeroIdx = activeHeroIndexRef.current;
 
       // 1. Relics Smooth Morphing Lerp
-      const tAlucard = currentHeroIdx === 0 ? 1.0 : 0.001;
-      const tGusion = currentHeroIdx === 1 ? 1.0 : 0.001;
-      const tKagura = currentHeroIdx === 2 ? 1.0 : 0.001;
+      const tAlucard = currentHeroIdx === 0 ? 0.62 : 0.001;
+      const tGusion = currentHeroIdx === 1 ? 0.72 : 0.001;
+      const tKagura = currentHeroIdx === 2 ? 0.70 : 0.001;
 
       alucardRelic.group.scale.lerp(new THREE.Vector3(tAlucard, tAlucard, tAlucard), 0.08);
       gusionRelic.group.scale.lerp(new THREE.Vector3(tGusion, tGusion, tGusion), 0.08);
@@ -1645,7 +2347,64 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       shrineGroup.rotation.y = rotCurrent.current.x * 0.65 + dragOffset.current.x;
       shrineGroup.rotation.x = rotCurrent.current.y * 0.45 + dragOffset.current.y;
 
-      // 10. Dynamic Theme Color Lerp
+      // 10. Dynamic Theme Color Lerp & Procedural Flame Simulation
+      flameMat.uniforms.uTime.value = elapsed;
+      bladeFlameMat.uniforms.uTime.value = elapsed;
+      if (targetColorRef.current) {
+        flameMat.uniforms.uColorMid.value.lerp(targetColorRef.current, 0.08);
+        bladeFlameMat.uniforms.uColorMid.value.lerp(targetColorRef.current, 0.08);
+        colorEmberMid.lerp(targetColorRef.current, 0.08);
+        coalsMat.emissive.lerp(targetColorRef.current, 0.08);
+      }
+      if (targetSecondaryColorRef.current) {
+        flameMat.uniforms.uColorOuter.value.lerp(targetSecondaryColorRef.current, 0.08);
+        bladeFlameMat.uniforms.uColorOuter.value.lerp(targetSecondaryColorRef.current, 0.08);
+        colorEmberCool.lerp(targetSecondaryColorRef.current, 0.08);
+      }
+
+      // 10b. Sacred Braziers Multi-Harmonic Fire Flicker & Volumetric Sway
+      for (let i = 0; i < braziers.length; i++) {
+        const b = braziers[i];
+        const flicker = 1.35 + Math.sin(elapsed * 8.0 + i * 2.1) * 0.18 + Math.cos(elapsed * 17.0 + i * 3.4) * 0.1;
+        b.light.intensity = flicker;
+        if (targetColorRef.current) {
+          b.light.color.lerp(targetColorRef.current, 0.08);
+        }
+        b.flameMesh.rotation.y = elapsed * 0.35 + i * 1.2;
+      }
+
+      // 10c. 1,000 Incandescent Sacred Fire Embers & Sparks (Thermal Buoyancy & Cooling)
+      const emberPos = emberGeo.attributes.position.array;
+      const emberCol = emberGeo.attributes.color.array;
+      const tempEmberCol = new THREE.Color();
+      for (let i = 0; i < emberCount; i++) {
+        emberLifes[i] += delta;
+        if (emberLifes[i] >= emberMaxLifes[i]) {
+          resetEmber(i);
+        }
+        const lifeRatio = emberLifes[i] / emberMaxLifes[i];
+
+        // Buoyant ascent + silky thermal swirling eddies
+        emberPos[i * 3] += emberVelocities[i * 3] + Math.sin(elapsed * 1.5 + i) * 0.003;
+        emberPos[i * 3 + 1] += emberVelocities[i * 3 + 1];
+        emberPos[i * 3 + 2] += emberVelocities[i * 3 + 2] + Math.cos(elapsed * 1.3 + i) * 0.003;
+
+        // Thermal cooling gradient: Core (White/Yellow) -> Mid (Amber) -> Cool (Crimson) -> Vanish
+        if (lifeRatio < 0.25) {
+          tempEmberCol.copy(colorEmberCore).lerp(colorEmberMid, lifeRatio / 0.25);
+        } else if (lifeRatio < 0.75) {
+          tempEmberCol.copy(colorEmberMid).lerp(colorEmberCool, (lifeRatio - 0.25) / 0.5);
+        } else {
+          tempEmberCol.copy(colorEmberCool).multiplyScalar(Math.max(0, 1.0 - (lifeRatio - 0.75) / 0.25));
+        }
+
+        emberCol[i * 3] = tempEmberCol.r;
+        emberCol[i * 3 + 1] = tempEmberCol.g;
+        emberCol[i * 3 + 2] = tempEmberCol.b;
+      }
+      emberGeo.attributes.position.needsUpdate = true;
+      emberGeo.attributes.color.needsUpdate = true;
+
       if (coreLightRef.current && targetColorRef.current) {
         coreLightRef.current.color.lerp(targetColorRef.current, 0.08);
       }
@@ -1693,8 +2452,8 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
 
       // 12. Camera Glide driven by GSAP ScrollTrigger
       const currentScroll = targetScrollProg.current;
-      const targetCamZ = 17.5 - currentScroll * 8.5;
-      const targetCamY = 1.2 - currentScroll * 1.4;
+      const targetCamZ = 24.0 - currentScroll * 5.0;
+      const targetCamY = 1.5 - currentScroll * 0.7;
 
       if (screenShakeRef.current > 0.001) {
         camera.position.x = (Math.random() - 0.5) * screenShakeRef.current;
@@ -1718,8 +2477,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       if (!canvas) return;
       const w = canvas.clientWidth || window.innerWidth;
       const h = canvas.clientHeight || window.innerHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
+      updateCameraProjection(w, h);
       renderer.setSize(w, h);
       composer.setSize(w, h);
       const pr = renderer.getPixelRatio();
@@ -1739,6 +2497,9 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       arenaFloorTexture.dispose();
       yinYangTexture.dispose();
       ofudaTexture.dispose();
+      emberTexture.dispose();
+      flameMat.dispose();
+      bladeFlameMat.dispose();
       disposables.forEach((d) => d.dispose());
     };
   }, []);
@@ -1900,8 +2661,8 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
         />
 
         {/* 2. Soft Edge Atmospheric Vignettes */}
-        <div className="absolute inset-0 bg-radial from-transparent via-transparent to-[#080d1a]/85 pointer-events-none z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080d1a] via-transparent to-[#080d1a]/60 pointer-events-none z-10" />
+        <div className="absolute inset-0 bg-radial from-transparent via-transparent to-[#080d1a]/50 pointer-events-none z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080d1a]/70 via-transparent to-[#080d1a]/20 pointer-events-none z-10" />
 
         {/* 3. Floating Holographic 3D Reticle (Active on Weapon Raycast Intersection) */}
         {reticleState.visible && (
