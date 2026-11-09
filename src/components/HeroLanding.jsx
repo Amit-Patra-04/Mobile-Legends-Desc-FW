@@ -94,35 +94,50 @@ function createProceduralStudioEnv(renderer) {
   canvas.height = 512;
   const ctx = canvas.getContext('2d');
 
-  // Deep celestial gradient
+  // Deep celestial sphere gradient
   const bgGrad = ctx.createLinearGradient(0, 0, 0, 512);
-  bgGrad.addColorStop(0.0, '#040816');
-  bgGrad.addColorStop(0.46, '#0a1730');
-  bgGrad.addColorStop(0.5, '#f59e0b');
-  bgGrad.addColorStop(0.54, '#0a1730');
+  bgGrad.addColorStop(0.0, '#040714');
+  bgGrad.addColorStop(0.35, '#0a1428');
+  bgGrad.addColorStop(0.5, '#1e293b');
+  bgGrad.addColorStop(0.65, '#0a1428');
   bgGrad.addColorStop(1.0, '#02040a');
   ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, 1024, 512);
 
-  // Softbox 1: High-Key Golden Sunburst
-  const softbox1 = ctx.createRadialGradient(280, 150, 10, 280, 150, 190);
-  softbox1.addColorStop(0.0, 'rgba(254, 240, 138, 1.0)');
-  softbox1.addColorStop(0.4, 'rgba(245, 158, 11, 0.85)');
+  // Softbox 1: High-Key Golden Sunburst Key Light (Warm 3500K)
+  const softbox1 = ctx.createRadialGradient(280, 150, 10, 280, 150, 220);
+  softbox1.addColorStop(0.0, 'rgba(255, 245, 190, 1.0)');
+  softbox1.addColorStop(0.35, 'rgba(245, 175, 50, 0.85)');
+  softbox1.addColorStop(0.7, 'rgba(217, 119, 6, 0.35)');
   softbox1.addColorStop(1.0, 'rgba(0, 0, 0, 0.0)');
   ctx.fillStyle = softbox1;
-  ctx.fillRect(80, 0, 400, 320);
+  ctx.fillRect(60, 0, 440, 360);
 
-  // Softbox 2: Celestial Sapphire Cyan Rim Light
-  const softbox2 = ctx.createRadialGradient(780, 170, 10, 780, 170, 210);
-  softbox2.addColorStop(0.0, 'rgba(224, 242, 254, 1.0)');
-  softbox2.addColorStop(0.4, 'rgba(56, 189, 248, 0.85)');
+  // Softbox 2: Celestial Sapphire Cyan Rim Light (Cool 6500K)
+  const softbox2 = ctx.createRadialGradient(780, 160, 10, 780, 160, 240);
+  softbox2.addColorStop(0.0, 'rgba(235, 248, 255, 1.0)');
+  softbox2.addColorStop(0.35, 'rgba(56, 189, 248, 0.85)');
+  softbox2.addColorStop(0.7, 'rgba(14, 116, 144, 0.35)');
   softbox2.addColorStop(1.0, 'rgba(0, 0, 0, 0.0)');
   ctx.fillStyle = softbox2;
-  ctx.fillRect(580, 0, 400, 340);
+  ctx.fillRect(560, 0, 440, 380);
 
-  // Overhead Luminous Strip
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-  ctx.fillRect(440, 30, 140, 55);
+  // Overhead Luminous Anisotropic Rim Strip
+  const stripGrad = ctx.createLinearGradient(380, 20, 640, 20);
+  stripGrad.addColorStop(0.0, 'rgba(255, 255, 255, 0.0)');
+  stripGrad.addColorStop(0.2, 'rgba(255, 255, 255, 0.95)');
+  stripGrad.addColorStop(0.8, 'rgba(255, 255, 255, 0.95)');
+  stripGrad.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
+  ctx.fillStyle = stripGrad;
+  ctx.fillRect(380, 25, 260, 45);
+
+  // Horizon Warm Temple Floor Bounce (Warm firelight reflection from below)
+  const floorBounce = ctx.createLinearGradient(0, 380, 0, 512);
+  floorBounce.addColorStop(0.0, 'rgba(0, 0, 0, 0.0)');
+  floorBounce.addColorStop(0.5, 'rgba(245, 158, 11, 0.25)');
+  floorBounce.addColorStop(1.0, 'rgba(180, 83, 9, 0.45)');
+  ctx.fillStyle = floorBounce;
+  ctx.fillRect(0, 380, 1024, 132);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -146,39 +161,53 @@ function createDamascusTexture() {
   canvas.height = 1024;
   const ctx = canvas.getContext('2d');
 
-  // Base metallic deep slate
+  // Base cold forged pearlite steel
   const grad = ctx.createLinearGradient(0, 0, 512, 1024);
-  grad.addColorStop(0, '#101726');
-  grad.addColorStop(0.5, '#1e2d4a');
-  grad.addColorStop(1, '#0c121e');
+  grad.addColorStop(0, '#161e2b');
+  grad.addColorStop(0.5, '#253247');
+  grad.addColorStop(1, '#121824');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, 512, 1024);
 
-  // Damascus steel flowing wave ripples
-  ctx.lineWidth = 1.5;
-  for (let y = 0; y < 1024; y += 8) {
+  // Multi-harmonic folded Damascus steel ripple bands (pattern welded layering)
+  for (let y = 0; y < 1024; y += 4) {
     ctx.beginPath();
-    const alpha = 0.12 + Math.sin(y * 0.05) * 0.08;
-    ctx.strokeStyle = `rgba(180, 210, 255, ${alpha})`;
-    for (let x = 0; x <= 512; x += 12) {
-      const wave = Math.sin(x * 0.04 + y * 0.08) * 16 + Math.cos(x * 0.08 - y * 0.03) * 10;
+    const alpha = 0.18 + Math.sin(y * 0.03) * 0.1;
+    ctx.strokeStyle = `rgba(205, 225, 255, ${alpha})`;
+    ctx.lineWidth = 1.2 + Math.sin(y * 0.08) * 0.6;
+    for (let x = 0; x <= 512; x += 8) {
+      const wave1 = Math.sin(x * 0.035 + y * 0.06) * 14;
+      const wave2 = Math.cos(x * 0.07 - y * 0.025) * 8;
+      const wave3 = Math.sin((x + y) * 0.015) * 6;
+      const wave = wave1 + wave2 + wave3;
       if (x === 0) ctx.moveTo(x, y + wave);
       else ctx.lineTo(x, y + wave);
     }
     ctx.stroke();
   }
 
+  // Fine anisotropic longitudinal grinding micro-scratches
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 120; i++) {
+    const x = Math.random() * 512;
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x + (Math.random() - 0.5) * 4, 1024);
+    ctx.stroke();
+  }
+
   // Ancient elven runic carvings along center fuller spine
-  ctx.fillStyle = 'rgba(255, 230, 160, 0.85)';
+  ctx.fillStyle = 'rgba(255, 220, 130, 0.9)';
   ctx.shadowColor = '#f59e0b';
-  ctx.shadowBlur = 12;
+  ctx.shadowBlur = 10;
   ctx.font = 'bold 22px serif';
   ctx.textAlign = 'center';
   const runes = ['ᚦ', 'ᚨ', 'ᚱ', 'ᚲ', 'ᚷ', 'ᚹ', 'ᚺ', 'ᛝ', 'ᛟ', 'ᛞ', 'ᛚ', 'ᛗ', 'ᛊ', 'ᛏ', 'ᛒ'];
   for (let i = 0; i < 15; i++) {
     const ry = 80 + i * 62;
     ctx.fillText(runes[i % runes.length], 256, ry);
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.5)';
     ctx.lineWidth = 1.5;
     ctx.strokeRect(238, ry - 22, 36, 30);
   }
@@ -186,6 +215,52 @@ function createDamascusTexture() {
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
+  return texture;
+}
+
+// ============================================================================
+// PROCEDURAL WEATHERED BASALT & GRANITE STONE TEXTURE GENERATOR
+// ============================================================================
+function createStoneTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 512;
+  canvas.height = 512;
+  const ctx = canvas.getContext('2d');
+
+  // Base chiseled dark granite
+  ctx.fillStyle = '#141b29';
+  ctx.fillRect(0, 0, 512, 512);
+
+  // Procedural stone grain & mineral flecks
+  for (let i = 0; i < 4000; i++) {
+    const x = Math.random() * 512;
+    const y = Math.random() * 512;
+    const s = 1 + Math.random() * 2.5;
+    const isBright = Math.random() > 0.5;
+    ctx.fillStyle = isBright ? 'rgba(180, 200, 230, 0.08)' : 'rgba(0, 0, 0, 0.12)';
+    ctx.fillRect(x, y, s, s);
+  }
+
+  // Chiseled fissure cracks
+  ctx.strokeStyle = 'rgba(0, 0, 0, 0.25)';
+  ctx.lineWidth = 1.5;
+  for (let i = 0; i < 8; i++) {
+    ctx.beginPath();
+    let cx = Math.random() * 512;
+    let cy = Math.random() * 512;
+    ctx.moveTo(cx, cy);
+    for (let j = 0; j < 5; j++) {
+      cx += (Math.random() - 0.5) * 60;
+      cy += (Math.random() - 0.5) * 60;
+      ctx.lineTo(cx, cy);
+    }
+    ctx.stroke();
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(2, 4);
   return texture;
 }
 
@@ -982,7 +1057,7 @@ function createSharpFacetedBladeGeometry({
     positions.push(-w, y, 0);       uvs.push(0.0, t);
   }
 
-  // Indices for each strip
+  // Indices for each strip (CCW outward-facing winding)
   for (let s = 0; s < 4; s++) {
     const offset = s * verticesPerStrip;
     for (let i = 0; i < segments; i++) {
@@ -990,8 +1065,8 @@ function createSharpFacetedBladeGeometry({
       const b = offset + i * 2 + 1;
       const c = offset + (i + 1) * 2;
       const d = offset + (i + 1) * 2 + 1;
-      indices.push(a, c, d);
-      indices.push(a, d, b);
+      indices.push(a, b, d);
+      indices.push(a, d, c);
     }
   }
 
@@ -1066,7 +1141,7 @@ function createSharpFacetedStilettoGeometry({
     positions.push(-w, y, 0);       uvs.push(0.0, t);
   }
 
-  // Indices for each strip
+  // Indices for each strip (CCW outward-facing winding)
   for (let s = 0; s < 4; s++) {
     const offset = s * verticesPerStrip;
     for (let i = 0; i < segments; i++) {
@@ -1074,8 +1149,8 @@ function createSharpFacetedStilettoGeometry({
       const b = offset + i * 2 + 1;
       const c = offset + (i + 1) * 2;
       const d = offset + (i + 1) * 2 + 1;
-      indices.push(a, c, d);
-      indices.push(a, d, b);
+      indices.push(a, b, d);
+      indices.push(a, d, c);
     }
   }
 
@@ -1288,9 +1363,9 @@ function buildAlucardRelic(goldArmorMat, damascusBladeMat, gemMat, fullerMat, bl
   const gripGeo = new THREE.LatheGeometry(gripPoints, 16);
   disposables.push(gripGeo);
   const gripMat = new THREE.MeshStandardMaterial({
-    color: 0x080f1e,
-    roughness: 0.7,
-    metalness: 0.35
+    color: 0x160c14, // Deep royal oxblood stitched leather
+    roughness: 0.65,
+    metalness: 0.12
   });
   const gripMesh = new THREE.Mesh(gripGeo, gripMat);
   gripMesh.position.set(0, -0.6, 0);
@@ -1674,7 +1749,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     // 1. Scene & Deep Atmosphere Fog
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x080d1a);
-    scene.fog = new THREE.FogExp2(0x080d1a, 0.015);
+    scene.fog = new THREE.Fog(0x080d1a, 18, 75);
     sceneRef.current = scene;
 
     // 2. Cinematic Perspective Camera
@@ -1740,6 +1815,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
 
     // 6. Procedural Dynamic Textures
     const damascusTexture = createDamascusTexture();
+    const stoneTexture = createStoneTexture();
     const arenaFloorTexture = createSacredArenaTexture();
     const yinYangTexture = createYinYangCanopyTexture();
     const ofudaTexture = createOfudaTexture();
@@ -1782,26 +1858,43 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     // A. LUXURY MASTER MATERIALS
     // ========================================================================
     const goldArmorMat = new THREE.MeshPhysicalMaterial({
-      color: 0xf59e0b,
-      metalness: 0.96,
-      roughness: 0.12,
-      clearcoat: 0.9,
-      clearcoatRoughness: 0.04,
-      envMapIntensity: 3.2
+      color: 0xd4af37, // True regal sovereign antique gold
+      metalness: 0.90,
+      roughness: 0.22, // Fine satin sheen with metallic weight
+      clearcoat: 0.35,
+      clearcoatRoughness: 0.15,
+      envMapIntensity: 1.15
     });
 
     const damascusBladeMat = new THREE.MeshPhysicalMaterial({
-      color: 0x142036,
-      metalness: 0.98,
-      roughness: 0.08,
+      color: 0x222a36, // Cold forged titanium slate
+      metalness: 0.94,
+      roughness: 0.18, // Polished forged steel
+      map: damascusTexture,
       bumpMap: damascusTexture,
-      bumpScale: 0.035,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.04,
-      iridescence: 0.92,
-      iridescenceIOR: 1.65,
-      envMapIntensity: 3.5
+      bumpScale: 0.018,
+      clearcoat: 0.5,
+      clearcoatRoughness: 0.12,
+      envMapIntensity: 1.2
     });
+
+    const brazierMat = new THREE.MeshStandardMaterial({
+      color: 0x28201a, // Dark forged ancient bronze with soot
+      metalness: 0.78,
+      roughness: 0.48,
+      bumpMap: stoneTexture,
+      bumpScale: 0.02
+    });
+    disposables.push(brazierMat);
+
+    const stoneMat = new THREE.MeshStandardMaterial({
+      color: 0x111726, // Deep obsidian / ancient basalt megalith
+      roughness: 0.90,
+      metalness: 0.04, // Real stone dielectric
+      bumpMap: stoneTexture,
+      bumpScale: 0.04
+    });
+    disposables.push(stoneMat);
 
     const alucardGemMat = new THREE.MeshPhysicalMaterial({
       color: 0xfef08a,
@@ -1906,18 +1999,40 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     arenaGroup.position.y = -4.6;
     shrineGroup.add(arenaGroup);
 
-    const arenaFloorGeo = new THREE.CircleGeometry(9.2, 64);
+    // Solid Architectural Temple Dais (Chiseled Basalt Flagstones)
+    const daisGeo = new THREE.CylinderGeometry(9.6, 10.2, 0.45, 64);
+    disposables.push(daisGeo);
+    const daisMat = new THREE.MeshStandardMaterial({
+      color: 0x0c121e,
+      roughness: 0.88,
+      metalness: 0.05,
+      bumpMap: stoneTexture,
+      bumpScale: 0.03
+    });
+    disposables.push(daisMat);
+    const daisMesh = new THREE.Mesh(daisGeo, daisMat);
+    daisMesh.position.y = -0.22;
+    daisMesh.receiveShadow = true;
+    arenaGroup.add(daisMesh);
+
+    // Carved Arcane Zodiac Rune Inscription on Sanctuary Floor
+    const arenaFloorGeo = new THREE.PlaneGeometry(18.5, 18.5);
     disposables.push(arenaFloorGeo);
-    const arenaFloorMat = new THREE.MeshBasicMaterial({
+    const arenaFloorMat = new THREE.MeshStandardMaterial({
       map: arenaFloorTexture,
       transparent: true,
-      opacity: 0.75,
-      blending: THREE.AdditiveBlending,
-      side: THREE.DoubleSide,
+      opacity: 0.85,
+      emissive: 0xf59e0b,
+      emissiveMap: arenaFloorTexture,
+      emissiveIntensity: 0.65,
+      roughness: 0.75,
+      metalness: 0.1,
       depthWrite: false
     });
+    disposables.push(arenaFloorMat);
     const arenaFloorMesh = new THREE.Mesh(arenaFloorGeo, arenaFloorMat);
     arenaFloorMesh.rotation.x = -Math.PI / 2;
+    arenaFloorMesh.position.y = 0.02;
     arenaFloorMesh.receiveShadow = true;
     arenaGroup.add(arenaFloorMesh);
     arenaFloorMeshRef.current = arenaFloorMesh;
@@ -1978,11 +2093,6 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       const mGroup = new THREE.Group();
       shrineGroup.add(mGroup);
 
-      const stoneMat = new THREE.MeshStandardMaterial({
-        color: 0x091122,
-        roughness: 0.65,
-        metalness: 0.6
-      });
       const shaftGeo = new THREE.BoxGeometry(0.58, 4.4, 0.58);
       disposables.push(shaftGeo);
       const shaft = new THREE.Mesh(shaftGeo, stoneMat);
@@ -1997,20 +2107,20 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       collar.castShadow = true;
       mGroup.add(collar);
 
-      // 2. Ceremonial Bronze/Gold Brazier Bowl
+      // 2. Ceremonial Forged Bronze Brazier Bowl (32 smooth radial facets)
       const brazierGroup = new THREE.Group();
       brazierGroup.position.y = 2.52;
       mGroup.add(brazierGroup);
 
-      const bowlGeo = new THREE.CylinderGeometry(0.72, 0.36, 0.46, 16, 1, false);
+      const bowlGeo = new THREE.CylinderGeometry(0.72, 0.36, 0.46, 32, 1, false);
       disposables.push(bowlGeo);
-      const bowl = new THREE.Mesh(bowlGeo, goldArmorMat);
+      const bowl = new THREE.Mesh(bowlGeo, brazierMat);
       bowl.castShadow = true;
       brazierGroup.add(bowl);
 
-      const rimGeo = new THREE.TorusGeometry(0.72, 0.065, 8, 24);
+      const rimGeo = new THREE.TorusGeometry(0.72, 0.065, 8, 32);
       disposables.push(rimGeo);
-      const rim = new THREE.Mesh(rimGeo, goldArmorMat);
+      const rim = new THREE.Mesh(rimGeo, brazierMat);
       rim.rotation.x = Math.PI / 2;
       rim.position.y = 0.23;
       brazierGroup.add(rim);
@@ -2213,9 +2323,14 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 2048;
     sunLight.shadow.mapSize.height = 2048;
-    sunLight.shadow.camera.near = 0.5;
-    sunLight.shadow.camera.far = 60;
-    sunLight.shadow.bias = -0.0002;
+    sunLight.shadow.camera.left = -12;
+    sunLight.shadow.camera.right = 12;
+    sunLight.shadow.camera.top = 12;
+    sunLight.shadow.camera.bottom = -12;
+    sunLight.shadow.camera.near = 1.0;
+    sunLight.shadow.camera.far = 70;
+    sunLight.shadow.bias = -0.0001;
+    sunLight.shadow.radius = 2.0;
     scene.add(sunLight);
 
     const cyanRim = new THREE.DirectionalLight(0x38bdf8, 1.3);
@@ -2413,6 +2528,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       }
       if (arenaFloorMeshRef.current && targetColorRef.current) {
         arenaFloorMeshRef.current.material.color.lerp(targetColorRef.current, 0.08);
+        arenaFloorMeshRef.current.material.emissive.lerp(targetColorRef.current, 0.08);
       }
       if (godRaysGroupRef.current && targetColorRef.current) {
         for (let ray of godRaysGroupRef.current.children) {
@@ -2494,6 +2610,7 @@ export default function HeroLanding({ onSelectHeroForDetail, onSelectHeroForCham
       renderer.dispose();
       studioEnvMap.dispose();
       damascusTexture.dispose();
+      stoneTexture.dispose();
       arenaFloorTexture.dispose();
       yinYangTexture.dispose();
       ofudaTexture.dispose();
